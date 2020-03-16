@@ -1,0 +1,36 @@
+<a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle">
+  <i class="fa fa-bars"></i>
+</a>
+
+<nav id="sidebar-wrapper">
+  <ul class="sidebar-nav">
+    <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+    <li class="sidebar-brand">
+      <a href="#top" onclick="$('#menu-close').click();">
+        <span>
+          <img src="{{site.baseurl}}/assets/img/Hypercube.svg" style="height:50px;">
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href="{{site.baseurl}}/#top" onclick="$('#menu-close').click();">Home</a>
+    </li>
+    <li>
+      <a href="{{site.baseurl}}/#a-about" onclick="$('#menu-close').click();">About&hellip;</a>
+      <ul>
+        <li>
+          <a href="{{site.baseurl}}/#a-author" onclick="$('#menu-close').click();">The Author</a>
+        </li>
+        <li>
+          <a href="{{site.baseurl}}/#a-content" onclick="$('#menu-close').click();">The Content</a>
+        </li>
+        <li>
+          <a href="{{site.baseurl}}/#a-technology" onclick="$('#menu-close').click();">The Technology</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="{{site.baseurl}}/#a-contact" onclick="$('#menu-close').click();">Contact</a>
+    </li>
+  </ul>
+</nav>
