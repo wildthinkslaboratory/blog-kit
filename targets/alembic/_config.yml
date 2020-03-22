@@ -1,0 +1,115 @@
+# disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account
+port:               4007
+# Set theme
+# remote_theme: daviddarnes/alembic
+theme: alembic-jekyll-theme
+
+# markdown:           kramdown
+markdown_ext:       markdown
+excerpt_separator: <!--more-->
+
+
+# Set plugins
+plugins:
+- jekyll-sitemap
+- jekyll-mentions
+- jekyll-paginate
+- jekyll-seo-tag
+- jekyll-redirect-from
+- jekyll-default-layout
+- jekyll-feed
+- jemoji
+- jekyll-remote-theme
+
+# Site settings
+url: 'https://mydomain.com'
+baseurl: ''
+title:              Smartdown Blog
+description:        Alembic Blog Theme adapted for Smartdown
+permalink: pretty
+logo: "/assets/logos/Hypercube.svg"
+
+# Pagination
+paginate: 5
+paginate_path:      "/posts/page:num/"
+
+# Header nav
+navigation_header:
+- title: Home
+  url: /
+- title: About
+  url: /pages/About/
+- title: Categories
+  url: /categories/
+- title: Blog
+  url: /posts/
+
+# Footer nav
+navigation_footer:
+- title: Back to top
+  url: "#top"
+
+
+include:
+  - posts
+  - pages
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - dist
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - _hide/
+  - README.md
+  - targets/mm/
+  - targets/legacy/
+  - "*.sh"
+
+
+
+collections:
+  posts:
+    output: true
+    permalink: /posts/:title/
+    description: "My thoughts and ideas"
+    feature_text: |
+      Welcome to my blog
+    feature_image: "https://picsum.photos/2560/600?image=866"
+  rawposts:
+    output: true
+    permalink: /posts/:title
+  pages:
+    output: true
+    permalink: /pages/:title/
+  rawpages:
+    output: true
+    permalink: /pages/:title
+
+
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: page
+  - scope:
+      path: "rawposts"
+      type: "posts"
+    values:
+      layout: "raw"
+  - scope:
+      path: "rawpages"
+      type: "pages"
+    values:
+      layout: "raw"
+

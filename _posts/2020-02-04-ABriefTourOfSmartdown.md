@@ -15,7 +15,7 @@ Smartdown is an extension of Markdown that includes several additions:
 - Syntax highlighting via [highlight.js](https://highlightjs.org).
 - Reactive cells similar to those in a spreadsheet, but inline with Smartdown prose. These cells can be used for input, output, calculation, and for interacting with internet APIs such as Wikidata.
 - Media embedding support including Images, Tweets, SVG, Video.
-- [P5JS](https://p5js.org) to support drawing-based visualizations, games, and sound.
+- [p5.js](https://p5js.org) to support drawing-based visualizations, games, and sound.
 - [Plotly.js](https://plot.ly/javascript/) to support data visualizations including various plots, charts, and maps.
 - [Leaflet.js](http://leafletjs.com) for easy embedding of geo-based data and maps.
 - [Graphviz via `viz.js`](http://viz-js.com) diagrams are a standard format used for technical and scientific diagrams
@@ -27,9 +27,10 @@ Smartdown is an extension of Markdown that includes several additions:
 Use the navigation buttons below to explore different aspects of Smartdown.
 
 - [Math](:@Math)
-- [Plotly](:@Plotly)
 - [Cells](:@Cells)
+- [P5JS](:@P5JS)
 - [SVG](:@SVG)
+- [Mermaid](:@Mermaid)
 
 Note that the above links are intra-document links in a MultiCard Smartdown document.
 
@@ -157,6 +158,12 @@ Note that AsciiMath via MathJax does not support *display-mode* equations, but c
 # Mermaid
 ---
 
+[Mermaid.js](https://mermaid-js.github.io/mermaid/#/) is a Javascript library that uses textual descriptions of diagrams and then renders these dynamically in the browser. From their site:
+
+> mermaid is a Javascript based diagramming and charting tool. It generates diagrams flowcharts and more, using markdown-inspired text for ease and speed.
+
+Smartdown has embraced Mermaid and makes it easy to embed Mermaid diagrams within prose.
+
 ```mermaid/playable
 
 %% Example of sequence diagram
@@ -259,72 +266,69 @@ Examples:
 [Back to Home](:@WelcomeToSmartdown)
 
 
-# Plotly
+# P5JS
 ---
 
-## Plotly.js Experiments
+## P5JS Experiments
 
-The current integration of [plotly.js](https://plot.ly/javascript/) is fairly raw, and you may encounter problems with autolayout/sizing as well as other features I haven't tested or fixed.
+Here's a small set of what is possible with Smartdown and [p5.js](https://p5js.org).
 
-### Hello World
+More examples can be seen at [smartdown.site](https://smartdown.site).
 
-Here is the [Hello World](https://plot.ly/javascript/getting-started/#hello-world-example) example.
+The Ellipse example below is an `/autoplay` playable. You can click `Stop` to see its source. The subsequent `Tickle` playable is not `/autoplay`, so you will click `Play` to play it.
 
+### P5JS Ellipse Example
 
-```plotly/playable
-var layout = {
-    title: 'Simple Line Graph',
-    autosize: true,
-    // width: 500,
-    // height: 300,
-    margin: {
-      t: 100, b: 0, l: 0, r: 0
-    }
+```p5js /playable/autoplay
+p5.setup = function() {
 };
 
-Plotly.plot( this.div, [{
-    x: [1, 2, 3, 4, 5],
-    y: [1, 2, 4, 8, 16] }], layout,
-    {displayModeBar: true} );
-
+p5.draw = function() {
+  p5.ellipse(50, 50, 80, 80);
+};
 ```
 
-### Maps
+##### Tickle example with Instance mode Syntax
 
-From [Chloropleth Map](https://plot.ly/javascript/choropleth-maps)
+```p5js/playable
+var message = "tickle",
+  font,
+  bounds, // holds x, y, w, h of the text's bounding box
+  fontsize = 60,
+  x, y; // x and y coordinates of the text
 
-```plotly/playable
+p5.preload = function preload() {
+  font = p5.loadFont('https://unpkg.com/smartdown-gallery/resources/SourceSansPro-Regular.otf');
+};
 
-var myDiv = this.div;
-Plotly.d3.csv(
-  'https://raw.githubusercontent.com/plotly/datasets/master/2010_alcohol_consumption_by_country.csv',
-  function(err, rows) {
-    function unpack(rows, key) {
-      return rows.map(function(row) { return row[key]; });
-    }
+p5.setup = function setup() {
+  p5.createCanvas(410, 250);
 
-    var data = [{
-      type: 'choropleth',
-      locationmode: 'country names',
-      locations: unpack(rows, 'location'),
-      z: unpack(rows, 'alcohol'),
-      text: unpack(rows, 'location'),
-      autocolorscale: true
-    }];
+  // set up the font
+  p5.textFont(font);
+  p5.textSize(fontsize);
 
-    var layout = {
-      autosize: true,
-      title: 'Pure alcohol consumption among adults (age 15+) in 2010',
-      geo: {
-        projection: {
-          type: 'robinson'
-        }
-      }
-    };
+  // get the width and height of the text so we can center it initially
+  bounds = font.textBounds(message, 0, 0, fontsize);
+  x = p5.width / 2 - bounds.w / 2;
+  y = p5.height / 2 - bounds.h / 2;
+};
 
-    Plotly.newPlot(myDiv, data, layout, {showLink: false, displayModeBar: true});
-  });
+p5.draw = function draw() {
+  p5.background(204, 120);
 
+  // write the text in black and get its bounding box
+  p5.fill(0);
+  p5.text(message, x, y);
+  bounds = font.textBounds(message,x,y,fontsize);
+
+  // check if the mouse is inside the bounding box and tickle if so
+  if ( p5.mouseX >= bounds.x && p5.mouseX <= bounds.x + bounds.w &&
+    p5.mouseY >= bounds.y && p5.mouseY <= bounds.y + bounds.h) {
+    x += p5.random(-5, 5);
+    y += p5.random(-5, 5);
+  }
+};
 ```
 
 ---

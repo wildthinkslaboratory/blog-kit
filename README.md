@@ -30,6 +30,8 @@ This will enable you to quickly set up a copy of the `blog-kit` example on a for
 	- cb: Based on [Start Bootstrap's Clean Blog - Jekyll](https://startbootstrap.com/themes/clean-blog-jekyll/) blog theme.
 	- sp: Based on [Start Bootstrap's Stylish Portfolio](https://startbootstrap.com/previews/stylish-portfolio/)
 	- mm: Based on [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) blog theme.
+	- alembic: Based on [Alembic](https://github.com/daviddarnes/alembic) blog theme.
+	- sparrow: Based on [Sparrow](https://github.com/lingxz/sparrow) blog theme.
 - Let's assume you choose the 'mm' target for the remainder of this QuickStart.
 
 #### Install dependencies
@@ -95,11 +97,14 @@ Talk about using `CNAME` and how this will inhibit `https` unless you augment it
 
 blah blah blah
 
-
-
-
 #### License and Credits
 
 Mostly links to the software used
+
+
+### Version History
+
+0.0.1 - Initial version of a multi-target Jekyll-based blog. Includes clean-blog, minimal-mistakes, and stylish-portfolio themes.
+0.0.2 - Adds sparrow and alembic target themes. Improve publishAll.sh to add .nojekyll to root. Improve sync.sh to handle missing _theme_assets or _theme_pages dirs, and to handle _theme_posts dir. Replace use of Plotly example with P5JS example. Add /autoplay to some playables. Adds _includes/smartdown_header.html override file. Adjusts where smartdown-outer-container div is inserted in various themes, and adjust its width to match the theme's responsive layout.
 
 

@@ -32,6 +32,8 @@
           target.scrollIntoView();
         }
       }
+
+      smartdown.startAutoplay(output);
     });
   }
 
@@ -63,7 +65,7 @@
     if (part) {
       var output = document.getElementById('blog-content');
       smartdown.setHome(part, output, function() {
-        // smartdown.startAutoplay(renderElement);
+        smartdown.startAutoplay(output);
       });
     }
     else {

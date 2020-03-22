@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+{% include site-header.html %}
+
+<main class="main  container">
+
+  <article class="article  article--page  content  typeset">
+
+    <h1>{{ page.title }}</h1>
+
+{% if page.smartdown == true %}
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      </div>
+  </div>
+{% else %}
+
+    {{ content | markdownify }}
+
+{% endif %}
+
+  </article>
+
+  {% if page.aside == true %}{% include site-aside.html %}{% endif %}
+
+</main>
+
+{% include site-footer.html %}
+

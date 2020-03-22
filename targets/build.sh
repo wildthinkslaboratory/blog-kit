@@ -21,8 +21,7 @@ if [ "$2" != "" ]; then
 	baseUrl="${baseUrl}/$2"
 fi
 
-if [[ ! -d ${target} ]]
-then
+if [[ ! -d ${target} ]]; then
 	echo "The target ${target} does not exist!"
 	exit 1
 fi
