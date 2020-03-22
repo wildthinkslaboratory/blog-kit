@@ -7,7 +7,7 @@ smartdown: true
 
 [Character Name](:?N)
 
-```p5js/playable
+```p5js/playable/autoplay
 
 var spriteX;
 var spriteY;

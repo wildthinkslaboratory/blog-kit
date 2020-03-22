@@ -9,8 +9,7 @@ fi
 export targetName="${1}"
 export target="${here}/${targetName}"
 
-if [[ ! -d ${target} ]]
-then
+if [[ ! -d ${target} ]]; then
 	echo "The target ${target} does not exist!"
 	exit 1
 fi

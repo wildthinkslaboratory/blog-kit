@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<div id="main" role="main">
+  {% include topnav.html %}
+
+  <div class="page">
+      {% if page.title %}
+        <h1 class="page__title">{{ page.title }}</h1>
+      {% endif %}
+      {% if page.subtitle %}
+        <p class="page__subtitle">{{ page.subtitle }}</p>
+      {% endif %}
+
+{% if page.smartdown == true %}
+    <div class="container-fluid smartdown-outer-container smartdown-theme">
+      <div class="row">
+        <div class="col-xs-12 smartdown-container" id="blog-content">
+        </div>
+      </div>
+    </div>
+{% else %}
+
+    {{ content | markdownify }}
+
+{% endif %}
+
+
+  </div>
+</div>

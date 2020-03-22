@@ -8,7 +8,7 @@ tags: welcome smartdown
 
 ## Welcome to My Smartdown-enabled Blog
 
-This is the first post in this example Blog.
+This is the first post in this example Blog, created with [smartdown/blog-kit](https://github.com/smartdown/blog-kit/).
 
 ### Testing Liquid-immunity via `raw`
 

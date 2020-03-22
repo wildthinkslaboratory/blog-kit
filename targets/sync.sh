@@ -7,8 +7,7 @@ fi
 export targetName="${1}"
 export target="${here}/${targetName}"
 
-if [[ ! -d ${target} ]]
-then
+if [[ ! -d ${target} ]]; then
 	echo "The target ${target} does not exist!"
 	exit 1
 fi
@@ -16,19 +15,33 @@ fi
 cd ${target}
 
 rm -rf _posts
+if [[ -d _theme_posts ]]; then
+	cp -r _theme_posts _posts
+else
+	mkdir _posts
+fi
+cp -r ../../_posts/* _posts/
+
+
 rm -rf _pages
+if [[ -d _theme_pages ]]; then
+	cp -r _theme_pages _pages
+else
+	mkdir _pages
+fi
+cp -r ../../_pages/* _pages/
+
+
+rm -rf assets
+if [[ -d _theme_assets ]]; then
+	cp -r _theme_assets assets
+else
+	mkdir assets
+fi
+cp -r ../../assets/* assets/
+
 
 rm -f _rawposts
 rm -f _rawpages
 ln -s _posts _rawposts
 ln -s _pages _rawpages
-
-cp -r _theme_pages _pages
-cp -r ../../_pages/* _pages
-
-cp -r ../../_posts _posts
-
-rm -rf assets
-cp -r _theme_assets assets
-cp -r ../../assets/* assets/
-
