@@ -19,8 +19,8 @@ bundle exec jekyll clean
 rm -rf assets/
 rm -rf _pages/
 rm -rf _posts/
-rm -f _rawpages
-rm -f _rawposts
+rm -rf _rawpages
+rm -rf _rawposts
 rm -rf dist/
 rm -f .jekyll-metadata
 rm -rf .jekyll-cache/
