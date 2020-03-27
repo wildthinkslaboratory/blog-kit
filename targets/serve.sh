@@ -24,11 +24,26 @@ syncChanges() {
 	echo "+++ syncChanges"
 	cp -v -r ../../_pages/* _pages/
 	cp -v -r ../../_posts/* _posts/
-	pwd
 	echo "--- syncChanges"
+}
+
+
+syncThemeChanges() {
+	echo "+++ syncThemeChanges"
+	if [[ -d _theme_posts ]]; then
+		cp -v -r _theme_posts/* _posts/
+	fi
+	if [[ -d _theme_pages ]]; then
+		cp -v -r _theme_pages/* _pages/
+	fi
+	if [[ -d _theme_assets ]]; then
+		cp -v -r _theme_assets/* assets/
+	fi
+	echo "--- syncThemeChanges"
 }
 
 trap "kill 0" EXIT
 (fswatch -o ../../_posts ../../_pages | while read f; do syncChanges; done) &
+(fswatch -o _theme_pages _theme_posts _theme_assets | while read g; do syncThemeChanges; done) &
 
 bundle exec jekyll serve

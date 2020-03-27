@@ -4,7 +4,7 @@
 
 baseUrl="/"
 REMOTE=`git remote get-url --push origin`
-if [[ $REMOTE =~ ^([^/]+)/([[:alpha:]\-]+)\.git$ ]]; then
+if [[ $REMOTE =~ ^([^/]+)/([[:alpha:]\.\-]+)\.git$ ]]; then
 	baseUrl="/${BASH_REMATCH[2]}"
 fi
 
