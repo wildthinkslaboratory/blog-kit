@@ -9,7 +9,7 @@ background: '/img/bg-about.jpg'
 
 This is a [GitHub Pages](https://pages.github.com)-based blog that utilizes the Jekyll services provided by GitHub, and optionally enables some posts and pages to utilize Smartdown, an in-browser renderer of enhanced Markdown and a reactive runtime.
 
-The source for this site is at [smartdown/blog-kit](https://github.com/smartdown/blog-kit/) (v0.0.3).
+The source for this site is at [smartdown/blog-kit](https://github.com/smartdown/blog-kit/) (v0.0.4.2).
 
 ### About the Author
 
