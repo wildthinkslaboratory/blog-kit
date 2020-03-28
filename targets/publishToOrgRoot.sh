@@ -1,6 +1,18 @@
-remoteRepo=`git remote get-url --push origin`
+# publishToOrgRoot.sh targetName
 
 export here=${0%/*}
+
+remoteRepo=`git remote get-url --push origin`
+if [[ $remoteRepo =~ ^([^:]+):([^/]+)/([[:alpha:]\.\-]+)\.git$ ]]; then
+	echo "BASH_REMATCH: ${BASH_REMATCH[2]} ...  ${BASH_REMATCH[3]}"
+	ghPrefix=${BASH_REMATCH[1]}
+	orgName=${BASH_REMATCH[2]}
+	orgRemoteRepo="${ghPrefix}:${orgName}/${orgName}.github.io.git"
+else
+	echo "# Unable to compute baseUrl from remoteRepo: $remoteRepo"
+	exit 1
+fi
+
 if [ "$1" == "" ]; then
     echo "# $0 usage: $0 targetName"
     exit 1
@@ -20,7 +32,7 @@ ${here}/sync.sh ${targetName}
 blogRoots="/tmp/blogRoots"
 dist="${blogRoots}/${targetName}"
 
-${here}/build.sh ${targetName}
+${here}/build.sh ${targetName} "" ${orgRemote}
 
 mkdir -p ${blogRoots}
 rm -rf ${blogRoots}/.git
@@ -33,5 +45,5 @@ cd ${dist}
 git init
 git add .
 git commit -m "Initial commit"
-git remote add origin ${remoteRepo}
-git push --force origin master:gh-pages
+git remote add origin ${orgRemoteRepo}
+git push --force origin master:master

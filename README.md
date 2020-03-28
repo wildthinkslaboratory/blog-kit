@@ -108,5 +108,7 @@ Mostly links to the software used
 0.0.1 - Initial version of a multi-target Jekyll-based blog. Includes clean-blog, minimal-mistakes, and stylish-portfolio themes.
 0.0.2 - Adds sparrow and alembic target themes. Improve publishAll.sh to add .nojekyll to root. Improve sync.sh to handle missing _theme_assets or _theme_pages dirs, and to handle _theme_posts dir. Replace use of Plotly example with P5JS example. Add /autoplay to some playables. Adds _includes/smartdown_header.html override file. Adjusts where smartdown-outer-container div is inserted in various themes, and adjust its width to match the theme's responsive layout.
 0.0.3 - Amends .gitignore to filter .hide and .deleteme suffixes, and targets/legacy/_sass/. Fixes build.sh to allow for - and . in repo names. Add syncThemeChanges() to serve.sh so that the _theme_XYZ directories are watched and synced. Adds targets/legacy/install.sh to targets/legacy and removes the corresponding assets (_sass/font-awesome/ and _sass/bootstrap-sass/) from the repo. targets/legacy/install.sh must be run once after this repo is downloaded to restore these assets.
+0.0.4 - Adds targets/publishToOrgRoot.sh and targets/publishAllToOrgRoot.sh to support publishing to a top-level GitHub org's GitHub Pages site.
+
 
 
