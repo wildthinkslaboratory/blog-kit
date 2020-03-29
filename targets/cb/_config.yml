@@ -1,19 +1,25 @@
 port:               4004
-title:              Smartdown Blog
-email:              your-email@example.com
-description:        A Blog Theme by Start Bootstrap adapted for Smartdown
-author:             Your Name
-url:                "https://yourgithubname.github.io"
+title:              wildthinks
+email:              goldfishandrobin@gmail.com
+description:        interactive mathematics explorations
+author:             Heidi Dixon
+url:                "https://wildthinkslaboratory.github.io"
 
 # Social Profiles
-twitter_username:   SBootstrap
-github_username:    BlackrockDigital
-facebook_username:  StartBootstrap
+twitter_username:   wildthinksLab
+github_username:    wildthinkslaboratory
+facebook_username:  
 linkedin_username:
 
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
 
+# Disqus Comments
+disqus:
+    # Leave shortname blank to disable comments site-wide.
+    # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
+    shortname: wildthinkslaboratory-github-io
+    
 # Build settings
 # remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes
 theme: jekyll-theme-clean-blog
