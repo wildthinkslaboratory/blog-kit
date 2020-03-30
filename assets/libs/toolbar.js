@@ -2,18 +2,19 @@
 let images = [];
 
 function loadImages(playablep5) {
-  images.push([playablep5.loadImage('../../assets/images/calculus/rectButton.png'),
-    playablep5.loadImage('../../assets/images/calculus/rectButton2.png')]);
-  images.push([playablep5.loadImage('../../assets/images/calculus/secantButton.png'),
-    playablep5.loadImage('../../assets/images/calculus/secantButton2.png')]);
-  images.push([playablep5.loadImage('../../assets/images/calculus/rectSecantButton.png'),
-    playablep5.loadImage('../../assets/images/calculus/rectSecantButton2.png')]);
-  images.push([playablep5.loadImage('../../assets/images/calculus/rectArray.png'),
-    playablep5.loadImage('../../assets/images/calculus/rectArray2.png')]);
-  images.push([playablep5.loadImage('../../assets/images/calculus/secantArray.png'),
-    playablep5.loadImage('../../assets/images/calculus/secantArray2.png')]);
-  images.push([playablep5.loadImage('../../assets/images/calculus/secantRectArray.png'),
-    playablep5.loadImage('../../assets/images/calculus/secantRectArray2.png')]);
+  let path = document.location.origin + '/assets/images/calculus/';
+  images.push([playablep5.loadImage(path + 'rectButton.png'),
+    playablep5.loadImage(path + 'rectButton2.png')]);
+  images.push([playablep5.loadImage(path + 'secantButton.png'),
+    playablep5.loadImage(path + 'secantButton2.png')]);
+  images.push([playablep5.loadImage(path + 'rectSecantButton.png'),
+    playablep5.loadImage(path + 'rectSecantButton2.png')]);
+  images.push([playablep5.loadImage(path + 'rectArray.png'),
+    playablep5.loadImage(path + 'rectArray2.png')]);
+  images.push([playablep5.loadImage(path + 'secantArray.png'),
+    playablep5.loadImage(path + 'secantArray2.png')]);
+  images.push([playablep5.loadImage(path + 'secantRectArray.png'),
+    playablep5.loadImage(path + 'secantRectArray2.png')]);
 }
 
 let toolTypes = {};
