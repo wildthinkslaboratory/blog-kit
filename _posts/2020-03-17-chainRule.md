@@ -7,7 +7,7 @@ background: '/assets/images/posts/Calculation_feeldesain_11.jpg'
 categories: [ calculus, smartdown ]
 ---
 
-This post is an interactive exploration of the **chain rule** from calculus.  It's a continuation of previous posts on [calculus and layouts]().  I hope it gives some visual intuition for why the rule works. I've worked on the color scheme a bit.  Don't forget to mouse over the blue background formulas to see the mapping between the formulas and the model.
+This post is an interactive exploration of the **chain rule** from calculus.  It's a continuation of previous posts on [calculus and layouts](/posts/Layout).  I hope it gives some visual intuition for why the rule works. I've worked on the color scheme a bit.  Don't forget to mouse over the blue background formulas to see the mapping between the formulas and the model.
 
 ### The Chain Rule
 So you know what the chain rule is and you know how to use it, but why does it work? We're going to work through an example and build some intuition.
