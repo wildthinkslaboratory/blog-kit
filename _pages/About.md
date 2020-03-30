@@ -1,5 +1,4 @@
 ---
-layout: page
 title: about 
 background: '/assets/images/Heidi.png'
 smartdown: true

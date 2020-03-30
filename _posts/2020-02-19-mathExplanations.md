@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Managing Complexity in Mathematical Explanations
 date: 2020-02-19
 smartdown: true

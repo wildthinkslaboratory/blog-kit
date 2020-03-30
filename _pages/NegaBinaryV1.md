@@ -1,5 +1,4 @@
 ---
-layout: page
 title: Negative Binary 
 background: ''
 smartdown: true

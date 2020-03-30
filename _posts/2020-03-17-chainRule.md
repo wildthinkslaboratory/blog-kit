@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Layout Experiment with the Chain Rule"
 date: 2020-03-17
 smartdown: true

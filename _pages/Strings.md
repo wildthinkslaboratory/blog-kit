@@ -1,5 +1,4 @@
 ---
-layout: page
 title: Exploding Dots Meets Kurt Gödel 
 background: ''
 smartdown: true

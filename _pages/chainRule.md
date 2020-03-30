@@ -1,5 +1,4 @@
 ---
-layout: page
 title: "The Chain Rule"
 smartdown: true
 background: ''

@@ -1,5 +1,4 @@
 ---
-layout: page
 title: Rectangle 
 background: ''
 smartdown: true
