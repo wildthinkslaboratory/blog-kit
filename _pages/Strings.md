@@ -1,6 +1,6 @@
 ---
 title: Exploding Dots Meets Kurt Gödel 
-background: ''
+headerapp: 'fractal.js'
 smartdown: true
 ---
 

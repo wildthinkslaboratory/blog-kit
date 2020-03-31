@@ -1,6 +1,5 @@
 ---
 title: about 
-headerapp: 'fractal.js'
 background: '/assets/images/Heidi.png'
 smartdown: true
 ---

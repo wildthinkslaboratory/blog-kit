@@ -3,7 +3,7 @@ layout: default
 ---
 
 <!-- Page Header -->
-{% if page.background %}
+<!-- {% if page.background %}
 <header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
   {% else %}
   <header class="masthead">
@@ -26,7 +26,9 @@ layout: default
         </div>
       </div>
     </div>
-  </header>
+  </header> -->
+
+{% include masthead.html %}
 
 {% if page.smartdown == true %}
   <div class="container-fluid smartdown-outer-container smartdown-theme">
