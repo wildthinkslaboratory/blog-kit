@@ -121,7 +121,7 @@ It could represent a distance as a product of rate and time.
 # :::: clue4
 # --aliceblue
  Let's solve a problem with a rectangle.
- [Continue](:@rectangle2)
+ [Continue](/pages/rectangle2)
 # --aliceblue
 
 # ::::
