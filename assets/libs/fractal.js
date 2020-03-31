@@ -22,13 +22,14 @@ let juliaSeeds = [ [-0.391,-0.587], [-0.4,-0.59], [-0.54, 0.54], [0.355, 0.355],
 ];
 
 // The maximum number of iterations per pixel
-let maxiterations = 255;
+let maxiterations = 340;
 
 
 
-// Palette array of 256 colors
+// Palette array 
 let palette = [];
 let basecolor = { r:0, g:0, b:0}; // Black
+let paletteSize = 340;
 // Generate palette
 function generatePalette() {
     // Calculate a gradient
@@ -50,10 +51,34 @@ function generatePalette() {
     }
 }
 
-generatePalette();
+function generatePaletteRainbow() {
+    // Calculate a gradient
+    let roffset = 0;
+    let goffset = 0;
+    let boffset = 0;
+    for (let i=0; i < paletteSize; i++) {
+        palette[i] = { r:roffset, g:goffset, b:boffset };
+
+        if (i < 51) {
+          roffset += 5;
+          goffset += 5;
+          boffset += 5;
+        } else if (i < 136) {
+          goffset -= 3;
+        } else if ( i < 221) {
+          goffset += 3;
+          boffset -= 3;
+        } else {
+          boffset += 2;
+          roffset -= 2;
+        }
+    }
+}
+
+generatePaletteRainbow();
 
 let [seedA, seedB] = juliaSeeds[Math.floor(Math.random() * juliaSeeds.length)];
-let zoom = 300 + Math.floor(Math.random() * 300);
+let zoom = 500 + Math.floor(Math.random() * 500);
 
 // Generate the fractal image
 function generateImage() {
@@ -113,7 +138,7 @@ function iterate(x, y, maxiterations, imagedata, offsetx, offsety, panx, pany, z
   if (it == maxiterations) {
       color = basecolor;
   } else {
-      let index = Math.floor((it / (maxiterations-1)) * 255);
+      let index = Math.floor((it / (maxiterations-1)) * (paletteSize - 1));
       color = palette[index];
   }
 
