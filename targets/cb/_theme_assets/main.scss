@@ -9,13 +9,9 @@ h1, h2, h3, h4, h5, h6, p, body {
   font-family: 'Asap', 'Open Sans', Arial, sans-serif !important;
 }
 
-header.masthead {
-	.page-heading,
-  	.post-heading,
-  	.site-heading {
-    	padding: 100px 0 50px !important;
-    	@media only screen and (min-width: 768px) {
-      		padding: 100px 0 !important;
-    	}
-  	}
+ .narrow-heading {
+ 	padding: 100px 0  !important;
+	@media only screen and (min-width: 768px) {
+  		padding: 100px 0 !important;
+	}
  }
