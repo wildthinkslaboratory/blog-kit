@@ -1,6 +1,6 @@
 ---
 title: Rectangle 
-background: ''
+header: 'none'
 smartdown: true
 ---
 

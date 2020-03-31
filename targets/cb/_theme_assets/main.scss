@@ -16,6 +16,17 @@ h1, h2, h3, h4, h5, h6, p, body {
 	}
  }
 
+.noheader {
+  margin-bottom: 100px !important;
+}
+
+.noheadernav {
+  a {
+      color: #444 !important;
+    }
+}
+
+
 header.masthead {
 	background-color: transparent !important;
 }
@@ -28,3 +39,5 @@ header.masthead {
     width: 100%;
     z-index: -1
 }
+
+

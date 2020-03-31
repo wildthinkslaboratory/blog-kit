@@ -2,7 +2,7 @@
 title: Negative Binary 
 background: ''
 smartdown: true
-narrowheader: true
+header: 'narrow'
 ---
 
 # --outlinebox notice

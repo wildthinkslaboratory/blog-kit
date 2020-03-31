@@ -17,20 +17,31 @@
 
         <!-- test for a narrow header -->
         {% if page.header == 'narrow' %}
-        <div class="page-heading narrow-heading">
+        <div class="post-heading narrow-heading">
         {% else %}
-        <div class="page-heading">
+        <div class="post-heading">
         {% endif %}
 
           <h1>{{ page.title }}</h1>
-          {% if page.subtitle %}
+          {% if page.description %}
           <span class="subheading">{{ page.subtitle }}</span>
           {% endif %}
+          <span class="meta">Posted by
+              <a href="#">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
+              on {{ page.date | date: '%B %d, %Y' }} &middot; {% include read_time.html
+              content=page.content %}
+          </span>
 
         </div>
       </div>
     </div>
   </div>
+
+
+            
+            
+  
+
 
   {% if page.headerapp %}
   <div id="canvasWrapper" class="canvas-wrapper">

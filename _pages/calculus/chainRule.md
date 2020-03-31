@@ -1,7 +1,7 @@
 ---
 title: "The Chain Rule"
 smartdown: true
-background: ''
+header: 'narrow'
 ---
 
 ### The Chain Rule
