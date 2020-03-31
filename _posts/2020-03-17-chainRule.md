@@ -4,6 +4,7 @@ date: 2020-03-17
 smartdown: true
 narrowheader: true
 comments: true
+narrowheader: true
 background: '/assets/images/posts/Calculation_feeldesain_11.jpg'
 categories: [ calculus, smartdown ]
 ---

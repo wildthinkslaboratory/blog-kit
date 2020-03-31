@@ -3,6 +3,7 @@ title: Managing Complexity in Mathematical Explanations
 date: 2020-02-19
 smartdown: true
 background: '/assets/images/posts/calculus.jpg'
+narrowheader: true
 categories: [ calculus, smartdown ]
 comments: true
 ---
