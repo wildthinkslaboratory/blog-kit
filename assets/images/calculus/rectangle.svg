@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="500" height="500" viewBox="0, 0, 500, 500">
+  <g id="Layer_3">
+    <g>
+      <path d="M59.326,13.536 L441.674,13.536 C467.413,13.536 488.279,34.401 488.279,60.14 L488.279,442.489 C488.279,468.228 467.413,489.094 441.674,489.094 L59.326,489.094 C33.587,489.094 12.721,468.228 12.721,442.489 L12.721,60.14 C12.721,34.401 33.587,13.536 59.326,13.536 z" fill="#FFFFFF"/>
+      <path d="M59.326,13.536 L441.674,13.536 C467.413,13.536 488.279,34.401 488.279,60.14 L488.279,442.489 C488.279,468.228 467.413,489.094 441.674,489.094 L59.326,489.094 C33.587,489.094 12.721,468.228 12.721,442.489 L12.721,60.14 C12.721,34.401 33.587,13.536 59.326,13.536 z" fill-opacity="0" stroke="#B8B8B8" stroke-width="16"/>
+    </g>
+  </g>
+  <g id="Layer_1">
+    <g>
+      <path d="M82.5,81.1 L82.5,334.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+      <path d="M86.7,81.1 L82.5,69.9 L78.3,81.1 z" fill="#383838" fill-opacity="1" stroke="#383838" stroke-width="3" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M82.5,333.167 L417.9,333.167" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+      <path d="M417.9,337.367 L429.1,333.167 L417.9,328.967 z" fill="#383838" fill-opacity="1" stroke="#383838" stroke-width="3" stroke-opacity="1"/>
+    </g>
+    <path d="M43.5,240.5 L43.5,240.5" fill-opacity="0" stroke="#383838" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <g>
+      <g>
+        <path d="M114.833,326.833 L114.833,339.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+        <path d="M150.5,326.833 L150.5,339.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+        <g>
+          <path d="M184.167,326.833 L184.167,339.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+          <path d="M219.833,326.833 L219.833,339.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+        </g>
+      </g>
+      <g>
+        <path d="M255,326.833 L255,339.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+        <path d="M290.667,326.833 L290.667,339.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+        <g>
+          <path d="M324.333,326.833 L324.333,339.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+          <path d="M360,326.833 L360,339.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+        </g>
+      </g>
+    </g>
+    <path d="M88.833,124.25 L76.167,124.25" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+    <g>
+      <path d="M88.833,157.917 L76.167,157.917" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+      <path d="M88.833,193.583 L76.167,193.583" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+    </g>
+    <path d="M88.833,229.5 L76.167,229.5" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+    <path d="M88.833,265.167 L76.167,265.167" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+    <path d="M88.833,298.833 L76.167,298.833" fill-opacity="0" stroke="#383838" stroke-width="3"/>
+    <path d="M82.5,229.5 C132.073,229.5 218.726,207.058 249.685,164.334 C298.569,93.811 296.939,90.888 306.716,67.5" fill-opacity="0" stroke="#B8B8B8" stroke-width="4"/>
+  </g>
+  <g id="Layer_2">
+    <g>
+      <g>
+        <path d="M143,164.333 L357,163.333 L358.5,325.833 L142.5,325.833 L143,164.333 z" fill="#B7E2FF"/>
+        <path d="M143,164.333 L357,163.333 L358.5,325.833 L142.5,325.833 L143,164.333 z" fill-opacity="0" stroke="#009CF2" stroke-width="12"/>
+      </g>
+      <path d="M250,177.118 C243.026,177.118 237.372,171.034 237.372,163.528 C237.372,156.023 243.026,149.938 250,149.938 C256.974,149.938 262.628,156.023 262.628,163.528 C262.628,171.034 256.974,177.118 250,177.118 z" fill="#009CF2"/>
+    </g>
+    <text transform="matrix(1, 0, 0, 1, 239.456, 413.426)">
+      <tspan x="-133.389" y="11" font-family="Arial-BoldMT" font-size="60" fill="#000000">rectangle</tspan>
+    </text>
+  </g>
+</svg>

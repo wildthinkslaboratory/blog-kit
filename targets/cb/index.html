@@ -1,10 +1,50 @@
 ---
 layout: page
 headerapp: 'fractal.js'
+header: 'narrow'
 smartdown: true
 ---
 
-|Exploding Dots|Calculus|USAMTS|
-|:---:|:---:|:---:|
-|[Negative Binary](/pages/NegaBinaryV1)|[Rectangle](/pages/rectangle1)|[problem 1]()|
-|[Strings](/pages/Strings)|[Chain Rule](/pages/chainRule)|[problem 1]()|
+### Calculus
+When students finish their high school calculus classes, they will likely remember many of the short cut rules for how to take the derivative of different types of functions (definitely useful!).  They often don't remember how these rules were derived and they may not remember the Fundamental Theorem of Calculus or have any intuition as to why it is true.  In other words, they emerge from these classes without intuition or awe about the main ideas of calculus.  
+
+```graphviz/autoplay
+digraph "unix" {
+  rankdir=TB; // Left to Right, instead of Top to Bottom
+  graph [bgcolor=gray96];
+
+  start[];
+  secant[shape=none, label="", image="/assets/images/calculus/rectangle.svg"];
+  rectangle [shape=none, URL="/pages/rectangle1", label="", image="/assets/images/calculus/rectangle.svg"];
+  FTC1 [shape=none, URL="/pages/ftc1", label="", image="/assets/images/calculus/rectangle.svg"];
+  derivative [shape=none, URL="/pages/derivative", label="", image="/assets/images/calculus/rectangle.svg"];
+  chainRule [shape=none, URL="/pages/chainRule", label="", image="/assets/images/calculus/rectangle.svg"];
+  productRule [shape=none, label="", image="/assets/images/calculus/rectangle.svg"];
+  exp [shape=none, label="", image="/assets/images/calculus/rectangle.svg"];
+  sin [shape=none, label="", image="/assets/images/calculus/rectangle.svg"]
+  implicit [shape=none, label="", image="/assets/images/calculus/rectangle.svg"]
+  FTC2[shape=none, label="", image="/assets/images/calculus/rectangle.svg"];
+
+  start -> secant;
+  start -> rectangle;
+  secant -> FTC1;
+  rectangle -> FTC1;
+  FTC1 -> derivative;
+  secant -> derivative;
+  derivative -> chainRule;
+  derivative -> productRule;
+  derivative -> exp;
+  derivative -> sin;
+  chainRule -> FTC2;
+  exp -> FTC2;
+  sin -> FTC2;
+  chainRule -> implicit;
+  exp -> implicit;
+  sin -> implicit;
+  
+
+
+
+}
+```
+
