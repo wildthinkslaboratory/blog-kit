@@ -1,34 +1,63 @@
 ---
 layout: default
 ---
-
 <!-- Page Header -->
-{% if page.background %}
-<header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
-  {% else %}
-  <header class="masthead">
-    {% endif %}
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
-            <h1>{{ site.title }}</h1>
-            {% if site.description %}
-            <span class="subheading">{{ site.description }}</span>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+{% if page.header == 'none' %}
+<header id="header-wrapper" class="masthead noheader">
+</header>  
+{% else %}
 
+{% if page.background %}
+<header id="header-wrapper" class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
+{% else %}
+<header id="header-wrapper" class="masthead">
+{% endif %}
+
+  <div class="overlay"></div>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
 
-        {{ content }}
+        <!-- test for a narrow header -->
+        {% if page.header == 'narrow' %}
+        <div class="post-heading narrow-heading">
+        {% else %}
+        <div class="post-heading">
+        {% endif %}
+
+          <img src="{{"/assets/images/wildthinksLogo.svg" | relative_url }}" height="200">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if page.headerapp %}
+  <div id="canvasWrapper" class="canvas-wrapper">
+    <canvas id="header-canvas"></canvas>
+  </div>
+  <script src="{{ page.headerapp  | prepend: '/assets/libs/' }}"></script>
+  {% endif %}
+
+</header>
+{% endif %}
+
+{% if page.smartdown == true %}
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        {{ content | markdownify }}
 
       </div>
     </div>
   </div>
+{% endif %}
