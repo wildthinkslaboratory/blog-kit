@@ -1,20 +1,23 @@
 ---
 layout: home
 smartdown: true
+headerapp: 'fractal.js'
 header: 'narrow'
 ---
 
 
 ```graphviz/autoplay
 digraph G {
-	tooltip="wildthinks map"
+	tooltip="wildthinks map";
+	fontsize="24";
+	fontname="Arial";
 	size="12,12";
     subgraph cluster0 {
         style=filled;
         color=grey96;
-        secant[shape=none, label="", image="/assets/images/calculus/rectangle.svg"];
+        secant[shape=none, label="", image="/assets/images/calculus/secant.svg"];
 		rectangle [shape=none, URL="/pages/rectangle1", label="", image="/assets/images/calculus/rectangle.svg"];
-		FTC1 [shape=none, tooltip="The Fundamental Theorem of Calculus: Part I", URL="/pages/ftc1", label="", image="/assets/images/calculus/rectangle.svg"];
+		FTC1 [shape=none, tooltip="secant / rectangle", URL="/pages/ftc1", label="", image="/assets/images/calculus/ftc1.svg"];
 		derivative [shape=none, tooltip="Definition of the Derivative" URL="/pages/derivative", label="", image="/assets/images/calculus/rectangle.svg"];
 		chainRule [shape=none, tooltip="Chain Rule", URL="/pages/chainRule", label="", image="/assets/images/calculus/rectangle.svg"];
 		  
@@ -27,7 +30,7 @@ digraph G {
     }
     subgraph cluster1 {
         problem1 [shape=none, URL="/pages/usamts1", label="", image="/assets/images/calculus/rectangle.svg"];
-        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/rectangle.svg"];
+        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
         label = "USAMTS Problems";
         style=filled;
         color=grey96;

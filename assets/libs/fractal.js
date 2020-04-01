@@ -64,12 +64,12 @@ function generatePaletteRainbow() {
           goffset += 5;
           boffset += 5;
         } else if (i < 136) {
-          goffset -= 3;
+          goffset -= 3;  // rb
         } else if ( i < 221) {
           goffset += 3;
-          boffset -= 3;
+          boffset -= 3;  // rg
         } else {
-          boffset += 2;
+          boffset += 2;  //gb
           roffset -= 2;
         }
     }
