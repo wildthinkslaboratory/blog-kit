@@ -137,10 +137,6 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='top' style='height:200px; width:100%; border:1px solid gray;background:#FFFFEE;border-radius:8px;'></div><div id='bottom' style='height:500px; width:100%; border: 1px solid gray;background:#FFFFFF;border-radius:8px;';></div>`;
 
-let workspaceDivWidth = 1;
-let pictureDivWidth = 1;
-let workspaceDivHeight = 500;
-let pictureDivHeight = 200;
 
 let xlow = -2;
 let xhigh = 10;
@@ -180,7 +176,7 @@ let Atext = sfboard.board.create('text', [
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board
 
-board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-2,8,10,-2], keepaspectratio:false, axis:false, showCopyright:false});
+board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-2,6,10,-2], keepaspectratio:false, axis:false, showCopyright:false});
 
 sfboard.board.addChild(board1);
 
@@ -249,12 +245,13 @@ let checkAnswer = function() {
 };
 
 let useButton = function(mouseX, buttonType) {
-  let width = myDiv.offsetWidth;
+  let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
-  let percent = (mouseX - margin) / (width * workspaceDivWidth);
+  let percent = (mouseX - margin) / width;
   workspace.addElement(buttonType, percent, f);
   // smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
+
 
 this.div.onmousedown = function(e) { 
   if (env.numButtons > 0 && env.active) {
@@ -262,12 +259,16 @@ this.div.onmousedown = function(e) {
   }
 };
 
+let widthPercent = 0.8;
+let heightPercent = 0.7;
+let heightRatio = 1/4;
 
 this.sizeChanged = function() {
-  workspace.resize(myDiv.offsetWidth * workspaceDivWidth, workspaceDivHeight);       
-  board1.resizeContainer(myDiv.offsetWidth * pictureDivWidth, pictureDivHeight);
+  workspace.resize(window.innerWidth * widthPercent, (1-heightRatio) * window.innerHeight * heightPercent);       
+  board1.resizeContainer(window.innerWidth * widthPercent, heightRatio * window.innerHeight * heightPercent);
 };
 
+this.sizeChanged();
 
 sfboard.board.on('update', function() {
   workspace.boardUpdate();              // hook up workspace update functions

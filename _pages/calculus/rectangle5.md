@@ -218,13 +218,11 @@ let checkAnswer = function() {
 };
 
 let useButton = function(mouseX, buttonType) {
-
-  let width = myDiv.offsetWidth;
+  let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
-  let percent = (mouseX - margin) / (width * workspaceDivWidth);
+  let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
   workspace.addElement(buttonType, percent, f);
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
-  console.log('num buttons', env.numButtons);
 };
 
 this.div.onmousedown = function(e) { 
@@ -233,12 +231,16 @@ this.div.onmousedown = function(e) {
   }
 };
 
+let widthPercent = 0.8;
+let heightPercent = 0.7;
+let widthRatio = 1/4;
 
 this.sizeChanged = function() {
-  workspace.resize(myDiv.offsetWidth * workspaceDivWidth, workspaceDivHeight);       
-  board1.resizeContainer(myDiv.offsetWidth * pictureDivWidth, pictureDivHeight);
+  workspace.resize(window.innerWidth * widthPercent * (1 - widthRatio - 0.01), window.innerHeight * heightPercent);      
+  board1.resizeContainer(window.innerWidth * widthPercent * widthRatio, window.innerHeight * heightPercent);
 };
 
+this.sizeChanged();
 
 sfboard.board.on('update', function() {
   workspace.boardUpdate();              // hook up workspace update functions

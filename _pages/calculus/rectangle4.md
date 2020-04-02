@@ -149,11 +149,6 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='left' style='height:700px; width:75%; float:left; border:1px solid gray;background:#FFFFFF;border-radius:8px;'></div><div id='right' style='height:700px; width:24%; float:left; border: 1px solid gray;background:#CCEEFF;border-radius:8px;';></div>`;
 
-let workspaceDivWidth = 0.75;
-let pictureDivWidth = 0.24;
-let workspaceDivHeight = 700;
-let pictureDivHeight = 700;
-
 let xlow = -30;
 let xhigh = 150;
 let ylow = -200;
@@ -229,12 +224,14 @@ let checkAnswer = function() {
 };
 
 let useButton = function(mouseX, buttonType) {
-  let width = myDiv.offsetWidth;
+  let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
-  let percent = (mouseX - margin) / (width * workspaceDivWidth);
+  let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
   workspace.addElement(buttonType, percent, f);
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
+
+
 
 this.div.onmousedown = function(e) { 
   if (env.numButtons > 0 && env.active) {
@@ -248,6 +245,16 @@ this.sizeChanged = function() {
   board1.resizeContainer(myDiv.offsetWidth * pictureDivWidth, pictureDivHeight);
 };
 
+let widthPercent = 0.8;
+let heightPercent = 0.7;
+let widthRatio = 1/4;
+
+this.sizeChanged = function() {
+  workspace.resize(window.innerWidth * widthPercent * (1 - widthRatio - 0.01), window.innerHeight * heightPercent);      
+  board1.resizeContainer(window.innerWidth * widthPercent * widthRatio, window.innerHeight * heightPercent);
+};
+
+this.sizeChanged();
 
 sfboard.board.on('update', function() {
   workspace.boardUpdate();              // hook up workspace update functions

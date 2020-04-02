@@ -149,6 +149,9 @@ myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 JXG.Options.axis.ticks.majorHeight = 40;
 board0 = JXG.JSXGraph.initBoard('box', {boundingbox:[-1,10,13,-2], keepaspectratio:false, axis:true, showCopyright:false});
 
+let widthPercent = 0.8;
+let heightPercent = 0.7;
+
 let boardInfo;
 let xinterval;
 let rectangle;
@@ -236,8 +239,10 @@ this.div.onmousedown = function(e) {
 
 
 this.sizeChanged = function() {
-  board0.resizeContainer(myDiv.offsetWidth, 600);
+  board0.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);
 };
+
+this.sizeChanged();
 
 smartdown.setVariable('show1', false);
 smartdown.setVariable('show2', false);
