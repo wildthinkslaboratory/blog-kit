@@ -25,7 +25,7 @@ It's hard to **see** the amount of work done in the picture of the spring.  A si
 
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [N](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
+[?](::clue/button,transparent,dragable,closeable,topleft,shadow) [N](::notes/button,transparent,draggable,closeable,topleft,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -72,7 +72,6 @@ p5.draw = function() {  // draw the buttons
 
 p5.mousePressed = function()     // this function is called everytime the user clicks the mouse
 {
-  console.log('mouse pressed');
   const [bType, state, id] = B.mousePressed();  // returns info on the button pushed
   
   if (id != -1) {                              // if it's a valid button
@@ -285,7 +284,7 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,topleft,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {

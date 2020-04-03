@@ -175,7 +175,7 @@ class ToolPanel extends ButtonArray {
   constructor(playablep5, width, xSpacer, ySpacer) {
     super(playablep5, width, xSpacer, ySpacer);
     loadImages(playablep5);
-    this.state = false;
+    this.state = 0;
   }
 
   initialize() {
