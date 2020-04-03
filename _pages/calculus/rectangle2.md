@@ -52,7 +52,7 @@ smartdown.setVariable('numButtons', 1);  // keep track of number of buttons
 
 p5.setup = function() { 
   let canvasWidth = xSpacer + (width + xSpacer) * maxButtons;  // set the size of the playable
-  let canvasHeight = width + 2 * ySpacer;
+  let canvasHeight = width + 3 * ySpacer;
   p5.createCanvas(canvasWidth,canvasHeight);     // create the canvas we will draw on
 };
 

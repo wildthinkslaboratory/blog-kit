@@ -7,7 +7,8 @@ What is the area underneath the curve between $x=2$ and $x=8$.
 
 # :::: toolbar
 [?](::clue/button,transparent,draggable,closeable,center,shadow) Tool Panel
-```p5js /autoplay
+
+```javascript /autoplay/p5js
 // import the calc library
 //smartdown.import=/CalculusPrimer/toolbar.js
 
@@ -27,7 +28,7 @@ B.initialize();
 
 p5.setup = function() { 
   var canvasWidth = xSpacer + (width + xSpacer) * numButtons;  // set the size of the playable
-  var canvasHeight = width + 2 * ySpacer;
+  var canvasHeight = width + 3 * ySpacer;
   p5.createCanvas(canvasWidth,canvasHeight);     // create the canvas we will draw on
 };
 

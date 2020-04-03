@@ -25,7 +25,7 @@ Typically the balance point of a sword is a small distance past the hilt.  At fi
 
 
 # :::: toolbar
-[N](::notes/button,transparent,draggable,closeable,center,shadow) [?](::clue/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
+[?](::clue/button,transparent,draggable,closeable,center,shadow) [N](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ smartdown.setVariable('numButtons', 2);  // keep track of number of buttons
 
 p5.setup = function() { 
   let canvasWidth = xSpacer + (width + xSpacer) * maxButtons;  // set the size of the playable
-  let canvasHeight = width + 2 * ySpacer;
+  let canvasHeight = width + 3 * ySpacer;
   p5.createCanvas(canvasWidth,canvasHeight);     // create the canvas we will draw on
 };
 
@@ -211,9 +211,10 @@ let yaxis1 = board1.create('axis', [[0, 0], [0, 1]],
 
 
 let fulcrum = board1.create('glider', [40,0,xaxis1], {name:'', face:'^', size:15, color:'red'});
-var p = [[0, 2], [80, 2.25], [80, 1.75]];
+let p = [[0, 2], [80, 2.25], [80, 1.75]];
 
-var sword = board1.create('polygon', p, {fillColor:'#000000',hasInnerPoints: true, vertices:{visible:false}, borders:{strokeColor:'black'}});
+let sword = board1.create('polygon', p, {fillColor:'#000000',hasInnerPoints: true, vertices:{visible:false}, borders:{strokeColor:'black'}});
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////

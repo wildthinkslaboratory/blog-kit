@@ -22,7 +22,7 @@ but what should the dimensions of this rectangle be?  The time interval is 4 sec
 
 
 # :::: toolbar
-[N](::notes/button,transparent,draggable,closeable,center,shadow) [?](::clue/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here's another rectangle. 
+[?](::clue/button,transparent,draggable,closeable,center,shadow) [N](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here's another rectangle. 
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ smartdown.setVariable('numButtons', 1);  // keep track of number of buttons
 
 p5.setup = function() { 
   let canvasWidth = xSpacer + (width + xSpacer) * maxButtons;  // set the size of the playable
-  let canvasHeight = width + 2 * ySpacer;
+  let canvasHeight = width + 3 * ySpacer;
   p5.createCanvas(canvasWidth,canvasHeight);     // create the canvas we will draw on
 };
 
