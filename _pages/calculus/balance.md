@@ -51,7 +51,7 @@ let B = new ToolPanel(p5,40, 10, 10);
 
 B.addButton('rectangle');
 B.addButton('rectangle array');
-B.initialize();
+//B.initialize();
 
 smartdown.setVariable('numButtons', 2);  // keep track of number of buttons
 

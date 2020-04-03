@@ -51,7 +51,7 @@ let B = new ToolPanel(p5,40, 10, 10);
 
 B.addButton('rectangle');
 B.addButton('rectangle array');
-B.initialize();
+//B.initialize();
 
 smartdown.setVariable('numButtons', 2);  // keep track of number of buttons
 
@@ -72,6 +72,7 @@ p5.draw = function() {  // draw the buttons
 
 p5.mousePressed = function()     // this function is called everytime the user clicks the mouse
 {
+  console.log('mouse pressed');
   const [bType, state, id] = B.mousePressed();  // returns info on the button pushed
   
   if (id != -1) {                              // if it's a valid button
