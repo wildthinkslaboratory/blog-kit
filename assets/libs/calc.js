@@ -1227,7 +1227,6 @@ function SingleFunctionBoard(divName, bBox, F, attributes) {
     f_graph.setAttribute({strokeWidth:1});
   });
 
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////

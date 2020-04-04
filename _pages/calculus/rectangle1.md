@@ -6,7 +6,7 @@ smartdown: true
 
 # :::: toolbar
 # :::: withClue
-[?](::clue/button,transparent,draggable,topright,shadow) Here.  Have a rectangle.
+[N](:=show1=true) Here.  Have a rectangle.
 # ::::
 
 # :::: noClue
@@ -42,7 +42,7 @@ B.addButton('rectangle');
 
 p5.setup = function() { 
   let canvasWidth = xSpacer + (width + xSpacer) * numButtons;  // set the size of the playable
-  let canvasHeight = width + 3 * ySpacer;
+  let canvasHeight = width + 2 * ySpacer;
   p5.createCanvas(canvasWidth,canvasHeight);     // create the canvas we will draw on
 };
 
@@ -88,32 +88,26 @@ this.depend = function() {
 ```
 # ::::
 
-# :::: clue
-# --aliceblue
-We know that the area of a rectangle is the product of its length times its width.
-[>](:=show1=true)
-# --aliceblue
-# ::::
 
 # :::: clue1
 # --aliceblue
-So the area of a rectangle is a great way to visually represent a multiplication problem
-$$ A \times B $$
-[>](:=show2=true)
+We can use a rectangle to show the relationship between **distance**, **rate** and **time**.  
+$$d = r \cdot t$$
+[N](:=show2=true)
 # --aliceblue
 # ::::
 
 # :::: clue2
 # --aliceblue
-It could represent a distance as a product of rate and time.  
-[>](:=show3=true)
+We can use it for any rate of change problem, really.  The area of a rectangle tells us the total amount of change.  
+[N](:=show3=true)
 # --aliceblue
 # ::::
 
 # :::: clue3
 # --aliceblue
- It could represent money.  
- [>](:=show4=true)
+ In rate problems, the units are often a measure of **time** like seconds, days or years.  But they don't have to be. 
+ [N](:=show4=true)
 # --aliceblue
 
 # ::::
@@ -251,33 +245,33 @@ smartdown.setVariable('show4', false);
 this.dependOn = ['show1', 'show2', 'show3', 'show4'];
 this.depend = function() {
   if (env.show1 == true) {
+    console.log('show1');
     smartdown.setVariable('show1', false);
-    smartdown.hideDisclosure('clue','','');
-    smartdown.showDisclosure('clue1','','transparent,draggable,topright,shadow');
-    rectangle.setNames(['A x B', 'A', 'B']);
+    smartdown.showDisclosure('clue1','','transparent,closeable,draggable,topright,shadow');
+    rectangle.setNames(['distance', 'time', 'rate']);
     rectangle.setFillColor('#FFAA88');
     board0.update();
   }
   if (env.show2 == true) {
     smartdown.setVariable('show2', false);
     smartdown.hideDisclosure('clue1','','');
-    smartdown.showDisclosure('clue2','','transparent,draggable,topright,shadow');
-    rectangle.setNames(['distance', 'time', 'rate']);
+    smartdown.showDisclosure('clue2','','transparent,closeable,draggable,topright,shadow');
+    rectangle.setNames(['total change', 'units', 'change per unit']);
     rectangle.setFillColor('#AAFF88');
     board0.update();
   }
   if (env.show3 == true) {
     smartdown.setVariable('show3', false);
     smartdown.hideDisclosure('clue2','','');
-    smartdown.showDisclosure('clue3','','transparent,draggable,topright,shadow');
-    rectangle.setNames(['investment', 'principle', 'interest rate']);
+    smartdown.showDisclosure('clue3','','transparent,closeable,draggable,topright,shadow');
+    rectangle.setNames(['taxes due', 'income', 'tax rate']);
     rectangle.setFillColor('#88FFAA');
     board0.update();
   }
   if (env.show4 == true) {
     smartdown.setVariable('show4', false);
     smartdown.hideDisclosure('clue3','','');
-    smartdown.showDisclosure('clue4','','transparent,draggable,center,shadow');
+    smartdown.showDisclosure('clue4','','transparent,closeable,draggable,center,shadow');
   }
 };
 

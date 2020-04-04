@@ -25,7 +25,7 @@ It's hard to **see** the amount of work done in the picture of the spring.  A si
 
 
 # :::: toolbar
-[?](::clue/button,transparent,dragable,closeable,topleft,shadow) [N](::notes/button,transparent,draggable,closeable,topleft,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
+[?](::clue/button,transparent,draggable,closeable,center,shadow) [N](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////

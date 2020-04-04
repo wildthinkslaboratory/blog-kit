@@ -7,17 +7,22 @@ smartdown: true
 # :::: clue
 # --outlinebox
 ##### Sword Balance Point
-A sword is 80 centimeters long.  A large portion of the sword's weight is in the hilt.  As you move away from the hilt, the sword tapers to a narrow blade. We'll ignore the cross sectional shape of the sword for now and instead think of it as a one dimensional bar with a variable density along it's length.  The density per centimeter is shown in the graph.  Find the balance point of the sword.  That's the point along the length of the sword where it will balance perfectly on your finger. The answer isn't a whole number so do your best to estimate it.  Later when we learn to solve these problems symbolically we'll be able to answer this question exactly.
+A sword is 80 centimeters long.  A large portion of the sword's weight is in the hilt.  As you move away from the hilt, the sword tapers to a narrow blade. We'll ignore the cross sectional shape of the sword for now and instead think of it as a one dimensional bar with a variable density along it's length.  The density per centimeter is shown in the graph.  Estimate the [balance point](::balancepoint/tooltip) of the sword using the red triangle. 
+
+The answer isn't a whole number so do your best to estimate it.  Later when we learn to solve these problems symbolically we'll be able to answer this question exactly.
+
+# :::: balancepoint
+The **balance point** is the point along the length of the sword where it will balance perfectly on your finger.
+# ::::
 # --outlinebox
 # ::::
 
 # :::: notes
 # --aliceblue
 ##### Note 1
-Mass is equal to the density times volume.
-$$M = d \cdot v$$
-can be modeled with a rectangle.
-
+Mass is equal to the linear density times the length
+$$M = d \cdot l$$
+and we can model that with a rectangle.
 ##### Note 2
 Typically the balance point of a sword is a small distance past the hilt.  At first it might seem that it would be best to hold the sword at the balance point since this would appear to make the sword more maneuverable.  However,  having the balance point just beyond the place where you hold it allows the user to take some advantage of gravity when bringing the sword down on it's target.
 # --aliceblue
@@ -146,47 +151,13 @@ let xhigh = 100;
 let ylow = -10;
 let yhigh = 60;
 
-let swordLength = 80;
-let f = function(x) { return 3 * x * x / 500; };
-let sfboard = new SingleFunctionBoard('bottom', 
-  [xlow,yhigh,xhigh,ylow], 
-  f,
-  { xName: 'cm', 
-    yName: 'g/cm', 
-    startX:0, endX:swordLength, 
-    flabel: 'density of sword', flabelX:75, flabelY:45,
-    endF:swordLength
-  });
-
-
-let workspace = new WorkSpace(sfboard.board);
-
-////////////////////////////////////////////////////////////////////////////////////
-// Here is where you configure the workspace based on what elements you want to 
-// add.  
-
-workspace.setSnapMargin(0.5);
-workspace.setRectangleNames(['g', 'cm', 'g/cm']);
-workspace.setUseRectangleNames(true);
-
-
-////////////////////////////////////////////////////////////////////////////////////
-
-let Atext = sfboard.board.create('text', [
-  xlow + 0.25 * (xhigh - xlow), 
-  ylow + 0.8 * (yhigh - ylow),
-  function() { return 'Total Area = ' + workspace.getArea().toFixed(2); }], {
-  fontSize:20,
-  visible:true
-});
-
+JXG.Options.axis.ticks.majorHeight = 40;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board
 
 board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[xlow,7,xhigh,-3], keepaspectratio:false, axis:false, showCopyright:false});
 
-sfboard.board.addChild(board1);
 
 let xaxis1 = board1.create('axis', [[0, 0], [1,0]], 
   {name:'cm', 
@@ -215,6 +186,50 @@ let p = [[0, 2], [80, 2.25], [80, 1.75]];
 
 let sword = board1.create('polygon', p, {fillColor:'#000000',hasInnerPoints: true, vertices:{visible:false}, borders:{strokeColor:'black'}});
 
+let l1 = board1.create('point', [ function() { return fulcrum.X(); }, 0], {visible:false});
+let l2 = board1.create('point', [ function() { return fulcrum.X(); }, 10], {visible:false});
+let vertline = board1.create('line', [l1,l2], {color:'#CCCCCC'});
+
+let swordLength = 80;
+let f = function(x) { return 3 * x * x / 500; };
+let sfboard = new SingleFunctionBoard('bottom', 
+  [xlow,yhigh,xhigh,ylow], 
+  f,
+  { xName: 'cm', 
+    yName: 'g/cm', 
+    startX:0, endX:swordLength, 
+    flabel: 'density of sword', flabelX:75, flabelY:45,
+    endF:swordLength
+  });
+
+
+
+let workspace = new WorkSpace(sfboard.board);
+
+////////////////////////////////////////////////////////////////////////////////////
+// Here is where you configure the workspace based on what elements you want to 
+// add.  
+
+workspace.setSnapMargin(0.1);
+workspace.setRectangleNames(['g', 'cm', 'g/cm']);
+workspace.setUseRectangleNames(true);
+
+
+////////////////////////////////////////////////////////////////////////////////////
+
+let Atext = sfboard.board.create('text', [
+  xlow + 0.25 * (xhigh - xlow), 
+  ylow + 0.8 * (yhigh - ylow),
+  function() { return 'Total Area = ' + workspace.getArea().toFixed(2); }], {
+  fontSize:20,
+  visible:true
+});
+
+board1.addChild(sfboard.board);
+
+let l3 = sfboard.board.create('point', [ function() { return fulcrum.X(); }, 0], {visible:false});
+let l4 = sfboard.board.create('point', [ function() { return fulcrum.X(); }, 10], {visible:false});
+let vertline2 = sfboard.board.create('line', [l3,l4], {color:'#CCCCCC'});
 
 
 /////////////////////////////////////////////////////////////////////////////////////////

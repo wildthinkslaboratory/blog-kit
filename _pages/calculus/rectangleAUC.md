@@ -1,3 +1,9 @@
+---
+title: Rectangle 
+header: 'none'
+smartdown: true
+---
+
 # :::: clue
 # --outlinebox
 ##### Area Underneath a Curve
@@ -10,7 +16,7 @@ What is the area underneath the curve between $x=2$ and $x=8$.
 
 ```javascript /autoplay/p5js
 // import the calc library
-//smartdown.import=/CalculusPrimer/toolbar.js
+//smartdown.import=/assets/libs/toolbar.js
 
 
 const myDiv = this.div;
@@ -72,7 +78,7 @@ p5.mouseReleased = function() {                  // this function is called when
 smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
 
 // import the calc library
-//smartdown.import=/CalculusPrimer/calc.js
+//smartdown.import=/assets/libs/calc.js
 
 smartdown.showDisclosure('toolbar', '', 'transparent');
 

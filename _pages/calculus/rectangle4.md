@@ -7,23 +7,14 @@ smartdown: true
 # :::: clue
 # --outlinebox
 ##### Rocket Launch
-Here is a graph showing the speed of a rocket during it's first launch phase. What is the height of the rocket 120 seconds after lift off? 
+Here is a graph showing the speed of a rocket during it's first launch phase. Estimate the height of the rocket 120 seconds after lift off? 
 # --outlinebox
 # ::::
 
 # :::: notes
 # --aliceblue
 ##### Note 
-A rectangle can represent a distance as a product of rate and time,  
-$$d = r \cdot t$$
-but what should the dimensions of this rectangle be?  The time will be 120 seconds, but what is the rate?  It's not clear what the average speed of the rocket is.  Here are a couple of possible solution ideas.
-
-**Option 1** 
-We could use a single rectangle and set the height of the rectangle to the speed of the rocket at time 60 seconds (the midpoint of the interval).   
-
-**Option 2**
-We have four rectangles, so we could break the time period down into multiple intervals.  We can estimate the distance traveled during each interval and then add all the distances together to get an estimate for the total distance traveled.  
-
+What should the dimensions of this rectangle be?  The time will be 120 seconds, but what is the rate?  It's not clear what the average speed of the rocket is.  But we now have four rectangles!
 # --aliceblue
 # ::::
 
@@ -130,6 +121,10 @@ Error of [](:!error)%.
 # :::: keeptrying
 Keep trying. 
 Error of [](:!error)%.  The error must be below 5%.
+
+# :::: more_rectangles
+Try using more rectangles!
+# ::::
 # ::::
 
 
@@ -273,6 +268,12 @@ this.depend = function() {
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
+      if (env.numButtons != 0) {
+        smartdown.showDisclosure('more_rectangles','','transparent');
+      }
+      else {
+        smartdown.hideDisclosure('more_rectangles','','');
+      }
       smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
       smartdown.hideDisclosure('success','','');
     }

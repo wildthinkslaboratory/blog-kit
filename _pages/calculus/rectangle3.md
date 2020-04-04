@@ -14,9 +14,7 @@ The car begins from a stationary position and gradually increases it's speed.  H
 # :::: notes
 # --aliceblue
 ##### Note
-The area of a rectangle can represent a distance as a product of rate and time,  
-$$d = r \cdot t$$
-but what should the dimensions of this rectangle be?  The time interval is 4 seconds, but what is the rate?  It may help to figure out the average speed that the car travels during that time period.
+What should the dimensions of this rectangle be?  The time interval is 4 seconds, but what is the rate?  It may help to figure out the average speed that the car travels during that time period.
 # --aliceblue
 # ::::
 
