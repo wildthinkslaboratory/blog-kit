@@ -1,5 +1,5 @@
 ---
-title: 'USAMTS 2019-2020 1.4'
+title: 'USAMTS Problem 4/1/31'
 smartdown: true
 header: 'narrow'
 background: '/assets/images/posts/mangoes.jpg'
@@ -7,8 +7,6 @@ background: '/assets/images/posts/mangoes.jpg'
 
 This problem is from the USA Mathematical Talent Search [USAMTS](https://www.usamts.org).  It's a unique mathematical competition for middle school and high school students.    
 
-
-### USAMTS 2019-2020 Problem Set 1 
 
 **4/1/31.** A group of $100$ friends stands in a circle. Initially, one person has $2019$ mangos, and no one else has mangos. The friends split the mangos according to the following rules:
   - *sharing* : to share, a friend passes two mangos to the left and one mango to the right.
