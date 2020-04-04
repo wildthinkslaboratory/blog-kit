@@ -16,7 +16,7 @@ digraph G {
         style=filled;
         color=grey96;
         secant[shape=none, label="", image="/assets/images/calculus/secant.svg"];
-		rectangle [shape=none, URL="/pages/rectangle1", label="", image="/assets/images/calculus/rectangle.svg"];
+		rectangle [shape=none, URL="javascript:smartdown.setVariable('rectangle', true);", label="", image="/assets/images/calculus/rectangle.svg"];
 		FTC1 [shape=none, tooltip="secant / rectangle", URL="/pages/ftc1", label="", image="/assets/images/calculus/ftc1.svg"];
 		derivative [shape=none, tooltip="Definition of the Derivative" URL="/pages/derivative", label="", image="/assets/images/calculus/derivative.svg"];
 		chainRule [shape=none, tooltip="Chain Rule", URL="/pages/chainRule", label="", image="/assets/images/calculus/chainrule.svg"];
@@ -47,3 +47,27 @@ digraph G {
     
 }
 ```
+# :::: change_rectangle
+# --outlinebox ob1
+Everything is always changing.  Even the rate of change is changing.
+[Begin](/pages/rectangle1)
+# --outlinebox
+# ::::
+
+
+```javascript /autoplay
+smartdown.setVariable('rectangle', false);
+
+this.dependOn = ['rectangle'];
+
+this.depend = function() {
+  if (env.rectangle == true) {
+      smartdown.setVariable('rectangle', false);
+      smartdown.showDisclosure('change_rectangle','','transparent,lightbox,center,shadow'); 
+      setTimeout(function () {
+           smartdown.hideDisclosure('change_rectangle','',''); 
+      }, 6000);
+    } 
+  };
+```
+

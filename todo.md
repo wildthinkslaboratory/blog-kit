@@ -1,7 +1,5 @@
 TO DO
 
-- usamts                            Fri
-- exploding dots                    Sat/Sun
 - plan secant and rectangles        Sat/Sun
 
 - derivative and chain rule         Mon / Tue
@@ -10,6 +8,8 @@ TO DO
 - work on branding.
 
 
+Fun
+- make a random fractal header
 
 Quick and Easy
 - I've messed up the formatting for header titles and subtitles
@@ -30,6 +30,7 @@ Larger Issues
 	- navigation between pages
 	- stop open in new tab?
 	- rectangle needs a navigation bar
+	- once I have a navigation bar, the exploding dots pages could be broken down.
 - rectangle resizing is off for medium screens.  This affects adding rectangles placement.
 - would slowing down draw rate help performance for static periods of p5js?
 - add resources for fly problem
@@ -48,6 +49,8 @@ logo work
 - write secant chapter
 - write secant / rectangle
 - add accumulated change to rectangle
+- revise Relations
+- plan my proof app
 
 
 -------------------------------------------------------------------------------------
