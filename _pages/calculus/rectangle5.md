@@ -106,7 +106,7 @@ this.depend = function() {
 # :::: success
 Success! 
 Error of [](:!error)%. 
-[N](::exitnotes/button,transparent,draggable,closeable,topleft,shadow) [Continue](/pages/work)
+[N](::exitnotes/button,transparent,draggable,closeable,topleft,shadow) [Continue](/pages/rectangleAUC)
 # ::::
 
 # :::: keeptrying

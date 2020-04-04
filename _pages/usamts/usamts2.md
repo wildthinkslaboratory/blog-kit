@@ -5,6 +5,9 @@ header: 'narrow'
 background: '/assets/images/posts/mangoes.jpg'
 ---
 
+This problem is from the USA Mathematical Talent Search [USAMTS](https://www.usamts.org).  It's a unique mathematical competition for middle school and high school students.    
+
+
 ### USAMTS 2019-2020 Problem Set 1 
 
 **4/1/31.** A group of $100$ friends stands in a circle. Initially, one person has $2019$ mangos, and no one else has mangos. The friends split the mangos according to the following rules:
@@ -136,4 +139,4 @@ The following videos also might be helpful.
 
 ![halfwidth](https://www.youtube.com/watch?v=jvf6qXLaXAo)
 
-This problem suggest other interesting questions.  For example, what is the minimum number of mangos you need to add to make sure every one gets to eat one?  How do you do the sharing and eating to make this happen?  If you come up with other interesting questions or have a bug report  please leave a comment.
+This problem suggest other interesting questions.  For example, what is the minimum number of mangos you need to add to make sure every one gets to eat one?  How do you do the sharing and eating to make this happen?  If you come up with other interesting questions or have a bug report  please let me know.

@@ -7,12 +7,12 @@ smartdown: true
 # :::: clue
 # --outlinebox
 ##### Area Underneath a Curve
-What is the area underneath the curve between $x=2$ and $x=8$.
+What is the area underneath the curve $f(x) = - \frac{x^3}{8} + x^2$ between $x=2$ and $x=8$.
 # --outlinebox
 # ::::
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) Tool Panel
+[?](::clue/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
 // import the calc library
@@ -20,16 +20,16 @@ What is the area underneath the curve between $x=2$ and $x=8$.
 
 
 const myDiv = this.div;
-myDiv.style.background = '#EEEEEE';
-myDiv.style.border = '1px solid gray';
+myDiv.style.background = '#FFFFFF';
 myDiv.style.borderRadius = '8px';
 
 let numButtons = 6;
 let xSpacer = 10, ySpacer = 10, width = 40;
 let B = new ToolPanel(p5,width,xSpacer,ySpacer);
+
 B.addButton('rectangle');
 B.addButton('rectangle array');
-B.initialize();
+//B.initialize();
 
 
 p5.setup = function() { 
@@ -68,8 +68,17 @@ p5.mouseReleased = function() {                  // this function is called when
 };
 
 ```
+# ::::
 
-[Submit Solution](:=compute=true)
+# :::: success
+Success! 
+Error of [](:!error)%. 
+[Continue](/pages/work)
+# ::::
+
+# :::: keeptrying
+Keep trying. 
+Error of [](:!error)%.  The error must be below 2%.
 # ::::
 
 ```javascript /autoplay
@@ -89,7 +98,7 @@ myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 
 
-let xlow = -1;
+let xlow = -2;
 let xhigh = 12;
 let ylow = -5;
 let yhigh = 12;
@@ -99,21 +108,14 @@ let answer = 40;
 
 // create the first board
 JXG.Options.axis.ticks.majorHeight = 40;
-board0 = JXG.JSXGraph.initBoard('box', {boundingbox:[xlow,yhigh,xhigh,ylow], keepaspectratio:false, axis:true, showCopyright:false});
 
-let pstart = board0.create('point', [0,0],{name:'', color:'#7777DD', fixed:true});
-let p0 = board0.create('point', [8,f(8)],{name:'', color:'#7777DD', fixed:true});
-
-let vgraph = board0.create('functiongraph', [f,0,xhigh], {
-  strokeColor:'#7777DD', 
-  strokeWidth:1, 
-  visible:true});
+let sfboard = new SingleFunctionBoard('box', 
+  [xlow,yhigh,xhigh,ylow], 
+  f,
+  { xName: 'x', yName: 'f(x)', startX:0, endX:8, flabel: '', flabelX:3.5, flabelY:11});
 
 
-
-
-let workspace = new WorkSpace(board0);
-
+let workspace = new WorkSpace(sfboard.board);
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +124,28 @@ let workspace = new WorkSpace(board0);
 
 workspace.setSnapMargin(0.05);
 
+
 ////////////////////////////////////////////////////////////////////////////////////
+
+let Atext = sfboard.board.create('text', [
+  xlow + 0.25 * (xhigh - xlow), 
+  ylow + 0.8 * (yhigh - ylow),
+  function() { return 'Total Area = ' + workspace.getArea().toFixed(2); }], {
+  fontSize:20,
+  visible:true
+});
+
+let computeError = function() {
+  return 100 * Math.abs(1 - workspace.getArea() / 40);
+};
+
+// Event handling
+let checkAnswer = function() {
+  let error = computeError().toFixed(2);
+  smartdown.setVariable('error', error);
+  return error < 2;
+};
+
 
 this.div.onmousedown = function(e) { 
   
@@ -136,16 +159,43 @@ this.div.onmousedown = function(e) {
 
 };
 
+let widthPercent = 0.8;
+let heightPercent = 0.7;
 
-this.sizeChanged = function() {
-  board0.resizeContainer(myDiv.offsetWidth, 600);
+this.sizeChanged = function() {     
+  workspace.resize(window.innerWidth * widthPercent, window.innerHeight * heightPercent);
 };
 
+this.sizeChanged();
 
-this.dependOn = [];
+sfboard.board.on('update', function() {
+  workspace.boardUpdate();              // hook up workspace update functions
+});
+
+smartdown.setVariable('compute', false);
+smartdown.setVariable('error', 100);
+smartdown.setVariable('undo', false);
+
+this.dependOn = ['compute', 'undo'];
 this.depend = function() {
+  if (env.compute == true) {
+    smartdown.setVariable('compute', false);
+    if (checkAnswer()) {
+      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.hideDisclosure('keeptrying','','');
+    }
+    else {
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.hideDisclosure('success','','');
+    }
+  }
 
+  if (env.undo == true) {                // uncomment if you want an undo button
+    workspace.undo();
+    smartdown.setVariable('undo', false);
+  }
 };
+
 
 ```
 
