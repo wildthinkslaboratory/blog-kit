@@ -1,8 +1,11 @@
 ---
 title: Taking Derivatives using the Definition of the Derivative
 smartdown: true
+headerapp: 'randomfractal.js'
 header: 'narrow'
 ---
+
+In this second attempt at this explanation I'm going to try a two panel approach, but I'm not done experimenting and I may add another panel yet. I'm going to present the picture of the model in the first panel and combine the high level story with the symbolic reasoning into the second panel.  I'm adding a new **highlight** function that I hope will help readers maintain a mapping between the symbolic formulas and their meaning in the model.  Look for formulas with a gray back ground and hold your mouse over them to see the mapping.
 
 
 #### --outlinebox outer1

@@ -165,6 +165,9 @@ let workspace = new WorkSpace(sfboard.board);
 // add.  
 
 workspace.setSnapMargin(0.5);
+workspace.setRectangleNames(['m', 's', 'm/s']);
+workspace.setUseRectangleNames(true);
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 

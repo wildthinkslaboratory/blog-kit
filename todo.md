@@ -1,5 +1,6 @@
 TO DO
-
+- can we add units to work rectangle?
+- rectangle4 remove jsxgraph copyright and do we need units?
 - plan secant and rectangles        Sat/Sun
 
 - derivative and chain rule         Mon / Tue
@@ -15,6 +16,7 @@ Quick and Easy
 - I've messed up the formatting for header titles and subtitles
 - bug in fly
 - report problem of popup widths.  I'm currently using shadow to control the width.
+- report bug that assets aren't watched.
 - balance text is not updating
 - headers for all pages
 - review all pages for resizing issues
@@ -69,3 +71,5 @@ secant rectangle
 
 - ask Lego robotics folks to try out my web page.
 - ask Nicky case to add me to the explorable explanation website
+- ask James Tanton for feedback
+
