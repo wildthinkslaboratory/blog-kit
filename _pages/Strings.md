@@ -1,6 +1,7 @@
 ---
 title: Exploding Dots Meets Kurt Gödel 
 header: 'narrow'
+headerapp: 'randomfractal.js'
 smartdown: true
 ---
 

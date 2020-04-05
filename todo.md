@@ -9,9 +9,6 @@ TO DO
 - work on branding.
 
 
-Fun
-- make a random fractal header
-
 Quick and Easy
 - I've messed up the formatting for header titles and subtitles
 - bug in fly
