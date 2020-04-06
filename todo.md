@@ -1,4 +1,11 @@
 TO DO
+
+- figure out javascript classes and function binding
+- clean up my calc lib
+	- do I even use AdjRectangle2?
+
+
+
 - can we add units to work rectangle?
 - rectangle4 remove jsxgraph copyright and do we need units?
 - plan secant and rectangles        Sat/Sun
@@ -69,4 +76,6 @@ secant rectangle
 - ask Lego robotics folks to try out my web page.
 - ask Nicky case to add me to the explorable explanation website
 - ask James Tanton for feedback
+- epsilon stream
+- Kiki Prottsman
 

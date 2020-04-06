@@ -173,47 +173,47 @@ class BoardInfo {
 class XInterval {
   constructor(b, X1, X2) {
     this.board = b;
-    this.xline = b.create('line', [[0,0],[1,0]], {visible:false});
+    this.snapToGrid = true;
+    this.snapMargin = 0.05;
+
+    // create two gliders on the x axis
+    this.xline = b.create('line', [[0,0],[1,0]], {visible:false});  // x axis line
     this.x1 = b.create('glider', [X1,0,this.xline], {name: '', size:5, color:'green'});
     this.x2 = b.create('glider', [X2,0,this.xline], {name: '', size:5, color:'red'});
+
+    // bind all functions that might be passed in a callback to this context
     this.midX = this.midX.bind(this);
+    this.checkSnapToGrid = this.checkSnapToGrid.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+
+    // create a vertical glider at the midpoint of the interval
     this.vline = b.create('line', [[this.midX ,0], [this.midX, 1]], {visible:false});
     this.midY = b.create('glider', [this.midX(), 0, this.vline], {
       name: '', size:4, color:colors.stroke, visible:false, showInfoBox:false});
-    this.snapToGrid = true;
-    this.checkSnapToGrid = this.checkSnapToGrid.bind(this);
-    this.snapMargin = 0.05;
-    this.onUpdate = this.onUpdate.bind(this);
-
   }
 
+  // return the midpoint of the interval
   midX() {
     return this.x1.X() + (this.x2.X() - this.x1.X()) / 2;
   }
 
   setSnapMargin(margin) { this.snapMargin = margin; }
-  delete() {
-    this.board.removeObject(this.xline);
-    this.board.removeObject(this.x1);
-    this.board.removeObject(this.x2);
-    this.board.removeObject(this.vline);
-    this.board.removeObject(this.midY);
+  turnOffSnapToGrid() { this.snapToGrid = false; }
 
-  }
-
+  // snap the interval endpoints to the integer grid
   checkSnapToGrid() {
     if (this.snapToGrid) {
-      let floor = Math.floor(this.x1.X());
+      let floor = Math.floor(this.x1.X());           // are we close to the lower integer?
       if (this.x1.X() < floor + this.snapMargin) {
         this.x1.moveTo([floor,0]);
       }
-      else {
+      else {                                         // are we close to the higher integer?
         let ceiling = Math.ceil(this.x1.X());
         if (this.x1.X() > ceiling - this.snapMargin) {
           this.x1.moveTo([ceiling,0]);
         }
       }
-      floor = Math.floor(this.x2.X());
+      floor = Math.floor(this.x2.X());               // repeat for upper endpoint
       if (this.x2.X() < floor + this.snapMargin) {
         this.x2.moveTo([floor,0]);
       }
@@ -226,9 +226,17 @@ class XInterval {
     }
   }
 
+  // call back function for the board on what to update for this object
   onUpdate() { this.checkSnapToGrid(); }
 
-  turnOffSnapToGrid() { this.snapToGrid = false; }
+  // remove the interval from the board
+  delete() {
+    this.board.removeObject(this.xline);
+    this.board.removeObject(this.x1);
+    this.board.removeObject(this.x2);
+    this.board.removeObject(this.vline);
+    this.board.removeObject(this.midY);
+  }
 
 }
 
