@@ -174,9 +174,9 @@ function draw() {
 }
 
 draw();
-console.log('zoom', zoom);
-console.log('base', base);
-console.log('color scheme', color_incs);
+// console.log('zoom', zoom);
+// console.log('base', base);
+// console.log('color scheme', color_incs);
 
 window.addEventListener('resize', function(event){
   canvas.width  = headerDiv.offsetWidth;
