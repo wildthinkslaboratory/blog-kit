@@ -1,8 +1,21 @@
 TO DO
-
+- gotta have a linter
 - figure out javascript classes and function binding
 - clean up my calc lib
-	- do I even use AdjRectangle2?
+
+	- use new classes in rectangle lesson
+
+	- what can I do about the names initialization happening before super()?
+	- fix color scheme, stroke color
+	- update Secant Rectangle
+	- update RectangleArray
+	- update SecantArray
+	- update RectSecantArray
+	- think about the boards and workspaces
+	- update the Boards and Workspaces
+	- clean up Xerror and Yerror
+	
+
 
 
 
@@ -26,7 +39,7 @@ Quick and Easy
 - review all pages for resizing issues
 - review all pages for mobile issues
 - test all pages in different browsers.
-
+- get a fucking favicon
 
 Larger Issues
 - add code to detect phones and give a warning / message
