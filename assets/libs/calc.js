@@ -336,6 +336,7 @@ class AdjSecant {
   dimensionTextY() { return this.fx1() + this.rise() / 2; }
   dimensionTextVal() { return (this.rise()).toFixed(this.precision);}
   area() { return 0; }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }
 
   setPrecision(p) { this.precision = p; }
   
@@ -558,6 +559,7 @@ class AdjRectangle {
   widthTextY() { return this.height() + 2 * this.Yerror; }
   widthTextVal() { return this.xint.range().toFixed(this.precision); }
   rise() { return 0; }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }
   setPrecision(p) { this.precision = p; }
   
   turnOnAnnotations() {

@@ -134,31 +134,19 @@ let xhigh = 5;
 let ylow = -3;
 let yhigh = 25;
 
-let f = function(x) { return 2 * x; };
-let sfboard = new SingleFunctionBoard('bottom', 
-  [-1,25,5,-3], 
-  f,
-  { xName: 'time (s)', yName: 'speed (m/s)', startX:0, endX:4, flabel: 'speed of car', flabelX:3.5, flabelY:9});
+let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
+  { xlabel:'time (s)', ylabel:'speed (m/s)'});
 
+let F = new ProblemFunction(function(x) { return 2*x; }, 'speed of car', 3.5, [0,xhigh], [0,4]);
+let F_id = workspace.addFunction(F);
 
-let workspace = new WorkSpace(sfboard.board);
-
-////////////////////////////////////////////////////////////////////////////////////
-// Here is where you configure the workspace based on what elements you want to 
-// add.  
-
-workspace.setSnapMargin(0.05);
-workspace.setRectangleNames(['distance', 'time', 'rate']);
-workspace.setUseRectangleNames(true);
-workspace.setRectangleVerticalAdjust(true);
-workspace.setRectangleUseFunction(true);
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-let Atext = sfboard.board.create('text', [
+let Atext = workspace.board.create('text', [
   xlow + 0.25 * (xhigh - xlow), 
   ylow + 0.8 * (yhigh - ylow),
-  function() { return 'Total Area = ' + workspace.getArea().toFixed(2); }], {
+  function() { return 'Total Area = ' + workspace.area().toFixed(2); }], {
   fontSize:20,
   visible:true
 });
@@ -170,7 +158,7 @@ let Atext = sfboard.board.create('text', [
 
 let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-20,5,100,-2], keepaspectratio:false, axis:false, showCopyright:false});
 
-sfboard.board.addChild(board1);
+workspace.board.addChild(board1);
 
 let xaxis1 = board1.create('axis', [[0, 0], [1,0]], 
   {name:'meters', 
@@ -195,10 +183,10 @@ let yaxis1 = board1.create('axis', [[0, 0], [0, 1]],
 
 
 let carurl = 'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/9e01e8197b3bf685747ae134de3d75feb64ea6f4/car.png';
-let car = board1.create('image',[carurl, [function() { return workspace.getArea() -4 ; },-0.2], [4,2]]);
+let car = board1.create('image',[carurl, [function() { return workspace.area() -4 ; },-0.2], [4,2]]);
 
 let p2 = board1.create('point',[0, 2.2],{visible:false});
-let p3 = board1.create('point',[function() { return workspace.getArea(); }, 2.2],{visible:false});
+let p3 = board1.create('point',[function() { return workspace.area(); }, 2.2],{visible:false});
 
 let dimensionLine = board1.create('segment', [p2,p3], {
   strokeColor:'#999999', 
@@ -208,16 +196,16 @@ let dimensionLine = board1.create('segment', [p2,p3], {
   visible:true});
 
 let dimensionText = board1.create('text', [
-  function() { return workspace.getArea() / 2; },
+  function() { return workspace.area() / 2; },
   2.9,
-  function() { return workspace.getArea().toFixed(2); }
+  function() { return workspace.area().toFixed(2); }
 ],{ strokeColor:'#999999', fontSize: 15, visible:true});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Event handling
 let checkAnswer = function() {
-  return workspace.getArea() == 16;
+  return workspace.area() == 16;
 };
 
 
@@ -225,7 +213,10 @@ let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / width;
-  workspace.addElement(buttonType, percent, f);
+  
+  workspace.addElementByID(2, percent, F_id, {area:'distance', height:'rate', width:'time'});
+  workspace.elements[workspace.elements.length - 1].setHeight(2);
+
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 
@@ -242,15 +233,15 @@ let heightPercent = 0.7;
 let heightRatio = 1/6;
 
 this.sizeChanged = function() {
-  workspace.resize(window.innerWidth * widthPercent, (1-heightRatio) * window.innerHeight * heightPercent);       
+  workspace.board.resizeContainer(window.innerWidth * widthPercent, (1-heightRatio) * window.innerHeight * heightPercent);       
   board1.resizeContainer(window.innerWidth * widthPercent, heightRatio * window.innerHeight * heightPercent);
 };
 
 this.sizeChanged();
 
 
-sfboard.board.on('update', function() {
-  workspace.boardUpdate();              // hook up workspace update functions
+workspace.board.on('update', function() {
+  workspace.onUpdate();              // hook up workspace update functions
 });
 
 smartdown.setVariable('compute', false);

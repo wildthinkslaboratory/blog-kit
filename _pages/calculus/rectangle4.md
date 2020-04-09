@@ -150,31 +150,19 @@ let ylow = -200;
 let yhigh = 2000;
 
 let c = 19 / 7200;
-let f = function(x) { return c * Math.pow(x,3) / 3; };
-
-let sfboard = new SingleFunctionBoard('left', 
-  [xlow,yhigh,xhigh,ylow], 
-  f,
-  { xName: 'time (s)', yName: 'speed (m/s)', startX:0, endX:120, flabel: 'speed of rocket', flabelX:100, flabelY:1400});
-
-
-let workspace = new WorkSpace(sfboard.board);
-
-////////////////////////////////////////////////////////////////////////////////////
-// Here is where you configure the workspace based on what elements you want to 
-// add.  
-
-workspace.setSnapMargin(0.5);
-workspace.setRectangleNames(['m', 's', 'm/s']);
-workspace.setUseRectangleNames(true);
+let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
+  { xlabel:'time (s)', ylabel:'speed (m/s)'});
+let F = new ProblemFunction(function(x) { return c * Math.pow(x,3) / 3; }, 
+  'speed of rocket', 100, [0,xhigh], [0,120]);
+let F_id = workspace.addFunction(F);
 
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-let Atext = sfboard.board.create('text', [
+let Atext = workspace.board.create('text', [
   xlow + 0.25 * (xhigh - xlow), 
   ylow + 0.8 * (yhigh - ylow),
-  function() { return 'Total Area = ' + workspace.getArea().toFixed(2); }], {
+  function() { return 'Total Area = ' + workspace.area().toFixed(2); }], {
   fontSize:20,
   visible:true
 });
@@ -184,16 +172,16 @@ let Atext = sfboard.board.create('text', [
 // second board
 
 
-let board1 = JXG.JSXGraph.initBoard('right', {boundingbox:[-1,60000,2,-5000], keepaspectratio:false, axis:true});
+let board1 = JXG.JSXGraph.initBoard('right', {boundingbox:[-1,60000,2,-5000], keepaspectratio:false, axis:true, showCopyright:false});
 
 
-sfboard.board.addChild(board1);
+workspace.board.addChild(board1);
 
 let rocketurl = 'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/cab590371e4346929cf9096e53d163e772e1d132/rocket.png';
-let rocket = board1.create('image',[rocketurl, [0.9,function() { return workspace.getArea() - 3000; }], [0.2,3000]]);
+let rocket = board1.create('image',[rocketurl, [0.9,function() { return workspace.area() - 3000; }], [0.2,3000]]);
 
 let p2 = board1.create('point',[1.2, 0],{visible:false});
-let p3 = board1.create('point',[1.2, function() { return workspace.getArea(); }],{visible:false});
+let p3 = board1.create('point',[1.2, function() { return workspace.area(); }],{visible:false});
 
 let dimensionLine = board1.create('segment', [p2,p3], {
   strokeColor:'#999999', 
@@ -204,12 +192,12 @@ let dimensionLine = board1.create('segment', [p2,p3], {
 
 let dimensionText = board1.create('text', [
   1.3,
-  function () { return workspace.getArea() / 2; },
-  function() { return workspace.getArea().toFixed(0); }
+  function () { return workspace.area() / 2; },
+  function() { return workspace.area().toFixed(0); }
 ],{ strokeColor:'#999999', fontSize: 15, visible:true});
 
 let computeError = function() {
-  return 100 * Math.abs(1 - workspace.getArea() / 45600);
+  return 100 * Math.abs(1 - workspace.area() / 45600);
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -225,7 +213,11 @@ let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
-  workspace.addElement(buttonType, percent, f);
+  workspace.addElementByID(1, percent, F_id, {area:'m', height:'m/s', width:'s'});
+  workspace.elements[workspace.elements.length - 1].setSnapMargin(0.5);
+  workspace.elements[workspace.elements.length - 1].setPrecision(0);
+  workspace.elements[workspace.elements.length - 1].setAnnotations(false);
+
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 
@@ -238,24 +230,19 @@ this.div.onmousedown = function(e) {
 };
 
 
-this.sizeChanged = function() {
-  workspace.resize(myDiv.offsetWidth * workspaceDivWidth, workspaceDivHeight);       
-  board1.resizeContainer(myDiv.offsetWidth * pictureDivWidth, pictureDivHeight);
-};
-
 let widthPercent = 0.8;
 let heightPercent = 0.7;
 let widthRatio = 1/4;
 
 this.sizeChanged = function() {
-  workspace.resize(window.innerWidth * widthPercent * (1 - widthRatio - 0.01), window.innerHeight * heightPercent);      
+  workspace.board.resizeContainer(window.innerWidth * widthPercent * (1 - widthRatio - 0.01), window.innerHeight * heightPercent);      
   board1.resizeContainer(window.innerWidth * widthPercent * widthRatio, window.innerHeight * heightPercent);
 };
 
 this.sizeChanged();
 
-sfboard.board.on('update', function() {
-  workspace.boardUpdate();              // hook up workspace update functions
+workspace.board.on('update', function() {
+  workspace.onUpdate();              // hook up workspace update functions
 });
 
 smartdown.setVariable('compute', false);

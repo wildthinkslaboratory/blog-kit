@@ -1,6 +1,7 @@
 need to unify color schemes, fix stroke color
 review the Xerror system.
 need a way of placing text based on number of letters.
+is my code efficient?  How do we test this?
 
 TO DO
 - clean up my calc lib
