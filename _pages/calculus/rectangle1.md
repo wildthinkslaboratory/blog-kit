@@ -139,40 +139,27 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 
-// create the first board
-JXG.Options.axis.ticks.majorHeight = 40;
-board0 = JXG.JSXGraph.initBoard('box', {boundingbox:[-1,10,13,-2], keepaspectratio:false, axis:true, showCopyright:false});
-
 let widthPercent = 0.8;
 let heightPercent = 0.7;
 
-let boardInfo;
+let board = new StandardBoard('box', [-1,10,13,-2], { xlabel:'x', ylabel:'y'});
 let xinterval;
 let rectangle;
 
 
 let createRectangle = function() {
-  boardInfo = new BoardInfo(board0);
-  xinterval = new XInterval(board0, 3,9);
+  xinterval = new XInterval(board.board, 3,9);
   xinterval.setSnapMargin(0.5);
-  rectangle = new AdjRectangle(boardInfo, xinterval, 
-    function(x) { return x; },
-    ['area', 'length', 'width']);
-
-  rectangle.setUseNames(true);
-  rectangle.setVerticalAdjust(true);
-  rectangle.setUseFunction(false);
-  rectangle.showAnnotations(true);
+  rectangle = new AdjHeightRectangle(xinterval,  function(x) { return x; });
   rectangle.setHeight(2);
-  board0.update();
 
 
 
   //////////////////////////////////////////////////////////////////
   // TOOL TIP, DOTS ARE DRAGGABLE
 
-  let dragText1 = board0.create('text', [
-    function() { return xinterval.x1.X() + 0.25; }, 
+  let dragText1 = board.board.create('text', [
+    function() { return xinterval.X1() + 0.25; }, 
     function() { return xinterval.x1.Y(); }, 
     'DRAG ME'], {fontSize:12, color:'black', visible:false});
 
@@ -184,8 +171,8 @@ let createRectangle = function() {
     dragText1.setAttribute({visible:false});
   });
 
-  let dragText2 = board0.create('text', [
-    function() { return xinterval.x2.X() + 0.25; }, 
+  let dragText2 = board.board.create('text', [
+    function() { return xinterval.X2() + 0.25; }, 
     function() { return xinterval.x2.Y(); }, 
     'DRAG ME'], {fontSize:12, color:'black', visible:false});
 
@@ -197,7 +184,7 @@ let createRectangle = function() {
     dragText2.setAttribute({visible:false});
   });
 
-  let dragText3 = board0.create('text', [
+  let dragText3 = board.board.create('text', [
     function() { return xinterval.midY.X() + 0.25; }, 
     function() { return xinterval.midY.Y(); }, 
     'DRAG ME'], {fontSize:12, color:'black', visible:false});
@@ -210,7 +197,7 @@ let createRectangle = function() {
     dragText3.setAttribute({visible:false});
   });
 
-  board0.on('update', function() {
+  board.board.on('update', function() {
     rectangle.onUpdate();
   });
 };
@@ -233,7 +220,7 @@ this.div.onmousedown = function(e) {
 
 
 this.sizeChanged = function() {
-  board0.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);
+  board.board.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);
 };
 
 this.sizeChanged();
@@ -248,25 +235,25 @@ this.depend = function() {
     console.log('show1');
     smartdown.setVariable('show1', false);
     smartdown.showDisclosure('clue1','','transparent,closeable,draggable,topright,shadow');
-    rectangle.setNames(['distance', 'time', 'rate']);
+    rectangle.setNames({ width: 'time', height: 'rate', area: 'distance'});
     rectangle.setFillColor('#FFAA88');
-    board0.update();
+    board.board.update();
   }
   if (env.show2 == true) {
     smartdown.setVariable('show2', false);
     smartdown.hideDisclosure('clue1','','');
     smartdown.showDisclosure('clue2','','transparent,closeable,draggable,topright,shadow');
-    rectangle.setNames(['total change', 'units', 'change per unit']);
+    rectangle.setNames({ width: 'units', height: 'change per unit', area: 'change'});
     rectangle.setFillColor('#AAFF88');
-    board0.update();
+    board.board.update();
   }
   if (env.show3 == true) {
     smartdown.setVariable('show3', false);
     smartdown.hideDisclosure('clue2','','');
     smartdown.showDisclosure('clue3','','transparent,closeable,draggable,topright,shadow');
-    rectangle.setNames(['taxes due', 'income', 'tax rate']);
+    rectangle.setNames({ width: 'income', height: 'tax rate', area: 'taxes due'});
     rectangle.setFillColor('#88FFAA');
-    board0.update();
+    board.board.update();
   }
   if (env.show4 == true) {
     smartdown.setVariable('show4', false);

@@ -1,22 +1,21 @@
+need to unify color schemes, fix stroke color
+review the Xerror system.
+need a way of placing text based on number of letters.
+
 TO DO
-- gotta have a linter
-- figure out javascript classes and function binding
 - clean up my calc lib
 
 	- use new classes in rectangle lesson
-
 	- what can I do about the names initialization happening before super()?
-	- fix color scheme, stroke color
 	- update Secant Rectangle
 	- update RectangleArray
+		- arrays should make their own sliders
 	- update SecantArray
 	- update RectSecantArray
 	- think about the boards and workspaces
 	- update the Boards and Workspaces
 	- clean up Xerror and Yerror
 	
-
-
 
 
 - can we add units to work rectangle?

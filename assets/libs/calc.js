@@ -335,6 +335,7 @@ class AdjSecant {
   dimensionTextX() { return this.xint.X2() + this.Xerror/2;}
   dimensionTextY() { return this.fx1() + this.rise() / 2; }
   dimensionTextVal() { return (this.rise()).toFixed(this.precision);}
+  area() { return 0; }
 
   setPrecision(p) { this.precision = p; }
   
@@ -556,7 +557,7 @@ class AdjRectangle {
   widthTextX() { return this.xint.X1() + this.xint.range() /2 - this.Xerror; }
   widthTextY() { return this.height() + 2 * this.Yerror; }
   widthTextVal() { return this.xint.range().toFixed(this.precision); }
-
+  rise() { return 0; }
   setPrecision(p) { this.precision = p; }
   
   turnOnAnnotations() {
@@ -645,8 +646,8 @@ class AnnotatedRectangle extends AdjRectangle {
 }
 
 class AdjHeightRectangle extends AnnotatedRectangle {
-  constructor(xint, F) {
-    super(xint,F);
+  constructor(xint, F, names) {
+    super(xint,F, names);
     this.xint.midY.setAttribute({visible:true});
 
     this.height = this.height.bind(this);
@@ -918,212 +919,304 @@ function SecantRectangleArray(binfo, xinterval, F, ns) {
 } 
 
 
-function WorkSpace(b) {
-  let board = b;
-  let boardInfo = new BoardInfo(b);
-  let elements = [];
-  let snapMargin = 0.05;
-  let rectangleNames = ['', '', ''];
-  let useRectangleNames = false;
-  let rectangleUseFunction = true;
-  let rectangleVerticalAdjust = false;
-  let defaultArrayN = 10;
+class ProblemFunction {
+  constructor(F, title, titleanchor, range, points) {
+    this.f = F;
+    this.title = title;
+    this.tanchor = titleanchor;
+    this.range = range;
+    this.points = points;
+  }
+}
 
-  this.boardUpdate = function() {
-    for (let i = 0; i < elements.length; i++) {
-      if (elements[i].type == 'rectangle') {
-        elements[i].value.onUpdate();
-      }
-    }
-  };
-
-  this.setRectangleNames = function(names) { rectangleNames = names; };
-
-  this.addElement = function(m, xPlacement, f) {
-
-    let startx = board.getBoundingBox()[0];
-    let endx = board.getBoundingBox()[2];
-    let x1 = startx + (endx - startx) * xPlacement;
-    let x2 = x1 + 5 * boardInfo.Xerror;
-    let xinterval = new XInterval(board, x1, x2);
-    xinterval.setSnapMargin(snapMargin);
-    let xslider = function() { return xinterval.x2.X() + boardInfo.Xerror; };
-    let yslider = function() { return  boardInfo.Yerror; };
-    let sliderWidth = boardInfo.Xerror * 3;
+class GraphedFunction extends ProblemFunction {
+  constructor(F, graph, points, title) {
+    super(F.f, F.title, F.tanchor, F.range, F.points);
+      this.graph = graph;
+      this.points = points;
+      this.title = title;
+  }
+}
 
 
-    switch(m) {
+// function WorkSpace(b) {
+//   let board = b;
+//   let boardInfo = new BoardInfo(b);
+//   let elements = [];
+//   let snapMargin = 0.05;
+//   let rectangleNames = ['', '', ''];
+//   let useRectangleNames = false;
+//   let rectangleUseFunction = true;
+//   let rectangleVerticalAdjust = false;
+//   let defaultArrayN = 10;
+
+//   this.boardUpdate = function() {
+//     for (let i = 0; i < elements.length; i++) {
+//       if (elements[i].type == 'rectangle') {
+//         elements[i].value.onUpdate();
+//       }
+//     }
+//   };
+
+//   this.setRectangleNames = function(names) { rectangleNames = names; };
+
+//   this.addElement = function(m, xPlacement, f) {
+
+//     let startx = board.getBoundingBox()[0];
+//     let endx = board.getBoundingBox()[2];
+//     let x1 = startx + (endx - startx) * xPlacement;
+//     let x2 = x1 + 5 * boardInfo.Xerror;
+
+//     let xinterval = new XInterval(board, x1, x2);
+//     xinterval.setSnapMargin(snapMargin);
+
+//     // determine a slider's position if needed
+//     let xslider = function() { return xinterval.x2.X() + boardInfo.Xerror; };
+//     let yslider = function() { return  boardInfo.Yerror; };
+//     let sliderWidth = boardInfo.Xerror * 3;
+
+//     // store widgets in a dictionary wrapper with their type
+//     switch(m) {
         
-    case 0: 
-      elements.push({type:'rectangle', value: new AdjRectangle(boardInfo, xinterval, f, rectangleNames)});
-      if (useRectangleNames) { elements[elements.length - 1].value.setUseNames(true); }
-      elements[elements.length - 1].value.setUseFunction(rectangleUseFunction);
-      elements[elements.length - 1].value.setVerticalAdjust(rectangleVerticalAdjust);
-      break;
+//     case 0: 
+//       elements.push({type:'rectangle', value: new AdjRectangle(boardInfo, xinterval, f, rectangleNames)});
+//       if (useRectangleNames) { elements[elements.length - 1].value.setUseNames(true); }
+//       elements[elements.length - 1].value.setUseFunction(rectangleUseFunction);
+//       elements[elements.length - 1].value.setVerticalAdjust(rectangleVerticalAdjust);
+//       break;
 
-    case 1:
-      elements.push({type:'secant', value: new AdjSecant(boardInfo, xinterval, f)});
-      break;
+//     case 1:
+//       elements.push({type:'secant', value: new AdjSecant(boardInfo, xinterval, f)});
+//       break;
 
-    case 2:
-      elements.push({type:'secant rectangle', value: new AdjSecantRect(boardInfo, xinterval, f)});
-      break;
+//     case 2:
+//       elements.push({type:'secant rectangle', value: new AdjSecantRect(boardInfo, xinterval, f)});
+//       break;
 
-    case 3:
-    {
-      let Nslider = new IntSlider(board, boardInfo, xslider, yslider, 1, 100, 'N', sliderWidth);
-      Nslider.setValue(defaultArrayN);
-      elements.push({type:'rectangle array', value: new RectangleArray(boardInfo, xinterval, f, Nslider)});
-      break;
-    }
+//     case 3:
+//     {
+//       let Nslider = new IntSlider(board, boardInfo, xslider, yslider, 1, 100, 'N', sliderWidth);
+//       Nslider.setValue(defaultArrayN);
+//       elements.push({type:'rectangle array', value: new RectangleArray(boardInfo, xinterval, f, Nslider)});
+//       break;
+//     }
       
 
-    case 4:
-    {
-      let Nslider = new IntSlider(board, boardInfo, xslider, yslider, 1, 100, 'N',sliderWidth);
-      let fA = function(x) { return [f(x),0,0]; };
-      elements.push({type:'secant array', value: new SecantArray(boardInfo, xinterval, fA, Nslider)});
-      break;
-    }
+//     case 4:
+//     {
+//       let Nslider = new IntSlider(board, boardInfo, xslider, yslider, 1, 100, 'N',sliderWidth);
+//       let fA = function(x) { return [f(x),0,0]; };
+//       elements.push({type:'secant array', value: new SecantArray(boardInfo, xinterval, fA, Nslider)});
+//       break;
+//     }
 
-    case 5:
-    {
-      let Nslider = new IntSlider(board, boardInfo, xslider, yslider, 1, 100, 'N', sliderWidth);
-      elements.push({type:'secant rectangle array', value: new SecantRectangleArray(boardInfo, xinterval, f, Nslider)});
-      break;
-    }
+//     case 5:
+//     {
+//       let Nslider = new IntSlider(board, boardInfo, xslider, yslider, 1, 100, 'N', sliderWidth);
+//       elements.push({type:'secant rectangle array', value: new SecantRectangleArray(boardInfo, xinterval, f, Nslider)});
+//       break;
+//     }
 
-    default: 
-      console.log('bad element type', m);
-      break;
+//     default: 
+//       console.log('bad element type', m);
+//       break;
 
-    }
-  };
+//     }
+//   };
 
-  this.undo = function() {
-    if (elements.length > 0 ) {
-      elements[elements.length - 1].value.delete();
-      elements.pop();
-    }
+//   this.undo = function() {
+//     if (elements.length > 0 ) {
+//       elements[elements.length - 1].value.delete();
+//       elements.pop();
+//     }
 
-  };
+//   };
 
-  this.resize = function(canvasWidth, canvasHeight) { 
-    board.resizeContainer(canvasWidth, canvasHeight);
-  };
+//   this.resize = function(canvasWidth, canvasHeight) { 
+//     board.resizeContainer(canvasWidth, canvasHeight);
+//   };
 
-  this.setSnapMargin = function(margin) { snapMargin = margin; };
-  this.setUseRectangleNames = function(b) { useRectangleNames = b; };
-  this.setRectangleVerticalAdjust = function(b) { rectangleVerticalAdjust = b; };
-  this.setRectangleUseFunction = function(b) { rectangleUseFunction = b; };
-  this.setDefaultArrayN = function(n) { defaultArrayN = n; };
+//   this.setSnapMargin = function(margin) { snapMargin = margin; };
+//   this.setUseRectangleNames = function(b) { useRectangleNames = b; };
+//   this.setRectangleVerticalAdjust = function(b) { rectangleVerticalAdjust = b; };
+//   this.setRectangleUseFunction = function(b) { rectangleUseFunction = b; };
+//   this.setDefaultArrayN = function(n) { defaultArrayN = n; };
 
-  this.getElement = function(i) { 
-    if (i < elements.length) {
-      return elements[i].value;
-    }
-    return -1;
-  };
+//   this.getElement = function(i) { 
+//     if (i < elements.length) {
+//       return elements[i].value;
+//     }
+//     return -1;
+//   };
 
-  this.getArea = function() {
-    let area = 0;
-    for (let i = 0; i < elements.length; i++) {
-      let t = elements[i].type;
-      if (t == 'rectangle' || t == 'display rectangle') {
-        area += elements[i].value.area();
+//   this.getArea = function() {
+//     let area = 0;
+//     for (let i = 0; i < elements.length; i++) {
+//       let t = elements[i].type;
+//       if (t == 'rectangle' || t == 'display rectangle') {
+//         area += elements[i].value.area();
+//       }
+//     }
+//     return area;
+//   };
+
+//   this.maxX = function() {
+//     if (elements.length == 0) return 0;
+
+//     let maxX = elements[0].value.x2();
+//     for (let i = 1; i < elements.length; i++) {
+//       if (elements[i].value.x2() > maxX) {
+//         maxX = elements[i].value.x2();
+//       }
+//     }
+//     return maxX;
+//   };
+// }
+
+class StandardBoard {
+  constructor(divName, Box, attributes = { xlabel: '', ylabel:'' }) {
+    this.atb = attributes;
+    this.functions = [];
+    this.Yerror = (Box[1] - Box[3]) / 50;  
+    this.Xerror = (Box[2] - Box[0]) / 50;
+
+    JXG.Options.axis.ticks.majorHeight = 40;
+    this.board = JXG.JSXGraph.initBoard(divName, { 
+      boundingbox:Box, 
+      keepaspectratio:false, 
+      axis:false, 
+      showCopyright:false
+    });
+
+    this.xaxis = this.board.create('axis', [[0, 0], [1,0]], { 
+      name:this.atb.xlabel, 
+      withLabel: true,
+      label: {
+        fontSize: 16,
+        position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
+        offset: [-80, 20]   // (in pixels)
       }
-    }
-    return area;
-  };
-
-  this.maxX = function() {
-    if (elements.length == 0) return 0;
-
-    let maxX = elements[0].value.x2();
-    for (let i = 1; i < elements.length; i++) {
-      if (elements[i].value.x2() > maxX) {
-        maxX = elements[i].value.x2();
+    });
+    this.yaxis = this.board.create('axis', [[0, 0], [0, 1]], {
+      name:this.atb.ylabel, 
+      withLabel: true, 
+      label: {
+        fontSize: 16,
+        position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
+        offset: [-100, 0]   // (in pixels)
       }
+    });   
+  }
+
+  addFunction(F) {
+    let graph = this.board.create('functiongraph', [
+      F.f,
+      F.range[0],
+      F.range[1]], {
+        strokeColor:'#CCCCCC', 
+        highlightStrokeColor:'#AAAAFF',
+        strokeWidth:1, 
+        visible:true
+      });
+
+    let points = [];
+    for (let i=0; i < F.points.length; i++) {
+      let point = this.board.create('point', [
+        F.points[i],
+        F.f(F.points[i])], { name:'', color:'#CCCCCC', fixed:true});
+      points.push(point);
     }
-    return maxX;
-  };
+    let title = this.board.create('text', [
+      F.tanchor + this.Xerror,
+      F.f(F.tanchor),
+      F.title], { color: '#AAAAFF', visible: false });
+    
+    graph.on('over', function() { 
+      title.setAttribute({visible:true});
+    });
+    graph.on('out', function() {
+      title.setAttribute({visible:false});
+    });
+    this.functions.push(new GraphedFunction(F, graph, points, title));
+    return this.functions.length - 1;
+  }
 }
 
-function SingleFunctionBoard(divName, bBox, F, attributes) {
-
-  // default values
-  let xName = '';
-  let yName = '';
-  let startX = bBox[0];
-  let endX = bBox[2];
-  let flabelX = 0;
-  let flabelY = 0;
-  let flabel = '';
-  let endF = bBox[2];
-
-  if ('xName' in attributes) { xName = attributes.xName; }
-  if ('yName' in attributes) { yName = attributes.yName; }
-  if ('startX' in attributes) { startX = attributes.startX; }
-  if ('endX' in attributes) { endX = attributes.endX; }
-  if ('flabel' in attributes) { flabel = attributes.flabel; }
-  if ('flabelX' in attributes) { flabelX = attributes.flabelX; }
-  if ('flabelY' in attributes) { flabelY = attributes.flabelY; }
-  if ('endF' in attributes) { endF = attributes.endF; }
-  let f = F;
-  
-  // create the board and axes
-  JXG.Options.axis.ticks.majorHeight = 40;
-  this.board = JXG.JSXGraph.initBoard(divName, 
-    { boundingbox:bBox, keepaspectratio:false, axis:false, showCopyright:false});
-
-  // let xaxis = this.board.create('axis', [[0, 0], [1,0]], 
-  //   {name:xName, 
-  //     withLabel: true,
-  //     label: {
-  //       fontSize: 15,
-  //       position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
-  //       offset: [-80, 20]   // (in pixels)
-  //     }
-  //   });
-
-  // let yaxis = this.board.create('axis', [[0, 0], [0, 1]], 
-  //   {name:yName, 
-  //     withLabel: true, 
-  //     label: {
-  //       fontSize: 15,
-  //       position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
-  //       offset: [-90, -20]   // (in pixels)
-  //     }
-  //   });   
-
-  //let pI = this.board.create('point', [startX, f(startX)],{name:'', color:'#7777DD', fixed:true});
-  //let pF = this.board.create('point', [endX,f(endX)],{name:'', color:'#7777DD', fixed:true});
-
-  let f_graph = this.board.create('functiongraph', [f,startX,endF], {
-    strokeColor:'#7777DD', 
-    highlightStrokeColor:'#AAAAFF',
-    strokeWidth:1, 
-    visible:true});
-
-
-
-  let ftext = this.board.create('text', [flabelX, flabelY, flabel], {
-    fontSize:15,
-    strokeColor:'#AAAAFF', 
-    visible:false
-  });
-
-  f_graph.on('over', function() {
-    ftext.setAttribute({visible:true});
-    f_graph.setAttribute({strokeWidth:3});
-  });
-
-  f_graph.on('out', function() {
-    ftext.setAttribute({visible:false});
-    f_graph.setAttribute({strokeWidth:1});
-  });
-
+let widgetConstructor = {
+    0 : function(xint, F, names) { return new AdjRectangle(xint, F, names); },
+    1 : function(xint, F, names) { return new AnnotatedRectangle(xint, F, names); },
+    2 : function(xint, F, names) { return new AdjHeightRectangle(xint, F, names); },
+    3 : function(xint, F, names) { return new AdjSecant(xint, F, names); },
+    4 : function(xint, F, names) { return new AnnotatedSecant(xint, F, names); },
+    5 : function(xint, F, names) { return new AdjSecantRect(xint, F, names); },
+    6 : function(xint, F, names) { return new RectangleArray(xint, F, names); },
+    7 : function(xint, F, names) { return new SecantArray(xint, F, names); },
+    8 : function(xint, F, names) { return new SecantRectangleArray(xint, F, names); }
 }
+
+class Workspace extends StandardBoard {
+  constructor(divName, Box, attributes) {
+    super(divName, Box, attributes)
+    this.elements = [];
+
+    this.onUpdate = this.onUpdate.bind(this);
+    this.rise = this.rise.bind(this);
+    this.area = this.area.bind(this);
+  }
+
+  onUpdate() {
+    for (let i=0; i < this.elements.length; i++) {
+      this.elements[i].onUpdate();
+    }
+  }
+
+  addElement(e) {
+    this.elements.push(e);
+  } 
+
+  area() {
+    let sum = 0;
+    for (let i=0; i < this.elements.length; i++) {
+      sum += this.elements[i].area();
+    }
+    return sum;
+  }
+
+  rise() {
+    let sum = 0;
+    for (let i=0; i < this.elements.length; i++) {
+      sum += this.elements[i].rise();
+    }
+    return sum;
+  }  
+
+  undo() {
+    if (this.elements.length > 0 ) {
+      this.elements[this.elements.length - 1].delete();
+      this.elements.pop();
+    }
+  }
+
+  addElementByID(id, percent, f_id, names) {
+
+    // figure out the interval
+    let xlow = this.board.getBoundingBox()[0];
+    let xhigh = this.board.getBoundingBox()[2];
+
+    let width = xhigh - xlow;
+    let x1 = xlow + width * percent;
+    let x2 = x1 + width * 0.1;
+    if (x2 > xhigh) { x2 = xhigh; }
+    let xint = new XInterval(this.board, x1, x2);
+
+    if(!widgetConstructor[id]) {
+      console.log('bad widget type', id);
+      return;
+    }
+    this.elements.push(widgetConstructor[id](xint, this.functions[f_id].f, names));
+  }
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -1151,11 +1244,10 @@ function SingleFunctionBoard(divName, bBox, F, attributes) {
   exports.RectangleArray = RectangleArray;
   exports.SecantArray = SecantArray;
   exports.SecantRectangleArray = SecantRectangleArray;
-  exports.WorkSpace = WorkSpace;
-  exports.Slider = Slider;
-  exports.SingleFunctionBoard = SingleFunctionBoard;
+  exports.ProblemFunction = ProblemFunction;
   exports.XInterval = XInterval;
-
+  exports.StandardBoard = StandardBoard;
+  exports.Workspace = Workspace;
 
 });
 
