@@ -26,6 +26,11 @@ h1, h2, h3, h4, h5, h6, p, body {
     }
 }
 
+.home {
+  .overlay {
+    opacity: 0.1 !important;
+  }
+}
 
 header.masthead {
 	background-color: transparent !important;
@@ -46,9 +51,16 @@ header.masthead {
 }
 
 
-
+/*
 header.masthead {
   .overlay {
     opacity: 0.4 !important;
   }
 }
+*/
+.home {
+  .overlay {
+    opacity: 0.2 !important;
+  }
+}
+

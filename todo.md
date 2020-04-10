@@ -5,30 +5,25 @@ need a way of placing text based on number of letters.
 is my code efficient?  How do we test this?
 need an enum for types so I can easily add types without breaking old code.
 identify the widget interface
+	area
+	rise
+	setAnnotations
+	onUpdate
+	setPrecision
+	setSnapMargin
+	run
+
 not happy with the maxX function. fix it.
 work total area for rect array is wrong sometimes.
 
-area
-rise
-setAnnotations
-onUpdate
-setPrecision
-setSnapMargin
-run
+
 
 TO DO
 - clean up my calc lib
-
-	- use new classes in rectangle lesson
 	- what can I do about the names initialization happening before super()?
 	- update Secant Rectangle
-	- update RectangleArray
-		- arrays should make their own sliders
 	- update SecantArray
 	- update RectSecantArray
-	- think about the boards and workspaces
-	- update the Boards and Workspaces
-	- clean up Xerror and Yerror
 	
 
 
@@ -53,6 +48,8 @@ Quick and Easy
 - review all pages for mobile issues
 - test all pages in different browsers.
 - get a fucking favicon
+- home page logo needs to scale for smaller screens
+- map needs to rescale too
 
 Larger Issues
 - add code to detect phones and give a warning / message
