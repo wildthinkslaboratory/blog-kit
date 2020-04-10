@@ -3,7 +3,7 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="1200" height="300" viewBox="0, 0, 1200, 300">
   <g id="Layer_1">
     <g>
-      <path d="M0.5,0.5 L1200.5,0.5 L1200.5,300.5 L0.5,300.5 L0.5,0.5 z" fill="#0082FF"/>
+      <path d="M0.5,0.5 L1200.5,0.5 L1200.5,300.5 L0.5,300.5 L0.5,0.5 z" fill="#00A0FF"/>
       <path d="M0.5,0.5 L1200.5,0.5 L1200.5,300.5 L0.5,300.5 L0.5,0.5 z" fill-opacity="0" stroke="#D7D7D7" stroke-width="1"/>
     </g>
   </g>
