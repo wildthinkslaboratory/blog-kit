@@ -31,6 +31,7 @@ today's plan
 - then I've got to spend time cleaning up the code and documenting and refining the subtle display elements.  Need to cut down this bug list because it's causing me anxiety.
 
 
+sliders can position relative to either endpoint
 work on kiosk mode 
 go over all highlight operations and make sure I like the look
 rectangles are for rate problems

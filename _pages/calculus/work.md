@@ -239,10 +239,10 @@ let useButton = function(mouseX, buttonType) {
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / width;
   if (buttonType == 0) {
-    workspace.addElementByID(1, percent, F_id, {area:'work', height:'force', width:'distance'});
+    workspace.addElementByID(0, percent, F_id, {area:'work', height:'force', width:'distance'});
   }
   else {
-    workspace.addElementByID(6, percent, F_id, {area:'work', height:'force', width:'distance'});
+    workspace.addElementByID(3, percent, F_id, {area:'work', height:'force', width:'distance'});
   }
   
   // smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources

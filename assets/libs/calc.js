@@ -100,11 +100,10 @@ class Slider {
 class IntSlider extends Slider {
   constructor(xint, low, high, name) {
     super(xint, low, high, name);
+    this.Value = this.Value.bind(this);  // make this lowercase
   }
 
-  Value() {
-    return Math.floor(super.Value());
-  }
+  Value() { return Math.floor(super.Value()); }
 
 }
 
@@ -791,7 +790,7 @@ class RectangleArray {
     let lastRect = x2 - delta + 0.01;
     for (let i=x1; i < lastRect; i += delta) {
 
-      let height = this.f(i + delta/2, delta);
+      let height = this.f(i + delta/2);
       x.push(i);  // four points of our rectangle
       y.push(height);
 
@@ -818,6 +817,7 @@ class RectangleArray {
 
 class SecantArray {
   constructor(xint, F, names) {
+    console.log(F);
     this.board = xint.board;
     this.xint = xint;
     this.f = F;
@@ -843,7 +843,6 @@ class SecantArray {
   setSnapMargin(m) { this.xint.setSnapMargin(m); }
 
   updateDataArray() {
-    let deltaY = 0;
     let x1 = this.xint.X1();
     let x2 = this.xint.X2();
     let delta = (x2-x1) / this.slider.Value();
@@ -852,13 +851,12 @@ class SecantArray {
     let lastPoint = x2 + 0.01;
     for (let i=x1; i <= lastPoint; i += delta) {
       x.push(i);
-      let [dy, c, constant] = this.f(i, delta, deltaY);
-      y.push(dy + c + constant);
-      deltaY += dy;
+      y.push(this.f(i));
     }
     this.secants.dataX = x;
     this.secants.dataY = y;
   }
+
 
   delete() {
     this.board.removeObject(this.secants);
@@ -869,57 +867,128 @@ class SecantArray {
 }
 
 
+class SecantRectArray {
+  constructor(xint, F, names) {
+    this.board = xint.board;
+    this.xint = xint;
+    this.f = F;
+    this.showAnnotations = false;
 
+    this.names = names;
+    this.slider = new IntSlider(xint, 1, 100, 'N');
+    this.attachButton = new BoolButton(xint, 'attach');
 
+    this.rectangleFunction = this.rectangleFunction.bind(this);
+    this.secantFunction = this.secantFunction.bind(this);
+    this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
+    this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
+    this.deltaX = this.deltaX.bind(this);
+    this.constant = this.constant.bind(this);
 
-// there's a problem passing functions to other array classes
-function SecantRectangleArray(binfo, xinterval, F, ns) {
-  let xint = xinterval;  
-  let f = F;  
+    this.rectangles = new RectangleArray(xint, this.rectangleFunction);
+    this.secants = new SecantArray(xint, this.secantFunction);
+    this.xint.midY.setAttribute({visible:true});
 
-  let xslider = function() { return xinterval.x2.X() + binfo.Xerror; };
-  let yslider = function() { return  2 * binfo.Yerror; };
-  let attachButton = new BoolButton(binfo.board, binfo, xslider, yslider, 'attach');
+    this.rectangle.rect.on('over', this.turnOnAnnotations);
+    this.rectangle.rect.on('out', this.turnOffAnnotations);
+    this.secant.segment.on('over', this.turnOnAnnotations);
+    this.secant.segment.on('out', this.turnOffAnnotations);
 
-  xint.midY.setAttribute({visible:true});
+  }
 
-  let rectangleFunction = function(x, delta=0) { 
-    if (attachButton.Value()) {
-      return f(x);      // height of rectangle is f is rateCurve
+  rectangleFunction(x) { 
+    if (this.attachButton.Value()) {
+      return this.f(x);      // height of rectangle is f is rateCurve
     }
-    return  (f(x + delta/2) - f(x - delta/2)) / delta;  // slope of secant 
-  };
+    let dx = this.deltaX();
+    return  (this.f(x + dx/2) - this.f(x - dx/2)) / dx;  // slope of secant 
+  }
 
-  let secantFunction = function(x, delta, cum) {
-    if (attachButton.Value()) {
-      return [f(x - delta/2) * delta, cum, xint.midY.Y()];
+  secantFunction(x, cum) {
+    if (this.attachButton.Value()) {
+      let dx = this.deltaX();
+      let area = this.f(x - dx/2) * dx;
+      return [area + cum + this.constant(), area];
     }
-    return [f(x), 0, 0];
-  };
+    return [this.f(x), 0];
+  }
 
-  let rectangles = new RectangleArray(binfo, xinterval, rectangleFunction, ns);
-  let secants = new SecantArray(binfo, xinterval, secantFunction, ns);
-  this.setFunction = function(F) { f = F; };
-  this.setN = function(n) { 
-    rectangles.setN(n); 
-    secants.setN(n);
-  };
+  updateSecantData() {
+    let x1 = this.xint.X1();
+    let x2 = this.xint.X2();
+    let delta = (x2-x1) / this.slider.Value();
+    let x = [];
+    let y = [];
+    let lastPoint = x2 + 0.01;
+    for (let i=x1; i <= lastPoint; i += delta) {
+      x.push(i);
+      y.push(this.f(i));
+    }
+    this.secants.dataX = x;
+    this.secants.dataY = y;
+  }
 
-  // this.setRateCurve = function(b) { 
-  //   rateCurve = b; 
-  //   if (rateCurve) { xint.midY.setAttribute({visible:true}); }
-  //   else { xint.midY.setAttribute({visible:false}); }
+  deltaX() { return this.xint.range() / this.slider.Value(); }
+  constant() { return this.xint.midY.Y(); }
+
+  delete() {
+    this.rectangles.delete();
+    this.secants.delete();
+    this.xint.delete();
+    this.slider.delete();
+    this.attachButton.delete();
+  }
+}
+
+
+// // there's a problem passing functions to other array classes
+// function SecantRectangleArray(binfo, xinterval, F, ns) {
+//   let xint = xinterval;  
+//   let f = F;  
+
+//   let xslider = function() { return xinterval.x2.X() + binfo.Xerror; };
+//   let yslider = function() { return  2 * binfo.Yerror; };
+//   let attachButton = new BoolButton(binfo.board, binfo, xslider, yslider, 'attach');
+
+//   xint.midY.setAttribute({visible:true});
+
+//   let rectangleFunction = function(x, delta=0) { 
+//     if (attachButton.Value()) {
+//       return f(x);      // height of rectangle is f is rateCurve
+//     }
+//     return  (f(x + delta/2) - f(x - delta/2)) / delta;  // slope of secant 
+//   };
+
+//   let secantFunction = function(x, delta, cum) {
+//     if (attachButton.Value()) {
+//       return [f(x - delta/2) * delta, cum, xint.midY.Y()];
+//     }
+//     return [f(x), 0, 0];
+//   };
+
+//   let rectangles = new RectangleArray(binfo, xinterval, rectangleFunction, ns);
+//   let secants = new SecantArray(binfo, xinterval, secantFunction, ns);
+//   this.setFunction = function(F) { f = F; };
+//   this.setN = function(n) { 
+//     rectangles.setN(n); 
+//     secants.setN(n);
+//   };
+
+//   // this.setRateCurve = function(b) { 
+//   //   rateCurve = b; 
+//   //   if (rateCurve) { xint.midY.setAttribute({visible:true}); }
+//   //   else { xint.midY.setAttribute({visible:false}); }
     
-  // };
+//   // };
 
-  this.delete = function() {
-    rectangles.delete();
-    secants.delete();
-    xint.delete();
-    attachButton.delete();
-  };
-  this.x2 = function() { return xint.x2.X(); };
-} 
+//   this.delete = function() {
+//     rectangles.delete();
+//     secants.delete();
+//     xint.delete();
+//     attachButton.delete();
+//   };
+//   this.x2 = function() { return xint.x2.X(); };
+// } 
 
 
 class ProblemFunction {
@@ -1015,11 +1084,11 @@ class StandardBoard {
 let widgetConstructor = {
     0 : function(xint, F, names) { return new AnnotatedRectangle(xint, F, names); },
     1 : function(xint, F, names) { return new AnnotatedSecant(xint, F, names); },
-    3 : function(xint, F, names) { return new AdjSecantRect(xint, F, names); },
-    4 : function(xint, F, names) { return new RectangleArray(xint, F, names); },
-    5 : function(xint, F, names) { return new SecantArray(xint, F, names); },
-    6 : function(xint, F, names) { return new SecantRectangleArray(xint, F, names); },
-    7 : function(xint, F, names) { return new AdjHeightRectangle(xint, F, names); }
+    2 : function(xint, F, names) { return new AdjSecantRect(xint, F, names); },
+    3 : function(xint, F, names) { return new RectangleArray(xint, F, names); },
+    4 : function(xint, F, names) { return new SecantArray(xint, F, names); },
+    5 : function(xint, F, names) { return new SecantRectArray(xint, F, names); },
+    6 : function(xint, F, names) { return new AdjHeightRectangle(xint, F, names); }
 }
 
 class Workspace extends StandardBoard {
@@ -1124,7 +1193,7 @@ class Workspace extends StandardBoard {
   exports.AdjSecantRect = AdjSecantRect;
   exports.RectangleArray = RectangleArray;
   exports.SecantArray = SecantArray;
-  exports.SecantRectangleArray = SecantRectangleArray;
+  exports.SecantRectArray = SecantRectArray;
   exports.ProblemFunction = ProblemFunction;
   exports.XInterval = XInterval;
   exports.StandardBoard = StandardBoard;

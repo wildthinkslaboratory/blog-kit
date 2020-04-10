@@ -211,7 +211,7 @@ let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
-  workspace.addElementByID(6, percent, F_id, {});
+  workspace.addElementByID(3, percent, F_id, {});
   workspace.elements[workspace.elements.length - 1].setSnapMargin(0.5);
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };

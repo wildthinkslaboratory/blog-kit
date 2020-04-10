@@ -118,7 +118,7 @@ let xhigh = 10;
 let ylow = -2;
 let yhigh = 20;
 
-let f = function(x) { return  Math.pow(x,2)/4; };
+let f = function(x) { return Math.pow(x,2)/4; };
 //let f = function(x) { return  Math.pow(x,3)/8 - Math.pow(x,4)/128; };
 
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow]);
@@ -126,23 +126,21 @@ let F = new ProblemFunction( f, '', 7, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
 
-smartdown.setVariable('mode', 0);
 smartdown.setVariable('undo', false);
 
 this.div.onmousedown = function(e) { 
   if (env.numButtons > 0 && env.active) {
-    useButton(e.clientX, env.mode);
+    useButton(e.clientX, env.buttonType);
   }
 }
 
 
 let useButton = function(mouseX, buttonType) { 
- 
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / width;
 
-  if (env.mode >= 0) {
+  if (env.buttonType >= 0) {
     workspace.addElementByID(buttonType, percent, F_id );
   }
 
@@ -152,7 +150,7 @@ this.dependOn = ['undo'];
 this.depend = function() {
   if (env.undo == true) {
     workspace.undo();
-    smartdown.setletiable('undo', false);
+    smartdown.setVariable('undo', false);
   }
 };
 

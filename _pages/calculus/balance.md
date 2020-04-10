@@ -234,10 +234,10 @@ let useButton = function(mouseX, buttonType) {
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / width;
   if (buttonType == 0) {
-    workspace.addElementByID(1, percent, F_id, {area:'g', height:'g/cm', width:'cm'});
+    workspace.addElementByID(0, percent, F_id, {area:'g', height:'g/cm', width:'cm'});
   }
   else {
-    workspace.addElementByID(6, percent, F_id, {area:'g', height:'g/cm', width:'cm'});
+    workspace.addElementByID(3, percent, F_id, {area:'g', height:'g/cm', width:'cm'});
   }
   workspace.elements[workspace.elements.length - 1].setSnapMargin(0.1);
   

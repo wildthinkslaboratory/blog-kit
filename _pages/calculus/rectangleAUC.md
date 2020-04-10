@@ -141,11 +141,11 @@ this.div.onmousedown = function(e) {
   let percent = (e.clientX - margin) / width;
 
   if (env.mode == 0) {
-    workspace.addElementByID(1, percent, F_id);
+    workspace.addElementByID(0, percent, F_id);
     workspace.elements[workspace.elements.length - 1].setAnnotations(false);
   }
   else {
-    workspace.addElementByID(6, percent, F_id);
+    workspace.addElementByID(3, percent, F_id);
   }
 
 };
