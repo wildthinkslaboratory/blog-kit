@@ -1,7 +1,20 @@
+rectangles are for rate problems
 need to unify color schemes, fix stroke color
 review the Xerror system.
 need a way of placing text based on number of letters.
 is my code efficient?  How do we test this?
+need an enum for types so I can easily add types without breaking old code.
+identify the widget interface
+not happy with the maxX function. fix it.
+work total area for rect array is wrong sometimes.
+
+area
+rise
+setAnnotations
+onUpdate
+setPrecision
+setSnapMargin
+run
 
 TO DO
 - clean up my calc lib

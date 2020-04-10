@@ -191,45 +191,34 @@ let l2 = board1.create('point', [ function() { return fulcrum.X(); }, 10], {visi
 let vertline = board1.create('line', [l1,l2], {color:'#CCCCCC'});
 
 let swordLength = 80;
-let f = function(x) { return 3 * x * x / 500; };
-let sfboard = new SingleFunctionBoard('bottom', 
-  [xlow,yhigh,xhigh,ylow], 
-  f,
-  { xName: 'cm', 
-    yName: 'g/cm', 
-    startX:0, endX:swordLength, 
-    flabel: 'density of sword', flabelX:75, flabelY:45,
-    endF:swordLength
-  });
+let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow],  
+  { xlabel:'cm', ylabel:'g/cm'});
+let F = new ProblemFunction(function(x) { return 3 * x * x / 500; },
+  'density of sword', 75, [0,swordLength], [0,swordLength]);
+let F_id = workspace.addFunction(F);
 
 
 
-let workspace = new WorkSpace(sfboard.board);
 
-////////////////////////////////////////////////////////////////////////////////////
-// Here is where you configure the workspace based on what elements you want to 
-// add.  
 
-workspace.setSnapMargin(0.1);
-workspace.setRectangleNames(['g', 'cm', 'g/cm']);
-workspace.setUseRectangleNames(true);
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-let Atext = sfboard.board.create('text', [
+let Atext = workspace.board.create('text', [
   xlow + 0.25 * (xhigh - xlow), 
   ylow + 0.8 * (yhigh - ylow),
-  function() { return 'Total Area = ' + workspace.getArea().toFixed(2); }], {
+  function() { return 'Total Area = ' + workspace.area().toFixed(2); }], {
   fontSize:20,
   visible:true
 });
 
-board1.addChild(sfboard.board);
+board1.addChild(workspace.board);
 
-let l3 = sfboard.board.create('point', [ function() { return fulcrum.X(); }, 0], {visible:false});
-let l4 = sfboard.board.create('point', [ function() { return fulcrum.X(); }, 10], {visible:false});
-let vertline2 = sfboard.board.create('line', [l3,l4], {color:'#CCCCCC'});
+let l3 = workspace.board.create('point', [ function() { return fulcrum.X(); }, 0], {visible:false});
+let l4 = workspace.board.create('point', [ function() { return fulcrum.X(); }, 10], {visible:false});
+let vertline2 = workspace.board.create('line', [l3,l4], {color:'#CCCCCC'});
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -244,7 +233,14 @@ let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / width;
-  workspace.addElement(buttonType, percent, f);
+  if (buttonType == 0) {
+    workspace.addElementByID(1, percent, F_id, {area:'g', height:'g/cm', width:'cm'});
+  }
+  else {
+    workspace.addElementByID(6, percent, F_id, {area:'g', height:'g/cm', width:'cm'});
+  }
+  workspace.elements[workspace.elements.length - 1].setSnapMargin(0.1);
+  
   // smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 
@@ -261,15 +257,15 @@ let heightPercent = 0.7;
 let heightRatio = 1/3;
 
 this.sizeChanged = function() {
-  workspace.resize(window.innerWidth * widthPercent, (1-heightRatio) * window.innerHeight * heightPercent);       
+  workspace.board.resizeContainer(window.innerWidth * widthPercent, (1-heightRatio) * window.innerHeight * heightPercent);       
   board1.resizeContainer(window.innerWidth * widthPercent, heightRatio * window.innerHeight * heightPercent);
 };
 
 this.sizeChanged();
 
 
-sfboard.board.on('update', function() {
-  workspace.boardUpdate();              // hook up workspace update functions
+workspace.board.on('update', function() {
+  workspace.onUpdate();              // hook up workspace update functions
 });
 
 smartdown.setVariable('compute', false);

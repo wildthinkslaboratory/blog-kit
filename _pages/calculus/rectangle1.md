@@ -142,7 +142,7 @@ myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 let widthPercent = 0.8;
 let heightPercent = 0.7;
 
-let board = new StandardBoard('box', [-1,10,13,-2], { xlabel:'x', ylabel:'y'});
+let board = new StandardBoard('box', [-1,10,13,-2] );
 let xinterval;
 let rectangle;
 

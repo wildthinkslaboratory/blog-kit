@@ -144,30 +144,21 @@ let ylow = -5;
 let yhigh = 20;
 
 let k = 2;
-let f = function(x) { return k * x; };
-let sfboard = new SingleFunctionBoard('bottom', 
-  [xlow,yhigh,xhigh,ylow], 
-  f,
-  { xName: 'distance (cm)', yName: 'force', startX:0, endX:8, flabel: 'force of spring', flabelX:5, flabelY:15});
+let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow],  
+  { xlabel:'distance (cm)', ylabel:'force'});
+let F = new ProblemFunction(function(x) { return k * x; },
+  'force of spring', 5, [0,xhigh], [0,8]);
+let F_id = workspace.addFunction(F);
 
 
-let workspace = new WorkSpace(sfboard.board);
-
-////////////////////////////////////////////////////////////////////////////////////
-// Here is where you configure the workspace based on what elements you want to 
-// add.  
-
-workspace.setSnapMargin(0.05);
-workspace.setRectangleNames(['work', 'distance', 'force']);
-workspace.setUseRectangleNames(true);
 
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-let Atext = sfboard.board.create('text', [
+let Atext = workspace.board.create('text', [
   xlow + 0.25 * (xhigh - xlow), 
   ylow + 0.8 * (yhigh - ylow),
-  function() { return 'Total Area = ' + workspace.getArea().toFixed(2); }], {
+  function() { return 'Total Area = ' + workspace.area().toFixed(2); }], {
   fontSize:20,
   visible:true
 });
@@ -178,7 +169,7 @@ let Atext = sfboard.board.create('text', [
 
 board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-2,6,10,-2], keepaspectratio:false, axis:false, showCopyright:false});
 
-sfboard.board.addChild(board1);
+workspace.board.addChild(board1);
 
 let xaxis1 = board1.create('axis', [[0, 0], [1,0]], 
   {name:'distance (cm)', 
@@ -240,15 +231,20 @@ let workColor = function(w) {
 
 // Event handling
 let checkAnswer = function() {
-  return workspace.getArea() == 64;
-  console.log('work',workspace.getArea());
+  return workspace.area() == 64;
 };
 
 let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / width;
-  workspace.addElement(buttonType, percent, f);
+  if (buttonType == 0) {
+    workspace.addElementByID(1, percent, F_id, {area:'work', height:'force', width:'distance'});
+  }
+  else {
+    workspace.addElementByID(6, percent, F_id, {area:'work', height:'force', width:'distance'});
+  }
+  
   // smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 
@@ -264,15 +260,15 @@ let heightPercent = 0.7;
 let heightRatio = 1/4;
 
 this.sizeChanged = function() {
-  workspace.resize(window.innerWidth * widthPercent, (1-heightRatio) * window.innerHeight * heightPercent);       
+  workspace.board.resizeContainer(window.innerWidth * widthPercent, (1-heightRatio) * window.innerHeight * heightPercent);       
   board1.resizeContainer(window.innerWidth * widthPercent, heightRatio * window.innerHeight * heightPercent);
 };
 
 this.sizeChanged();
 
-sfboard.board.on('update', function() {
-  workspace.boardUpdate();              // hook up workspace update functions
-  myDiv.children[0].style.background = workColor(workspace.getArea());
+workspace.board.on('update', function() {
+  workspace.onUpdate();              // hook up workspace update functions
+  myDiv.children[0].style.background = workColor(workspace.area());
 });
 
 smartdown.setVariable('compute', false);

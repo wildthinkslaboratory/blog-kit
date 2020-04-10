@@ -103,40 +103,27 @@ let xhigh = 12;
 let ylow = -5;
 let yhigh = 12;
 
-let f = function(x) { return -Math.pow(x,3)/8 + Math.pow(x,2); };
 let answer = 40;
+let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],  
+  { xlabel:'x', ylabel:'f(x)'});
+let F = new ProblemFunction(function(x) {  return -Math.pow(x,3)/8 + Math.pow(x,2); }, 
+  '', 3.5, [0,xhigh], [2,8]);
+let F_id = workspace.addFunction(F);
 
-// create the first board
-JXG.Options.axis.ticks.majorHeight = 40;
-
-let sfboard = new SingleFunctionBoard('box', 
-  [xlow,yhigh,xhigh,ylow], 
-  f,
-  { xName: 'x', yName: 'f(x)', startX:0, endX:8, flabel: '', flabelX:3.5, flabelY:11});
-
-
-let workspace = new WorkSpace(sfboard.board);
-
-
-////////////////////////////////////////////////////////////////////////////////////
-// Here is where you configure the workspace based on what elements you want to 
-// add.  
-
-workspace.setSnapMargin(0.05);
 
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-let Atext = sfboard.board.create('text', [
+let Atext = workspace.board.create('text', [
   xlow + 0.25 * (xhigh - xlow), 
   ylow + 0.8 * (yhigh - ylow),
-  function() { return 'Total Area = ' + workspace.getArea().toFixed(2); }], {
+  function() { return 'Total Area = ' + workspace.area().toFixed(2); }], {
   fontSize:20,
   visible:true
 });
 
 let computeError = function() {
-  return 100 * Math.abs(1 - workspace.getArea() / 40);
+  return 100 * Math.abs(1 - workspace.area() / 40);
 };
 
 // Event handling
@@ -153,8 +140,12 @@ this.div.onmousedown = function(e) {
   let margin = (window.innerWidth - width)/2;
   let percent = (e.clientX - margin) / width;
 
-  if (env.mode >= 0) {
-    workspace.addElement(env.mode, percent, f);
+  if (env.mode == 0) {
+    workspace.addElementByID(1, percent, F_id);
+    workspace.elements[workspace.elements.length - 1].setAnnotations(false);
+  }
+  else {
+    workspace.addElementByID(6, percent, F_id);
   }
 
 };
@@ -163,13 +154,13 @@ let widthPercent = 0.8;
 let heightPercent = 0.7;
 
 this.sizeChanged = function() {     
-  workspace.resize(window.innerWidth * widthPercent, window.innerHeight * heightPercent);
+  workspace.board.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);
 };
 
 this.sizeChanged();
 
-sfboard.board.on('update', function() {
-  workspace.boardUpdate();              // hook up workspace update functions
+workspace.board.on('update', function() {
+  workspace.onUpdate();              // hook up workspace update functions
 });
 
 smartdown.setVariable('compute', false);

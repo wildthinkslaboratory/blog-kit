@@ -21,25 +21,36 @@ class AppColors {
 
 let colors = new AppColors();
 
+ 
 class Slider {
-  constructor(b, binfo, xfunction, yfunction, low, high, name, sliderWidth) {
-    this.board = b;
+  constructor(xint, low, high, name) {
+    this.board = xint.board;
+    this.xint = xint;
     this.low = low;
     this.high = high;
-    this.xf = xfunction;
-    this.yf = yfunction;
-    this.xdelta = sliderWidth;
     this.name = name; 
+    let boundingBox = this.board.getBoundingBox();
+    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
+    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
+    this.xdelta = 3 * this.Xerror;
+    this.dead = false;
 
-    this.l1 = b.create('segment', [[xfunction, yfunction], [
-      function() { return xfunction() + sliderWidth; },yfunction]], {
+    this.X1 = this.X1.bind(this);
+    this.X2 = this.X2.bind(this);
+    this.Y = this.Y.bind(this);
+    this.gliderX = this.gliderX.bind(this);
+    this.Value = this.Value.bind(this);
+    this.stringValue = this.stringValue.bind(this);
+    this.textX = this.textX.bind(this);
+
+    
+    this.l1 = this.board.create('segment', [[this.X1, this.Y], [this.X2, this.Y]], {
       strokeColor:'black', 
       strokeWidth:1,  
       visible:true
     });
 
-    let start = xfunction() + binfo.Xerror * 1;
-    this.g = b.create('glider', [start,yfunction(), this.l1], {
+    this.g = this.board.create('glider', [this.X1() + this.Xerror/4, this.Y(), this.l1], {
       name: '', 
       size:6, 
       strokeColor: 'black', 
@@ -47,42 +58,32 @@ class Slider {
       showInfoBox:false
     });
 
-    this.gliderX = this.gliderX.bind(this);
-
-    this.l2 = b.create('segment', [[xfunction, yfunction], [
-      this.gliderX,yfunction]], {
+    this.l2 = this.board.create('segment', [[this.X1, this.Y], [this.gliderX, this.Y]], {
       strokeColor:'black', 
       strokeWidth:3,  
       visible:true
     });
-
-    this.Value = this.Value.bind(this);
-    this.stringValue = this.stringValue.bind(this);
-
-    this.text = b.create('text', [
-      function() { return  xfunction() + sliderWidth + binfo.Xerror; },
-      yfunction,
-      this.stringValue], {fontSize:12}
-    );
-
-    this.dead = false;
+    
+    this.text = this.board.create('text', [this.textX, this.Y, this.stringValue], {fontSize:12});
   }
 
+  X1() { return this.xint.X2() + this.Xerror; }
+  X2() { return this.X1() + this.xdelta; }
+  Y() { return this.Yerror; }
   gliderX() { return this.g.X(); }
+  textX() { return  this.X1() + this.xdelta + this.Xerror; }
 
   Value() {
-    let percent = (this.g.X() - this.xf()) / this.xdelta;
+    let percent = (this.g.X() - this.X1()) / this.xdelta;
     return this.low + (this.high - this.low) * percent;
   }
+
+  stringValue() { return this.name + '        ' + this.Value().toString(); }
 
   setValue(v) {
     if (v < this.low || v > this.high) return;
     let percent = (v - this.low)/(this.high - this.low);
-    this.g.moveTo([this.xf() + percent * this.xdelta ,this.yf()]);
-  }
-
-  stringValue() {
-    return this.name + '        ' + this.Value().toString();
+    this.g.moveTo([this.X1() + percent * this.xdelta ,this.Y()]);
   }
 
   delete() {
@@ -97,8 +98,8 @@ class Slider {
 }
 
 class IntSlider extends Slider {
-  constructor(b, binfo, xfunction, yfunction, low, high, name, sliderWidth) {
-    super(b, binfo, xfunction, yfunction, low, high, name, sliderWidth);
+  constructor(xint, low, high, name) {
+    super(xint, low, high, name);
   }
 
   Value() {
@@ -326,7 +327,6 @@ class AdjSecant {
   // these are all the function that might be used as callbacks
   fx1() { return this.f(this.xint.X1()); }
   fx2() { return this.f(this.xint.X2()); }
-  rise() { return this.fx2() - this.fx1(); }
   run() { return this.xint.range(); }
   slope() { return  this.rise() / this.run(); }
   slopeTextX() { return this.xint.midX() - 4 * this.Xerror; }
@@ -335,6 +335,8 @@ class AdjSecant {
   dimensionTextX() { return this.xint.X2() + this.Xerror/2;}
   dimensionTextY() { return this.fx1() + this.rise() / 2; }
   dimensionTextVal() { return (this.rise()).toFixed(this.precision);}
+
+  rise() { return this.fx2() - this.fx1(); }
   area() { return 0; }
   setSnapMargin(m) { this.xint.setSnapMargin(m); }
 
@@ -749,36 +751,53 @@ function AdjSecantRect(binfo, xinterval, F) {
   this.x2 = function() { return xint.x2.X(); };
 }
 
+class RectangleArray {
+  constructor(xint, F, names) {
+    this.board = xint.board;
+    this.xint = xint;
+    this.f = F;
+    this.showAnnotations = false;
+    this.total_area = 0;
+    let boundingBox = xint.board.getBoundingBox();
+    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
+    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
+    this.names = names;
+    this.slider = new IntSlider(xint, 1, 100, 'N');
 
+    this.updateDataArray = this.updateDataArray.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+    this.area = this.area.bind(this);
+    this.rise = this.rise.bind(this);
 
-function RectangleArray(binfo, xinterval, F, ns) {
-  let board = binfo.board;
-  let bi = binfo;  
-  let xint = xinterval;  
-  let f = F;  
-  let Nslider = ns;
+    this.rectangles = this.board.create('curve', [[0],[0]], {
+      strokeColor: '#1155CC',
+      fillColor:colors.fill, 
+      fillOpacity:0.3, 
+      highlightStrokeColor:colors.highlightStroke,
+      highlightFillColor:colors.highlightFill, 
+      highlightFillOpacity:0.3, 
+      hasInnerPoints:true
+    });
 
-  let rectangles = board.create('curve', [[0],[0]], {
-    strokeColor: '#1155CC',
-    fillColor:colors.fill, 
-    fillOpacity:0.3, 
-    highlightStrokeColor:colors.highlightStroke,
-    highlightFillColor:colors.highlightFill, 
-    highlightFillOpacity:0.3, 
-    hasInnerPoints:true
-  });
-  
-  let area = 0;
-  rectangles.updateDataArray = function() {
+    this.rectangles.updateDataArray = this.updateDataArray;
+  }
 
-    area = 0;
-    let delta = (xint.x2.X() - xint.x1.X()) / Nslider.Value();
-    let x = [xint.x1.X()];
+  onUpdate() { this.xint.onUpdate(); }
+  area() { return this.total_area; }
+  rise() { return 0; }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }
+
+  updateDataArray() {
+    this.total_area = 0;
+    let x1 = this.xint.X1();
+    let x2 = this.xint.X2();
+    let delta = (x2 - x1) / this.slider.Value();
+    let x = [x1];
     let y = [0];
-    let lastRect = xint.x2.X() - delta + 0.01;
-    for (let i=xint.x1.X(); i < lastRect; i += delta) {
+    let lastRect = x2 - delta + 0.01;
+    for (let i=x1; i < lastRect; i += delta) {
 
-      let height = f(i + delta/2, delta);
+      let height = this.f(i + delta/2, delta);
       x.push(i);  // four points of our rectangle
       y.push(height);
 
@@ -788,35 +807,19 @@ function RectangleArray(binfo, xinterval, F, ns) {
       x.push(i + delta);
       y.push(0);
 
-      area += delta * height;
+      this.total_area += delta * height;
     }
 
-    this.dataX = x;
-    this.dataY = y;
+    this.rectangles.dataX = x;
+    this.rectangles.dataY = y;
+  }
 
-  };
+  delete() {
+    this.board.removeObject(this.rectangles);
+    this.slider.delete();
+    this.xint.delete();
+  }
 
-  let areaText = board.create('text', [
-    function() { return xint.x2.X() - 2 * bi.Xerror;},
-    function() { 
-      if (f(xint.x2.X()) <= 0) { return bi.Yerror * 2; }
-      return - bi.Yerror * 2;
-    },
-    function() { return 'Area = ' + area.toFixed(3).toString(); }
-  ], {fontSize:15, visible:true});
-  
-  this.setFunction = function(F) { f = F; };
-  //this.setN = function(n) { N = n; };
-  this.delete = function() {
-    board.removeObject(areaText);
-    board.removeObject(rectangles);
-    Nslider.delete();
-    xint.delete();
-  };
-
-  this.onUpdate = function() { xint.onUpdate(); };
-  this.area = function() { return area; };
-  this.x2 = function() { return xint.x2.X(); };
 }
 
 
@@ -1164,12 +1167,25 @@ class Workspace extends StandardBoard {
     this.onUpdate = this.onUpdate.bind(this);
     this.rise = this.rise.bind(this);
     this.area = this.area.bind(this);
+    this.maxX = this.maxX.bind(this);
   }
 
   onUpdate() {
     for (let i=0; i < this.elements.length; i++) {
       this.elements[i].onUpdate();
     }
+  }
+
+  maxX() {
+    // this needs an error when there are no elements
+
+    let max = 0;  // probably small enough 
+    for (let i=0; i < this.elements.length; i++) {
+      if (this.elements[i].xint.X2() > max) {
+        max = this.elements[i].xint.X2();
+      }
+    }
+    return max;
   }
 
   addElement(e) {
