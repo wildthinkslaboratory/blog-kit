@@ -109,12 +109,15 @@ class IntSlider extends Slider {
 }
 
 class BoolButton extends Slider {
-  constructor(b, binfo, xfunction, yfunction, name) {
-    super(b, binfo, xfunction, yfunction, 0, 2, name, 0.01);
+  constructor(xint, name) {
+    super(xint, 0, 2, name);
     this.state = false;
+    this.xdelta = 0;
+
     this.toggle = this.toggle.bind(this);
     this.showText = this.showText.bind(this);
     this.hideText = this.hideText.bind(this);
+    
     this.g.on('up', this.toggle);
     this.g.on('over', this.showText);
     this.g.on('out', this.hideText);
@@ -122,9 +125,6 @@ class BoolButton extends Slider {
     this.text.setAttribute({visible:false, strokeColor:colors.lightAnnote});
   }
 
-  Value() {
-    return this.state;
-  }
 
   stringValue() { 
     if (this.state) {
@@ -319,7 +319,6 @@ class AdjSecant {
       {strokeColor: colors.lightAnnote, fontSize: 15, visible:false});
 
     this.segment.on('over', this.turnOnAnnotations);
-
     this.segment.on('out', this.turnOffAnnotations);
 
   }
@@ -542,7 +541,6 @@ class AdjRectangle {
       {strokeColor: colors.lightAnnote, fontSize: 15, visible:false});
 
     this.rect.on('over', this.turnOnAnnotations);
-
     this.rect.on('out', this.turnOffAnnotations); 
 
   }
@@ -677,79 +675,75 @@ class AdjHeightRectangle extends AnnotatedRectangle {
 
 
 
-function AdjSecantRect(binfo, xinterval, F) {
-  let bi = binfo;
-  let f = F;
-  let showAnnotations = false;
-  
-  let xint = xinterval;
-  xint.midY.setAttribute({visible:true});
+class AdjSecantRect {
+  constructor (xint, F, names) {
+    this.xint = xint;
+    this.f = F;
+    this.showAnnotations = false;
+    this.names = names;
+    this.attachButton = new BoolButton(xint, 'attach');
 
-  let xslider = function() { return xinterval.x1.X() + 0.5 * binfo.Xerror; };
-  let yslider = function() { return binfo.Yerror; };
-  let attachButton = new BoolButton(binfo.board, binfo, xslider, yslider, 'attach');
+    this.rectangleFunction = this.rectangleFunction.bind(this);
+    this.secantFunction = this.secantFunction.bind(this);
+    this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
+    this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
+
+    this.rectangle = new AdjRectangle(xint, this.rectangleFunction);
+    this.secant = new AdjSecant(xint, this.secantFunction);
+    this.xint.midY.setAttribute({visible:true});
+
+    this.rectangle.rect.on('over', this.turnOnAnnotations);
+    this.rectangle.rect.on('out', this.turnOffAnnotations);
+    this.secant.segment.on('over', this.turnOnAnnotations);
+    this.secant.segment.on('out', this.turnOffAnnotations);
+  }
 
 
-  let rectangleFunction = function() { 
-    if (attachButton.Value()) {
-      return f(xint.midX());      // height of rectangle is f is rateCurve
+  rectangleFunction() { 
+    if (this.attachButton.state) {
+      return this.f(this.xint.midX());      // height of rectangle is f is rateCurve
     }
-    return  (f(xint.x2.X()) - f(xint.x1.X())) / (xint.x2.X() - xint.x1.X());  // slope of secant 
-  };
+    return  (this.f(this.xint.X2()) - this.f(this.xint.X1())) / this.xint.range();  // slope of secant 
+  }
 
-  let secantFunction = function(x) {
-    if (attachButton.Value()) {
-      if (x == xint.x1.X()) { return xint.midY.Y(); }
-      else { return xint.midY.Y() + f(xint.midX()) * (xint.x2.X() - xint.x1.X()); }
+  secantFunction(x) {
+    if (this.attachButton.state) {
+      if (x == this.xint.X1()) { return this.xint.midY.Y(); }
+      else { return this.xint.midY.Y() + this.f(this.xint.midX()) * this.xint.range(); }
     }
-    return f(x);
-  };
+    return this.f(x);
+  }
 
+  turnOnAnnotations() {
+      this.rectangle.turnOnAnnotations();
+      this.secant.turnOnAnnotations();
+  }
 
-
-  let rectangle = new AdjRectangle(bi, xint, rectangleFunction, false);
-  let secant = new AdjSecant(bi, xint, secantFunction, false);
-
-  this.setFunction = function(F) { f = F; };
-  // this.setRateCurve = function(b) { 
-  //   rateCurve = b; 
-  //   if (rateCurve) { xint.midY.setAttribute({visible:true}); }
-  //   else { xint.midY.setAttribute({visible:false}); }
-    
-  // };
-
-  rectangle.rect.on('over', function(){
-    rectangle.annotationsOn();
-    secant.annotationsOn();
-  });
-
-  rectangle.rect.on('out', function(){
-    if (!showAnnotations) {
-      rectangle.annotationsOff();
-      secant.annotationsOff();
+  turnOffAnnotations() {
+    if (!this.showAnnotations) {
+      this.rectangle.turnOffAnnotations();
+      this.secant.turnOffAnnotations();
     }
-  });
+  }
 
-  secant.line.on('over', function(){
-    rectangle.annotationsOn();
-    secant.annotationsOn();
-  });
-
-  secant.line.on('out', function(){
-    if (!showAnnotations) {
-      rectangle.annotationsOff();
-      secant.annotationsOff();
+  setAnnotations(b) { 
+    this.showAnnotations = b; 
+    if (b) { 
+      this.rectangle.turnOnAnnotations(); 
+      this.secant.turnOnAnnotations();
     }
-  });
+  }
 
-  this.delete = function() {
-    rectangle.delete();
-    secant.delete();
-    xint.delete();
-    attachButton.delete();
-  };
-  this.x2 = function() { return xint.x2.X(); };
+  delete() {
+    this.rectangle.delete();
+    this.secant.delete();
+    this.xint.delete();
+    this.attachButton.delete();
+  }
 }
+
+
+
 
 class RectangleArray {
   constructor(xint, F, names) {
@@ -822,56 +816,60 @@ class RectangleArray {
 
 }
 
+class SecantArray {
+  constructor(xint, F, names) {
+    this.board = xint.board;
+    this.xint = xint;
+    this.f = F;
+    this.showAnnotations = false;
+    let boundingBox = xint.board.getBoundingBox();
+    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
+    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
+    this.names = names;
+    this.slider = new IntSlider(xint, 1, 100, 'N');
 
-function SecantArray(binfo, xinterval, F, ns) {
-  let board = binfo.board;
-  let bi = binfo;  
-  let xint = xinterval;  
-  let f = F;  
+    this.updateDataArray = this.updateDataArray.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+    this.area = this.area.bind(this);
+    this.rise = this.rise.bind(this);
 
-  let Nslider = ns;
+    this.secants = this.board.create('curve', [[0],[0]], { strokecolor:'#1155CC', strokeWidth:4 }); 
+    this.secants.updateDataArray = this.updateDataArray;
+  }
 
-  let secants = board.create('curve', [[0],[0]],
-    {strokecolor:'#1155CC', strokeWidth:4}); 
+  onUpdate() { this.xint.onUpdate(); }
+  area() { return 0; }
+  rise() { return 0; }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }
 
-  let lastY = 0;
-  let firstY = 0;
-  secants.updateDataArray = function() { 
-
+  updateDataArray() {
     let deltaY = 0;
-    let delta = (xint.x2.X() - xint.x1.X()) / Nslider.Value();
+    let x1 = this.xint.X1();
+    let x2 = this.xint.X2();
+    let delta = (x2-x1) / this.slider.Value();
     let x = [];
     let y = [];
-    let lastPoint = xint.x2.X() + 0.01;
-    for (let i=xint.x1.X(); i <= lastPoint; i += delta) {
+    let lastPoint = x2 + 0.01;
+    for (let i=x1; i <= lastPoint; i += delta) {
       x.push(i);
-      let [dy, c, constant] = f(i, delta, deltaY);
+      let [dy, c, constant] = this.f(i, delta, deltaY);
       y.push(dy + c + constant);
       deltaY += dy;
-      if (i <= xint.x1.X()) { firstY = y[y.length - 1]; }
     }
-    lastY = y[y.length - 1];
-    this.dataX = x;
-    this.dataY = y;
-  };
+    this.secants.dataX = x;
+    this.secants.dataY = y;
+  }
 
-  let deltaYText = board.create('text', [
-    function() { return xint.x2.X() - bi.Xerror;},
-    function() { return lastY - 2*bi.Yerror; },
-    function() { return 'vertical \n change = ' + (lastY - firstY).toFixed(3).toString(); }
-  ], {fontSize:15, visible:true});
-  
+  delete() {
+    this.board.removeObject(this.secants);
+    this.slider.delete();
+    this.xint.delete();
+  }
 
-  this.setFunction = function(F) { f = F; };
-  //this.setN = function(n) { N = n; };
-  this.delete = function() {
-    board.removeObject(deltaYText);
-    board.removeObject(secants);
-    Nslider.delete();
-    xint.delete();
-  };
-  this.x2 = function() { return xint.x2.X(); };
 }
+
+
+
 
 
 // there's a problem passing functions to other array classes
@@ -944,139 +942,6 @@ class GraphedFunction extends ProblemFunction {
 }
 
 
-// function WorkSpace(b) {
-//   let board = b;
-//   let boardInfo = new BoardInfo(b);
-//   let elements = [];
-//   let snapMargin = 0.05;
-//   let rectangleNames = ['', '', ''];
-//   let useRectangleNames = false;
-//   let rectangleUseFunction = true;
-//   let rectangleVerticalAdjust = false;
-//   let defaultArrayN = 10;
-
-//   this.boardUpdate = function() {
-//     for (let i = 0; i < elements.length; i++) {
-//       if (elements[i].type == 'rectangle') {
-//         elements[i].value.onUpdate();
-//       }
-//     }
-//   };
-
-//   this.setRectangleNames = function(names) { rectangleNames = names; };
-
-//   this.addElement = function(m, xPlacement, f) {
-
-//     let startx = board.getBoundingBox()[0];
-//     let endx = board.getBoundingBox()[2];
-//     let x1 = startx + (endx - startx) * xPlacement;
-//     let x2 = x1 + 5 * boardInfo.Xerror;
-
-//     let xinterval = new XInterval(board, x1, x2);
-//     xinterval.setSnapMargin(snapMargin);
-
-//     // determine a slider's position if needed
-//     let xslider = function() { return xinterval.x2.X() + boardInfo.Xerror; };
-//     let yslider = function() { return  boardInfo.Yerror; };
-//     let sliderWidth = boardInfo.Xerror * 3;
-
-//     // store widgets in a dictionary wrapper with their type
-//     switch(m) {
-        
-//     case 0: 
-//       elements.push({type:'rectangle', value: new AdjRectangle(boardInfo, xinterval, f, rectangleNames)});
-//       if (useRectangleNames) { elements[elements.length - 1].value.setUseNames(true); }
-//       elements[elements.length - 1].value.setUseFunction(rectangleUseFunction);
-//       elements[elements.length - 1].value.setVerticalAdjust(rectangleVerticalAdjust);
-//       break;
-
-//     case 1:
-//       elements.push({type:'secant', value: new AdjSecant(boardInfo, xinterval, f)});
-//       break;
-
-//     case 2:
-//       elements.push({type:'secant rectangle', value: new AdjSecantRect(boardInfo, xinterval, f)});
-//       break;
-
-//     case 3:
-//     {
-//       let Nslider = new IntSlider(board, boardInfo, xslider, yslider, 1, 100, 'N', sliderWidth);
-//       Nslider.setValue(defaultArrayN);
-//       elements.push({type:'rectangle array', value: new RectangleArray(boardInfo, xinterval, f, Nslider)});
-//       break;
-//     }
-      
-
-//     case 4:
-//     {
-//       let Nslider = new IntSlider(board, boardInfo, xslider, yslider, 1, 100, 'N',sliderWidth);
-//       let fA = function(x) { return [f(x),0,0]; };
-//       elements.push({type:'secant array', value: new SecantArray(boardInfo, xinterval, fA, Nslider)});
-//       break;
-//     }
-
-//     case 5:
-//     {
-//       let Nslider = new IntSlider(board, boardInfo, xslider, yslider, 1, 100, 'N', sliderWidth);
-//       elements.push({type:'secant rectangle array', value: new SecantRectangleArray(boardInfo, xinterval, f, Nslider)});
-//       break;
-//     }
-
-//     default: 
-//       console.log('bad element type', m);
-//       break;
-
-//     }
-//   };
-
-//   this.undo = function() {
-//     if (elements.length > 0 ) {
-//       elements[elements.length - 1].value.delete();
-//       elements.pop();
-//     }
-
-//   };
-
-//   this.resize = function(canvasWidth, canvasHeight) { 
-//     board.resizeContainer(canvasWidth, canvasHeight);
-//   };
-
-//   this.setSnapMargin = function(margin) { snapMargin = margin; };
-//   this.setUseRectangleNames = function(b) { useRectangleNames = b; };
-//   this.setRectangleVerticalAdjust = function(b) { rectangleVerticalAdjust = b; };
-//   this.setRectangleUseFunction = function(b) { rectangleUseFunction = b; };
-//   this.setDefaultArrayN = function(n) { defaultArrayN = n; };
-
-//   this.getElement = function(i) { 
-//     if (i < elements.length) {
-//       return elements[i].value;
-//     }
-//     return -1;
-//   };
-
-//   this.getArea = function() {
-//     let area = 0;
-//     for (let i = 0; i < elements.length; i++) {
-//       let t = elements[i].type;
-//       if (t == 'rectangle' || t == 'display rectangle') {
-//         area += elements[i].value.area();
-//       }
-//     }
-//     return area;
-//   };
-
-//   this.maxX = function() {
-//     if (elements.length == 0) return 0;
-
-//     let maxX = elements[0].value.x2();
-//     for (let i = 1; i < elements.length; i++) {
-//       if (elements[i].value.x2() > maxX) {
-//         maxX = elements[i].value.x2();
-//       }
-//     }
-//     return maxX;
-//   };
-// }
 
 class StandardBoard {
   constructor(divName, Box, attributes = { xlabel: '', ylabel:'' }) {
@@ -1148,15 +1013,13 @@ class StandardBoard {
 }
 
 let widgetConstructor = {
-    0 : function(xint, F, names) { return new AdjRectangle(xint, F, names); },
-    1 : function(xint, F, names) { return new AnnotatedRectangle(xint, F, names); },
-    2 : function(xint, F, names) { return new AdjHeightRectangle(xint, F, names); },
-    3 : function(xint, F, names) { return new AdjSecant(xint, F, names); },
-    4 : function(xint, F, names) { return new AnnotatedSecant(xint, F, names); },
-    5 : function(xint, F, names) { return new AdjSecantRect(xint, F, names); },
-    6 : function(xint, F, names) { return new RectangleArray(xint, F, names); },
-    7 : function(xint, F, names) { return new SecantArray(xint, F, names); },
-    8 : function(xint, F, names) { return new SecantRectangleArray(xint, F, names); }
+    0 : function(xint, F, names) { return new AnnotatedRectangle(xint, F, names); },
+    1 : function(xint, F, names) { return new AnnotatedSecant(xint, F, names); },
+    3 : function(xint, F, names) { return new AdjSecantRect(xint, F, names); },
+    4 : function(xint, F, names) { return new RectangleArray(xint, F, names); },
+    5 : function(xint, F, names) { return new SecantArray(xint, F, names); },
+    6 : function(xint, F, names) { return new SecantRectangleArray(xint, F, names); },
+    7 : function(xint, F, names) { return new AdjHeightRectangle(xint, F, names); }
 }
 
 class Workspace extends StandardBoard {
