@@ -1,7 +1,7 @@
 const blue = '#66AAFF';
 const brightblue = '#00AAFF';
 const darkblue = '#3344AA';
-//const lightgray = '#CCCCCC';
+const lightgray = '#CCCCCC';
 const mediumgray = '#AAAAAA';
 const darkgray = '#333333';
 //const darktomato = '#DD3333';
@@ -16,24 +16,14 @@ class BlueTheme {
     this.highlightStroke = darkblue;
     this.lightAnnote = mediumgray;
     this.darkAnnote = darkgray;
+    this.verylightAnnote = lightgray;
     this.startPoint = 'red';
     this.endPoint = 'green';
-    this.annotFontSize = 15;
+    this.fontSizeAnnote = 15;
+    this.strokeWidth = 4;
   }
 }
 
-class SteelTheme {
-  constructor() {
-    this.fill = blue;
-    this.stroke = darkblue;
-    this.highlightFill = brightblue;
-    this.highlightStroke = darkblue;
-    this.lightAnnote = mediumgray;
-    this.darkAnnote = darkgray;
-    this.startPoint = '#666688';
-    this.endPoint = '#EE5511';
-  }
-}
 
 let colors = new BlueTheme();
 
@@ -309,22 +299,23 @@ class Secant {
       {color: colors.stroke, size:3, name:'', visible:true});
 
     this.line = this.board.create('line', [this.f1, this.f2], {
-      strokeColor: '#DDDDDD',  
-      hightlightStrokeWidth:1,
-      highlightStrokeColor: '#DDDDDD',
+      strokeColor: colors.verylightAnnote,  
+      strokeWidth:1,
+      highlightStrokeWidth:1,
+      highlightStrokeColor: colors.verylightAnnote,
       visible:false});
 
     this.segment = this.board.create('segment', [this.f1, this.f2], {
       strokeColor: colors.stroke, 
       highlightStrokeColor: colors.stroke,
-      strokeWidth:4, 
+      strokeWidth: colors.strokeWidth, 
       visible:true});
 
     this.slopeText = this.board.create('text', [
       this.slopeTextX,
       this.slopeTextY,
       this.slopeString], 
-      {strokeColor: colors.lightAnnote, fontSize:15, visible:false});
+      {strokeColor: colors.lightAnnote, fontSize:colors.fontSizeAnnote, visible:false});
 
     this.p1 = this.board.create('point',[ 
       this.xint.X2, 
@@ -338,7 +329,7 @@ class Secant {
       this.riseTextX,
       this.riseTextY,
       this.riseTextVal],
-      {strokeColor: colors.lightAnnote, fontSize: 15, visible:false});
+      {strokeColor: colors.lightAnnote, fontSize: colors.fontSizeAnnote, visible:false});
 
     this.runLine = this.board.create('segment', [this.p1, this.f1], 
       {strokeColor: colors.lightAnnote, strokeWidth:2, firstArrow:true, lastArrow:true, visible:false});
@@ -347,7 +338,7 @@ class Secant {
       this.runTextX,
       this.runTextY,
       this.runTextVal],
-      {strokeColor: colors.lightAnnote, fontSize: 15, visible:false});
+      {strokeColor: colors.lightAnnote, fontSize: colors.fontSizeAnnote, visible:false});
 
     ///////////////////////////////////////////////////////  attribute settings
 
