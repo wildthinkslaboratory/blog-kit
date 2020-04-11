@@ -21,11 +21,12 @@ class BlueTheme {
     this.endPoint = 'green';
     this.fontSizeAnnote = 15;
     this.strokeWidth = 4;
+    this.strokeWidthAnnote = 2;
   }
 }
 
 
-let colors = new BlueTheme();
+let th = new BlueTheme();
 
 
 class Slider {
@@ -129,7 +130,7 @@ class BoolButton extends Slider {
     this.g.on('over', this.showText);
     this.g.on('out', this.hideText);
     this.g.setAttribute({fillColor:'#8844FF', strokeColor:'#555555'});
-    this.text.setAttribute({visible:false, strokeColor:colors.lightAnnote});
+    this.text.setAttribute({visible:false, strokeColor:th.lightAnnote});
   }
 
 
@@ -178,8 +179,8 @@ class XInterval {
 
     // create two gliders on the x axis
     this.xline = this.board.create('line', [[0,0],[1,0]], {visible:false});  // x axis line
-    this.x1 = b.create('glider', [X1,0,this.xline], {name: '', size:5, color:colors.startPoint});
-    this.x2 = b.create('glider', [X2,0,this.xline], {name: '', size:5, color:colors.endPoint});
+    this.x1 = b.create('glider', [X1,0,this.xline], {name: '', size:5, color:th.startPoint});
+    this.x2 = b.create('glider', [X2,0,this.xline], {name: '', size:5, color:th.endPoint});
 
     // bind all functions that might be passed in a callback to this context
     this.X1 = this.X1.bind(this);
@@ -193,7 +194,7 @@ class XInterval {
     // create a vertical glider at the midpoint of the interval
     this.vline = b.create('line', [[this.midX ,0], [this.midX, 1]], {visible:false});
     this.midY = b.create('glider', [this.midX(), 0, this.vline], {
-      name: '', size:4, color:colors.stroke, visible:false, showInfoBox:false});
+      name: '', size:4, color:th.stroke, visible:false, showInfoBox:false});
   }
 
   // getters
@@ -247,7 +248,7 @@ class XInterval {
 
 
 class Secant {
-  constructor (xint, F, attr = { units:'time', rate:'rate', change:'distance'} ) {
+  constructor (xint, F, attr = {}) {
 
     ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
@@ -291,31 +292,31 @@ class Secant {
     this.f1 = this.board.create('point', [
       this.xint.X1, 
       this.fx1], 
-      {color: colors.stroke, size:3, name:'', visible:true});
+      {color: th.stroke, size:3, name:'', visible:true});
 
     this.f2 = this.board.create('point', [
       this.xint.X2, 
       this.fx2], 
-      {color: colors.stroke, size:3, name:'', visible:true});
+      {color: th.stroke, size:3, name:'', visible:true});
 
     this.line = this.board.create('line', [this.f1, this.f2], {
-      strokeColor: colors.verylightAnnote,  
+      strokeColor: th.verylightAnnote,  
       strokeWidth:1,
       highlightStrokeWidth:1,
-      highlightStrokeColor: colors.verylightAnnote,
+      highlightStrokeColor: th.verylightAnnote,
       visible:false});
 
     this.segment = this.board.create('segment', [this.f1, this.f2], {
-      strokeColor: colors.stroke, 
-      highlightStrokeColor: colors.stroke,
-      strokeWidth: colors.strokeWidth, 
+      strokeColor: th.stroke, 
+      highlightStrokeColor: th.stroke,
+      strokeWidth: th.strokeWidth, 
       visible:true});
 
     this.slopeText = this.board.create('text', [
       this.slopeTextX,
       this.slopeTextY,
       this.slopeString], 
-      {strokeColor: colors.lightAnnote, fontSize:colors.fontSizeAnnote, visible:false});
+      {strokeColor: th.lightAnnote, fontSize:th.fontSizeAnnote, visible:false});
 
     this.p1 = this.board.create('point',[ 
       this.xint.X2, 
@@ -323,22 +324,34 @@ class Secant {
       {visible:false});
 
     this.riseLine = this.board.create('segment', [this.p1, this.f2], 
-    {strokeColor: colors.lightAnnote, strokeWidth:2, firstArrow:true, lastArrow:true, visible:false});
+    {
+      strokeColor: th.lightAnnote, 
+      strokeWidth:th.strokeWidthAnnote, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
 
     this.riseText = this.board.create('text', [
       this.riseTextX,
       this.riseTextY,
       this.riseTextVal],
-      {strokeColor: colors.lightAnnote, fontSize: colors.fontSizeAnnote, visible:false});
+      {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
 
     this.runLine = this.board.create('segment', [this.p1, this.f1], 
-      {strokeColor: colors.lightAnnote, strokeWidth:2, firstArrow:true, lastArrow:true, visible:false});
+      {
+        strokeColor: th.lightAnnote, 
+        strokeWidth:th.strokeWidthAnnote, 
+        firstArrow:true, 
+        lastArrow:true, 
+        visible:false
+      });
 
     this.runText = this.board.create('text', [
       this.runTextX,
       this.runTextY,
       this.runTextVal],
-      {strokeColor: colors.lightAnnote, fontSize: colors.fontSizeAnnote, visible:false});
+      {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
 
     ///////////////////////////////////////////////////////  attribute settings
 
@@ -359,7 +372,6 @@ class Secant {
     }
   }
 
-  // these are all the function that might be used as callbacks
   fx1() { return this.f(this.xint.X1()); }
   fx2() { return this.f(this.xint.X2()); }
   run() { return this.xint.range(); }
@@ -406,11 +418,10 @@ class Secant {
   runTextX() { return this.xint.midX() - this.runTextWidth()/2; }
   runTextY() { return this.fx1() - 2 * this.xint.Yerror; }
   runTextVal() { 
-    let prefix = '';
     if (this.attr !== undefined && 'units' in this.attr) {
-      prefix += this.attr['units'] + ' = ';
+      return this.attr['units'] + ' = ' + this.units().toFixed(this.precision).toString();
     }
-    return prefix + (this.units()).toFixed(this.precision).toString();
+    return this.units().toFixed(this.precision).toString();
   }
   runTextWidth() {
     if (this.runText == undefined ) return 0;
@@ -459,22 +470,28 @@ class Secant {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-class AdjRectangle {
-  constructor (xint, F) {
+class Rectangle {
+  constructor (xint, F, attr = {} ) {
+
+    ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
     this.xint = xint;
     this.f = F;
-    this.showAnnotations = false;
-    let boundingBox = xint.board.getBoundingBox();
-    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
-    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
+    this.attr = attr;
     this.precision = 2;
+    let boundingBox = xint.board.getBoundingBox();
+    this.boardwidth = (boundingBox[2] - boundingBox[0]);  
 
+    ///////////////////////////////////////////////////////  bind functions
     this.height = this.height.bind(this);
     this.area = this.area.bind(this);
+    this.units = this.units.bind(this);
+    this.rate = this.rate.bind(this);
+    this.change = this.change.bind(this);
     this.areaTextX = this.areaTextX.bind(this);
     this.areaTextY = this.areaTextY.bind(this);
     this.areaTextVal = this.areaTextVal.bind(this);
+    this.areaTextWidth = this.areaTextWidth.bind(this);
     this.hdX = this.hdX.bind(this);
     this.heightTextX = this.heightTextX.bind(this);
     this.heightTextY = this.heightTextY.bind(this);
@@ -486,22 +503,24 @@ class AdjRectangle {
     this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
     this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
+    
 
+    ///////////////////////////////////////////////////////  add components to JSXGraph board
     this.f1 = this.board.create('point', [
       this.xint.X1, 
       this.height], 
-      {color: colors.stroke, size:3, name:'', visible:true});
+      {color: th.stroke, size:3, name:'', visible:true});
 
     this.f2 = this.board.create('point', [
       this.xint.X2, 
       this.height], 
-      {color: colors.stroke, size:3, name:'', visible:true});
+      {color: th.stroke, size:3, name:'', visible:true});
 
     this.rect = this.board.create('polygon', [this.xint.x1, this.f1, this.f2, this.xint.x2], 
     {
-      borders: { strokeColor: colors.stroke, highlightStrokeColor: colors.highlightStroke},
-      fillColor:colors.fill, 
-      highlightFillColor:colors.highlightFill, 
+      borders: { strokeColor: th.stroke, highlightStrokeColor: th.highlightStroke},
+      fillColor:th.fill, 
+      highlightFillColor:th.highlightFill, 
       hasInnerPoints:true
     });
 
@@ -509,7 +528,7 @@ class AdjRectangle {
       this.areaTextX,
       this.areaTextY,
       this.areaTextVal],
-      { fontSize:15, visible:false });
+      { strokeColor: th.darkAnnote, fontSize:th.fontSizeAnnote, visible:false });
 
     this.p1 = this.board.create('point',[
       this.hdX,
@@ -521,21 +540,22 @@ class AdjRectangle {
       0],
       {visible:false});
 
-    this.heightDimLine = this.board.create('segment', [this.p1, this.p2], 
+    this.heightLine = this.board.create('segment', [this.p1, this.p2], 
     {
-      strokeColor:colors.lightAnnote, 
-      strokeWidth:2, 
+      strokeColor:th.lightAnnote, 
+      strokeWidth:th.strokeWidthAnnote, 
       firstArrow:true, 
       lastArrow:true, 
       visible:false
     });
 
-
-    this.heightDimText = this.board.create('text', [
+    this.heightText = this.board.create('text', [
       this.heightTextX,
       this.heightTextY,
       this.heightTextVal],
-      { strokeColor:colors.lightAnnote, fontSize: 15, visible:false});
+      { 
+        strokeColor:th.lightAnnote, 
+        fontSize: th.fontSizeAnnote, visible:false});
 
     this.p3 = this.board.create('point',[
       this.xint.X1, 
@@ -547,73 +567,121 @@ class AdjRectangle {
       this.wdY],
       {visible:false});
 
-    this.widthDimLine = this.board.create('segment', [this.p3,this.p4], 
+    this.widthLine = this.board.create('segment', [this.p3,this.p4], 
     {
-      strokeColor: colors.lightAnnote, 
-      strokeWidth:2, 
+      strokeColor: th.lightAnnote, 
+      strokeWidth:th.strokeWidthAnnote, 
       firstArrow:true, 
       lastArrow:true, 
       visible:false
     });
 
-    this.widthDimText = this.board.create('text', [
+    this.widthText = this.board.create('text', [
       this.widthTextX,
       this.widthTextY,
       this.widthTextVal],
-      {strokeColor: colors.lightAnnote, fontSize: 15, visible:false});
+      {
+        strokeColor: th.lightAnnote, 
+        fontSize: th.fontSizeAnnote, visible:false});
 
-    this.rect.on('over', this.turnOnAnnotations);
-    this.rect.on('out', this.turnOffAnnotations); 
 
+    ///////////////////////////////////////////////////////  attribute settings
+
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+        this.rect.on('over', this.turnOnAnnotations);
+        this.rect.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+
+    if ('precision' in this.attr) {
+      this.precision = this.attr['precision'];
+    }
   }
 
+
+
   height() { return this.f(this.xint.midX()); }
+  hdX() { return this.xint.X2() +  this.xint.Xerror; }
+  wdY() { return this.height() + 2 * this.xint.Yerror; }
+
+
+  // interface functions
   area() { return this.height() * this.xint.range(); }
-  areaTextX() { return this.xint.midX() - this.Xerror; }
+  slope() { 0; }
+  units() { return this.xint.range(); }
+  rate() { return this.height(); }
+  change() { return this.area(); }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
+  onUpdate() { this.xint.onUpdate(); } 
+  setAttribute() { }
+
+
+  // this mangages the area text annotation
+  areaTextX() { return this.xint.midX() - this.areaTextWidth()/2; }
   areaTextY() { return this.height() / 2; }
-  areaTextVal() { return this.area().toFixed(this.precision); }
-  hdX() { return this.xint.X2() +  this.Xerror / 2; }
-  heightTextX() { return this.hdX() + this.Xerror / 2; }
+  areaTextVal() { 
+    if (this.attr !== undefined && 'change' in this.attr) {
+      return this.attr.change + ' = ' + this.area().toFixed(this.precision); 
+    }
+    return this.area().toFixed(this.precision); 
+  }
+  areaTextWidth() {
+    if (this.areaText == undefined ) return 0;
+    this.areaText.updateSize();
+    return this.areaText.getSize()[0] * this.boardwidth / this.board.canvasWidth;
+  }
+
+
+  // this mangages the height text annotation
+  heightTextX() { return this.hdX() + this.xint.Xerror; }
   heightTextY() { return this.height() / 2 }
-  heightTextVal() { return this.height().toFixed(this.precision); }
-  wdY() { return this.height() + this.Yerror; }
-  widthTextX() { return this.xint.X1() + this.xint.range() /2 - this.Xerror; }
-  widthTextY() { return this.height() + 2 * this.Yerror; }
-  widthTextVal() { return this.xint.range().toFixed(this.precision); }
-  rise() { return 0; }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }
-  setPrecision(p) { this.precision = p; }
-  
+  heightTextVal() { 
+    if (this.attr !== undefined && 'rate' in this.attr) {
+      return this.attr.rate + ' = ' + this.height().toFixed(this.precision);
+    }
+    return this.height().toFixed(this.precision); 
+  }
+
+
+  // this mangages the width text annotation
+  widthTextX() { return this.xint.midX() - this.widthTextWidth()/2; }
+  widthTextY() { return this.height() + 4 * this.xint.Yerror; }
+  widthTextVal() { 
+    if (this.attr !== undefined && 'units' in this.attr) {
+      return this.attr.units + ' = ' + this.xint.range().toFixed(this.precision);
+    }
+    return this.xint.range().toFixed(this.precision);
+  }
+  widthTextWidth() {
+    if (this.widthText == undefined ) return 0;
+    this.widthText.updateSize();
+    return this.widthText.getSize()[0] * this.boardwidth / this.board.canvasWidth;
+  }
+
+  // call back functions for annotations
   turnOnAnnotations() {
     this.areaText.setAttribute({visible:true});
-    this.heightDimText.setAttribute({visible:true});
-    this.heightDimLine.setAttribute({visible:true});
-    this.widthDimText.setAttribute({visible:true});
-    this.widthDimLine.setAttribute({visible:true}); 
+    this.heightText.setAttribute({visible:true});
+    this.heightLine.setAttribute({visible:true});
+    this.widthText.setAttribute({visible:true});
+    this.widthLine.setAttribute({visible:true}); 
   }
 
   turnOffAnnotations() {
-    if (!this.showAnnotations) {
-      this.areaText.setAttribute({visible:false});
-      this.heightDimText.setAttribute({visible:false});
-      this.heightDimLine.setAttribute({visible:false});
-      this.widthDimText.setAttribute({visible:false});
-      this.widthDimLine.setAttribute({visible:false}); 
-    }
+    this.areaText.setAttribute({visible:false});
+    this.heightText.setAttribute({visible:false});
+    this.heightLine.setAttribute({visible:false});
+    this.widthText.setAttribute({visible:false});
+    this.widthLine.setAttribute({visible:false}); 
   }
   
-  setAnnotations(b) { 
-    this.showAnnotations = b; 
-    if (b) { this.turnOnAnnotations(); }
-  }
-
-  setFillColor(color) { this.rect.setAttribute({fillColor:color}); }
-
   delete() {
-    this.board.removeObject(this.widthDimLine);
-    this.board.removeObject(this.widthDimText);
-    this.board.removeObject(this.heightDimLine);
-    this.board.removeObject(this.heightDimText);
+    this.board.removeObject(this.widthLine);
+    this.board.removeObject(this.widthText);
+    this.board.removeObject(this.heightLine);
+    this.board.removeObject(this.heightText);
     this.board.removeObject(this.p3);
     this.board.removeObject(this.p4);
     this.board.removeObject(this.p2);
@@ -624,52 +692,11 @@ class AdjRectangle {
     this.board.removeObject(this.f2);
     this.xint.delete();
   }
-
-  onUpdate() {
-    this.xint.onUpdate();
-  }
 }
 
-class AnnotatedRectangle extends AdjRectangle {
-  constructor (xint, F, names = { width: 'width', height: 'height', area: 'area'}) {
-    super(xint, F);
-    this.names = names;
-    this.setAnnotations(true);
-
-    this.areaTextVal = this.areaTextVal.bind(this);
-    this.heightTextVal = this.heightTextVal.bind(this);
-    this.widthTextVal = this.widthTextVal.bind(this);
-  }
-
-  areaTextVal() { 
-    let prefix = '';
-    if (this.names) {
-      prefix = this.names.area + ' = ';
-    }
-    return prefix + super.areaTextVal(); 
-  }
-
-  heightTextVal() { 
-    let prefix = '';
-    if (this.names) {
-      prefix = this.names.height + ' = ';
-    }
-    return prefix + super.heightTextVal(); 
-  }
 
 
-  widthTextVal() { 
-    let prefix = '';
-    if (this.names) {
-      prefix = this.names.width + ' = ';
-    }
-    return prefix + super.widthTextVal(); 
-  }
-
-  setNames(n) { this.names = n; }
-}
-
-class AdjHeightRectangle extends AnnotatedRectangle {
+class AdjHeightRectangle extends Rectangle {
   constructor(xint, F, names) {
     super(xint,F, names);
     this.xint.midY.setAttribute({visible:true});
@@ -716,7 +743,7 @@ class AdjSecantRect {
     this.attachY = this.attachY.bind(this);
 
     this.attachButton = new BoolButton(this.xint.board, [this.buttonX, this.attachY], 'attach'); 
-    this.rectangle = new AdjRectangle(xint, this.rectangleFunction);
+    this.rectangle = new Rectangle(xint, this.rectangleFunction);
     this.secant = new Secant(xint, this.secantFunction);
     this.xint.midY.setAttribute({visible:true});
 
@@ -793,10 +820,10 @@ class RectangleArray {
 
     this.rectangles = this.board.create('curve', [[0],[0]], {
       strokeColor: '#1155CC',
-      fillColor:colors.fill, 
+      fillColor:th.fill, 
       fillOpacity:0.3, 
-      highlightStrokeColor:colors.highlightStroke,
-      highlightFillColor:colors.highlightFill, 
+      highlightStrokeColor:th.highlightStroke,
+      highlightFillColor:th.highlightFill, 
       highlightFillOpacity:0.3, 
       hasInnerPoints:true
     });
@@ -1113,7 +1140,7 @@ class StandardBoard {
 }
 
 let widgetConstructor = {
-    0 : function(xint, F, attr) { return new AnnotatedRectangle(xint, F, attr); },
+    0 : function(xint, F, attr) { return new Rectangle(xint, F, attr); },
     1 : function(xint, F, attr) { return new Secant(xint, F, attr); },
     2 : function(xint, F, attr) { return new AdjSecantRect(xint, F, attr); },
     3 : function(xint, F, attr) { return new RectangleArray(xint, F, attr); },
@@ -1216,8 +1243,7 @@ class Workspace extends StandardBoard {
 })(this, function (exports) {
   'use strict';
 
-  exports.AdjRectangle = AdjRectangle;
-  exports.AnnotatedRectangle = AnnotatedRectangle;
+  exports.Rectangle = Rectangle;
   exports.AdjHeightRectangle = AdjHeightRectangle;
   exports.Secant = Secant;
   exports.AdjSecantRect = AdjSecantRect;
