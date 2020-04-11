@@ -1,6 +1,6 @@
 const blue = '#66AAFF';
 const brightblue = '#00AAFF';
-const darkblue = '#1155CC';
+const darkblue = '#3344AA';
 //const lightgray = '#CCCCCC';
 const mediumgray = '#AAAAAA';
 const darkgray = '#333333';
@@ -8,7 +8,7 @@ const darkgray = '#333333';
 //const tomato = '#FF2222'; 
 
 
-class AppColors {
+class BlueTheme {
   constructor() {
     this.fill = blue;
     this.stroke = darkblue;
@@ -16,34 +16,50 @@ class AppColors {
     this.highlightStroke = darkblue;
     this.lightAnnote = mediumgray;
     this.darkAnnote = darkgray;
+    this.startPoint = 'red';
+    this.endPoint = 'green';
+    this.annotFontSize = 15;
   }
 }
 
-let colors = new AppColors();
+class SteelTheme {
+  constructor() {
+    this.fill = blue;
+    this.stroke = darkblue;
+    this.highlightFill = brightblue;
+    this.highlightStroke = darkblue;
+    this.lightAnnote = mediumgray;
+    this.darkAnnote = darkgray;
+    this.startPoint = '#666688';
+    this.endPoint = '#EE5511';
+  }
+}
 
- 
+let colors = new BlueTheme();
+
+
 class Slider {
-  constructor(xint, low, high, name) {
-    this.board = xint.board;
-    this.xint = xint;
-    this.low = low;
+  constructor(board, [xf, yf], [low,high], name) {
+    this.board = board;
+    this.low = low;   // range of values the slider is allowed to take
     this.high = high;
     this.name = name; 
     let boundingBox = this.board.getBoundingBox();
     this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
     this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
     this.xdelta = 3 * this.Xerror;
-    this.dead = false;
+    this.Y = yf;      // position on the board
+    this.X1 = xf;
+    this.precision = 3;
+    this.dead = false;  // a slider can be shared by multiple objects.
+                        // we only want to delete it once
 
-    this.X1 = this.X1.bind(this);
-    this.X2 = this.X2.bind(this);
-    this.Y = this.Y.bind(this);
-    this.gliderX = this.gliderX.bind(this);
-    this.Value = this.Value.bind(this);
+    this.X2 = this.X2.bind(this);             // bound functions that might need 
+    this.gliderX = this.gliderX.bind(this);   // to be passed
+    this.value = this.value.bind(this);
     this.stringValue = this.stringValue.bind(this);
     this.textX = this.textX.bind(this);
 
-    
     this.l1 = this.board.create('segment', [[this.X1, this.Y], [this.X2, this.Y]], {
       strokeColor:'black', 
       strokeWidth:1,  
@@ -65,26 +81,27 @@ class Slider {
     });
     
     this.text = this.board.create('text', [this.textX, this.Y, this.stringValue], {fontSize:12});
+
   }
 
-  X1() { return this.xint.X2() + this.Xerror; }
   X2() { return this.X1() + this.xdelta; }
-  Y() { return this.Yerror; }
   gliderX() { return this.g.X(); }
   textX() { return  this.X1() + this.xdelta + this.Xerror; }
 
-  Value() {
+  value() {
     let percent = (this.g.X() - this.X1()) / this.xdelta;
-    return this.low + (this.high - this.low) * percent;
+    return (this.low + (this.high - this.low) * percent).toFixed(this.precision);
   }
 
-  stringValue() { return this.name + '        ' + this.Value().toString(); }
+  stringValue() { return this.name + '        ' + this.value().toString(); }
 
   setValue(v) {
     if (v < this.low || v > this.high) return;
     let percent = (v - this.low)/(this.high - this.low);
     this.g.moveTo([this.X1() + percent * this.xdelta ,this.Y()]);
   }
+
+  setPrecision(i) { this.precision = i; }
 
   delete() {
     if (!this.dead) {  // only delete it once
@@ -97,19 +114,20 @@ class Slider {
   }
 }
 
+
 class IntSlider extends Slider {
-  constructor(xint, low, high, name) {
-    super(xint, low, high, name);
-    this.Value = this.Value.bind(this);  // make this lowercase
+  constructor(board, [xf, yf], [low,high], name) {
+    super(board, [xf, yf], [low,high], name);
+    this.value = this.value.bind(this); 
   }
 
-  Value() { return Math.floor(super.Value()); }
-
+  value() { return Math.floor(super.value()); }
 }
 
+
 class BoolButton extends Slider {
-  constructor(xint, name) {
-    super(xint, 0, 2, name);
+  constructor(board, [xf, yf], name) {
+    super(board, [xf, yf], [0,2], name);
     this.state = false;
     this.xdelta = 0;
 
@@ -155,19 +173,6 @@ class BoolButton extends Slider {
 
 
 /*
-This class holds the board and sizing data.            
-*/
-class BoardInfo {
-  constructor(b) {
-    this.board = b;
-    let boundingBox = this.board.getBoundingBox();
-    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
-    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;  
-  }
-}
-
-
-/*
    This creates an interval on the X axis.  The interval can be resized with two gliders x1 and x2 on 
    the X axis.  There is also a vertical glider midY in the middle of the interval.
 */
@@ -177,10 +182,14 @@ class XInterval {
     this.snapToGrid = true;
     this.snapMargin = 0.05;
 
+    let boundingBox = this.board.getBoundingBox();         // I've added these errors here to 
+    this.Yerror = (boundingBox[1] - boundingBox[3]) / 100;  // give the widgets access to them.
+    this.Xerror = (boundingBox[2] - boundingBox[0]) / 100;  // like they have access to the board
+
     // create two gliders on the x axis
     this.xline = this.board.create('line', [[0,0],[1,0]], {visible:false});  // x axis line
-    this.x1 = b.create('glider', [X1,0,this.xline], {name: '', size:5, color:'green'});
-    this.x2 = b.create('glider', [X2,0,this.xline], {name: '', size:5, color:'red'});
+    this.x1 = b.create('glider', [X1,0,this.xline], {name: '', size:5, color:colors.startPoint});
+    this.x2 = b.create('glider', [X2,0,this.xline], {name: '', size:5, color:colors.endPoint});
 
     // bind all functions that might be passed in a callback to this context
     this.X1 = this.X1.bind(this);
@@ -201,7 +210,6 @@ class XInterval {
   X1() { return this.x1.X(); }
   X2() { return this.x2.X(); }
   range() { return this.x2.X() - this.x1.X(); }
-  // return the midpoint of the interval
   midX() {
     return this.x1.X() + this.range() / 2;
   }
@@ -245,37 +253,51 @@ class XInterval {
 }
 
 
-/*
-  - why doesn't strokeColor work?  Maybe a bug in jsxgraph?
-*/
-// could use precision to adjust text placement 
-class AdjSecant {
-  constructor (xint, F) {
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class Secant {
+  constructor (xint, F, attr = { units:'time', rate:'rate', change:'distance'} ) {
+
+    ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
     this.xint = xint;
     this.f = F;
-    this.showAnnotations = false;
-    let boundingBox = this.board.getBoundingBox();
-    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
-    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
+    this.attr = attr;
     this.precision = 2;
-
+    this.showUnits = true;
+    let boundingBox = this.board.getBoundingBox();         
+    this.boardwidth = (boundingBox[2] - boundingBox[0]);  
+    
+    ///////////////////////////////////////////////////////  bind functions
     this.fx1 = this.fx1.bind(this);
     this.fx2 = this.fx2.bind(this);
     this.rise = this.rise.bind(this);
     this.run = this.run.bind(this);
     this.slope = this.slope.bind(this);
+    this.area = this.area.bind(this);
+    this.units = this.units.bind(this);
+    this.rate = this.rate.bind(this);
+    this.change = this.change.bind(this);
     this.slopeTextX = this.slopeTextX.bind(this);
     this.slopeTextY = this.slopeTextY.bind(this);
     this.slopeString = this.slopeString.bind(this);
-    this.dimensionTextX = this.dimensionTextX.bind(this);
-    this.dimensionTextY = this.dimensionTextY.bind(this);
-    this.dimensionTextVal = this.dimensionTextVal.bind(this);
+    this.slopeTextWidth = this.slopeTextWidth.bind(this);
+    this.riseTextX = this.riseTextX.bind(this);
+    this.riseTextY = this.riseTextY.bind(this);
+    this.riseTextVal = this.riseTextVal.bind(this);
+    this.runTextX = this.runTextX.bind(this);
+    this.runTextY = this.runTextY.bind(this);
+    this.runTextVal = this.runTextVal.bind(this);
+    this.runTextWidth = this.runTextWidth.bind(this);
     this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
     this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
-    this.turnOnSlopeLine = this.turnOnSlopeLine.bind(this);
-    this.turnOffSlopeLine = this.turnOffSlopeLine.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
 
+    
+
+
+    ///////////////////////////////////////////////////////  add components to JSXGraph board
     this.f1 = this.board.create('point', [
       this.xint.X1, 
       this.fx1], 
@@ -288,6 +310,8 @@ class AdjSecant {
 
     this.line = this.board.create('line', [this.f1, this.f2], {
       strokeColor: '#DDDDDD',  
+      hightlightStrokeWidth:1,
+      highlightStrokeColor: '#DDDDDD',
       visible:false});
 
     this.segment = this.board.create('segment', [this.f1, this.f2], {
@@ -302,70 +326,133 @@ class AdjSecant {
       this.slopeString], 
       {strokeColor: colors.lightAnnote, fontSize:15, visible:false});
 
-    
     this.p1 = this.board.create('point',[ 
       this.xint.X2, 
       this.fx1],
       {visible:false});
 
-    this.dimensionLine = this.board.create('segment', [this.p1, this.f2], 
+    this.riseLine = this.board.create('segment', [this.p1, this.f2], 
     {strokeColor: colors.lightAnnote, strokeWidth:2, firstArrow:true, lastArrow:true, visible:false});
 
-    this.dimensionText = this.board.create('text', [
-      this.dimensionTextX,
-      this.dimensionTextY,
-      this.dimensionTextVal],
+    this.riseText = this.board.create('text', [
+      this.riseTextX,
+      this.riseTextY,
+      this.riseTextVal],
       {strokeColor: colors.lightAnnote, fontSize: 15, visible:false});
 
-    this.segment.on('over', this.turnOnAnnotations);
-    this.segment.on('out', this.turnOffAnnotations);
+    this.runLine = this.board.create('segment', [this.p1, this.f1], 
+      {strokeColor: colors.lightAnnote, strokeWidth:2, firstArrow:true, lastArrow:true, visible:false});
 
+    this.runText = this.board.create('text', [
+      this.runTextX,
+      this.runTextY,
+      this.runTextVal],
+      {strokeColor: colors.lightAnnote, fontSize: 15, visible:false});
+
+    ///////////////////////////////////////////////////////  attribute settings
+
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+        this.segment.on('over', this.turnOnAnnotations);
+        this.segment.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+
+    if ('precision' in this.attr) {
+      this.precision = this.attr['precision'];
+    }
+
+    if ('showUnits' in this.attr) {
+      this.showUnits = false;
+    }
   }
 
   // these are all the function that might be used as callbacks
   fx1() { return this.f(this.xint.X1()); }
   fx2() { return this.f(this.xint.X2()); }
   run() { return this.xint.range(); }
-  slope() { return  this.rise() / this.run(); }
-  slopeTextX() { return this.xint.midX() - 4 * this.Xerror; }
-  slopeTextY() { return this.fx1() + this.rise() / 2 + this.Yerror; }
-  slopeString() { return 'slope = ' + this.slope().toFixed(this.precision).toString(); }
-  dimensionTextX() { return this.xint.X2() + this.Xerror/2;}
-  dimensionTextY() { return this.fx1() + this.rise() / 2; }
-  dimensionTextVal() { return (this.rise()).toFixed(this.precision);}
-
   rise() { return this.fx2() - this.fx1(); }
-  area() { return 0; }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }
 
-  setPrecision(p) { this.precision = p; }
+  // interface functions
+  area() { return 0; }
+  slope() { return  this.rise() / this.units(); }
+  units() { return this.run(); }
+  rate() { return this.slope(); }
+  change() { return this.rise(); }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
+  onUpdate() { this.xint.onUpdate(); } 
+  setAttribute() { }
+
+
+  // this is all for the slope string annotation
+  slopeTextX() { return this.xint.midX() - this.slopeTextWidth() - 2 * this.xint.Xerror; }
+  slopeTextY() { return this.fx1() + this.rise() / 2; }
+  slopeString() {
+    if (this.attr !== undefined && 'rate' in this.attr) {
+      return this.attr['rate'] + ' = ' + this.slope().toFixed(this.precision).toString();
+    } 
+    return 'slope = ' + this.slope().toFixed(this.precision).toString();
+  }
+  slopeTextWidth() {
+    if (this.slopeText == undefined ) return 0;
+    this.slopeText.updateSize();
+    return this.slopeText.getSize()[0] * this.boardwidth / this.board.canvasWidth;
+  }
   
+  
+  // this is all for the rise string annotation
+  riseTextX() { return this.xint.X2() + this.xint.Xerror/2;}
+  riseTextY() { return this.fx1() + this.rise() / 2; }
+  riseTextVal() {
+    if (this.attr !== undefined && 'change' in this.attr) {
+      return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
+    } 
+    return this.rise().toFixed(this.precision);
+  }
+
+  // this is all for the units string annotation
+  runTextX() { return this.xint.midX() - this.runTextWidth()/2; }
+  runTextY() { return this.fx1() - 2 * this.xint.Yerror; }
+  runTextVal() { 
+    let prefix = '';
+    if (this.attr !== undefined && 'units' in this.attr) {
+      prefix += this.attr['units'] + ' = ';
+    }
+    return prefix + (this.units()).toFixed(this.precision).toString();
+  }
+  runTextWidth() {
+    if (this.runText == undefined ) return 0;
+    this.runText.updateSize();
+    return this.runText.getSize()[0] * this.boardwidth / this.board.canvasWidth;
+  }
+
+  // call back functions for annotations
   turnOnAnnotations() {
     this.slopeText.setAttribute({visible:true});
-    this.dimensionText.setAttribute({visible:true});
-    this.dimensionLine.setAttribute({visible:true});
+    this.riseText.setAttribute({visible:true});
+    this.riseLine.setAttribute({visible:true});
     this.line.setAttribute({visible:true});
+    if (this.showUnits) {
+      this.runLine.setAttribute({visible:true});
+      this.runText.setAttribute({visible:true});
+    }
   }
 
   turnOffAnnotations() {
-    if (!this.showAnnotations) {
-      this.slopeText.setAttribute({visible:false});
-      this.dimensionText.setAttribute({visible:false});
-      this.dimensionLine.setAttribute({visible:false});
-      this.line.setAttribute({visible:false});
-    }
-  }
-  
-  turnOnSlopeLine() { this.line.setAttribute({visible:true}); }
-  turnOffSlopeLine() { this.line.setAttribute({visible:false}); }
-  setAnnotations(b) { 
-    this.showAnnotations = b; 
-    if (b) { this.turnOnAnnotations(); }
+    this.slopeText.setAttribute({visible:false});
+    this.riseText.setAttribute({visible:false});
+    this.riseLine.setAttribute({visible:false});
+    this.line.setAttribute({visible:false});
+    this.runLine.setAttribute({visible:false});
+    this.runText.setAttribute({visible:false});
   }
 
   delete() {
-    this.board.removeObject(this.dimensionLine);
-    this.board.removeObject(this.dimensionText);
+    this.board.removeObject(this.riseLine);
+    this.board.removeObject(this.riseText);
+    this.board.removeObject(this.runLine);
+    this.board.removeObject(this.runText);
     this.board.removeObject(this.p1);
     this.board.removeObject(this.slopeText);
     this.board.removeObject(this.segment);
@@ -373,66 +460,12 @@ class AdjSecant {
     this.board.removeObject(this.f1);
     this.board.removeObject(this.f2);
     this.xint.delete();
-  }
-
-  onUpdate() {
-    this.xint.onUpdate();
-  }
-
-  
+  } 
 }
 
-class AnnotatedSecant extends AdjSecant {
-  constructor(xint, F, names = { rise:'rise', run:'run', slope:'slope'}) {
-    super(xint, F);
-    this.names = names;
-    this.setAnnotations(true);
-    this.turnOnSlopeLine();
 
-    this.slopeString = this.slopeString.bind(this);
-    this.dimensionTextVal = this.dimensionTextVal.bind(this);
-    this.runTextX = this.runTextX.bind(this);
-    this.runTextY = this.runTextY.bind(this);
-    this.runTextVal = this.runTextVal.bind(this);
 
-    this.dimensionLineRun = this.board.create('segment', [this.p1, this.f1], 
-      {strokeColor: colors.lightAnnote, strokeWidth:2, firstArrow:true, lastArrow:true, visible:true});
-
-    this.runText = this.board.create('text', [
-      this.runTextX,
-      this.runTextY,
-      this.runTextVal],
-      {strokeColor: colors.lightAnnote, fontSize: 15, visible:true});
-  }
-
-  slopeString() {
-    if (this.names) {
-      return this.names.slope + ' = ' + this.slope().toFixed(this.precision).toString();
-    } 
-    else { return super.slopeString(); }
-  }
-
-  dimensionTextVal() {
-    let prefix = '';
-    if (this.names) {
-      prefix += this.names.rise + ' = ';
-    } 
-    return prefix + super.dimensionTextVal();
-  }
-
-  runTextX() { return this.xint.midX() - 2 * this.Xerror; }
-  runTextY() { return this.fx1() - 2 * this.Yerror; }
-  runTextVal() { 
-    let prefix = '';
-    if (this.names) {
-      prefix += this.names.run + ' = ';
-    }
-    return prefix + (this.run()).toFixed(this.precision).toString();
-  }
-
-  setNames(n) { this.names = n; }
-}
-
+////////////////////////////////////////////////////////////////////////////////////////////
 
 
 class AdjRectangle {
@@ -475,9 +508,8 @@ class AdjRectangle {
 
     this.rect = this.board.create('polygon', [this.xint.x1, this.f1, this.f2, this.xint.x2], 
     {
-      strokeColor: colors.stroke,
+      borders: { strokeColor: colors.stroke, highlightStrokeColor: colors.highlightStroke},
       fillColor:colors.fill, 
-      highlightStrokeColor:colors.highlightStroke,
       highlightFillColor:colors.highlightFill, 
       hasInnerPoints:true
     });
@@ -680,15 +712,21 @@ class AdjSecantRect {
     this.f = F;
     this.showAnnotations = false;
     this.names = names;
-    this.attachButton = new BoolButton(xint, 'attach');
+    let boundingBox = xint.board.getBoundingBox();
+    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
+    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
+    this.precision = 2;
 
     this.rectangleFunction = this.rectangleFunction.bind(this);
     this.secantFunction = this.secantFunction.bind(this);
     this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
     this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
+    this.attachX = this.attachX.bind(this);
+    this.attachY = this.attachY.bind(this);
 
+    this.attachButton = new BoolButton(this.xint.board, [this.buttonX, this.attachY], 'attach'); 
     this.rectangle = new AdjRectangle(xint, this.rectangleFunction);
-    this.secant = new AdjSecant(xint, this.secantFunction);
+    this.secant = new Secant(xint, this.secantFunction);
     this.xint.midY.setAttribute({visible:true});
 
     this.rectangle.rect.on('over', this.turnOnAnnotations);
@@ -697,6 +735,8 @@ class AdjSecantRect {
     this.secant.segment.on('out', this.turnOffAnnotations);
   }
 
+  attachX() { return this.xint.X1() + 0.5 * this.Xerror; } 
+  attachY() { return this.Yerror; }
 
   rectangleFunction() { 
     if (this.attachButton.state) {
@@ -712,19 +752,16 @@ class AdjSecantRect {
     }
     return this.f(x);
   }
-
   turnOnAnnotations() {
       this.rectangle.turnOnAnnotations();
       this.secant.turnOnAnnotations();
   }
-
   turnOffAnnotations() {
     if (!this.showAnnotations) {
       this.rectangle.turnOffAnnotations();
       this.secant.turnOffAnnotations();
     }
   }
-
   setAnnotations(b) { 
     this.showAnnotations = b; 
     if (b) { 
@@ -732,12 +769,13 @@ class AdjSecantRect {
       this.secant.turnOnAnnotations();
     }
   }
-
   delete() {
     this.rectangle.delete();
     this.secant.delete();
     this.xint.delete();
-    this.attachButton.delete();
+    if (this.attachButton != undefined) {
+      this.attachButton.delete();
+    } 
   }
 }
 
@@ -745,7 +783,7 @@ class AdjSecantRect {
 
 
 class RectangleArray {
-  constructor(xint, F, names) {
+  constructor(xint, F, slider, names) {
     this.board = xint.board;
     this.xint = xint;
     this.f = F;
@@ -755,7 +793,7 @@ class RectangleArray {
     this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
     this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
     this.names = names;
-    this.slider = new IntSlider(xint, 1, 100, 'N');
+    this.slider = slider;
 
     this.updateDataArray = this.updateDataArray.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
@@ -879,14 +917,13 @@ class SecantRectArray {
     this.attachButton = new BoolButton(xint, 'attach');
 
     this.rectangleFunction = this.rectangleFunction.bind(this);
-    this.secantFunction = this.secantFunction.bind(this);
-    this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
-    this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
+    //this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
+    //this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
     this.deltaX = this.deltaX.bind(this);
     this.constant = this.constant.bind(this);
 
     this.rectangles = new RectangleArray(xint, this.rectangleFunction);
-    this.secants = new SecantArray(xint, this.secantFunction);
+    this.secants = new SecantArray(xint, this.f);
     this.xint.midY.setAttribute({visible:true});
 
     this.rectangle.rect.on('over', this.turnOnAnnotations);
@@ -904,15 +941,6 @@ class SecantRectArray {
     return  (this.f(x + dx/2) - this.f(x - dx/2)) / dx;  // slope of secant 
   }
 
-  secantFunction(x, cum) {
-    if (this.attachButton.Value()) {
-      let dx = this.deltaX();
-      let area = this.f(x - dx/2) * dx;
-      return [area + cum + this.constant(), area];
-    }
-    return [this.f(x), 0];
-  }
-
   updateSecantData() {
     let x1 = this.xint.X1();
     let x2 = this.xint.X2();
@@ -920,9 +948,12 @@ class SecantRectArray {
     let x = [];
     let y = [];
     let lastPoint = x2 + 0.01;
+    let cum = 0;
     for (let i=x1; i <= lastPoint; i += delta) {
       x.push(i);
-      y.push(this.f(i));
+      let area = this.f(x - delta/2) * delta;  // first get the area of current rectangle
+      cum += area;                             // sum of all rectangles so far.
+      y.push(cum);
     }
     this.secants.dataX = x;
     this.secants.dataY = y;
@@ -937,6 +968,15 @@ class SecantRectArray {
     this.xint.delete();
     this.slider.delete();
     this.attachButton.delete();
+  }
+
+  onUpdate() {
+    if (this.attachButton.Value()) {
+      this.secants.secants.updateDataArray = this.updateDataArray; 
+    } else {
+      this.secants.secants.updateDataArray = this.secants.updateDataArray; 
+    }
+    this.xint.onUpdate();
   }
 }
 
@@ -1082,13 +1122,13 @@ class StandardBoard {
 }
 
 let widgetConstructor = {
-    0 : function(xint, F, names) { return new AnnotatedRectangle(xint, F, names); },
-    1 : function(xint, F, names) { return new AnnotatedSecant(xint, F, names); },
-    2 : function(xint, F, names) { return new AdjSecantRect(xint, F, names); },
-    3 : function(xint, F, names) { return new RectangleArray(xint, F, names); },
-    4 : function(xint, F, names) { return new SecantArray(xint, F, names); },
-    5 : function(xint, F, names) { return new SecantRectArray(xint, F, names); },
-    6 : function(xint, F, names) { return new AdjHeightRectangle(xint, F, names); }
+    0 : function(xint, F, attr) { return new AnnotatedRectangle(xint, F, attr); },
+    1 : function(xint, F, attr) { return new Secant(xint, F, attr); },
+    2 : function(xint, F, attr) { return new AdjSecantRect(xint, F, attr); },
+    3 : function(xint, F, attr) { return new RectangleArray(xint, F, attr); },
+    4 : function(xint, F, attr) { return new SecantArray(xint, F, attr); },
+    5 : function(xint, F, attr) { return new SecantRectArray(xint, F, attr); },
+    6 : function(xint, F, attr) { return new AdjHeightRectangle(xint, F, attr); }
 }
 
 class Workspace extends StandardBoard {
@@ -1147,7 +1187,7 @@ class Workspace extends StandardBoard {
     }
   }
 
-  addElementByID(id, percent, f_id, names) {
+  addElementByID(id, percent, f_id, attr) {
 
     // figure out the interval
     let xlow = this.board.getBoundingBox()[0];
@@ -1163,7 +1203,7 @@ class Workspace extends StandardBoard {
       console.log('bad widget type', id);
       return;
     }
-    this.elements.push(widgetConstructor[id](xint, this.functions[f_id].f, names));
+    this.elements.push(widgetConstructor[id](xint, this.functions[f_id].f, attr));
   }
 }
 
@@ -1188,8 +1228,7 @@ class Workspace extends StandardBoard {
   exports.AdjRectangle = AdjRectangle;
   exports.AnnotatedRectangle = AnnotatedRectangle;
   exports.AdjHeightRectangle = AdjHeightRectangle;
-  exports.AdjSecant = AdjSecant;
-  exports.AnnotatedSecant = AnnotatedSecant;
+  exports.Secant = Secant;
   exports.AdjSecantRect = AdjSecantRect;
   exports.RectangleArray = RectangleArray;
   exports.SecantArray = SecantArray;

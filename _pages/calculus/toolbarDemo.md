@@ -141,7 +141,7 @@ let useButton = function(mouseX, buttonType) {
   let percent = (mouseX - margin) / width;
 
   if (env.buttonType >= 0) {
-    workspace.addElementByID(buttonType, percent, F_id );
+    workspace.addElementByID(buttonType, percent, F_id);
   }
 
 };
