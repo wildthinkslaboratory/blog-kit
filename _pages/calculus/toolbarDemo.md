@@ -163,5 +163,9 @@ this.sizeChanged = function() {
 
 this.sizeChanged();
 
+workspace.board.on('update', function() {
+  workspace.onUpdate();
+})
+
 ````
 

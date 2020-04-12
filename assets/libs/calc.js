@@ -1,12 +1,13 @@
 const blue = '#66AAFF';
-const brightblue = '#00AAFF';
+const brightblue = '#99DDFF';
 const darkblue = '#3344AA';
 const lightgray = '#CCCCCC';
 const mediumgray = '#AAAAAA';
 const darkgray = '#333333';
-//const darktomato = '#DD3333';
-//const tomato = '#FF2222'; 
-
+const darktomato = '#DD3333';
+const tomato = '#FF2222'; 
+const purpleblue = '#7766FF';
+const lightpurpleblue  = '#EEEEFF';
 
 class BlueTheme {
   constructor() {
@@ -17,14 +18,36 @@ class BlueTheme {
     this.lightAnnote = mediumgray;
     this.darkAnnote = darkgray;
     this.verylightAnnote = lightgray;
-    this.startPoint = 'red';
-    this.endPoint = 'green';
+    this.startPoint = 'green';
+    this.endPoint = 'red';
     this.fontSizeAnnote = 15;
     this.strokeWidth = 4;
     this.strokeWidthAnnote = 2;
+    this.accent1 = purpleblue;
+    this.accent2 = lightpurpleblue;
+    this.fillOpacity = 0.5;
   }
 }
 
+class SteelTheme {
+  constructor() {
+    this.fill = '#5555FF';
+    this.stroke = '#666688';
+    this.highlightFill = brightblue;
+    this.highlightStroke = '#666688';
+    this.lightAnnote = '#AAAACC';
+    this.darkAnnote = darkgray;
+    this.verylightAnnote = '#DDDDFF';
+    this.startPoint = '#666688';
+    this.endPoint = '#EE5511';
+    this.fontSizeAnnote = 15;
+    this.strokeWidth = 4;
+    this.strokeWidthAnnote = 2;
+    this.accent1 = purpleblue;
+    this.accent2 = lightpurpleblue;
+    this.fillOpacity = 0.5;
+  }
+}
 
 let th = new BlueTheme();
 
@@ -129,7 +152,12 @@ class BoolButton extends Slider {
     this.g.on('up', this.toggle);
     this.g.on('over', this.showText);
     this.g.on('out', this.hideText);
-    this.g.setAttribute({fillColor:'#8844FF', strokeColor:'#555555'});
+    this.g.setAttribute({
+      fillColor:th.accent2, 
+      highlightFillColor:th.accent2,
+      strokeColor:th.darkAnnote,
+      highlightStrokeColor:th.darkAnnote
+    });
     this.text.setAttribute({visible:false, strokeColor:th.lightAnnote});
   }
 
@@ -145,10 +173,10 @@ class BoolButton extends Slider {
 
   toggle() {
     if (this.state) {
-      this.g.setAttribute({fillColor:'#8844FF'});
+      this.g.setAttribute({fillColor:th.accent2});
     }
     else {
-      this.g.setAttribute({fillColor:'#EEDDFF'});
+      this.g.setAttribute({fillColor:th.accent1});
     }
     this.state = !this.state;
   }
@@ -185,8 +213,11 @@ class XInterval {
     // bind all functions that might be passed in a callback to this context
     this.X1 = this.X1.bind(this);
     this.X2 = this.X2.bind(this);
+    this.attachLeftX = this.attachLeftX.bind(this);
+    this.attachRightX = this.attachRightX.bind(this);
+    this.attachY = this.attachY.bind(this);
     this.midX = this.midX.bind(this);
-    this.range = this.range.bind(this);
+    this.units = this.units.bind(this);
     this.checkSnapToGrid = this.checkSnapToGrid.bind(this);
     this.checkSnap = this.checkSnap.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
@@ -200,10 +231,16 @@ class XInterval {
   // getters
   X1() { return this.x1.X(); }
   X2() { return this.x2.X(); }
-  range() { return this.x2.X() - this.x1.X(); }
+  units() { return this.x2.X() - this.x1.X(); }
   midX() {
-    return this.x1.X() + this.range() / 2;
+    return this.x1.X() + this.units() / 2;
   }
+
+  attachLeftX() { return this.X1() + this.Xerror; } 
+  attachRightX() { return this.X2() + this.Xerror; }
+
+  attachY() { return 2 * this.Yerror; }
+
 
   setSnapMargin(margin) { this.snapMargin = margin; }
   turnOffSnapToGrid() { this.snapToGrid = false; }
@@ -256,7 +293,6 @@ class Secant {
     this.f = F;
     this.attr = attr;
     this.precision = 2;
-    this.showUnits = true;
     let boundingBox = this.board.getBoundingBox();         
     this.boardwidth = (boundingBox[2] - boundingBox[0]);  
     
@@ -366,26 +402,26 @@ class Secant {
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
     }
-
-    if ('showUnits' in this.attr) {
-      this.showUnits = false;
-    }
   }
 
   fx1() { return this.f(this.xint.X1()); }
   fx2() { return this.f(this.xint.X2()); }
-  run() { return this.xint.range(); }
-  rise() { return this.fx2() - this.fx1(); }
-
+  run() { return this.xint.units(); }
+  
   // interface functions
   area() { return 0; }
   slope() { return  this.rise() / this.units(); }
+  rise() { return this.fx2() - this.fx1(); }
   units() { return this.run(); }
   rate() { return this.slope(); }
   change() { return this.rise(); }
   setSnapMargin(m) { this.xint.setSnapMargin(m); }  
   onUpdate() { this.xint.onUpdate(); } 
-  setAttribute() { }
+  setAttribute(d) { 
+    for (let key in d) {
+      this.attr[key] = d[key]
+    }
+  }  
 
 
   // this is all for the slope string annotation
@@ -435,7 +471,7 @@ class Secant {
     this.riseText.setAttribute({visible:true});
     this.riseLine.setAttribute({visible:true});
     this.line.setAttribute({visible:true});
-    if (this.showUnits) {
+    if ('showUnits' in this.attr && this.attr['showUnits'] == true) {
       this.runLine.setAttribute({visible:true});
       this.runText.setAttribute({visible:true});
     }
@@ -449,6 +485,8 @@ class Secant {
     this.runLine.setAttribute({visible:false});
     this.runText.setAttribute({visible:false});
   }
+
+
 
   delete() {
     this.board.removeObject(this.riseLine);
@@ -472,14 +510,13 @@ class Secant {
 
 class Rectangle {
   constructor (xint, F, attr = {} ) {
-
     ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
     this.xint = xint;
     this.f = F;
     this.attr = attr;
     this.precision = 2;
-    let boundingBox = xint.board.getBoundingBox();
+    let boundingBox = this.board.getBoundingBox();
     this.boardwidth = (boundingBox[2] - boundingBox[0]);  
 
     ///////////////////////////////////////////////////////  bind functions
@@ -521,6 +558,8 @@ class Rectangle {
       borders: { strokeColor: th.stroke, highlightStrokeColor: th.highlightStroke},
       fillColor:th.fill, 
       highlightFillColor:th.highlightFill, 
+      fillOpacity:th.fillOpacity,
+      highlightFillOpacity:th.fillOpacity,
       hasInnerPoints:true
     });
 
@@ -608,14 +647,18 @@ class Rectangle {
 
 
   // interface functions
-  area() { return this.height() * this.xint.range(); }
+  area() { return this.height() * this.xint.units(); }
   slope() { 0; }
-  units() { return this.xint.range(); }
+  units() { return this.xint.units(); }
   rate() { return this.height(); }
   change() { return this.area(); }
   setSnapMargin(m) { this.xint.setSnapMargin(m); }  
   onUpdate() { this.xint.onUpdate(); } 
-  setAttribute() { }
+  setAttribute(d) { 
+    for (let key in d) {
+      this.attr[key] = d[key]
+    }
+  }  
 
 
   // this mangages the area text annotation
@@ -650,9 +693,9 @@ class Rectangle {
   widthTextY() { return this.height() + 4 * this.xint.Yerror; }
   widthTextVal() { 
     if (this.attr !== undefined && 'units' in this.attr) {
-      return this.attr.units + ' = ' + this.xint.range().toFixed(this.precision);
+      return this.attr.units + ' = ' + this.xint.units().toFixed(this.precision);
     }
-    return this.xint.range().toFixed(this.precision);
+    return this.xint.units().toFixed(this.precision);
   }
   widthTextWidth() {
     if (this.widthText == undefined ) return 0;
@@ -694,13 +737,14 @@ class Rectangle {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////
 
-
+// a rectangle with an adjustable height
 class AdjHeightRectangle extends Rectangle {
-  constructor(xint, F, names) {
-    super(xint,F, names);
+  constructor(xint, F, attr) {
+    super(xint,F, attr);
     this.xint.midY.setAttribute({visible:true});
-
+    this.setHeight(this.units() / 2);
     this.height = this.height.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
   }
@@ -711,7 +755,7 @@ class AdjHeightRectangle extends Rectangle {
   snapToFunction() {
       let currentH = this.height();
       let functionH = this.f(this.xint.midX());
-      if (currentH <= functionH + this.Yerror && currentH >= functionH - this.Yerror) {
+      if (currentH <= functionH + 3 * this.xint.Yerror && currentH >= functionH - 3 * this.xint.Yerror) {
         this.setHeight(functionH);
       }
   }
@@ -722,71 +766,82 @@ class AdjHeightRectangle extends Rectangle {
   }
 } 
 
+////////////////////////////////////////////////////////////////////////////////////////////
 
 
-class AdjSecantRect {
-  constructor (xint, F, names) {
+class SecantRectangle {
+  constructor (xint, F, attr = { } ) {
+
+    ///////////////////////////////////////////////////////  initialize data members
     this.xint = xint;
     this.f = F;
-    this.showAnnotations = false;
-    this.names = names;
-    let boundingBox = xint.board.getBoundingBox();
-    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
-    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
-    this.precision = 2;
+    this.attr = attr;
 
+    ///////////////////////////////////////////////////////  bind functions
     this.rectangleFunction = this.rectangleFunction.bind(this);
     this.secantFunction = this.secantFunction.bind(this);
     this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
     this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
-    this.attachX = this.attachX.bind(this);
-    this.attachY = this.attachY.bind(this);
 
-    this.attachButton = new BoolButton(this.xint.board, [this.buttonX, this.attachY], 'attach'); 
-    this.rectangle = new Rectangle(xint, this.rectangleFunction);
-    this.secant = new Secant(xint, this.secantFunction);
+    ///////////////////////////////////////////////////////  data members with callbacks
+    this.attachButton = new BoolButton(this.xint.board, [this.xint.attachLeftX, this.xint.attachY], 'attach',); 
+    this.rectangle = new Rectangle(xint, this.rectangleFunction, attr);
+    this.secant = new Secant(xint, this.secantFunction, attr);
+    this.secant.setAttribute({showUnits:false})
     this.xint.midY.setAttribute({visible:true});
 
-    this.rectangle.rect.on('over', this.turnOnAnnotations);
-    this.rectangle.rect.on('out', this.turnOffAnnotations);
-    this.secant.segment.on('over', this.turnOnAnnotations);
-    this.secant.segment.on('out', this.turnOffAnnotations);
+    ///////////////////////////////////////////////////////  attribute settings
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+      this.rectangle.rect.on('over', this.turnOnAnnotations);
+      this.rectangle.rect.on('out', this.turnOffAnnotations);
+      this.secant.segment.on('over', this.turnOnAnnotations);
+      this.secant.segment.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+
+    
   }
 
-  attachX() { return this.xint.X1() + 0.5 * this.Xerror; } 
-  attachY() { return this.Yerror; }
+  // interface functions
+  area() { return this.rectangle.area(); }
+  slope() { return this.secant.slope(); }
+  units() { return this.xint.units(); }
+  rate() { return this.slope(); }
+  change() { return this.area(); }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
+  onUpdate() { this.xint.onUpdate(); } 
+  setAttribute(d) { 
+    for (let key in d) {
+      this.attr[key] = d[key]
+    }
+  }  
 
   rectangleFunction() { 
     if (this.attachButton.state) {
       return this.f(this.xint.midX());      // height of rectangle is f is rateCurve
     }
-    return  (this.f(this.xint.X2()) - this.f(this.xint.X1())) / this.xint.range();  // slope of secant 
+    return  (this.f(this.xint.X2()) - this.f(this.xint.X1())) / this.xint.units();  // slope of secant 
   }
 
   secantFunction(x) {
     if (this.attachButton.state) {
       if (x == this.xint.X1()) { return this.xint.midY.Y(); }
-      else { return this.xint.midY.Y() + this.f(this.xint.midX()) * this.xint.range(); }
+      else { return this.xint.midY.Y() + this.f(this.xint.midX()) * this.xint.units(); }
     }
     return this.f(x);
   }
+
   turnOnAnnotations() {
       this.rectangle.turnOnAnnotations();
       this.secant.turnOnAnnotations();
   }
   turnOffAnnotations() {
-    if (!this.showAnnotations) {
       this.rectangle.turnOffAnnotations();
       this.secant.turnOffAnnotations();
-    }
   }
-  setAnnotations(b) { 
-    this.showAnnotations = b; 
-    if (b) { 
-      this.rectangle.turnOnAnnotations(); 
-      this.secant.turnOnAnnotations();
-    }
-  }
+
   delete() {
     this.rectangle.delete();
     this.secant.delete();
@@ -798,49 +853,89 @@ class AdjSecantRect {
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////
 
 
 class RectangleArray {
-  constructor(xint, F, slider, names) {
+  constructor(xint, F, slider, attr = { }) {
+    ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
     this.xint = xint;
     this.f = F;
-    this.showAnnotations = false;
+    this.attr = attr;
+    this.precision = 2;
+    let boundingBox = this.board.getBoundingBox();
+    this.boardwidth = (boundingBox[2] - boundingBox[0]);  
     this.total_area = 0;
-    let boundingBox = xint.board.getBoundingBox();
-    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
-    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
-    this.names = names;
     this.slider = slider;
 
+    ///////////////////////////////////////////////////////  bind functions
     this.updateDataArray = this.updateDataArray.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
     this.area = this.area.bind(this);
-    this.rise = this.rise.bind(this);
+    this.slope = this.slope.bind(this);
+    this.units = this.units.bind(this);
+    this.change = this.change.bind(this);
+    this.areaTextX = this.areaTextX.bind(this);
+    this.areaTextY = this.areaTextY.bind(this);
+    this.areaTextVal = this.areaTextVal.bind(this);
+    this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
+    this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
+    
 
+    ///////////////////////////////////////////////////////  data members with callbacks
     this.rectangles = this.board.create('curve', [[0],[0]], {
-      strokeColor: '#1155CC',
+      strokeColor: th.stroke,
       fillColor:th.fill, 
-      fillOpacity:0.3, 
+      fillOpacity:th.fillOpacity, 
       highlightStrokeColor:th.highlightStroke,
       highlightFillColor:th.highlightFill, 
-      highlightFillOpacity:0.3, 
+      highlightFillOpacity:th.fillOpacity, 
+      highlightStrokeWidth:1,
       hasInnerPoints:true
     });
 
+    this.areaText = this.board.create('text', [
+      this.areaTextX,
+      this.areaTextY,
+      this.areaTextVal],
+      { strokeColor: th.darkAnnote, fontSize:th.fontSizeAnnote, visible:false });
+
+    ///////////////////////////////////////////////////////  attribute settings
     this.rectangles.updateDataArray = this.updateDataArray;
+
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+        this.rectangles.on('over', this.turnOnAnnotations);
+        this.rectangles.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+
+    if ('precision' in this.attr) {
+      this.precision = this.attr['precision'];
+    }
   }
 
-  onUpdate() { this.xint.onUpdate(); }
+
+  // interface functions
   area() { return this.total_area; }
-  rise() { return 0; }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }
+  slope() { 0; }
+  units() { return this.xint.units(); }
+  change() { return this.area(); }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
+  onUpdate() { this.xint.onUpdate(); } 
+  setAttribute(d) { 
+    for (let key in d) {
+      this.attr[key] = d[key]
+    }
+  }  
 
   updateDataArray() {
     this.total_area = 0;
     let x1 = this.xint.X1();
     let x2 = this.xint.X2();
-    let delta = (x2 - x1) / this.slider.Value();
+    let delta = (x2 - x1) / this.slider.value();
     let x = [x1];
     let y = [0];
     let lastRect = x2 - delta + 0.01;
@@ -863,45 +958,148 @@ class RectangleArray {
     this.rectangles.dataY = y;
   }
 
+  // manage the placement of area text
+  areaTextX() { return this.xint.X2() + this.xint.Xerror; }
+  areaTextY() { return this.f(this.xint.X2()) / 2; }
+  areaTextVal() { 
+    if (this.attr !== undefined && 'change' in this.attr) {
+      return this.attr.change + ' = ' + this.area().toFixed(this.precision); 
+    }
+    return 'area = ' + this.area().toFixed(this.precision); 
+  }
+  
+  // call back functions for annotations
+  turnOnAnnotations() {
+    this.areaText.setAttribute({visible:true});
+  }
+  turnOffAnnotations() {
+    this.areaText.setAttribute({visible:false});
+  }
+
   delete() {
     this.board.removeObject(this.rectangles);
+    this.board.removeObject(this.areaText);
     this.slider.delete();
     this.xint.delete();
   }
-
 }
 
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 class SecantArray {
-  constructor(xint, F, names) {
-    console.log(F);
+  constructor(xint, F, slider, attr = { }) {
+    ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
     this.xint = xint;
     this.f = F;
-    this.showAnnotations = false;
-    let boundingBox = xint.board.getBoundingBox();
-    this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
-    this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
-    this.names = names;
-    this.slider = new IntSlider(xint, 1, 100, 'N');
+    this.attr = attr;
+    this.precision = 2;
+    let boundingBox = this.board.getBoundingBox();
+    this.boardwidth = (boundingBox[2] - boundingBox[0]);  
+    this.total_area = 0;
+    this.slider = slider;
 
+    ///////////////////////////////////////////////////////  bind functions
     this.updateDataArray = this.updateDataArray.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
     this.area = this.area.bind(this);
     this.rise = this.rise.bind(this);
+    this.slope = this.slope.bind(this);
+    this.units = this.units.bind(this);
+    this.change = this.change.bind(this);
+    this.fx1 = this.fx1.bind(this);
+    this.fx2 = this.fx2.bind(this);
+    this.riseTextX = this.riseTextX.bind(this);
+    this.riseTextY = this.riseTextY.bind(this);
+    this.riseTextVal = this.riseTextVal.bind(this);
+    this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
+    this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
 
-    this.secants = this.board.create('curve', [[0],[0]], { strokecolor:'#1155CC', strokeWidth:4 }); 
+
+    ///////////////////////////////////////////////////////  data members with callbacks
+    this.secants = this.board.create('curve', [[0],[0]], { 
+      strokecolor:th.stroke, 
+      strokeWidth:th.strokeWidth,
+      highlightStrokeColor:th.stroke,
+      highlightStrokeWidth:th.strokeWidth
+    }); 
+
+    this.f2 = this.board.create('point', [
+      this.xint.X2, 
+      this.fx2], 
+      {color: th.stroke, size:3, name:'', visible:true});
+
+    this.p1 = this.board.create('point',[ 
+      this.xint.X2, 
+      this.fx1],
+      {visible:false});
+
+    this.riseLine = this.board.create('segment', [this.p1, this.f2], 
+    {
+      strokeColor: th.lightAnnote, 
+      strokeWidth:th.strokeWidthAnnote, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
+
+    this.riseText = this.board.create('text', [
+      this.riseTextX,
+      this.riseTextY,
+      this.riseTextVal],
+      {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
+
+    ///////////////////////////////////////////////////////  attribute settings
+
     this.secants.updateDataArray = this.updateDataArray;
+
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+        this.secants.on('over', this.turnOnAnnotations);
+        this.secants.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+
+    if ('precision' in this.attr) {
+      this.precision = this.attr['precision'];
+    }
   }
 
-  onUpdate() { this.xint.onUpdate(); }
+  fx1() { return this.f(this.xint.X1()); }
+  fx2() { return this.f(this.xint.X2()); }
+
+  // interface functions
   area() { return 0; }
-  rise() { return 0; }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }
+  rise() { return this.f(this.xint.X2()) - this.f(this.xint.X1()); }
+  slope() { return 0; }
+  units() { return this.xint.units(); }
+  change() { return this.rise(); }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
+  onUpdate() { this.xint.onUpdate(); } 
+  setAttribute(d) { 
+    for (let key in d) {
+      this.attr[key] = d[key]
+    }
+  }  
+
+  // this is all for the rise string annotation
+  riseTextX() { return this.xint.X2() + this.xint.Xerror/2;}
+  riseTextY() { return this.fx1() + this.rise() / 2; }
+  riseTextVal() {
+    if (this.attr !== undefined && 'change' in this.attr) {
+      return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
+    } 
+    return this.rise().toFixed(this.precision);
+  }
 
   updateDataArray() {
     let x1 = this.xint.X1();
     let x2 = this.xint.X2();
-    let delta = (x2-x1) / this.slider.Value();
+    let delta = (x2-x1) / this.slider.value();
     let x = [];
     let y = [];
     let lastPoint = x2 + 0.01;
@@ -913,9 +1111,22 @@ class SecantArray {
     this.secants.dataY = y;
   }
 
+    // call back functions for annotations
+  turnOnAnnotations() {
+    this.riseLine.setAttribute({visible:true});
+    this.riseText.setAttribute({visible:true});
+  }
+  turnOffAnnotations() {
+    this.riseLine.setAttribute({visible:false});
+    this.riseText.setAttribute({visible:false});
+  }
 
   delete() {
     this.board.removeObject(this.secants);
+    this.board.removeObject(this.p1);
+    this.board.removeObject(this.f2);
+    this.board.removeObject(this.riseLine);
+    this.board.removeObject(this.riseText);
     this.slider.delete();
     this.xint.delete();
   }
@@ -977,7 +1188,7 @@ class SecantRectArray {
     this.secants.dataY = y;
   }
 
-  deltaX() { return this.xint.range() / this.slider.Value(); }
+  deltaX() { return this.xint.units() / this.slider.Value(); }
   constant() { return this.xint.midY.Y(); }
 
   delete() {
@@ -1142,9 +1353,15 @@ class StandardBoard {
 let widgetConstructor = {
     0 : function(xint, F, attr) { return new Rectangle(xint, F, attr); },
     1 : function(xint, F, attr) { return new Secant(xint, F, attr); },
-    2 : function(xint, F, attr) { return new AdjSecantRect(xint, F, attr); },
-    3 : function(xint, F, attr) { return new RectangleArray(xint, F, attr); },
-    4 : function(xint, F, attr) { return new SecantArray(xint, F, attr); },
+    2 : function(xint, F, attr) { return new SecantRectangle(xint, F, attr); },
+    3 : function(xint, F, attr) { 
+      let slider = new IntSlider(xint.board, [xint.attachRightX, xint.attachY], [1, 100], 'N');
+      return new RectangleArray(xint, F, slider, attr); 
+    },
+    4 : function(xint, F, attr) { 
+      let slider = new IntSlider(xint.board, [xint.attachRightX, xint.attachY], [1, 100], 'N');
+      return new SecantArray(xint, F, slider, attr); 
+    },
     5 : function(xint, F, attr) { return new SecantRectArray(xint, F, attr); },
     6 : function(xint, F, attr) { return new AdjHeightRectangle(xint, F, attr); }
 }
@@ -1246,7 +1463,7 @@ class Workspace extends StandardBoard {
   exports.Rectangle = Rectangle;
   exports.AdjHeightRectangle = AdjHeightRectangle;
   exports.Secant = Secant;
-  exports.AdjSecantRect = AdjSecantRect;
+  exports.SecantRectangle = SecantRectangle;
   exports.RectangleArray = RectangleArray;
   exports.SecantArray = SecantArray;
   exports.SecantRectArray = SecantRectArray;

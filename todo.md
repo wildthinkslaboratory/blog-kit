@@ -21,88 +21,57 @@ High level plan
 
 today's plan
 --------------------
-- add names to toolbar demo
-- review widget names
-- review widget inheritence
-- finish implementing SecantArray
-- and Secant Rectangle Array
-- get the toolbar page working over here.
-- write down some specs I need based on my new storyline ideas.
-- then I've got to spend time cleaning up the code and documenting and refining the subtle display elements.  Need to cut down this bug list because it's causing me anxiety.
+- SecantArray
+- SecantRectangleArray
 
+tomorrow plan
+--------------------
+- Update old pages with new library
+- write down some specs I need based on my new storyline ideas. Unifying themes that need to repeat. How the chapter fit together
+
+
+
+Unclassified
+--------------------
 - can I move textWidth to a globally accessible function and bind it's context?
 - remove Xerror and Yerror from everything that has an xint.  
 sliders can position relative to either endpoint
 work on kiosk mode 
-go over all highlight operations and make sure I like the look
 rectangles are for rate problems
-need to unify color schemes, fix stroke color
-review the Xerror system.
-need a way of placing text based on number of letters.
 is my code efficient?  How do we test this?
 need an enum for types so I can easily add types without breaking old code.
-identify the widget interface
-	area
-	rise
-	setAnnotations
-	onUpdate
-	setPrecision
-	setSnapMargin
-	run
-
-sort out standardizaton of widget names / input parameters. what about secant rectangles.
-	maybe it should be 'change', 'units', 'rate'
-
 not happy with the maxX function. fix it.
-work total area for rect array is wrong sometimes.
-
-go through calc lib and comment and clean up
-
-
-TO DO
-- clean up my calc lib
-	- what can I do about the names initialization happening before super()?
-	- update SecantArray
-	- update RectSecantArray
-	
-
-
+what can I do about the names initialization happening before super()?
 - can we add units to work rectangle?
 - rectangle4 remove jsxgraph copyright and do we need units?
-- plan secant and rectangles        Sat/Sun
 
-- derivative and chain rule         Mon / Tue
-- secant                            1 week
-- ftc                               1 week
-- work on branding.
 
 
 Quick and Easy
+-----------------
 - I've messed up the formatting for header titles and subtitles
 - bug in fly
 - report problem of popup widths.  I'm currently using shadow to control the width.
-- report bug that assets aren't watched.
-- balance text is not updating
-- headers for all pages
-- review all pages for resizing issues
-- review all pages for mobile issues
+- balance text is not updating, work total area for rect array is wrong sometimes.
 - test all pages in different browsers.
 - get a fucking favicon
 - home page logo needs to scale for smaller screens
 - map needs to rescale too
+- add resources for fly problem
+
+
 
 Larger Issues
+------------------
 - add code to detect phones and give a warning / message
 - CNAME
 - not sure that contact page is working
 - NAVIGATION
 	- navigation between pages
-	- stop open in new tab?
 	- rectangle needs a navigation bar
 	- once I have a navigation bar, the exploding dots pages could be broken down.
 - rectangle resizing is off for medium screens.  This affects adding rectangles placement.
 - would slowing down draw rate help performance for static periods of p5js?
-- add resources for fly problem
 
 HOME PAGE
 - add featured video section?
@@ -113,11 +82,6 @@ ways to leave feedback
 patreon page
 logo work
 
-
-
-- write secant chapter
-- write secant / rectangle
-- add accumulated change to rectangle
 - revise Relations
 - plan my proof app
 
