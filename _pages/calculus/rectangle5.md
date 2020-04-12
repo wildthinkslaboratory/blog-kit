@@ -7,7 +7,7 @@ smartdown: true
 # :::: clue
 # --outlinebox
 ##### Rocket Launch
-Here is a graph showing the speed of a rocket during it's first launch phase. What is the height of the rocket 120 seconds after lift off? 
+Here is a graph showing the speed of a rocket during it's first launch phase. Estimate the height of the rocket 120 seconds after lift off? 
 # --outlinebox
 # ::::
 
@@ -211,8 +211,9 @@ let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
-  workspace.addElementByID(3, percent, F_id, {});
-  workspace.elements[workspace.elements.length - 1].setSnapMargin(0.5);
+  workspace.addElementByID(3, percent, F_id, {
+    snapMargin:0.5
+  });
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 

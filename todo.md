@@ -1,7 +1,6 @@
 
 High level plan
 -----------------
-- clean up calc lib and make it sparkle
 - write secant
 - write secant/rectangle
 - create an enticing homepage that expresses the wildthinks values
@@ -19,20 +18,20 @@ High level plan
 	- continuity
 
 
+
 today's plan
 --------------------
-- SecantArray
-- SecantRectangleArray
-
-tomorrow plan
---------------------
 - Update old pages with new library
-- write down some specs I need based on my new storyline ideas. Unifying themes that need to repeat. How the chapter fit together
+- publish
+- executive function meeting on deck with printed todo list and notebook
 
 
 
 Unclassified
 --------------------
+- write down some specs I need based on my new storyline ideas. Unifying themes that need to repeat. How the chapter fit together
+- finish annotationPosition for Secant, other widgets?	
+- do I want to fiddle with pop up positioning on rectangle?
 - can I move textWidth to a globally accessible function and bind it's context?
 - remove Xerror and Yerror from everything that has an xint.  
 sliders can position relative to either endpoint
@@ -44,6 +43,7 @@ not happy with the maxX function. fix it.
 what can I do about the names initialization happening before super()?
 - can we add units to work rectangle?
 - rectangle4 remove jsxgraph copyright and do we need units?
+- turn down complexity in eslint and see what I can do.
 
 
 

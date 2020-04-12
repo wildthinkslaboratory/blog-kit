@@ -213,9 +213,9 @@ let useButton = function(mouseX, buttonType) {
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / width;
   
-  workspace.addElementByID(6, percent, F_id, {area:'distance', height:'rate', width:'time'});
+  workspace.addElementByID(6, percent, F_id, {change:'distance', rate:'rate', units:'time'});
   workspace.elements[workspace.elements.length - 1].setHeight(2);
-
+  
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 

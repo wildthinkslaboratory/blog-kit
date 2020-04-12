@@ -404,6 +404,10 @@ class Secant {
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
     }
+
+    if ('snapMargin' in this.attr) {
+      this.xint.setSnapMargin(this.attr['snapMargin']);
+    }
   }
 
   fx1() { return this.f(this.xint.X1()); }
@@ -416,8 +420,7 @@ class Secant {
   rise() { return this.fx2() - this.fx1(); }
   units() { return this.run(); }
   rate() { return this.slope(); }
-  change() { return this.rise(); }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
+  change() { return this.rise(); }  
   onUpdate() { this.xint.onUpdate(); } 
   setAttribute(d) { 
     for (let key in d) {
@@ -640,6 +643,10 @@ class Rectangle {
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
     }
+
+    if ('snapMargin' in this.attr) {
+      this.xint.setSnapMargin(this.attr['snapMargin']);
+    }
   }
 
 
@@ -647,15 +654,14 @@ class Rectangle {
   height() { return this.f(this.xint.midX()); }
   hdX() { return this.xint.X2() +  this.xint.Xerror; }
   wdY() { return this.height() + 2 * this.xint.Yerror; }
-
+  setFillColor(c) { this.rect.setAttribute({fillColor:c}); }
 
   // interface functions
   area() { return this.height() * this.xint.units(); }
   units() { return this.xint.units(); }
   rate() { return this.height(); }
   rise() { return 0; }
-  change() { return this.area(); }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
+  change() { return this.area(); } 
   onUpdate() { this.xint.onUpdate(); } 
   setAttribute(d) { 
     for (let key in d) {
@@ -669,7 +675,15 @@ class Rectangle {
   areaTextY() { return this.height() / 2; }
   areaTextVal() { 
     if (this.attr !== undefined && 'change' in this.attr) {
-      return this.attr.change + ' = ' + this.area().toFixed(this.precision); 
+      let pre = '';
+      let post = ''
+      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+        post = ' ' + this.attr.change;
+      }
+      else {
+        pre = this.attr.change + ' = ';
+      }
+      return pre + this.height().toFixed(this.precision) + post;
     }
     return this.area().toFixed(this.precision); 
   }
@@ -685,7 +699,15 @@ class Rectangle {
   heightTextY() { return this.height() / 2 }
   heightTextVal() { 
     if (this.attr !== undefined && 'rate' in this.attr) {
-      return this.attr.rate + ' = ' + this.height().toFixed(this.precision);
+      let pre = '';
+      let post = ''
+      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+        post = ' ' + this.attr.rate;
+      }
+      else {
+        pre = this.attr.rate + ' = ';
+      }
+      return pre + this.height().toFixed(this.precision) + post;
     }
     return this.height().toFixed(this.precision); 
   }
@@ -696,7 +718,16 @@ class Rectangle {
   widthTextY() { return this.height() + 4 * this.xint.Yerror; }
   widthTextVal() { 
     if (this.attr !== undefined && 'units' in this.attr) {
-      return this.attr.units + ' = ' + this.xint.units().toFixed(this.precision);
+      let pre = '';
+      let post = ''
+      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+        post = ' ' + this.attr.units;
+      }
+      else {
+        pre = this.attr.units + ' = ';
+      }
+      return pre + this.xint.units().toFixed(this.precision) + post;
+
     }
     return this.xint.units().toFixed(this.precision);
   }
@@ -723,6 +754,7 @@ class Rectangle {
     this.widthLine.setAttribute({visible:false}); 
   }
   
+
   delete() {
     this.board.removeObject(this.widthLine);
     this.board.removeObject(this.widthText);
@@ -807,8 +839,10 @@ class SecantRectangle {
     else if (this.attr['annotations'] == 'on') {
       this.turnOnAnnotations();
     }
-
-    
+    else if (this.attr['annotations'] == 'secant') {
+      this.secant.segment.on('over', this.secant.turnOnAnnotations);
+      this.secant.segment.on('out', this.secant.turnOffAnnotations);
+    }  
   }
 
   slope() { return this.secant.slope(); }
@@ -818,7 +852,6 @@ class SecantRectangle {
   units() { return this.xint.units(); }
   rise() { return this.secant.rise(); }
   change() { return this.area(); }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
   onUpdate() { this.xint.onUpdate(); } 
   setAttribute(d) { 
     for (let key in d) {
@@ -923,6 +956,10 @@ class RectangleArray {
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
     }
+
+    if ('snapMargin' in this.attr) {
+      this.xint.setSnapMargin(this.attr['snapMargin']);
+    }
   }
 
 
@@ -931,7 +968,6 @@ class RectangleArray {
   rise() { return 0; }
   units() { return this.xint.units(); }
   change() { return this.area(); }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
   onUpdate() { this.xint.onUpdate(); } 
   setAttribute(d) { 
     for (let key in d) {
@@ -1046,7 +1082,7 @@ class SecantArray {
 
     this.riseLine = this.board.create('segment', [this.p1, this.f2], 
     {
-      strokeColor: th.lightAnnote, 
+      strokeColor: th.darkAnnote, 
       strokeWidth:th.strokeWidthAnnote, 
       firstArrow:true, 
       lastArrow:true, 
@@ -1074,6 +1110,10 @@ class SecantArray {
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
     }
+
+    if ('snapMargin' in this.attr) {
+      this.xint.setSnapMargin(this.attr['snapMargin']);
+    }
   }
 
   fx1() { return this.secants.dataY[0]; }
@@ -1084,7 +1124,6 @@ class SecantArray {
   rise() { return this.fx2() - this.fx1(); }
   units() { return this.xint.units(); }
   change() { return this.rise(); }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
   onUpdate() { this.xint.onUpdate(); } 
   setAttribute(d) { 
     for (let key in d) {
@@ -1144,7 +1183,7 @@ class SecantArray {
 
 
 class SecantRectArray {
-  constructor(xint, F, slider, attr = { }) {
+  constructor(xint, F, slider, attr = {annotations:'secant'}) {
     ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
     this.xint = xint;
@@ -1186,9 +1225,17 @@ class SecantRectArray {
     else if (this.attr['annotations'] == 'on') {
       this.turnOnAnnotations();
     }
+    else if (this.attr['annotations'] == 'secant') {
+      this.secants.secants.on('over', this.secants.turnOnAnnotations);
+      this.secants.secants.on('out', this.secants.turnOffAnnotations);
+    }
 
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
+    }
+
+    if ('snapMargin' in this.attr) {
+      this.xint.setSnapMargin(this.attr['snapMargin']);
     }
 
     this.attachButton.toggleCallback = this.switchFunctions;
@@ -1200,7 +1247,6 @@ class SecantRectArray {
   rise() { return this.secants.rise(); }
   units() { return this.xint.units(); }
   change() { return this.rise(); }
-  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
   onUpdate() { this.xint.onUpdate(); } 
   setAttribute(d) { 
     for (let key in d) {

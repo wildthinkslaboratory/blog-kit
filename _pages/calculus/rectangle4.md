@@ -213,11 +213,13 @@ let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
-  workspace.addElementByID(0, percent, F_id, {area:'m', height:'m/s', width:'s'});
-  workspace.elements[workspace.elements.length - 1].setSnapMargin(0.5);
-  workspace.elements[workspace.elements.length - 1].setPrecision(0);
-  workspace.elements[workspace.elements.length - 1].setAnnotations(false);
-
+  workspace.addElementByID(0, percent, F_id, {
+    change:'m', 
+    rate:'m/s', 
+    units:'s', 
+    annotationPosition: 'after', 
+    precision:0, 
+    snapMargin:0.5});
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 

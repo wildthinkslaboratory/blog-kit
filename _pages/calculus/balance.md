@@ -233,14 +233,14 @@ let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / width;
-  if (buttonType == 0) {
-    workspace.addElementByID(0, percent, F_id, {area:'g', height:'g/cm', width:'cm'});
-  }
-  else {
-    workspace.addElementByID(3, percent, F_id, {area:'g', height:'g/cm', width:'cm'});
-  }
-  workspace.elements[workspace.elements.length - 1].setSnapMargin(0.1);
-  
+  workspace.addElementByID(buttonType, percent, F_id, {
+    change:'g', 
+    rate:'g/cm', 
+    units:'cm', 
+    annotationPosition:'after',
+    snapMargin:0.1
+  });
+ 
   // smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 

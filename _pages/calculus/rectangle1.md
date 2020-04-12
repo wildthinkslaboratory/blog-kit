@@ -106,7 +106,7 @@ We can use it for any rate of change problem, really.  The area of a rectangle t
 
 # :::: clue3
 # --aliceblue
- In rate problems, the units are often a measure of **time** like seconds, days or years.  But they don't have to be. 
+ In rate problems, the units are often a measure of **time**, like seconds, days or years.  But they don't have to be. 
  [N](:=show4=true)
 # --aliceblue
 
@@ -149,10 +149,14 @@ let rectangle;
 
 let createRectangle = function() {
   xinterval = new XInterval(board.board, 3,9);
-  xinterval.setSnapMargin(0.5);
-  rectangle = new AdjHeightRectangle(xinterval,  function(x) { return x; });
+  rectangle = new AdjHeightRectangle(xinterval,  function(x) { return x; }, { 
+    units:'width', 
+    rate:'height', 
+    change:'area', 
+    annotations: 'on',
+    snapMargin:0.5
+  });
   rectangle.setHeight(2);
-
 
 
   //////////////////////////////////////////////////////////////////
@@ -235,24 +239,24 @@ this.depend = function() {
     console.log('show1');
     smartdown.setVariable('show1', false);
     smartdown.showDisclosure('clue1','','transparent,closeable,draggable,topright,shadow');
-    rectangle.setNames({ width: 'time', height: 'rate', area: 'distance'});
-    rectangle.setFillColor('#FFAA88');
+    rectangle.setAttribute({ units: 'time', rate: 'rate', change: 'distance'});
+    rectangle.setFillColor('#FF8800');
     board.board.update();
   }
   if (env.show2 == true) {
     smartdown.setVariable('show2', false);
     smartdown.hideDisclosure('clue1','','');
     smartdown.showDisclosure('clue2','','transparent,closeable,draggable,topright,shadow');
-    rectangle.setNames({ width: 'units', height: 'change per unit', area: 'change'});
-    rectangle.setFillColor('#AAFF88');
+    rectangle.setAttribute({ units: 'units', rate: 'change per unit', change: 'total change'});
+    rectangle.setFillColor('#AAFF00');
     board.board.update();
   }
   if (env.show3 == true) {
     smartdown.setVariable('show3', false);
     smartdown.hideDisclosure('clue2','','');
     smartdown.showDisclosure('clue3','','transparent,closeable,draggable,topright,shadow');
-    rectangle.setNames({ width: 'income', height: 'tax rate', area: 'taxes due'});
-    rectangle.setFillColor('#88FFAA');
+    rectangle.setAttribute({ units: 'number of widgets', rate: 'cost per widget', change: 'total cost'});
+    rectangle.setFillColor('#FFFF00');
     board.board.update();
   }
   if (env.show4 == true) {
@@ -261,6 +265,6 @@ this.depend = function() {
     smartdown.showDisclosure('clue4','','transparent,closeable,draggable,center,shadow');
   }
 };
-
+                      
 ```
 
