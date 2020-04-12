@@ -31,6 +31,8 @@ excerpt_separator: <!--more-->
 include:
   - posts
   - pages
+  - pages/foo
+  - pages/foo/PermalinkTest
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -72,19 +74,18 @@ defaults:
       type: posts
     values:
       layout: post
+      background: '/img/bg-post.jpg'
   # _pages
   - scope:
       path: "_pages"
       type: pages
     values:
       layout: page
+      background: '/img/bg-about.jpg'
   - scope:
-      path: "rawposts"
-      type: "posts"
+      path: "_pages/about-blog-kit"
+      type: pages
     values:
-      layout: "raw"
-  - scope:
-      path: "rawpages"
-      type: "pages"
-    values:
-      layout: "raw"
+      layout: page
+      abk: true
+      background: '/img/bg-abk.jpg'

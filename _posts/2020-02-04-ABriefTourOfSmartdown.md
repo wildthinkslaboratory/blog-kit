@@ -47,7 +47,8 @@ I'm experimenting with incorporating GIFs for the purpose of building a tutorial
 
 ---
 
-The source for this page is at [`/posts/ABriefTourOfSmartdown.md`](/posts/ABriefTourOfSmartdown.md).
+
+*Post Source: [`/posts/ABriefTourOfSmartdown.md`](/posts/ABriefTourOfSmartdown.md#-blank)*
 
 
 # SVG

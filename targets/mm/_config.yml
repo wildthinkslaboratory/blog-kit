@@ -133,15 +133,21 @@ defaults:
       layout: single
       author_profile: true
   - scope:
-      path: "rawposts"
-      type: "posts"
+      path: "_pages/about-blog-kit"
+      type: pages
     values:
-      layout: "raw"
-  - scope:
-      path: "rawpages"
-      type: "pages"
-    values:
-      layout: "raw"
+      layout: single
+      abk: true
+      background: '/assets/images/Photo by David Clode on Unsplash.jpg'
+      tagline: This is my tagline
+      header:
+        # overlay_color: #5e616c
+        # overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
+        show_overlay_excerpt: false
+        overlay_image: '/assets/images/Photo by David Clode on Unsplash.jpg'
+        # actions:
+        #   - label: "<i class='fas fa-download'></i> Visit the Gallery"
+        #     url: "https://smartdown.site"
 
 category_archive:
   type: liquid

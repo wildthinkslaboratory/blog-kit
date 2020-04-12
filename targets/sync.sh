@@ -41,7 +41,7 @@ fi
 cp -r ../../assets/* assets/
 
 
-rm -f _rawposts
-rm -f _rawpages
+rm -rf _rawposts
+rm -rf _rawpages
 ln -s _posts _rawposts
 ln -s _pages _rawpages

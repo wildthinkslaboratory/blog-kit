@@ -5,9 +5,9 @@ layout: default
 <!-- Page Header -->
 {% if page.background %}
 <header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
-  {% else %}
+{% else %}
   <header class="masthead">
-    {% endif %}
+{% endif %}
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -29,9 +29,22 @@ layout: default
   </header>
 
   {% if page.smartdown == true %}
-  <div class="container-fluid smartdown-outer-container smartdown-theme">
+  <div class="container-fluid smartdown-outer-container xsmartdown-theme">
+    <div class="row">
       <div class="col-xs-12 smartdown-container" id="blog-content">
       </div>
+    </div>
+    <div>
+      <div>
+
+  {% else %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        {{ content | markdownify }}
+
+  {% endif %}
 
       <hr>
 
@@ -47,32 +60,6 @@ layout: default
           {% endif %}
 
         </div>
-  </div>
-
-  {% else %}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-
-        {{ content | markdownify }}
-
-        <hr>
-
-        <div class="clearfix">
-
-          {% if page.previous.url %}
-          <a class="btn btn-primary float-left" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.previous.title }}">&larr; Previous<span class="d-none d-md-inline">
-              Post</span></a>
-          {% endif %}
-          {% if page.next.url %}
-          <a class="btn btn-primary float-right" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">Next<span class="d-none d-md-inline">
-              Post</span> &rarr;</a>
-          {% endif %}
-
-        </div>
-
       </div>
     </div>
   </div>
-  {% endif %}
-

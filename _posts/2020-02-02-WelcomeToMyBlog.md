@@ -39,4 +39,4 @@ Input Going to create SSS quartic hypercube warp speed arcsine. Linear AA circum
 
 ---
 
-The source for this page is at [`/posts/WelcomeToMyBlog.md`](/posts/WelcomeToMyBlog.md).
+*Post Source: [`/posts/WelcomeToMyBlog.md`](/posts/WelcomeToMyBlog.md#-blank)*

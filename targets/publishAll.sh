@@ -1,18 +1,23 @@
 export here=${0%/*}
-remoteRepo=`git remote get-url --push origin`
+source ${here}/functions.sh
 
-if [[ $remoteRepo =~ ^([^/]+)/([[:alpha:]\.\-]+)\.git$ ]]; then
-	rootUrl="/${BASH_REMATCH[2]}"
-else
-	echo "# Unable to compute rootUrl from remoteRepo: $remoteRepo"
-	exit 1
-fi
 
-${here}/build.sh cb ${rootUrl}/cb
-${here}/build.sh legacy ${rootUrl}/legacy
-${here}/build.sh mm ${rootUrl}/mm
-${here}/build.sh alembic ${rootUrl}/alembic
-${here}/build.sh sparrow ${rootUrl}/sparrow
+repoUrl=`git remote get-url --push origin`
+parseRepoUrl $repoUrl;
+
+echo "repoUrl: $repoUrl"
+echo "repoPrefix: $repoPrefix"
+echo "repoOrg: $repoOrg"
+echo "repoName: $repoName"
+
+baseUrl="/${repoName}"
+
+${here}/build.sh cb ${baseUrl}/cb
+${here}/build.sh legacy ${baseUrl}/legacy
+${here}/build.sh mm ${baseUrl}/mm
+${here}/build.sh alembic ${baseUrl}/alembic
+${here}/build.sh sparrow ${baseUrl}/sparrow
+
 
 blogRoots="/tmp/blogRoots"
 
@@ -30,8 +35,14 @@ touch ${blogRoots}/.nojekyll
 
 cd ${blogRoots}
 
+
+# ln -s . .${baseUrl}
+# echo "# Open url: https://127.0.0.1:8989${baseUrl}"
+# htp . 8989
+
+
 git init
 git add .
 git commit -m "Initial commit"
-git remote add origin ${remoteRepo}
+git remote add origin ${repoUrl}
 git push --force origin master:gh-pages

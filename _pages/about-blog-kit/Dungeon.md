@@ -1,9 +1,7 @@
 ---
-title: Dungeon Game Starter Title
+title: Dungeon Example
 smartdown: true
 ---
-
-##### Beginnings of a Dungeon Game
 
 [Character Name](:?N)
 
@@ -158,3 +156,16 @@ p5.draw = function () {
 };
 
 ```
+
+
+---
+
+- [About smartdown/blog-kit](/pages/AboutBlogKit)
+- [P5JS Ellipse Example](/pages/Ellipse)
+- [P5JS Mobius Strip Example](/pages/Mobius)
+- [About this Site](/pages/About)
+
+---
+
+*Page Source: [`/pages/Dungeon.md`](/pages/Dungeon.md#-blank)*
+

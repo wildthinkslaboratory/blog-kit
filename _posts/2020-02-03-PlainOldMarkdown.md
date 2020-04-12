@@ -33,10 +33,5 @@ Content in the first column | Content in the second column
 
 ---
 
-The source for this page is at [`/posts/PlainOldMarkdown.md`]({{ site.baseurl }}/posts/PlainOldMarkdown.md){:target="_blank"}.
-
-
-
-
-
+*Post Source: [`/posts/PlainOldMarkdown.md`](/posts/PlainOldMarkdown.md#-blank)*
 

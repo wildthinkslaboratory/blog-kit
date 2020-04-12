@@ -1,17 +1,30 @@
 ---
-title: About
+title: About the Site
 smartdown: true
-description: This is what I do.
-background: '/img/bg-about.jpg'
+description: About the Site
 ---
 
-### About the Site
+#### Smartdown Demos and blog-kit info
 
 This is a [GitHub Pages](https://pages.github.com)-based blog that utilizes the Jekyll services provided by GitHub, and optionally enables some posts and pages to utilize Smartdown, an in-browser renderer of enhanced Markdown and a reactive runtime.
 
-The source for this site is at [smartdown/blog-kit](https://github.com/smartdown/blog-kit/) (v0.0.4.2).
+The GitHub source for this example blog is at: [smartdown/blog-kit](https://github.com/smartdown/blog-kit/)
 
-### About the Author
+- [About smartdown/blog-kit](/pages/AboutBlogKit)
+- [P5JS Ellipse Example](/pages/Ellipse)
+- [P5JS Mobius Strip Example](/pages/Mobius)
+- [P5JS Dungeon Example](/pages/Dungeon)
+- [About this Site](/pages/About)
+
+### About My Site
+
+This is my website and blog where I write about the things that interest me, including (*these are just examples*):
+
+- Beat Poetry
+- Pre-punk rock music
+- Victorian-era Science Fiction
+
+### About Me
 
 I am a nondescript being of unknown gender and background.
 
@@ -33,4 +46,4 @@ Smartdown (and Markdown) make it easy to include images. If you happen to have a
 
 ---
 
-The source for this page is at [`/pages/About.md`]({{ site.baseurl }}/pages/About.md).
+*Page Source: [`/pages/About.md`](/pages/About.md#-blank)*

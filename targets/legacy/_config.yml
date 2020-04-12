@@ -46,20 +46,10 @@ defaults:
     values:
       layout: "default_posts"
   - scope:
-      path: "rawposts"
-      type: "posts"
-    values:
-      layout: "raw"
-  - scope:
       path: ""
       type: "pages"
     values:
       layout: "default_pages"
-  - scope:
-      path: "rawpages"
-      type: "pages"
-    values:
-      layout: "raw"
 
 keep_files:
   - assets

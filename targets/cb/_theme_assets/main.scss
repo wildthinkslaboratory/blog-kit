@@ -3,3 +3,23 @@
 ---
 
 @import "styles";
+
+header {
+	&.masthead {
+		margin-bottom: 0;
+
+		&.masthead-abk {
+			color: yellow;
+		}
+
+		.page-heading {
+			padding: 100px 0;
+		}
+	}
+}
+
+
+.smartdown-outer-container {
+	padding: 0 25px;
+}
+
