@@ -434,7 +434,12 @@ class Secant {
   slopeTextY() { return this.fx1() + this.rise() / 2; }
   slopeString() {
     if (this.attr !== undefined && 'rate' in this.attr) {
-      return this.attr['rate'] + ' = ' + this.slope().toFixed(this.precision).toString();
+      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+        return 'slope = ' + this.slope().toFixed(this.precision) + ' ' + this.attr.rate;
+      }
+      else {
+        return this.attr['rate'] + ' = ' + this.slope().toFixed(this.precision);
+      }
     } 
     return 'slope = ' + this.slope().toFixed(this.precision).toString();
   }
@@ -450,7 +455,12 @@ class Secant {
   riseTextY() { return this.fx1() + this.rise() / 2; }
   riseTextVal() {
     if (this.attr !== undefined && 'change' in this.attr) {
-      return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
+      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+        return this.rise().toFixed(this.precision) + ' ' + this.attr.change;
+      }
+      else {
+        return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
+      }
     } 
     return this.rise().toFixed(this.precision);
   }
@@ -460,7 +470,12 @@ class Secant {
   runTextY() { return this.fx1() - 2 * this.xint.Yerror; }
   runTextVal() { 
     if (this.attr !== undefined && 'units' in this.attr) {
-      return this.attr['units'] + ' = ' + this.units().toFixed(this.precision).toString();
+      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+        return this.units().toFixed(this.precision) + ' ' + this.attr['units'] ;
+      }
+      else {
+        return this.attr['units'] + ' = ' + this.units().toFixed(this.precision).toString();
+      }
     }
     return this.units().toFixed(this.precision).toString();
   }
@@ -514,7 +529,7 @@ class Secant {
 
 
 class Rectangle {
-  constructor (xint, F, attr = {} ) {
+  constructor (xint, F, attr = { } ) {
     ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
     this.xint = xint;
