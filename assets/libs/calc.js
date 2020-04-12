@@ -683,7 +683,7 @@ class Rectangle {
       else {
         pre = this.attr.change + ' = ';
       }
-      return pre + this.height().toFixed(this.precision) + post;
+      return pre + this.area().toFixed(this.precision) + post;
     }
     return this.area().toFixed(this.precision); 
   }
