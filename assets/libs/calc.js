@@ -144,6 +144,7 @@ class BoolButton extends Slider {
     super(board, [xf, yf], [0,2], name);
     this.state = false;
     this.xdelta = 0;
+    this.toggleCallback = undefined;
 
     this.toggle = this.toggle.bind(this);
     this.showText = this.showText.bind(this);
@@ -179,6 +180,7 @@ class BoolButton extends Slider {
       this.g.setAttribute({fillColor:th.accent1});
     }
     this.state = !this.state;
+    if (this.toggleCallback !== undefined) { this.toggleCallback(); }
   }
 
   showText() {
@@ -407,10 +409,10 @@ class Secant {
   fx1() { return this.f(this.xint.X1()); }
   fx2() { return this.f(this.xint.X2()); }
   run() { return this.xint.units(); }
+  slope() { return  this.rise() / this.units(); }
   
   // interface functions
   area() { return 0; }
-  slope() { return  this.rise() / this.units(); }
   rise() { return this.fx2() - this.fx1(); }
   units() { return this.run(); }
   rate() { return this.slope(); }
@@ -525,6 +527,7 @@ class Rectangle {
     this.units = this.units.bind(this);
     this.rate = this.rate.bind(this);
     this.change = this.change.bind(this);
+    this.rise = this.rise.bind(this);
     this.areaTextX = this.areaTextX.bind(this);
     this.areaTextY = this.areaTextY.bind(this);
     this.areaTextVal = this.areaTextVal.bind(this);
@@ -648,9 +651,9 @@ class Rectangle {
 
   // interface functions
   area() { return this.height() * this.xint.units(); }
-  slope() { 0; }
   units() { return this.xint.units(); }
   rate() { return this.height(); }
+  rise() { return 0; }
   change() { return this.area(); }
   setSnapMargin(m) { this.xint.setSnapMargin(m); }  
   onUpdate() { this.xint.onUpdate(); } 
@@ -782,6 +785,10 @@ class SecantRectangle {
     this.secantFunction = this.secantFunction.bind(this);
     this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
     this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
+    this.area = this.area.bind(this);
+    this.change = this.change.bind(this);
+    this.units = this.units.bind(this);
+    this.rise = this.rise.bind(this);
 
     ///////////////////////////////////////////////////////  data members with callbacks
     this.attachButton = new BoolButton(this.xint.board, [this.xint.attachLeftX, this.xint.attachY], 'attach',); 
@@ -804,11 +811,12 @@ class SecantRectangle {
     
   }
 
+  slope() { return this.secant.slope(); }
+
   // interface functions
   area() { return this.rectangle.area(); }
-  slope() { return this.secant.slope(); }
   units() { return this.xint.units(); }
-  rate() { return this.slope(); }
+  rise() { return this.secant.rise(); }
   change() { return this.area(); }
   setSnapMargin(m) { this.xint.setSnapMargin(m); }  
   onUpdate() { this.xint.onUpdate(); } 
@@ -873,7 +881,7 @@ class RectangleArray {
     this.updateDataArray = this.updateDataArray.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
     this.area = this.area.bind(this);
-    this.slope = this.slope.bind(this);
+    this.rise = this.rise.bind(this);
     this.units = this.units.bind(this);
     this.change = this.change.bind(this);
     this.areaTextX = this.areaTextX.bind(this);
@@ -899,7 +907,7 @@ class RectangleArray {
       this.areaTextX,
       this.areaTextY,
       this.areaTextVal],
-      { strokeColor: th.darkAnnote, fontSize:th.fontSizeAnnote, visible:false });
+      { strokeColor: th.lightAnnote, fontSize:th.fontSizeAnnote, visible:false });
 
     ///////////////////////////////////////////////////////  attribute settings
     this.rectangles.updateDataArray = this.updateDataArray;
@@ -920,7 +928,7 @@ class RectangleArray {
 
   // interface functions
   area() { return this.total_area; }
-  slope() { 0; }
+  rise() { return 0; }
   units() { return this.xint.units(); }
   change() { return this.area(); }
   setSnapMargin(m) { this.xint.setSnapMargin(m); }  
@@ -1007,7 +1015,6 @@ class SecantArray {
     this.onUpdate = this.onUpdate.bind(this);
     this.area = this.area.bind(this);
     this.rise = this.rise.bind(this);
-    this.slope = this.slope.bind(this);
     this.units = this.units.bind(this);
     this.change = this.change.bind(this);
     this.fx1 = this.fx1.bind(this);
@@ -1030,7 +1037,7 @@ class SecantArray {
     this.f2 = this.board.create('point', [
       this.xint.X2, 
       this.fx2], 
-      {color: th.stroke, size:3, name:'', visible:true});
+      {visible:false});
 
     this.p1 = this.board.create('point',[ 
       this.xint.X2, 
@@ -1069,13 +1076,12 @@ class SecantArray {
     }
   }
 
-  fx1() { return this.f(this.xint.X1()); }
-  fx2() { return this.f(this.xint.X2()); }
+  fx1() { return this.secants.dataY[0]; }
+  fx2() { return this.secants.dataY[this.secants.dataY.length - 1]; }
 
   // interface functions
   area() { return 0; }
-  rise() { return this.f(this.xint.X2()) - this.f(this.xint.X1()); }
-  slope() { return 0; }
+  rise() { return this.fx2() - this.fx1(); }
   units() { return this.xint.units(); }
   change() { return this.rise(); }
   setSnapMargin(m) { this.xint.setSnapMargin(m); }  
@@ -1111,7 +1117,7 @@ class SecantArray {
     this.secants.dataY = y;
   }
 
-    // call back functions for annotations
+  // call back functions for annotations
   turnOnAnnotations() {
     this.riseLine.setAttribute({visible:true});
     this.riseText.setAttribute({visible:true});
@@ -1134,62 +1140,120 @@ class SecantArray {
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
 class SecantRectArray {
-  constructor(xint, F, names) {
+  constructor(xint, F, slider, attr = { }) {
+    ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
     this.xint = xint;
     this.f = F;
-    this.showAnnotations = false;
+    this.attr = attr;
+    this.precision = 2;
+    let boundingBox = this.board.getBoundingBox();
+    this.boardwidth = (boundingBox[2] - boundingBox[0]);  
+    this.slider = slider;
 
-    this.names = names;
-    this.slider = new IntSlider(xint, 1, 100, 'N');
-    this.attachButton = new BoolButton(xint, 'attach');
-
+    ///////////////////////////////////////////////////////  bind functions
     this.rectangleFunction = this.rectangleFunction.bind(this);
-    //this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
-    //this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
+    this.updateSecantData = this.updateSecantData.bind(this);
+    this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
+    this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
     this.deltaX = this.deltaX.bind(this);
     this.constant = this.constant.bind(this);
+    this.switchFunctions = this.switchFunctions.bind(this);
+    this.area = this.area.bind(this);
+    this.rise = this.rise.bind(this);
+    this.units = this.units.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+    this.change = this.change.bind(this);
 
-    this.rectangles = new RectangleArray(xint, this.rectangleFunction);
-    this.secants = new SecantArray(xint, this.f);
+    ///////////////////////////////////////////////////////  data members with callback functions
+    this.attachButton = new BoolButton(this.xint.board, [this.xint.attachLeftX, this.xint.attachY], 'attach',); 
+    this.rectangles = new RectangleArray(xint, this.rectangleFunction, this.slider, this.attr);
+    this.secants = new SecantArray(xint, this.f, this.slider, this.attr);
     this.xint.midY.setAttribute({visible:true});
 
-    this.rectangle.rect.on('over', this.turnOnAnnotations);
-    this.rectangle.rect.on('out', this.turnOffAnnotations);
-    this.secant.segment.on('over', this.turnOnAnnotations);
-    this.secant.segment.on('out', this.turnOffAnnotations);
+    ///////////////////////////////////////////////////////  attribute settings
 
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+      this.rectangles.rectangles.on('over', this.turnOnAnnotations);
+      this.rectangles.rectangles.on('out', this.turnOffAnnotations);
+      this.secants.secants.on('over', this.turnOnAnnotations);
+      this.secants.secants.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+
+    if ('precision' in this.attr) {
+      this.precision = this.attr['precision'];
+    }
+
+    this.attachButton.toggleCallback = this.switchFunctions;
   }
 
+
+  // interface functions
+  area() { return this.rectangles.area(); }
+  rise() { return this.secants.rise(); }
+  units() { return this.xint.units(); }
+  change() { return this.rise(); }
+  setSnapMargin(m) { this.xint.setSnapMargin(m); }  
+  onUpdate() { this.xint.onUpdate(); } 
+  setAttribute(d) { 
+    for (let key in d) {
+      this.attr[key] = d[key]
+    }
+  }  
+  
+
   rectangleFunction(x) { 
-    if (this.attachButton.Value()) {
-      return this.f(x);      // height of rectangle is f is rateCurve
+    if (this.attachButton.state) {
+      return this.f(x);      // rectangle curve is attached
     }
     let dx = this.deltaX();
     return  (this.f(x + dx/2) - this.f(x - dx/2)) / dx;  // slope of secant 
   }
 
+  // helper functions for updateSecantData
+  deltaX() { return this.xint.units() / this.slider.value(); }
+  constant() { return this.xint.midY.Y(); }
+
   updateSecantData() {
     let x1 = this.xint.X1();
     let x2 = this.xint.X2();
-    let delta = (x2-x1) / this.slider.Value();
+    let delta = this.deltaX();
     let x = [];
     let y = [];
     let lastPoint = x2 + 0.01;
     let cum = 0;
     for (let i=x1; i <= lastPoint; i += delta) {
       x.push(i);
-      let area = this.f(x - delta/2) * delta;  // first get the area of current rectangle
-      cum += area;                             // sum of all rectangles so far.
-      y.push(cum);
+      cum += this.f(i - delta/2) * delta;  // first get the area of current rectangle
+      y.push(cum + this.constant());                      // sum of all rectangles so far.
     }
-    this.secants.dataX = x;
-    this.secants.dataY = y;
+    this.secants.secants.dataX = x;
+    this.secants.secants.dataY = y;
   }
 
-  deltaX() { return this.xint.units() / this.slider.Value(); }
-  constant() { return this.xint.midY.Y(); }
+  switchFunctions() {
+    if (this.attachButton.state) {
+      this.secants.secants.updateDataArray = this.updateSecantData; 
+    } else {
+      this.secants.secants.updateDataArray = this.secants.updateDataArray; 
+    }
+  }
+
+  turnOnAnnotations() {
+      this.rectangles.turnOnAnnotations();
+      this.secants.turnOnAnnotations();
+  }
+  turnOffAnnotations() {
+      this.rectangles.turnOffAnnotations();
+      this.secants.turnOffAnnotations();
+  }
 
   delete() {
     this.rectangles.delete();
@@ -1198,66 +1262,9 @@ class SecantRectArray {
     this.slider.delete();
     this.attachButton.delete();
   }
-
-  onUpdate() {
-    if (this.attachButton.Value()) {
-      this.secants.secants.updateDataArray = this.updateDataArray; 
-    } else {
-      this.secants.secants.updateDataArray = this.secants.updateDataArray; 
-    }
-    this.xint.onUpdate();
-  }
 }
 
 
-// // there's a problem passing functions to other array classes
-// function SecantRectangleArray(binfo, xinterval, F, ns) {
-//   let xint = xinterval;  
-//   let f = F;  
-
-//   let xslider = function() { return xinterval.x2.X() + binfo.Xerror; };
-//   let yslider = function() { return  2 * binfo.Yerror; };
-//   let attachButton = new BoolButton(binfo.board, binfo, xslider, yslider, 'attach');
-
-//   xint.midY.setAttribute({visible:true});
-
-//   let rectangleFunction = function(x, delta=0) { 
-//     if (attachButton.Value()) {
-//       return f(x);      // height of rectangle is f is rateCurve
-//     }
-//     return  (f(x + delta/2) - f(x - delta/2)) / delta;  // slope of secant 
-//   };
-
-//   let secantFunction = function(x, delta, cum) {
-//     if (attachButton.Value()) {
-//       return [f(x - delta/2) * delta, cum, xint.midY.Y()];
-//     }
-//     return [f(x), 0, 0];
-//   };
-
-//   let rectangles = new RectangleArray(binfo, xinterval, rectangleFunction, ns);
-//   let secants = new SecantArray(binfo, xinterval, secantFunction, ns);
-//   this.setFunction = function(F) { f = F; };
-//   this.setN = function(n) { 
-//     rectangles.setN(n); 
-//     secants.setN(n);
-//   };
-
-//   // this.setRateCurve = function(b) { 
-//   //   rateCurve = b; 
-//   //   if (rateCurve) { xint.midY.setAttribute({visible:true}); }
-//   //   else { xint.midY.setAttribute({visible:false}); }
-    
-//   // };
-
-//   this.delete = function() {
-//     rectangles.delete();
-//     secants.delete();
-//     xint.delete();
-//     attachButton.delete();
-//   };
-//   this.x2 = function() { return xint.x2.X(); };
-// } 
 
 
 class ProblemFunction {
@@ -1321,8 +1328,8 @@ class StandardBoard {
       F.f,
       F.range[0],
       F.range[1]], {
-        strokeColor:'#CCCCCC', 
-        highlightStrokeColor:'#AAAAFF',
+        strokeColor:th.verylightAnnote, 
+        highlightStrokeColor:th.verylightAnnote,
         strokeWidth:1, 
         visible:true
       });
@@ -1331,13 +1338,13 @@ class StandardBoard {
     for (let i=0; i < F.points.length; i++) {
       let point = this.board.create('point', [
         F.points[i],
-        F.f(F.points[i])], { name:'', color:'#CCCCCC', fixed:true});
+        F.f(F.points[i])], { name:'', color:th.verylightAnnote, fixed:true});
       points.push(point);
     }
     let title = this.board.create('text', [
       F.tanchor + this.Xerror,
       F.f(F.tanchor),
-      F.title], { color: '#AAAAFF', visible: false });
+      F.title], { color:th.darkAnnote, visible: false });
     
     graph.on('over', function() { 
       title.setAttribute({visible:true});
@@ -1362,7 +1369,10 @@ let widgetConstructor = {
       let slider = new IntSlider(xint.board, [xint.attachRightX, xint.attachY], [1, 100], 'N');
       return new SecantArray(xint, F, slider, attr); 
     },
-    5 : function(xint, F, attr) { return new SecantRectArray(xint, F, attr); },
+    5 : function(xint, F, attr) { 
+      let slider = new IntSlider(xint.board, [xint.attachRightX, xint.attachY], [1, 100], 'N');
+      return new SecantRectArray(xint, F, slider, attr); 
+    },
     6 : function(xint, F, attr) { return new AdjHeightRectangle(xint, F, attr); }
 }
 

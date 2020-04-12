@@ -118,8 +118,8 @@ let xhigh = 10;
 let ylow = -2;
 let yhigh = 20;
 
-let f = function(x) { return Math.pow(x,2)/4; };
-//let f = function(x) { return  Math.pow(x,3)/8 - Math.pow(x,4)/128; };
+//let f = function(x) { return Math.pow(x,2)/4; };
+let f = function(x) { return  Math.pow(x,3)/8 - Math.pow(x,4)/128; };
 
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow]);
 let F = new ProblemFunction( f, '', 7, [xlow,xhigh], []);
