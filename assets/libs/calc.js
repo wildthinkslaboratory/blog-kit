@@ -330,12 +330,12 @@ class Secant {
     this.f1 = this.board.create('point', [
       this.xint.X1, 
       this.fx1], 
-      {color: th.stroke, size:3, name:'', visible:true});
+      {color: th.stroke, highlightColor: th.stroke, size:3, name:'', visible:true});
 
     this.f2 = this.board.create('point', [
       this.xint.X2, 
       this.fx2], 
-      {color: th.stroke, size:3, name:'', visible:true});
+      {color: th.stroke, highlightColor: th.stroke, size:3, name:'', visible:true});
 
     this.line = this.board.create('line', [this.f1, this.f2], {
       strokeColor: th.verylightAnnote,  
@@ -414,7 +414,12 @@ class Secant {
   fx2() { return this.f(this.xint.X2()); }
   run() { return this.xint.units(); }
   slope() { return  this.rise() / this.units(); }
-  
+  setLineColor(c) { 
+    this.segment.setAttribute({strokeColor:c, highlightStrokeColor:c}); 
+    this.f1.setAttribute({color:c, highlightColor:c}); 
+    this.f2.setAttribute({color:c, highlightColor:c}); 
+  }
+
   // interface functions
   area() { return 0; }
   rise() { return this.fx2() - this.fx1(); }
