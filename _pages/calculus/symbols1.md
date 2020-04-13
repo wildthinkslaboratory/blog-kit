@@ -1,10 +1,10 @@
 ---
 title: Everything has a Name and Symbols
 smartdown: true
-headerapp: 'randomfractal.js'
-header: 'narrow'
+header: 'none'
 ---
 
+### Everything has a Name and Symbols
 
 #### --outlinebox outer1
 
@@ -28,33 +28,94 @@ let xhigh = 5;
 let ylow = -3;
 let yhigh = 10;
 
-let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow], { xlabel:'x', ylabel:'y'});
+let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow]);
 let F = new ProblemFunction(function(x) { return 1 + x * x / 2; }, '', 4, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
 
 let xint = new XInterval(workspace.board, 1,3);
-let secant = new Secant(xint, F.f, {showUnits:true, annotations:'on'});
+let secant = new Secant(xint, F.f, {showUnits:true, annotations:'off'});
 workspace.addElement(secant);
+
+
+let f1 = workspace.board.create('point', [
+  xint.X1,
+  function() { return F.f(xint.X1()); }], 
+  { fillColor: '#55DDFF', strokeColor:'#88CCEE', size:6 , name:'', visible:false});
+
+let f2 = workspace.board.create('point', [
+  xint.X2,
+  function() { return F.f(xint.X2()); }
+  ], { fillColor: '#55DDFF', strokeColor:'#88CCEE', size:6 , name:'', visible:false});
+
+let riseLine = workspace.board.create('segment', [secant.p1, secant.f2], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:5, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
+
+let runLine = workspace.board.create('segment', [secant.p1, secant.f1], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:5, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
+
+let showF1 = function() {
+  f1.setAttribute({visible:true});
+};
+let hideF1 = function() {
+  f1.setAttribute({visible:false});
+};
+window.showF1 = showF1;
+window.hideF1 = hideF1;
+
+
+let showF2 = function() {
+  f2.setAttribute({visible:true});
+};
+let hideF2 = function() {
+  f2.setAttribute({visible:false});
+};
+window.showF2 = showF2;
+window.hideF2 = hideF2;
+
+
+let showRun = function() {
+  runLine.setAttribute({visible:true});
+};
+let hideRun = function() {
+  runLine.setAttribute({visible:false});
+};
+window.showRun = showRun;
+window.hideRun = hideRun;
+
+
+let showRise = function() {
+  riseLine.setAttribute({visible:true});
+};
+let hideRise = function() {
+  riseLine.setAttribute({visible:false});
+};
+window.showRise = showRise;
+window.hideRise = hideRise;
 
 workspace.board.on('update', function() {
   workspace.onUpdate();
 });
 
 
-// let widthPercent = 0.8;
-// let heightPercent = 0.7;
+this.sizeChanged = function() {
+  workspace.board.resizeContainer(myDiv.offsetWidth, myDiv.offsetHeight);
+};
 
+this.sizeChanged();
 
-// this.sizeChanged = function() {
-//   board.board.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);
-// };
-
-// this.sizeChanged();
-
-// this.sizeChanged = function() {      
-//   board0.resizeContainer(myDiv.offsetWidth, myDiv.offsetHeight);
-// };
 
 ```
 #### --outlinebox
@@ -68,16 +129,17 @@ function $f(x) = x^2$
 distances $h$ and $f(x+h) - f(x)$ 
 slope    $$\frac{f(x+h) - f(x)}{h}$$ 
 
-
+Here's the thing...  Look closely at these formulas?  Can you look at each forumula and envision in your mind where it belongs in the picture? This might be the hardest part of learning calculus.  Whenever you are confused or frustrated, ask yourself whether you don't understand a picture or if you are having a hard time seeing what the formulas mean.  
 
 #### --outlinebox
 #### --outlinebox
 
+# ::::warning
 # --outlinebox warning
 **WARNING**
 Do not underestimate how much brain power is needed to keep track of the mapping between the things in the picture and the symbols we write on the page.  
 # --outlinebox
-
+# :::: 
 
 ```javascript /autoplay
 
@@ -104,11 +166,13 @@ formula1.classList.add('highlightOffNarrow');
 function logMouseOver() {
   formula1.classList.remove('highlightOffNarrow');
   formula1.classList.add('highlightOnNarrow');
+  window.showF1();
 }
 
 function logMouseOut() {
   formula1.classList.remove('highlightOnNarrow');
   formula1.classList.add('highlightOffNarrow');
+  window.hideF1();
 }
 
 const formula2 = document.getElementById('MathJax-Element-2-Frame');
@@ -119,11 +183,13 @@ formula2.classList.add('highlightOffNarrow');
 function logMouseOver2() {
   formula2.classList.remove('highlightOffNarrow');
   formula2.classList.add('highlightOnNarrow');
+  window.showF2();
 }
 
 function logMouseOut2() {
   formula2.classList.remove('highlightOnNarrow');
   formula2.classList.add('highlightOffNarrow');
+  window.hideF2();
 }
 
 const formula3 = document.getElementById('MathJax-Element-3-Frame');
@@ -131,14 +197,17 @@ formula3.onmouseover = logMouseOver3;
 formula3.onmouseout = logMouseOut3;
 formula3.classList.add('highlightOffNarrow');
 
+
 function logMouseOver3() {
   formula3.classList.remove('highlightOffNarrow');
   formula3.classList.add('highlightOnNarrow');
+  // window.showF1();
 }
 
 function logMouseOut3() {
   formula3.classList.remove('highlightOnNarrow');
   formula3.classList.add('highlightOffNarrow');
+  // window.hideF1();
 }
 
 const formula4 = document.getElementById('MathJax-Element-4-Frame');
@@ -149,27 +218,31 @@ formula4.classList.add('highlightOffNarrow');
 function logMouseOver4() {
   formula4.classList.remove('highlightOffNarrow');
   formula4.classList.add('highlightOnNarrow');
+  window.showRun();
 }
 
 function logMouseOut4() {
   formula4.classList.remove('highlightOnNarrow');
   formula4.classList.add('highlightOffNarrow');
+  window.hideRun();
 }
 
 
 const formula5 = document.getElementById('MathJax-Element-5-Frame');
 formula5.onmouseover = logMouseOver5;
 formula5.onmouseout = logMouseOut5;
-formula5.classList.add('highlightOffWide');
+formula5.classList.add('highlightOffNarrow');
 
 function logMouseOver5() {
-  formula5.classList.remove('highlightOffWide');
-  formula5.classList.add('highlightOnWide');
+  formula5.classList.remove('highlightOffNarrow');
+  formula5.classList.add('highlightOnNarrow');
+  window.showRise();
 }
 
 function logMouseOut5() {
   formula5.classList.remove('highlightOnWide');
-  formula5.classList.add('highlightOffWide');
+  formula5.classList.add('highlightOffNarrow');
+  window.hideRise();
 }
 
 const formula6 = document.getElementById('MathJax-Element-6-Frame');
@@ -178,13 +251,15 @@ formula6.onmouseout = logMouseOut6;
 formula6.classList.add('highlightOffWide');
 
 function logMouseOver6() {
-  formula5.classList.remove('highlightOffWide');
-  formula5.classList.add('highlightOnWide');
+  formula6.classList.remove('highlightOffWide');
+  formula6.classList.add('highlightOnWide');
+  // window.showF1();
 }
 
 function logMouseOut6() {
-  formula5.classList.remove('highlightOnWide');
-  formula5.classList.add('highlightOffWide');
+  formula6.classList.remove('highlightOnWide');
+  formula6.classList.add('highlightOffWide');
+  // window.hideF1();
 }
 
 ```

@@ -93,28 +93,28 @@ header.masthead {
 
 .highlightOnWide {
   background-color: #55DDFF;
-  padding: 16px;
-  border-radius: 5px;
-  border: 1px solid #66CCEE;
+  padding: 16px !important;
+  border-radius: 5px !important;
+  border: 1px solid #66CCEE !important;
 }
 
 .highlightOffWide {
   background-color: #EEF9FF;
-  padding: 16px;
+  padding: 16px !important;
   border-radius: 5px;
-  border: 1px solid #DDE9EE;
+  border: 1px solid #DDE9EE !important;
 }
 
 .highlightOnNarrow {
   background-color: #55DDFF;
-  padding: 2px 6px;
+  padding: 2px 10px !important;
   border-radius: 5px;
-  border: 1px solid #88CCEE;
+  border: 1px solid #88CCEE !important;
 }
 
 .highlightOffNarrow {
-  background-color: #EEF9FF;
-  padding: 2px 6px;
+  background-color: #EEF9FF !important;
+  padding: 2px 10px !important;
   border-radius: 5px;
-  border: 1px solid #DDE9EE;
+  border: 1px solid #DDE9EE !important;
 }
