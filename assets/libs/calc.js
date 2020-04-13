@@ -437,9 +437,7 @@ class Secant {
       if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
         return 'slope = ' + this.slope().toFixed(this.precision) + ' ' + this.attr.rate;
       }
-      else {
-        return this.attr['rate'] + ' = ' + this.slope().toFixed(this.precision);
-      }
+      return this.attr['rate'] + ' = ' + this.slope().toFixed(this.precision);
     } 
     return 'slope = ' + this.slope().toFixed(this.precision).toString();
   }
@@ -458,9 +456,7 @@ class Secant {
       if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
         return this.rise().toFixed(this.precision) + ' ' + this.attr.change;
       }
-      else {
-        return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
-      }
+      return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
     } 
     return this.rise().toFixed(this.precision);
   }
@@ -473,9 +469,7 @@ class Secant {
       if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
         return this.units().toFixed(this.precision) + ' ' + this.attr['units'] ;
       }
-      else {
-        return this.attr['units'] + ' = ' + this.units().toFixed(this.precision).toString();
-      }
+      return this.attr['units'] + ' = ' + this.units().toFixed(this.precision).toString();
     }
     return this.units().toFixed(this.precision).toString();
   }
@@ -690,15 +684,10 @@ class Rectangle {
   areaTextY() { return this.height() / 2; }
   areaTextVal() { 
     if (this.attr !== undefined && 'change' in this.attr) {
-      let pre = '';
-      let post = ''
       if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
-        post = ' ' + this.attr.change;
+        return this.area().toFixed(this.precision)+ ' ' + this.attr.change;
       }
-      else {
-        pre = this.attr.change + ' = ';
-      }
-      return pre + this.area().toFixed(this.precision) + post;
+      return this.attr.change + ' = ' + this.area().toFixed(this.precision);
     }
     return this.area().toFixed(this.precision); 
   }
@@ -714,15 +703,10 @@ class Rectangle {
   heightTextY() { return this.height() / 2 }
   heightTextVal() { 
     if (this.attr !== undefined && 'rate' in this.attr) {
-      let pre = '';
-      let post = ''
       if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
-        post = ' ' + this.attr.rate;
+        return this.height().toFixed(this.precision) + ' ' + this.attr.rate;
       }
-      else {
-        pre = this.attr.rate + ' = ';
-      }
-      return pre + this.height().toFixed(this.precision) + post;
+      return this.attr.rate + ' = ' + this.height().toFixed(this.precision);
     }
     return this.height().toFixed(this.precision); 
   }
@@ -733,16 +717,10 @@ class Rectangle {
   widthTextY() { return this.height() + 4 * this.xint.Yerror; }
   widthTextVal() { 
     if (this.attr !== undefined && 'units' in this.attr) {
-      let pre = '';
-      let post = ''
       if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
-        post = ' ' + this.attr.units;
+        return this.xint.units().toFixed(this.precision) + ' ' + this.attr.units;
       }
-      else {
-        pre = this.attr.units + ' = ';
-      }
-      return pre + this.xint.units().toFixed(this.precision) + post;
-
+      return this.attr.units + ' = ' + this.xint.units().toFixed(this.precision);
     }
     return this.xint.units().toFixed(this.precision);
   }
@@ -1022,10 +1000,14 @@ class RectangleArray {
   areaTextY() { return this.f(this.xint.X2()) / 2; }
   areaTextVal() { 
     if (this.attr !== undefined && 'change' in this.attr) {
+      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+        return 'area = ' + this.area().toFixed(this.precision) + ' ' + this.attr.change;
+      }
       return this.attr.change + ' = ' + this.area().toFixed(this.precision); 
     }
     return 'area = ' + this.area().toFixed(this.precision); 
   }
+
   
   // call back functions for annotations
   turnOnAnnotations() {
@@ -1151,10 +1133,14 @@ class SecantArray {
   riseTextY() { return this.fx1() + this.rise() / 2; }
   riseTextVal() {
     if (this.attr !== undefined && 'change' in this.attr) {
+      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+        return this.rise().toFixed(this.precision) + ' ' + this.attr.change;
+      }
       return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
     } 
     return this.rise().toFixed(this.precision);
   }
+
 
   updateDataArray() {
     let x1 = this.xint.X1();
@@ -1198,7 +1184,7 @@ class SecantArray {
 
 
 class SecantRectArray {
-  constructor(xint, F, slider, attr = {annotations:'secant'}) {
+  constructor(xint, F, slider, attr = {}) {
     ///////////////////////////////////////////////////////  initialize data members
     this.board = xint.board;
     this.xint = xint;
