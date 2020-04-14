@@ -39,7 +39,7 @@ class SteelTheme {
     this.darkAnnote = darkgray;
     this.verylightAnnote = '#DDDDFF';
     this.startPoint = '#666688';
-    this.endPoint = '#EE5511';
+    this.endPoint = '#666688';
     this.fontSizeAnnote = 15;
     this.strokeWidth = 4;
     this.strokeWidthAnnote = 2;
@@ -438,12 +438,16 @@ class Secant {
   slopeTextX() { return this.xint.midX() - this.slopeTextWidth() - 2 * this.xint.Xerror; }
   slopeTextY() { return this.fx1() + this.rise() / 2; }
   slopeString() {
-    if (this.attr !== undefined && 'rate' in this.attr) {
-      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
-        return 'slope = ' + this.slope().toFixed(this.precision) + ' ' + this.attr.rate;
-      }
-      return this.attr['rate'] + ' = ' + this.slope().toFixed(this.precision);
-    } 
+
+    if (this.attr != undefined) {
+      if ('justLines' in this.attr && this.attr['justLines'] == true) { return '';}
+      if ('rate' in this.attr) {
+        if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+          return 'slope = ' + this.slope().toFixed(this.precision) + ' ' + this.attr.rate;
+        }
+        return this.attr['rate'] + ' = ' + this.slope().toFixed(this.precision);
+      } 
+    }
     return 'slope = ' + this.slope().toFixed(this.precision).toString();
   }
   slopeTextWidth() {
@@ -457,12 +461,15 @@ class Secant {
   riseTextX() { return this.xint.X2() + this.xint.Xerror/2;}
   riseTextY() { return this.fx1() + this.rise() / 2; }
   riseTextVal() {
-    if (this.attr !== undefined && 'change' in this.attr) {
-      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
-        return this.rise().toFixed(this.precision) + ' ' + this.attr.change;
-      }
-      return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
-    } 
+    if (this.attr !== undefined) {
+      if ('justLines' in this.attr && this.attr['justLines'] == true) { return '';}
+      if ('change' in this.attr) {
+        if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+          return this.rise().toFixed(this.precision) + ' ' + this.attr.change;
+        }
+        return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
+      } 
+    }
     return this.rise().toFixed(this.precision);
   }
 
@@ -470,11 +477,14 @@ class Secant {
   runTextX() { return this.xint.midX() - this.runTextWidth()/2; }
   runTextY() { return this.fx1() - 2 * this.xint.Yerror; }
   runTextVal() { 
-    if (this.attr !== undefined && 'units' in this.attr) {
-      if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
-        return this.units().toFixed(this.precision) + ' ' + this.attr['units'] ;
+    if (this.attr != undefined) {
+      if ('justLines' in this.attr && this.attr['justLines'] == true) { return '';}
+      if ('units' in this.attr) {
+        if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+          return this.units().toFixed(this.precision) + ' ' + this.attr['units'] ;
+        }
+        return this.attr['units'] + ' = ' + this.units().toFixed(this.precision).toString();
       }
-      return this.attr['units'] + ' = ' + this.units().toFixed(this.precision).toString();
     }
     return this.units().toFixed(this.precision).toString();
   }
@@ -1341,7 +1351,7 @@ class GraphedFunction extends ProblemFunction {
 
 
 class StandardBoard {
-  constructor(divName, Box, attributes = { xlabel: '', ylabel:'' }) {
+  constructor(divName, Box, attributes = { xlabel: '', ylabel:'', colorTheme:'blue'}) {
     this.atb = attributes;
     this.functions = [];
     this.Yerror = (Box[1] - Box[3]) / 50;  
@@ -1428,6 +1438,11 @@ let widgetConstructor = {
     6 : function(xint, F, attr) { return new AdjHeightRectangle(xint, F, attr); }
 }
 
+let themeConstructor = {
+  'blue' : function() { th = new BlueTheme(); },
+  'steel' : function() { th = new SteelTheme(); }
+}
+
 class Workspace extends StandardBoard {
   constructor(divName, Box, attributes) {
     super(divName, Box, attributes)
@@ -1437,6 +1452,16 @@ class Workspace extends StandardBoard {
     this.rise = this.rise.bind(this);
     this.area = this.area.bind(this);
     this.maxX = this.maxX.bind(this);
+
+    if ('colorTheme' in attributes) {
+      if(attributes['colorTheme']  in themeConstructor) {
+        themeConstructor[attributes['colorTheme']]();
+      }
+      else {
+        th = new BlueTheme();
+      }
+    }
+  
   }
 
   onUpdate() {

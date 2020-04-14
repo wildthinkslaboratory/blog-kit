@@ -28,15 +28,17 @@ let xhigh = 5;
 let ylow = -3;
 let yhigh = 10;
 
-let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow]);
+let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
 let F = new ProblemFunction(function(x) { return 1 + x * x / 2; }, '', 4, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
 
 let xint = new XInterval(workspace.board, 1,3);
-let secant = new Secant(xint, F.f, {showUnits:true, annotations:'off'});
+let secant = new Secant(xint, F.f, {showUnits:true, annotations:'on', justLines:true});
 workspace.addElement(secant);
 
+secant.xint.x1.setAttribute({name:'x'});
+secant.xint.x2.setAttribute({name:'x + h'});
 
 let f1 = workspace.board.create('point', [
   xint.X1,
@@ -47,6 +49,12 @@ let f2 = workspace.board.create('point', [
   xint.X2,
   function() { return F.f(xint.X2()); }
   ], { fillColor: '#55DDFF', strokeColor:'#88CCEE', size:6 , name:'', visible:false});
+
+let fofX = workspace.board.create('functiongraph',[F.f,xlow,xhigh], { 
+  strokeColor:'#55DDFF',
+  strokeWidth:3,
+  visible:false
+})
 
 let riseLine = workspace.board.create('segment', [secant.p1, secant.f2], 
     {
@@ -84,6 +92,16 @@ let hideF2 = function() {
 };
 window.showF2 = showF2;
 window.hideF2 = hideF2;
+
+
+let showFun = function() {
+  fofX.setAttribute({visible:true});
+};
+let hideFun = function() {
+  fofX.setAttribute({visible:false});
+};
+window.showFun = showFun;
+window.hideFun = hideFun;
 
 
 let showRun = function() {
@@ -129,7 +147,7 @@ function $f(x) = x^2$
 distances $h$ and $f(x+h) - f(x)$ 
 slope    $$\frac{f(x+h) - f(x)}{h}$$ 
 
-Here's the thing...  Look closely at these formulas?  Can you look at each forumula and envision in your mind where it belongs in the picture? This might be the hardest part of learning calculus.  Whenever you are confused or frustrated, ask yourself whether you don't understand a picture or if you are having a hard time seeing what the formulas mean.  
+Here's the thing...  Look closely at these formulas.  Can you look at each forumula and envision in your mind where it belongs in the picture? This might be the hardest part of learning calculus.  Whenever you are confused or frustrated, ask yourself whether you don't understand a picture or if you are having a hard time seeing what the formulas mean.  
 
 #### --outlinebox
 #### --outlinebox
@@ -201,13 +219,13 @@ formula3.classList.add('highlightOffNarrow');
 function logMouseOver3() {
   formula3.classList.remove('highlightOffNarrow');
   formula3.classList.add('highlightOnNarrow');
-  // window.showF1();
+  window.showFun();
 }
 
 function logMouseOut3() {
   formula3.classList.remove('highlightOnNarrow');
   formula3.classList.add('highlightOffNarrow');
-  // window.hideF1();
+  window.hideFun();
 }
 
 const formula4 = document.getElementById('MathJax-Element-4-Frame');
