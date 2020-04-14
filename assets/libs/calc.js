@@ -51,6 +51,12 @@ class SteelTheme {
 
 let th = new BlueTheme();
 
+let textWidth = function(t,b) {
+  t.updateSize();
+  let boundingBox = b.getBoundingBox();         
+  let boardwidth = (boundingBox[2] - boundingBox[0]);  
+  return t.getSize()[0] * boardwidth / b.canvasWidth;
+}
 
 class Slider {
   constructor(board, [xf, yf], [low,high], name) {
@@ -1558,6 +1564,7 @@ class Workspace extends StandardBoard {
   exports.XInterval = XInterval;
   exports.StandardBoard = StandardBoard;
   exports.Workspace = Workspace;
+  exports.textWidth = textWidth;
 
 });
 

@@ -74,6 +74,25 @@ let runLine = workspace.board.create('segment', [secant.p1, secant.f1],
       visible:false
     });
 
+let slopeLine = workspace.board.create('segment', [secant.f1, secant.f2], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:6, 
+      visible:false
+    });
+
+// some fabulous hackery to figure out the placement of the text
+let fakeText = workspace.board.create('text', [0,ylow - 2,'slope of line'],{visible:true});
+let tWidth = textWidth(fakeText, workspace.board);
+let Xerror = (xhigh - xlow)/50;
+
+let slopeText = workspace.board.create('text', [
+  function() { return f1.X() + (f2.X() - f1.X())/2 - tWidth - Xerror; },
+  function() { return f1.Y() + (f2.Y() - f1.Y())/2; },
+  'slope of line'],
+  {visible:false});
+
+
 let showF1 = function() {
   f1.setAttribute({visible:true});
 };
@@ -123,6 +142,18 @@ let hideRise = function() {
 window.showRise = showRise;
 window.hideRise = hideRise;
 
+let showSlope = function() {
+  slopeLine.setAttribute({visible:true});
+  slopeText.setAttribute({visible:true});
+};
+let hideSlope = function() {
+  slopeLine.setAttribute({visible:false});
+  slopeText.setAttribute({visible:false});
+};
+window.showSlope = showSlope;
+window.hideSlope = hideSlope;
+
+
 workspace.board.on('update', function() {
   workspace.onUpdate();
 });
@@ -143,21 +174,17 @@ this.sizeChanged();
 All of the shapes and lines we've been using to solve problems have names and symbols.  Some of them will be familiar to you and some of them will be new.  
 
 points $(x, f(x))$  and  $(x+h, f(x+h))$
-function $f(x) = x^2$
+function $f(x) = x^2 + 1$
 distances $h$ and $f(x+h) - f(x)$ 
 slope    $$\frac{f(x+h) - f(x)}{h}$$ 
 
-Here's the thing...  Look closely at these formulas.  Can you look at each forumula and envision in your mind where it belongs in the picture? This might be the hardest part of learning calculus.  Whenever you are confused or frustrated, ask yourself whether you don't understand a picture or if you are having a hard time seeing what the formulas mean.  
+Here's the thing...  Look closely at these expressions. Mouse over them. Can you look at each forumula and envision in your mind where it belongs in the picture? Take your time. Mapping the formulas onto the picture might be the hardest part of learning calculus.  Especially if the only picture you have is in your head.  
+[Continue](/pages/derivative1)
 
 #### --outlinebox
 #### --outlinebox
 
-# ::::warning
-# --outlinebox warning
-**WARNING**
-Do not underestimate how much brain power is needed to keep track of the mapping between the things in the picture and the symbols we write on the page.  
-# --outlinebox
-# :::: 
+ 
 
 ```javascript /autoplay
 
@@ -271,13 +298,13 @@ formula6.classList.add('highlightOffWide');
 function logMouseOver6() {
   formula6.classList.remove('highlightOffWide');
   formula6.classList.add('highlightOnWide');
-  // window.showF1();
+  window.showSlope();
 }
 
 function logMouseOut6() {
   formula6.classList.remove('highlightOnWide');
   formula6.classList.add('highlightOffWide');
-  // window.hideF1();
+  window.hideSlope();
 }
 
 ```
