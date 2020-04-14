@@ -7,7 +7,7 @@ smartdown: true
 # :::: clue
 # --outlinebox
 ##### Car Ride
-The graph shows the position of the car through time.  Figure out how fast the car is traveling at these times $t=1$, $t=2$ and $t=3$
+The graph shows the position of the car through time.  Use the **secant** to estimate how fast the car is traveling at these times $t=2$, $t=4$ and $t=6$.  
 # --outlinebox
 # ::::
 
@@ -135,14 +135,14 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='top' style='height:100px; width:100%; border:1px solid gray;background:#EEFFCC;border-radius:8px;'></div><div id='bottom' style='height:600px; width:100%; border: 1px solid gray;background:#FFFFFF;border-radius:8px;';></div>`;
 
-let xlow = -1;
-let xhigh = 5;
+let xlow = -2;
+let xhigh = 10;
 let ylow = -10;
 let yhigh = 50;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
   { xlabel:'time (s)', ylabel:'distance (m)'});
-let F = new ProblemFunction(function(x) { return 10 * x; }, 'position of car', 3.5, [xlow,xhigh], [1,2,3]);
+let F = new ProblemFunction(function(x) { return x * x; }, 'position of car', 3.5, [xlow,xhigh], [2,4,6]);
 let F_id = workspace.addFunction(F);
 
 
@@ -152,11 +152,11 @@ let p = workspace.board.create('point', [
   function() { return t.X(); }, 
   function() { return F.f(t.X()); }], {color:'green', name:''});
 
-let p1 = workspace.board.create('point', [1,10], {name:'', color:'#88CC22', visible:false});
-let p2 = workspace.board.create('point', [2,10], {name:'', color:'#88CC22', visible:false});
-let p3 = workspace.board.create('point', [3,10], {name:'', color:'#88CC22', visible:false});
+let p1 = workspace.board.create('point', [1,2], {name:'', color:'#88CC22', visible:false});
+let p2 = workspace.board.create('point', [2,4], {name:'', color:'#88CC22', visible:false});
+let p3 = workspace.board.create('point', [3,6], {name:'', color:'#88CC22', visible:false});
 let line = workspace.board.create('line', [p1,p2], {strokeColor:'#88CC22', visible:false});
-let stext = workspace.board.create('text', [3.2,12, 'speed of car'], {strokeColor:'#88CC22', visible:false});
+let stext = workspace.board.create('text', [4.4,12, 'speed of car'], {strokeColor:'#88CC22', visible:false});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board
@@ -217,7 +217,7 @@ this.div.onmousedown = function(e) {
 };
 
 let move = function() { 
-  t.moveTo([4.9,0],5000, {effect: '--'} ); 
+  t.moveTo([7,0],5000, {effect: '--'} ); 
 }
 
 
@@ -254,7 +254,7 @@ this.depend = function() {
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (env.s1 == 10 && env.s2 == 10 && env.s3 == 10) {
+    if (env.s1 == 4 && env.s2 == 6 && env.s3 == 12) {
       smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
       p1.setAttribute({visible:true});
@@ -262,6 +262,7 @@ this.depend = function() {
       p3.setAttribute({visible:true});
       line.setAttribute({visible:true});
       stext.setAttribute({visible:true});
+      workspace.undo();
     }
     else {
       smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
