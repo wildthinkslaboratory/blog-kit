@@ -2,7 +2,7 @@ const blue = '#66AAFF';
 const brightblue = '#99DDFF';
 const darkblue = '#3344AA';
 const lightgray = '#CCCCCC';
-const mediumgray = '#AAAAAA';
+const mediumgray = '#888888';
 const darkgray = '#333333';
 const darktomato = '#DD3333';
 const tomato = '#FF2222'; 
@@ -444,7 +444,7 @@ class Secant {
   slopeTextX() { return this.xint.midX() - this.slopeTextWidth() - 2 * this.xint.Xerror; }
   slopeTextY() { return this.fx1() + this.rise() / 2; }
   slopeString() {
-
+    if (this.units() == 0) { return 'undefined'; }
     if (this.attr != undefined) {
       if ('justLines' in this.attr && this.attr['justLines'] == true) { return '';}
       if ('rate' in this.attr) {

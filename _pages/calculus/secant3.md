@@ -7,7 +7,7 @@ smartdown: true
 # :::: clue
 # --outlinebox
 ##### Car Ride
-The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the speed the car is traveling at these exact times $t=2$, $t=4$ and $t=6$. 
+The graph shows the position of the car through time.  Use the **secant** find the average speed the car is traveling during these time periods: $3 \leq t \leq 5$, $3 \leq t \leq 4$ and $3 \leq t \leq 3.5$. 
 # --outlinebox
 # ::::
 
@@ -20,7 +20,7 @@ The graph shows the position of the car through time.  Use the **secant** to giv
 
 [?](::clue/button,transparent,draggable,closeable,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
-$t=2$ [](:?s1)  $t=4$ [](:?s2) $t=6$ [](:?s3) 
+$3 \leq t \leq 5$ [](:?s1)  $3 \leq t \leq 4$ [](:?s2) $3 \leq t \leq 3.5$ [](:?s3) 
 # ::::
 # :::: toolbar
 ```javascript /autoplay/p5js
@@ -111,7 +111,7 @@ this.depend = function() {
 
 # :::: success
 Success! 
-[Continue](/pages/secant5)
+[Continue](/pages/secant4)
 # ::::
 
 # :::: keeptrying
@@ -142,7 +142,7 @@ let yhigh = 50;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
   { xlabel:'time (s)', ylabel:'distance (m)'});
-let F = new ProblemFunction(function(x) { return x * x; }, 'position of car', 3.5, [xlow,xhigh], [2,4,6]);
+let F = new ProblemFunction(function(x) { return x * x; }, 'position of car', 3.5, [xlow,xhigh], [3, 3.5, 4, 6]);
 let F_id = workspace.addFunction(F);
 
 
@@ -151,12 +151,6 @@ let t = workspace.board.create('glider', [0,0, workspace.xaxis], {name:'', face:
 let p = workspace.board.create('point', [
   function() { return t.X(); }, 
   function() { return F.f(t.X()); }], {color:'green', name:''});
-
-let p1 = workspace.board.create('point', [2,4], {name:'', color:'#88CC22', visible:false});
-let p2 = workspace.board.create('point', [4,8], {name:'', color:'#88CC22', visible:false});
-let p3 = workspace.board.create('point', [6,12], {name:'', color:'#88CC22', visible:false});
-let line = workspace.board.create('line', [p1,p2], {strokeColor:'#88CC22', visible:false});
-let stext = workspace.board.create('text', [6.4,12, 'speed of car'], {strokeColor:'#88CC22', visible:false});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board
@@ -254,15 +248,9 @@ this.depend = function() {
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (env.s1 == 4 && env.s2 == 8 && env.s3 == 12) {
+    if (env.s1 == 8 && env.s2 == 7 && env.s3 == 6.5) {
       smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
-      p1.setAttribute({visible:true});
-      p2.setAttribute({visible:true});
-      p3.setAttribute({visible:true});
-      line.setAttribute({visible:true});
-      stext.setAttribute({visible:true});
-      workspace.undo();
     }
     else {
       smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');

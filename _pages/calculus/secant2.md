@@ -262,6 +262,7 @@ this.depend = function() {
       p3.setAttribute({visible:true});
       line.setAttribute({visible:true});
       stext.setAttribute({visible:true});
+      workspace.undo();
     }
     else {
       smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
