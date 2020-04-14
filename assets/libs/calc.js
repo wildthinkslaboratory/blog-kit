@@ -1371,6 +1371,10 @@ class StandardBoard {
       showCopyright:false
     });
 
+    // some fabulous hackery to figure out the placement of the text
+    let fakeY = this.board.create('text', [0,Box[3] - 2,this.atb.ylabel],{visible:true, fontSize:16});
+    fakeY.updateSize();
+
     this.xaxis = this.board.create('axis', [[0, 0], [1,0]], { 
       name:this.atb.xlabel, 
       withLabel: true,
@@ -1386,10 +1390,14 @@ class StandardBoard {
       label: {
         fontSize: 16,
         position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
-        offset: [-100, 0]   // (in pixels)
+        offset: [-fakeY.getSize()[0] - 20, 0]   // (in pixels)
       }
-    });   
+    });
+
+    this.board.removeObject(fakeY);   
   }
+
+  
 
   addFunction(F) {
     let graph = this.board.create('functiongraph', [

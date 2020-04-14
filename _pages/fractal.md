@@ -4,7 +4,7 @@ header: 'none'
 ---
 
 ### Julia Set Generator
-These fractals are generated from a list of seeds that are pretty good.  You can use a random seed rather than one from my list, but you won't always get a good pattern.  Sometimes changing the color scheme will make a pattern clearer.  Enjoy!
+These fractals are generated from a list of seeds that are pretty good.  You can use a random seed rather than one from my list, but you won't always get a good pattern.  Sometimes changing the color scheme will make a pattern clearer.  Enjoy!  If you want to learn more about fractals, [Mathigon](https://mathigon.org) has a great lesson on [fractals](https://mathigon.org/course/fractals/introduction).
 
 [random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) [download pdf](:=download=true) 
  Use a random seed [](:XrandomSeed) **seed:** **A** [](:!A)  **B** [](:!B)
