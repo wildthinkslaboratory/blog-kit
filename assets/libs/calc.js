@@ -288,6 +288,292 @@ class XInterval {
 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class Segment {
+  constructor (board, [x1,y1], [x2,y2], attr = {}) {
+
+    ///////////////////////////////////////////////////////  initialize data members
+    this.board = board;
+    this.attr = attr;
+    this.precision = 2;
+    let boundingBox = this.board.getBoundingBox();         
+    this.boardwidth = (boundingBox[2] - boundingBox[0]);  
+    this.Yerror = (boundingBox[1] - boundingBox[3]) / 100;  
+    this.Xerror = (boundingBox[2] - boundingBox[0]) / 100;  
+    this.snapMargin = 0.05;
+
+    
+    ///////////////////////////////////////////////////////  bind functions
+    this.f2X = this.f2X.bind(this);
+    this.f1Y = this.f1Y.bind(this);
+    this.rise = this.rise.bind(this);
+    this.run = this.run.bind(this);
+    this.slope = this.slope.bind(this);
+    this.units = this.units.bind(this);
+    this.midX = this.midX.bind(this);
+    this.slopeTextX = this.slopeTextX.bind(this);
+    this.slopeTextY = this.slopeTextY.bind(this);
+    this.slopeString = this.slopeString.bind(this);
+    this.slopeTextWidth = this.slopeTextWidth.bind(this);
+    this.riseTextX = this.riseTextX.bind(this);
+    this.riseTextY = this.riseTextY.bind(this);
+    this.riseTextVal = this.riseTextVal.bind(this);
+    this.riseTextWidth = this.riseTextWidth.bind(this);
+    this.runTextX = this.runTextX.bind(this);
+    this.runTextY = this.runTextY.bind(this);
+    this.runTextVal = this.runTextVal.bind(this);
+    this.runTextWidth = this.runTextWidth.bind(this);
+    this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
+    this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+    this.checkSnap = this.checkSnap.bind(this);
+
+    
+
+
+    ///////////////////////////////////////////////////////  add components to JSXGraph board
+    this.f1 = this.board.create('point', [
+      x1, 
+      y1], 
+      {color: th.stroke, highlightColor: th.stroke, size:3, name:'', visible:true});
+
+    this.f2 = this.board.create('point', [
+      x2, 
+      y2], 
+      {color: th.stroke, highlightColor: th.stroke, size:3, name:'', visible:true});
+
+    this.segment = this.board.create('segment', [this.f1, this.f2], {
+      strokeColor: th.stroke, 
+      highlightStrokeColor: th.stroke,
+      strokeWidth: th.strokeWidth, 
+      visible:true});
+
+    this.slopeText = this.board.create('text', [
+      this.slopeTextX,
+      this.slopeTextY,
+      this.slopeString], 
+      {strokeColor: th.lightAnnote, fontSize:th.fontSizeAnnote, visible:false});
+
+    this.p1 = this.board.create('point',[ 
+      this.f2X, 
+      this.f1Y],
+      {visible:false});
+
+    this.riseLine = this.board.create('segment', [this.p1, this.f2], 
+    {
+      strokeColor: th.lightAnnote, 
+      strokeWidth:th.strokeWidthAnnote, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
+
+    this.riseText = this.board.create('text', [
+      this.riseTextX,
+      this.riseTextY,
+      this.riseTextVal],
+      {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
+
+    this.runLine = this.board.create('segment', [this.p1, this.f1], 
+      {
+        strokeColor: th.lightAnnote, 
+        strokeWidth:th.strokeWidthAnnote, 
+        firstArrow:true, 
+        lastArrow:true, 
+        visible:false
+      });
+
+    this.runText = this.board.create('text', [
+      this.runTextX,
+      this.runTextY,
+      this.runTextVal],
+      {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
+
+    ///////////////////////////////////////////////////////  attribute settings
+
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+        this.segment.on('over', this.turnOnAnnotations);
+        this.segment.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+
+    if ('precision' in this.attr) {
+      this.precision = this.attr['precision'];
+    }
+
+    if ('snapMargin' in this.attr) {
+      this.snapMargin = this.attr['snapMargin'];
+    }
+  }
+
+  f2X() { return this.f2.X(); }
+  f1Y() { return this.f1.Y(); }
+  units() { return this.f2.X() - this.f1.X(); }
+  midX() { return this.f1.X() + this.units() / 2; }
+  run() { return this.units(); }
+  slope() { return  this.rise() / this.units(); }
+  rise() { return this.f2.Y() - this.f1.Y(); }
+
+  setLineColor(c) { 
+    this.segment.setAttribute({strokeColor:c, highlightStrokeColor:c}); 
+    this.f1.setAttribute({color:c, highlightColor:c}); 
+    this.f2.setAttribute({color:c, highlightColor:c}); 
+  }
+
+  onUpdate() { 
+    this.checkSnap(this.f1);
+    this.checkSnap(this.f2);
+  } 
+
+  checkSnap(point) {
+    let floor = Math.floor(point.X());           // are we close to the lower integer?
+    if (point.X() < floor + this.snapMargin) {
+      point.moveTo([floor,point.Y()]);
+    }
+    else {                                         // are we close to the higher integer?
+      let ceiling = Math.ceil(point.X());
+      if (point.X() > ceiling - this.snapMargin) {
+        point.moveTo([ceiling,point.Y()]);
+      }
+    }
+    floor = Math.floor(point.Y());           // are we close to the lower integer?
+    if (point.Y() < floor + this.snapMargin) {
+      point.moveTo([point.X(),floor]);
+    }
+    else {                                         // are we close to the higher integer?
+      let ceiling = Math.ceil(point.Y());
+      if (point.Y() > ceiling - this.snapMargin) {
+        point.moveTo([point.X(),ceiling]);
+      }
+    }
+  }
+
+
+  setAttribute(d) { 
+    for (let key in d) {
+      this.attr[key] = d[key]
+    }
+  }  
+
+
+  // this is all for the slope string annotation
+  slopeTextX() { 
+    if (this.f1.X() <= this.f2.X()) {
+      return this.midX() - this.slopeTextWidth() - 2 * this.Xerror; 
+    }
+    return this.midX() + 2 * this.Xerror; 
+  }
+  slopeTextY() { return this.f1.Y() + this.rise() / 2; }
+  slopeString() {
+    if (this.units() == 0) { return 'undefined'; }
+    if (this.attr != undefined) {
+      if ('justLines' in this.attr && this.attr['justLines'] == true) { return '';}
+      if ('rate' in this.attr) {
+        if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+          return 'slope = ' + this.slope().toFixed(this.precision) + ' ' + this.attr.rate;
+        }
+        return this.attr['rate'] + ' = ' + this.slope().toFixed(this.precision);
+      } 
+    }
+    return 'slope = ' + this.slope().toFixed(this.precision).toString();
+  }
+  slopeTextWidth() {
+    if (this.slopeText == undefined ) return 0;
+    this.slopeText.updateSize();
+    return this.slopeText.getSize()[0] * this.boardwidth / this.board.canvasWidth;
+  }
+  
+  
+  // this is all for the rise string annotation
+  riseTextX() { 
+    if (this.f1.X() <= this.f2.X()) {
+      return this.f2.X() + this.Xerror;
+    }
+    return this.f2.X() -this.riseTextWidth() - this.Xerror;
+  }
+  riseTextY() { return this.f1.Y() + this.rise() / 2; }
+  riseTextVal() {
+    if (this.attr !== undefined) {
+      if ('justLines' in this.attr && this.attr['justLines'] == true) { return '';}
+      if ('change' in this.attr) {
+        if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+          return this.rise().toFixed(this.precision) + ' ' + this.attr.change;
+        }
+        return this.attr.change + ' = ' + this.rise().toFixed(this.precision);
+      } 
+    }
+    return this.rise().toFixed(this.precision);
+  }
+  riseTextWidth() {
+    if (this.riseText == undefined ) return 0;
+    this.riseText.updateSize();
+    return this.riseText.getSize()[0] * this.boardwidth / this.board.canvasWidth;
+  }
+  
+
+  // this is all for the units string annotation
+  runTextX() { return this.midX() - this.runTextWidth()/2; }
+  runTextY() { 
+    if (this.f1.Y() <= this.f2.Y())  {
+      return this.f1.Y() - 3 * this.Yerror; 
+    }
+    return this.f1.Y() + 3 * this.Yerror;     
+  }
+  runTextVal() { 
+    if (this.attr != undefined) {
+      if ('justLines' in this.attr && this.attr['justLines'] == true) { return '';}
+      if ('units' in this.attr) {
+        if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
+          return this.units().toFixed(this.precision) + ' ' + this.attr['units'] ;
+        }
+        return this.attr['units'] + ' = ' + this.units().toFixed(this.precision).toString();
+      }
+    }
+    return this.units().toFixed(this.precision).toString();
+  }
+  runTextWidth() {
+    if (this.runText == undefined ) return 0;
+    this.runText.updateSize();
+    return this.runText.getSize()[0] * this.boardwidth / this.board.canvasWidth;
+  }
+
+  // call back functions for annotations
+  turnOnAnnotations() {
+    this.slopeText.setAttribute({visible:true});
+    this.riseText.setAttribute({visible:true});
+    this.riseLine.setAttribute({visible:true});  
+    this.runLine.setAttribute({visible:true});
+    this.runText.setAttribute({visible:true});
+   
+  }
+
+  turnOffAnnotations() {
+    this.slopeText.setAttribute({visible:false});
+    this.riseText.setAttribute({visible:false});
+    this.riseLine.setAttribute({visible:false});
+    this.runLine.setAttribute({visible:false});
+    this.runText.setAttribute({visible:false});
+  }
+
+
+
+  delete() {
+    this.board.removeObject(this.riseLine);
+    this.board.removeObject(this.riseText);
+    this.board.removeObject(this.runLine);
+    this.board.removeObject(this.runText);
+    this.board.removeObject(this.p1);
+    this.board.removeObject(this.slopeText);
+    this.board.removeObject(this.segment);
+    this.board.removeObject(this.f1);
+    this.board.removeObject(this.f2);
+  } 
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1415,7 +1701,7 @@ class StandardBoard {
         offset: [-fakeY.getSize()[0] - 20, 0]   // (in pixels)
       }
     });
-    
+
     this.board.removeObject(fakeY);   
   }
 
@@ -1595,6 +1881,7 @@ class Workspace extends StandardBoard {
   exports.StandardBoard = StandardBoard;
   exports.Workspace = Workspace;
   exports.textWidth = textWidth;
+  exports.Segment = Segment;
 
 });
 
