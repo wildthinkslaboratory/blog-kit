@@ -89,24 +89,25 @@ this.depend = function() {
 # ::::
 
 
-# :::: clue1
+# :::: clue2
 # --aliceblue
 We can use a rectangle to show the relationship between **distance**, **rate** and **time**.  
 $$d = r \cdot t$$
-[N](:=show2=true)
+The area of the rectangle represents a change in position.
+[N](:=show3=true)
 # --aliceblue
 # ::::
 
-# :::: clue2
+# :::: clue1
 # --aliceblue
-We can use it for any rate of change problem, really.  The area of a rectangle tells us the total amount of change.  
-[N](:=show3=true)
+A rectangle is a great way to represent a rate of change problem.  The area of the rectangle represents the amount of **change**.    
+[N](:=show2=true)
 # --aliceblue
 # ::::
 
 # :::: clue3
 # --aliceblue
- In rate problems, the units are often a measure of **time**, like seconds, days or years.  But they don't have to be. 
+ We can use a rectangle to represent the cost of manifacturing widgets.  The area of the rectangle represents the change in cost.
  [N](:=show4=true)
 # --aliceblue
 
@@ -239,7 +240,7 @@ this.depend = function() {
     console.log('show1');
     smartdown.setVariable('show1', false);
     smartdown.showDisclosure('clue1','','transparent,closeable,draggable,topright,shadow');
-    rectangle.setAttribute({ units: 'time', rate: 'rate', change: 'distance'});
+    rectangle.setAttribute({ units: 'units', rate: 'change per unit', change: 'total change'});  
     rectangle.setFillColor('#FF8800');
     board.board.update();
   }
@@ -247,7 +248,7 @@ this.depend = function() {
     smartdown.setVariable('show2', false);
     smartdown.hideDisclosure('clue1','','');
     smartdown.showDisclosure('clue2','','transparent,closeable,draggable,topright,shadow');
-    rectangle.setAttribute({ units: 'units', rate: 'change per unit', change: 'total change'});
+    rectangle.setAttribute({ units: 'time', rate: 'rate', change: 'distance'});
     rectangle.setFillColor('#AAFF00');
     board.board.update();
   }

@@ -211,7 +211,7 @@ this.div.onmousedown = function(e) {
 };
 
 let move = function() { 
-  t.moveTo([7,0],5000, {effect: '--'} ); 
+  t.moveTo([9.9,0],5000, {effect: '--'} ); 
 }
 
 

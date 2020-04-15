@@ -321,6 +321,7 @@ class Secant {
     this.riseTextX = this.riseTextX.bind(this);
     this.riseTextY = this.riseTextY.bind(this);
     this.riseTextVal = this.riseTextVal.bind(this);
+    this.riseTextWidth = this.riseTextWidth.bind(this);
     this.runTextX = this.runTextX.bind(this);
     this.runTextY = this.runTextY.bind(this);
     this.runTextVal = this.runTextVal.bind(this);
@@ -441,7 +442,12 @@ class Secant {
 
 
   // this is all for the slope string annotation
-  slopeTextX() { return this.xint.midX() - this.slopeTextWidth() - 2 * this.xint.Xerror; }
+  slopeTextX() { 
+    if (this.xint.X1() <= this.xint.X2()) {
+      return this.xint.midX() - this.slopeTextWidth() - 2 * this.xint.Xerror; 
+    }
+    return this.xint.midX() + 2 * this.xint.Xerror; 
+  }
   slopeTextY() { return this.fx1() + this.rise() / 2; }
   slopeString() {
     if (this.units() == 0) { return 'undefined'; }
@@ -464,7 +470,12 @@ class Secant {
   
   
   // this is all for the rise string annotation
-  riseTextX() { return this.xint.X2() + this.xint.Xerror/2;}
+  riseTextX() { 
+    if (this.xint.X1() <= this.xint.X2()) {
+      return this.xint.X2() + this.xint.Xerror;
+    }
+    return this.xint.X2() -this.riseTextWidth() - this.xint.Xerror;
+  }
   riseTextY() { return this.fx1() + this.rise() / 2; }
   riseTextVal() {
     if (this.attr !== undefined) {
@@ -478,10 +489,21 @@ class Secant {
     }
     return this.rise().toFixed(this.precision);
   }
+  riseTextWidth() {
+    if (this.riseText == undefined ) return 0;
+    this.riseText.updateSize();
+    return this.riseText.getSize()[0] * this.boardwidth / this.board.canvasWidth;
+  }
+  
 
   // this is all for the units string annotation
   runTextX() { return this.xint.midX() - this.runTextWidth()/2; }
-  runTextY() { return this.fx1() - 2 * this.xint.Yerror; }
+  runTextY() { 
+    if (this.xint.X1() <= this.xint.X2()) {
+      return this.fx1() - 3 * this.xint.Yerror; 
+    }
+    return this.fx1() + 3 * this.xint.Yerror;     
+  }
   runTextVal() { 
     if (this.attr != undefined) {
       if ('justLines' in this.attr && this.attr['justLines'] == true) { return '';}
@@ -1393,7 +1415,7 @@ class StandardBoard {
         offset: [-fakeY.getSize()[0] - 20, 0]   // (in pixels)
       }
     });
-
+    
     this.board.removeObject(fakeY);   
   }
 
@@ -1458,7 +1480,7 @@ let themeConstructor = {
 }
 
 class Workspace extends StandardBoard {
-  constructor(divName, Box, attributes) {
+  constructor(divName, Box, attributes = {}) {
     super(divName, Box, attributes)
     this.elements = [];
 
@@ -1471,9 +1493,9 @@ class Workspace extends StandardBoard {
       if(attributes['colorTheme']  in themeConstructor) {
         themeConstructor[attributes['colorTheme']]();
       }
-      else {
+    }
+    else {
         th = new BlueTheme();
-      }
     }
   
   }
