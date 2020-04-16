@@ -60,7 +60,13 @@ mkdir _site
 bundle exec jekyll build \
 	--config=_config.yml \
 	--destination=_site \
-	${targetBaseUrlOption}
+	${targetBaseUrlOption} \
+	2>&1 \
+	| grep --line-buffered -v 'Passing a string to call() is deprecated and will be illegal' \
+	| grep --line-buffered -v 'Use call(get-function("variable-exists")) instead.' \
+	| grep --line-buffered -v 'Use call(get-function("mixin-exists")) instead.' \
+	| grep --line-buffered -v 'Using the last argument as keyword parameters is deprecated' \
+	| grep --line-buffered -v '^$' \
 
 # Amend the built _site
 touch _site/.nojekyll

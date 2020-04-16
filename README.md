@@ -110,6 +110,8 @@ Mostly links to the software used
 0.0.3 - Amends .gitignore to filter .hide and .deleteme suffixes, and targets/legacy/_sass/. Fixes build.sh to allow for - and . in repo names. Add syncThemeChanges() to serve.sh so that the _theme_XYZ directories are watched and synced. Adds targets/legacy/install.sh to targets/legacy and removes the corresponding assets (_sass/font-awesome/ and _sass/bootstrap-sass/) from the repo. targets/legacy/install.sh must be run once after this repo is downloaded to restore these assets.
 0.0.4 - Adds targets/publishToOrgRoot.sh and targets/publishAllToOrgRoot.sh to support publishing to a top-level GitHub org's GitHub Pages site.
 0.0.5 - Extends example blog to have an about-blog-kit subsection, and to demonstrate how to customize a theme for that subsection. Deletes unnecessary rawposts.html and rawpages.html. Generally cleans up example blog.
+0.0.6 - Amends targets/publish.sh so that it handles a '--all' argument to publish all targets, and an '--org' repo name to publish to the top level (domain level) repo for a GitHub org. Adds ability for targets/publish.sh to target org roots via GitHub Pages. Delete targets/publishAll.sh in favor of the '--all' argument to targets/publis.sh. Adds targets/cb/_theme_assets/main.scss override for smartdown-outer-container horizontal margins. Fixes Smartdown play/pause button style for SPARROW theme. Adds a Graphiz example to the about-blog-kit subsection. Adapts targets/serve.sh and targets/build.sh to filter Jekyll error of deprecation warnings.
+
 
 
 

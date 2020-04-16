@@ -9,7 +9,7 @@ header {
 		margin-bottom: 0;
 
 		&.masthead-abk {
-			color: yellow;
+			border-bottom: 10px dotted lightgray;
 		}
 
 		.page-heading {
@@ -19,7 +19,7 @@ header {
 }
 
 
-.smartdown-outer-container {
+#smartdown-outer-container.smartdown-outer-container {
 	padding: 0 25px;
 }
 

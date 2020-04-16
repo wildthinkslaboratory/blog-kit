@@ -47,4 +47,12 @@ trap "kill 0" EXIT
 (fswatch -o ../../_posts ../../_pages ../../assets | while read f; do syncChanges; done) &
 (fswatch -o _theme_pages _theme_posts _theme_assets | while read g; do syncThemeChanges; done) &
 
-bundle exec jekyll serve
+echo "# URL: https://127.0.0.1:8989${targetBaseUrl}"
+
+bundle exec jekyll serve \
+	2>&1 \
+	| grep --line-buffered -v 'Passing a string to call() is deprecated and will be illegal' \
+	| grep --line-buffered -v 'Use call(get-function("variable-exists")) instead.' \
+	| grep --line-buffered -v 'Use call(get-function("mixin-exists")) instead.' \
+	| grep --line-buffered -v 'Using the last argument as keyword parameters is deprecated' \
+	| grep --line-buffered -v '^$' \

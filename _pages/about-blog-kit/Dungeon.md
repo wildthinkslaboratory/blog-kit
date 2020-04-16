@@ -159,8 +159,8 @@ p5.draw = function () {
 
 
 ---
-
 - [About smartdown/blog-kit](/pages/AboutBlogKit)
+- [Graphviz Example](/pages/Graphviz)
 - [P5JS Ellipse Example](/pages/Ellipse)
 - [P5JS Mobius Strip Example](/pages/Mobius)
 - [About this Site](/pages/About)
