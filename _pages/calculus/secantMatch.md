@@ -10,7 +10,7 @@ Clue
 # --outlinebox
 # ::::
 
-[?](::clue/button,transparent,draggable,closeable,center,shadow) Have a segment.
+[Submit Solution](:=compute=true) Have a segment.
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ let B = new ResourcePanel(p5);
 // Add the buttons you want on your resource panel
 // NOTE:  The value of page variable env.numButtons should match the number of buttons you add here
 
-B.addButton('rectangle'); 
+B.addButton('secant'); 
 
 smartdown.setVariable('numButtons', 1);  // keep track of number of buttons
 
@@ -91,6 +91,15 @@ this.depend = function() {
 };
 
 ```
+# :::: success
+You've created a Secant Rectangle!
+# ::::
+
+# :::: keeptrying
+Keep trying. 
+# ::::
+
+
 
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
@@ -106,43 +115,70 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:800px; width:800px'>`;
 
-let xlow = -2;
+let xlow = -2;  // bounding box for the graph
 let xhigh = 10;
 let ylow = -2;
 let yhigh = 30;
 
+let x1 = 2;  // our main interval endpoints
+let x2 = 4;
+let solved = false;
 
+// make the board and add the speed function
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow], {xlabel:'x', ylabel:'y'});
-let xinterval = new XInterval(workspace.board, 2,6);
-let rectangle = new Rectangle(xinterval,  function(x) { return x; }, { 
+let F = new ProblemFunction(function(x) { return x; }, 'speed curve', 7, [xlow,xhigh], []);
+let F_id = workspace.addFunction(F);
+let G = function(x) { return x*x/2; };  // the distance function
+
+// create the interval and the rectangle
+let xint = new XInterval(workspace.board, x1,x2);
+let rectangle = new Rectangle(xint,  F.f, { 
     annotations: 'on',
-    snapMargin:0.5
+    snapMargin:0.5,
+    change:'distance',
+    units:'time',
+    rate:'rate'
   });
 
-rectangle.xint.x1.setAttribute({fixed:true, color:'#3344AA'});
-rectangle.xint.x2.setAttribute({fixed:true, color:'#3344AA'});
-let segment;
+// the rectangle can't move
+// rectangle.xint.x1.setAttribute({fixed:true, color:'#3344AA'});
+// rectangle.xint.x2.setAttribute({fixed:true, color:'#3344AA'});
+
+// variables we'll need later.
+let segment;     // and adjustable segment
+let secantRect;  // the solution secantRectangle
+let g;           // functiongraph for the distance
+let xint2;       // a second xinterval
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Event handling
 
-this.div.onmousedown = function(e) { 
 
-  if (segment == undefined) {
+let useButton = function(e, buttonType) {
     // we pass in percents into the constructor
     let percentX = (e.clientX - myDiv.offsetLeft) / myDiv.offsetWidth;
     let percentY = 1 - (e.clientY - myDiv.offsetTop) / myDiv.offsetHeight;
     let bb = workspace.board.getBoundingBox();
     let x = bb[0] + (bb[2] - bb[0]) * percentX;
     let y = bb[3] + (bb[1] - bb[3]) * percentY;
-    segment = new Segment(workspace.board, [x,y], [x+1,y+1], {annotations:'on', snapMargin:0.5});
-  }
-  
+    segment = new Segment(workspace.board, [x,y], [x+1,y+1], {
+      annotations:'on', 
+      snapMargin:0.5, 
+      change:'distance',
+      units:'time',
+      rate:'rate'
+    });
+    workspace.board.update();
+    smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 
-
+this.div.onmousedown = function(e) { 
+  if (env.numButtons > 0 && env.active) {
+    useButton(e, env.buttonType);
+  }
+};
 
 
 let widthPercent = 0.8;
@@ -156,11 +192,87 @@ this.sizeChanged();
 
 
 workspace.board.on('update', function() {
+  if (rectangle !== undefined) { 
+    rectangle.onUpdate();  
+  }
+  if (segment !== undefined) { 
+    segment.onUpdate();  
+  }
+  if (secantRect !== undefined) { 
+    secantRect.onUpdate();  
+  }
   workspace.onUpdate();              // hook up workspace update functions
-  if (segment !== undefined) { segment.onUpdate(); }
 });
 
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+let checkSolution = function() {
+  if (segment.f1.X() == xint.X1() && segment.f2.X() == xint.X2()) {
+    if (segment.rise() == rectangle.area()) {   
+      return true;
+    }
+  }
+  return false;
+}
+
+smartdown.setVariable('compute', false);
+
+this.dependOn = ['compute'];
+this.depend = function() {
+  if (env.compute == true) {
+    smartdown.setVariable('compute', false);
+
+    if (segment != undefined) {
+
+      if (solved || checkSolution()) {
+
+        // solved or solution correct 
+        smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+        smartdown.hideDisclosure('keeptrying','','');
+
+        // not solved and solution correct
+        if (solved !== true) {
+          let c = segment.f1.Y(); 
+          xint2 = new XInterval(workspace.board, xint.X1(),xint.X2());
+
+          // replace secant and rectangle with a SecantRectangle
+          secantRect = new SecantRectangle(xint2,  F.f, { 
+            annotations: 'on',
+            snapMargin:0.5,
+            change:'distance',
+            units:'time',
+            rate:'rate'
+          });
+          secantRect.attachButton.toggle();
+          secantRect.xint.midY.moveTo([4,c]);
+          secantRect.onUpdate();
+
+          // add the distance / integral graph. 
+          g = workspace.board.create('functiongraph', [
+            function(x) { return x * x / 2 + xint2.midY.Y() - G(xint2.X1()); }
+            , xlow, xhigh ], {strokeColor:'#CCCCCC', highlightStrokeColor:'#CCCCCC', strokeWidth:1});
+
+          let dragText1 = workspace.board.create('text', [
+            function() { return xint2.midY.X() + 0.15; }, 
+            function() { return xint2.midY.Y(); }, 
+            'DRAG ME'], {fontSize:12, color:'red', visible:true});
+
+          rectangle.delete();  // get rid of the segment and rectangle
+          segment.delete();
+
+          solved = true;
+        }
+
+      }
+      else { // unsolved and solution not correct
+        smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+        smartdown.hideDisclosure('success','','');
+      }
+    }
+  }
+};
 
 
 

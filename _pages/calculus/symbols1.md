@@ -196,7 +196,7 @@ outer.classList.remove('decoration-outlinebox');
 left.classList.remove('decoration-outlinebox');
 right.classList.remove('decoration-outlinebox');
 
-outer.classList.add('div-2-col');
+outer.classList.add('outer');
 left.classList.add('playable-2-col');
 right.classList.add('text-2-col');
 

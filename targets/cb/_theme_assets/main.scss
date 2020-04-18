@@ -57,7 +57,7 @@ header.masthead {
 }
 
 
-.two-col-div {
+.outer {
  
 }
 
@@ -71,9 +71,14 @@ header.masthead {
   font-size: 20px;
 }
 
+.text-3-col {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 18px;
+}
 
 @media (min-width: 800px) {
-  .div-2-col {
+  .outer {
    
   }
 
@@ -88,6 +93,13 @@ header.masthead {
     display: inline-block;
     vertical-align: top;
   }
+
+  .text-3-col {
+    width: 32%;
+    display: inline-block;
+    vertical-align: top;
+  }
+
 }
 
 

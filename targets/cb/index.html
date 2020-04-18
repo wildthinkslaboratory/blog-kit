@@ -15,9 +15,9 @@ digraph G {
     subgraph cluster0 {
         style=filled;
         color=grey96;
-        secant[shape=none, label="", image="/assets/images/calculus/secant.svg"];
+        secant[shape=none, URL="/pages/secant1", label="", image="/assets/images/calculus/secant.svg"];
 		rectangle [shape=none, URL="javascript:smartdown.setVariable('rectangle', true);", label="", image="/assets/images/calculus/rectangle.svg"];
-		FTC1 [shape=none, tooltip="secant / rectangle", URL="/pages/ftc1", label="", image="/assets/images/calculus/ftc1.svg"];
+		FTC1 [shape=none, tooltip="secant / rectangle", URL="javascript:smartdown.setVariable('prelude', true);", label="", image="/assets/images/calculus/ftc1.svg"];
 		derivative [shape=none, tooltip="Definition of the Derivative" URL="/pages/derivative", label="", image="/assets/images/calculus/derivative.svg"];
 		chainRule [shape=none, tooltip="Chain Rule", URL="/pages/chainRule", label="", image="/assets/images/calculus/chainrule.svg"];
 		  
@@ -61,11 +61,19 @@ Everything is always changing.  Even the rate of change is changing.
 # --outlinebox
 # ::::
 
+# :::: prelude
+# --outlinebox ob1
+Everything secant has a rectangle.  A rectangle has many secants.
+[Begin](/pages/prelude)
+# --outlinebox
+# ::::
+
 
 ```javascript /autoplay
 smartdown.setVariable('rectangle', false);
+smartdown.setVariable('prelude', false);
 
-this.dependOn = ['rectangle'];
+this.dependOn = ['rectangle', 'prelude'];
 
 this.depend = function() {
   if (env.rectangle == true) {
@@ -73,6 +81,14 @@ this.depend = function() {
       smartdown.showDisclosure('change_rectangle','','transparent,lightbox,center,shadow'); 
       setTimeout(function () {
            smartdown.hideDisclosure('change_rectangle','',''); 
+      }, 6000);
+    } 
+
+    if (env.prelude == true) {
+      smartdown.setVariable('prelude', false);
+      smartdown.showDisclosure('prelude','','transparent,lightbox,center,shadow'); 
+      setTimeout(function () {
+           smartdown.hideDisclosure('prelude','',''); 
       }, 6000);
     } 
   };

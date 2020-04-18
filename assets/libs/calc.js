@@ -785,11 +785,12 @@ class Secant {
   // this is all for the units string annotation
   runTextX() { return this.xint.midX() - this.runTextWidth()/2; }
   runTextY() { 
-    if (this.xint.X1() <= this.xint.X2()) {
-      return this.fx1() - 3 * this.xint.Yerror; 
+    if (this.f1.Y() <= this.f2.Y())  {
+      return this.f1.Y() - 3 * this.xint.Yerror; 
     }
-    return this.fx1() + 3 * this.xint.Yerror;     
+    return this.f1.Y() + 3 * this.xint.Yerror;     
   }
+
   runTextVal() { 
     if (this.attr != undefined) {
       if ('justLines' in this.attr && this.attr['justLines'] == true) { return '';}
@@ -1164,7 +1165,15 @@ class SecantRectangle {
     else if (this.attr['annotations'] == 'secant') {
       this.secant.segment.on('over', this.secant.turnOnAnnotations);
       this.secant.segment.on('out', this.secant.turnOffAnnotations);
-    }  
+    } 
+
+    if ('attachButtonVisible' in this.attr && this.attr['attachButtonVisible'] == false) {
+      console.log('hide attach button');
+      this.attachButton.g.setAttribute({visible:false});
+      this.attachButton.l1.setAttribute({visible:false});
+      this.attachButton.l2.setAttribute({visible:false});
+    }
+
   }
 
   slope() { return this.secant.slope(); }
