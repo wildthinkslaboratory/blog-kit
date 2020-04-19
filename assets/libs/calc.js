@@ -37,7 +37,7 @@ class SteelTheme {
     this.highlightStroke = '#666688';
     this.lightAnnote = '#AAAACC';
     this.darkAnnote = darkgray;
-    this.verylightAnnote = '#DDDDFF';
+    this.verylightAnnote = '#CCCCEE';
     this.startPoint = '#666688';
     this.endPoint = '#666688';
     this.fontSizeAnnote = 15;
@@ -45,7 +45,7 @@ class SteelTheme {
     this.strokeWidthAnnote = 2;
     this.accent1 = purpleblue;
     this.accent2 = lightpurpleblue;
-    this.fillOpacity = 0.5;
+    this.fillOpacity = 0.2;
   }
 }
 
@@ -131,6 +131,18 @@ class Slider {
       this.board.removeObject(this.l1);
       this.dead = true;
     }
+  }
+
+  show() {
+    this.l2.setAttribute({visible:true});
+    this.g.setAttribute({visible:true});
+    this.l1.setAttribute({visible:true});
+  }
+
+  hide() {
+    this.l2.setAttribute({visible:false});
+    this.g.setAttribute({visible:false});
+    this.l1.setAttribute({visible:false});
   }
 }
 
@@ -284,6 +296,17 @@ class XInterval {
     this.board.removeObject(this.x2);
     this.board.removeObject(this.vline);
     this.board.removeObject(this.midY);
+  }
+
+  show() {
+    this.x1.setAttribute({visible:true});
+    this.x2.setAttribute({visible:true});
+  }
+
+  hide() {
+    this.x1.setAttribute({visible:false});
+    this.x2.setAttribute({visible:false});
+    this.midY.setAttribute({visible:false});
   }
 
 }
@@ -686,13 +709,7 @@ class Secant {
 
     ///////////////////////////////////////////////////////  attribute settings
 
-    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
-        this.segment.on('over', this.turnOnAnnotations);
-        this.segment.on('out', this.turnOffAnnotations);
-    }
-    else if (this.attr['annotations'] == 'on') {
-      this.turnOnAnnotations();
-    }
+    this.setUpAnnotations();
 
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
@@ -830,7 +847,15 @@ class Secant {
     this.runText.setAttribute({visible:false});
   }
 
-
+  setUpAnnotations() {
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+        this.segment.on('over', this.turnOnAnnotations);
+        this.segment.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+  }
 
   delete() {
     this.board.removeObject(this.riseLine);
@@ -845,6 +870,27 @@ class Secant {
     this.board.removeObject(this.f2);
     this.xint.delete();
   } 
+
+  show() {
+    this.xint.show();
+    this.f1.setAttribute({visible:true});
+    this.f2.setAttribute({visible:true});
+    this.segment.setAttribute({visible:true});
+    this.setUpAnnotations();
+  }
+
+  hide() {
+    this.xint.hide();
+    this.f1.setAttribute({visible:false});
+    this.f2.setAttribute({visible:false});
+    this.segment.setAttribute({visible:false});
+    this.line.setAttribute({visible:false});
+    this.slopeText.setAttribute({visible:false});
+    this.riseText.setAttribute({visible:false});
+    this.riseLine.setAttribute({visible:false});
+    this.runText.setAttribute({visible:false});
+    this.runLine.setAttribute({visible:false});
+  }
 }
 
 
@@ -971,13 +1017,7 @@ class Rectangle {
 
     ///////////////////////////////////////////////////////  attribute settings
 
-    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
-        this.rect.on('over', this.turnOnAnnotations);
-        this.rect.on('out', this.turnOffAnnotations);
-    }
-    else if (this.attr['annotations'] == 'on') {
-      this.turnOnAnnotations();
-    }
+    this.setUpAnnotations();
 
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
@@ -1093,6 +1133,43 @@ class Rectangle {
     this.board.removeObject(this.f2);
     this.xint.delete();
   }
+
+  setUpAnnotations() {
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+        this.rect.on('over', this.turnOnAnnotations);
+        this.rect.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+  }
+
+  show() {
+    this.xint.show();
+    this.f1.setAttribute({visible:true});
+    this.f2.setAttribute({visible:true});
+    this.rect.setAttribute({visible:true});
+    for (let i=0; i < this.rect.borders.length; i++) {
+      this.rect.borders[i].setAttribute({visible:true});
+    }
+    this.setUpAnnotations();
+  }
+
+  hide() {
+    this.xint.hide();
+    this.f1.setAttribute({visible:false});
+    this.f2.setAttribute({visible:false});
+    this.rect.setAttribute({visible:false});
+    for (let i=0; i < this.rect.borders.length; i++) {
+      this.rect.borders[i].setAttribute({visible:false});
+    }
+    this.areaText.setAttribute({visible:false});
+    this.heightLine.setAttribute({visible:false});
+    this.heightText.setAttribute({visible:false});
+    this.widthLine.setAttribute({visible:false});
+    this.widthText.setAttribute({visible:false});
+  }
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -1168,10 +1245,7 @@ class SecantRectangle {
     } 
 
     if ('attachButtonVisible' in this.attr && this.attr['attachButtonVisible'] == false) {
-      console.log('hide attach button');
-      this.attachButton.g.setAttribute({visible:false});
-      this.attachButton.l1.setAttribute({visible:false});
-      this.attachButton.l2.setAttribute({visible:false});
+      this.attachButton.hide();
     }
 
   }
@@ -1221,6 +1295,15 @@ class SecantRectangle {
     if (this.attachButton != undefined) {
       this.attachButton.delete();
     } 
+  }
+
+  show() {
+    this.secant.show();
+    this.rectangle.show();
+  }
+  hide() {
+    this.secant.hide();
+    this.rectangle.hide();
   }
 }
 
@@ -1276,13 +1359,7 @@ class RectangleArray {
     ///////////////////////////////////////////////////////  attribute settings
     this.rectangles.updateDataArray = this.updateDataArray;
 
-    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
-        this.rectangles.on('over', this.turnOnAnnotations);
-        this.rectangles.on('out', this.turnOffAnnotations);
-    }
-    else if (this.attr['annotations'] == 'on') {
-      this.turnOnAnnotations();
-    }
+    this.setUpAnnotations();
 
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
@@ -1361,6 +1438,29 @@ class RectangleArray {
     this.slider.delete();
     this.xint.delete();
   }
+
+  setUpAnnotations() {
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+      this.rectangles.on('over', this.turnOnAnnotations);
+      this.rectangles.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+  }
+
+  show() {
+    this.slider.show();
+    this.xint.show();
+    this.rectangles.setAttribute({visible:true});
+    this.setUpAnnotations();
+  }
+
+  hide() {
+    this.slider.hide();
+    this.xint.hide();
+    this.rectangles.setAttribute({visible:false});
+  }
 }
 
 
@@ -1434,13 +1534,7 @@ class SecantArray {
 
     this.secants.updateDataArray = this.updateDataArray;
 
-    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
-        this.secants.on('over', this.turnOnAnnotations);
-        this.secants.on('out', this.turnOffAnnotations);
-    }
-    else if (this.attr['annotations'] == 'on') {
-      this.turnOnAnnotations();
-    }
+    this.setUpAnnotations();
 
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
@@ -1515,6 +1609,31 @@ class SecantArray {
     this.xint.delete();
   }
 
+  setUpAnnotations() {
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+      this.secants.on('over', this.turnOnAnnotations);
+      this.secants.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+  }
+
+  show() {
+    this.slider.show();
+    this.xint.show();
+    this.secants.setAttribute({visible:true});
+    this.setUpAnnotations();
+  }
+
+  hide() {
+    this.xint.hide();
+    this.slider.hide();
+    this.secants.setAttribute({visible:false});
+    this.riseLine.setAttribute({visible:false});
+    this.riseText.setAttribute({visible:false});
+  }
+
 }
 
 
@@ -1555,19 +1674,7 @@ class SecantRectArray {
 
     ///////////////////////////////////////////////////////  attribute settings
 
-    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
-      this.rectangles.rectangles.on('over', this.turnOnAnnotations);
-      this.rectangles.rectangles.on('out', this.turnOffAnnotations);
-      this.secants.secants.on('over', this.turnOnAnnotations);
-      this.secants.secants.on('out', this.turnOffAnnotations);
-    }
-    else if (this.attr['annotations'] == 'on') {
-      this.turnOnAnnotations();
-    }
-    else if (this.attr['annotations'] == 'secant') {
-      this.secants.secants.on('over', this.secants.turnOnAnnotations);
-      this.secants.secants.on('out', this.secants.turnOffAnnotations);
-    }
+    this.setUpAnnotations();
 
     if ('precision' in this.attr) {
       this.precision = this.attr['precision'];
@@ -1575,6 +1682,12 @@ class SecantRectArray {
 
     if ('snapMargin' in this.attr) {
       this.xint.setSnapMargin(this.attr['snapMargin']);
+    }
+
+    if ('attachButtonVisible' in this.attr && this.attr['attachButtonVisible'] == false) {
+      this.attachButton.g.setAttribute({visible:false});
+      this.attachButton.l1.setAttribute({visible:false});
+      this.attachButton.l2.setAttribute({visible:false});
     }
 
     this.attachButton.toggleCallback = this.switchFunctions;
@@ -1646,6 +1759,33 @@ class SecantRectArray {
     this.xint.delete();
     this.slider.delete();
     this.attachButton.delete();
+  }
+
+  setUpAnnotations() {
+    if (!('annotations' in this.attr) || this.attr['annotations'] == 'mouseover') {
+      this.rectangles.rectangles.on('over', this.turnOnAnnotations);
+      this.rectangles.rectangles.on('out', this.turnOffAnnotations);
+      this.secants.secants.on('over', this.turnOnAnnotations);
+      this.secants.secants.on('out', this.turnOffAnnotations);
+    }
+    else if (this.attr['annotations'] == 'on') {
+      this.turnOnAnnotations();
+    }
+    else if (this.attr['annotations'] == 'secant') {
+      this.secants.secants.on('over', this.secants.turnOnAnnotations);
+      this.secants.secants.on('out', this.secants.turnOffAnnotations);
+    }
+  }
+
+  show() {
+    this.rectangles.show();
+    this.secants.show();
+    this.setUpAnnotations();
+  }
+
+  hide() {
+    this.secants.hide();
+    this.rectangles.hide();
   }
 }
 
