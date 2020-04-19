@@ -1,7 +1,9 @@
 # disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account
 port:               4008
+
 # Set theme
-theme: sparrow-jekyll-theme
+theme: sparrow-jekyll-theme # blog-kit-theme
+remote_theme: lingxz/sparrow # blog-kit-remote_theme
 
 # markdown:           kramdown
 markdown_ext:       markdown

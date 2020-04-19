@@ -1,4 +1,4 @@
-# publish.sh targetName [optionalTargetRepo] [--org]
+# publish.sh targetName [optionalTargetRepo] [--org] [--remote]
 #
 # Parameters:
 #   targetName: cb, sparrow, etc or '--all'
@@ -19,9 +19,16 @@ here=${0%/*}
 source ${here}/functions.sh
 
 if [ "$1" == "" ]; then
-    echo "# $0 usage: $0 targetName [optionalTargetRepo] [--org]"
+    echo "# $0 usage: $0 targetName [optionalTargetRepo] [--org] [--remote]"
     exit 1
 fi
+
+if [[ "$1" == "--all" && "$4" == "--remote" ]]; then
+    echo "# $0 usage: $0 targetName [optionalTargetRepo] [--org] [--remote]"
+    echo "# The '--all' and '--remote' options cannot be used together."
+    exit 1
+fi
+
 targetName="${1}"
 
 repoUrl=`git remote get-url --push origin`
@@ -37,11 +44,11 @@ echo "repoName: $repoName"
 
 targetBranch="gh-pages"
 targetRepoUrl=$repoUrl
-targetBaseUrl="/${repoName}"
+targetBaseUrl="/${repoName}/"
 if [ "$2" != "" ]; then
     targetRepoUrl="$2"
     parseRepoUrl $targetRepoUrl;
-    targetBaseUrl="/${repoName}"
+    targetBaseUrl="/${repoName}/"
 
     echo "xrepoUrl: $repoUrl"
     echo "xrepoPrefix: $repoPrefix"
@@ -51,7 +58,7 @@ fi
 
 if [ "$3" == "--org" ]; then
     targetRepoUrl="${repoPrefix}${repoOrg}/${repoOrg}.github.io.git"
-    targetBaseUrl=""
+    targetBaseUrl="/"
     targetBranch="master"
 fi
 
@@ -63,25 +70,24 @@ blogRoots="/tmp/blogRoots"
 
 
 if [ "$targetName" == "--all" ]; then
-    ${here}/build.sh cb ${targetBaseUrl}/cb
-    ${here}/build.sh legacy ${targetBaseUrl}/legacy
-    ${here}/build.sh mm ${targetBaseUrl}/mm
-    ${here}/build.sh alembic ${targetBaseUrl}/alembic
-    ${here}/build.sh sparrow ${targetBaseUrl}/sparrow
+    ${here}/build.sh alembic ${targetBaseUrl}alembic $4 || exit 1
+    ${here}/build.sh cb ${targetBaseUrl}cb $4 || exit 1
+    ${here}/build.sh legacy ${targetBaseUrl}legacy $4 || exit 1
+    ${here}/build.sh mm ${targetBaseUrl}mm $4 || exit 1
+    ${here}/build.sh sparrow ${targetBaseUrl}sparrow $4 || exit 1
 
     rm -rf ${blogRoots}
     mkdir -p ${blogRoots}
 
+    cp -r ${here}/alembic/_site/ ${blogRoots}/alembic
     cp -r ${here}/cb/_site/ ${blogRoots}/cb
     cp -r ${here}/legacy/_site/ ${blogRoots}/legacy
     cp -r ${here}/mm/_site/ ${blogRoots}/mm
-    cp -r ${here}/alembic/_site/ ${blogRoots}/alembic
     cp -r ${here}/sparrow/_site/ ${blogRoots}/sparrow
 
     cp ${here}/index.html ${blogRoots}/index.html
     touch ${blogRoots}/.nojekyll
     cd ${blogRoots}
-
 else
 
     # Single-target
@@ -96,27 +102,28 @@ else
 
     dist="${blogRoots}/${targetName}"
 
-    ${here}/build.sh ${targetName} ${targetBaseUrl}
+    ${here}/build.sh ${targetName} ${targetBaseUrl} $4 || exit 1
 
     mkdir -p ${blogRoots}
     rm -rf ${blogRoots}/.git
 
     cd ${target}
     rm -rf ${dist}
-    cp -r _site/ ${dist}
+    cp -RP _site/ ${dist}
     cd ${dist}
 fi
 
-echo "# serve `pwd`"
-ls -l
+# echo "# serve `pwd`"
 
 # if [ "$targetBaseUrl" != "/" ]; then
-#   ln -s . .${targetBaseUrl}
+#   ln -s . .${targetBaseUrl%?}
 # fi
 # echo "# Open url: https://127.0.0.1:8989${targetBaseUrl}"
+# ls -la
 # htp . 8989
 
 git init
+git config core.symlinks true
 git add .
 git commit -m "Initial commit"
 git remote add origin ${targetRepoUrl}

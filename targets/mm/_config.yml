@@ -31,8 +31,10 @@ excerpt_separator: <!--more-->
 
 search: true
 
-# remote_theme: mmistakes/minimal-mistakes
-theme: minimal-mistakes-jekyll
+# Build settings
+theme: minimal-mistakes-jekyll # blog-kit-theme
+remote_theme: mmistakes/minimal-mistakes # blog-kit-remote_theme
+
 # Outputting
 permalink: /:categories/:title/
 # paginate: 5 # amount of posts to show

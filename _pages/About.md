@@ -6,11 +6,15 @@ description: About the Site
 
 ### About My Site
 
+*Authors who have copied this blog-kit template should replace the text in this About.md*
+
 This is my website and blog where I write about the things that interest me, including (*these are just examples*):
 
+- Karaoke
+- Recreational Mathematics
+- Victorian-era Science Fiction
 - Beat Poetry
 - Pre-punk rock music
-- Victorian-era Science Fiction
 
 ### About Me
 
@@ -35,7 +39,7 @@ Smartdown (and Markdown) make it easy to include images. If you happen to have a
 
 This is a [GitHub Pages](https://pages.github.com)-based blog that utilizes the Jekyll services provided by GitHub, and optionally enables some posts and pages to utilize Smartdown, an in-browser renderer of enhanced Markdown and a reactive runtime.
 
-The GitHub source for this example blog is at: [smartdown/blog-kit](https://github.com/smartdown/blog-kit/)
+The GitHub source for this example blog is at: [smartdown/blog-kit](https://github.com/smartdown/blog-kit/), version 0.0.7.
 
 - [About smartdown/blog-kit](/pages/AboutBlogKit)
 - [Graphviz Example](/pages/Graphviz)

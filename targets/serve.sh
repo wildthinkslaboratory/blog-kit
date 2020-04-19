@@ -6,6 +6,7 @@ fi
 
 export targetName="${1}"
 export target="${here}/${targetName}"
+export targetBaseUrl="/${targetName}"
 
 if [[ ! -d ${target} ]]; then
 	echo "The target ${target} does not exist!"
@@ -47,9 +48,8 @@ trap "kill 0" EXIT
 (fswatch -o ../../_posts ../../_pages ../../assets | while read f; do syncChanges; done) &
 (fswatch -o _theme_pages _theme_posts _theme_assets | while read g; do syncThemeChanges; done) &
 
-echo "# URL: https://127.0.0.1:8989${targetBaseUrl}"
-
 bundle exec jekyll serve \
+	--baseurl=${targetBaseUrl} \
 	2>&1 \
 	| grep --line-buffered -v 'Passing a string to call() is deprecated and will be illegal' \
 	| grep --line-buffered -v 'Use call(get-function("variable-exists")) instead.' \

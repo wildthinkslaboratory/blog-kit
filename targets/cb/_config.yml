@@ -14,9 +14,6 @@ linkedin_username:
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
 
-# Build settings
-# remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes
-theme: jekyll-theme-clean-blog
 markdown:           kramdown
 markdown_ext:       markdown
 paginate:           5
@@ -89,3 +86,7 @@ defaults:
       layout: page
       abk: true
       background: '/img/bg-abk.jpg'
+
+# Build settings
+theme: jekyll-theme-clean-blog # blog-kit-theme
+remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # blog-kit-remote_theme

@@ -3,6 +3,10 @@ ga: true
 safe: false
 title: BlogKit Example
 
+# Set theme
+# theme: stylish-portfolio-jekyll-theme # blog-kit-theme
+remote_theme: vidhyav656/startbootstrap-stylish-portfolio-jekyll # blog-kit-remote_theme
+
 markdown_ext: 'markdown'
 excerpt_separator: <!--more-->
 
