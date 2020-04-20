@@ -6,6 +6,10 @@ smartdown: true
 
 # :::: notes
 When you adjust the right hand side of the rectangle array it will plot an $(x,y)$ point.  The value of $x$ matches the $x$ value of the right hand side of the rectangle array.  The $y$ value is the area of the rectangle array.
+
+Thank you for testing my prototype!  
+
+It would be so helpful to me if you could fill out this short [feedback form](https://docs.google.com/forms/d/e/1FAIpQLSdVNvzSXPHYqIrtb_ftMRhK9qAg1I1Up2qdvV2Mmzk79LAnTQ/viewform) to help me make this lesson better.
 # ::::
 
 [N](::notes/button,draggable,closeable,center,shadow) [clear](:=clear=true) [new color](:=incColor=true) [](:!pointColor)
