@@ -10,7 +10,7 @@ Clue
 # --outlinebox
 # ::::
 
-[Submit Solution](:=compute=true) Have a segment.
+[Submit Solution](:=compute=true) Have a rectangle.
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ let B = new ResourcePanel(p5);
 // Add the buttons you want on your resource panel
 // NOTE:  The value of page variable env.numButtons should match the number of buttons you add here
 
-B.addButton('secant'); 
+B.addButton('rectangle'); 
 
 smartdown.setVariable('numButtons', 1);  // keep track of number of buttons
 
@@ -92,7 +92,7 @@ this.depend = function() {
 
 ```
 # :::: success
-You've created a Secant Rectangle!
+You've created a Secant Rectangle!  Play with it a little and then you can [continue](/pages/secantMatch).
 # ::::
 
 # :::: keeptrying
@@ -116,9 +116,9 @@ myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:800px; width:800px'>`;
 
 let xlow = -2;  // bounding box for the graph
-let xhigh = 10;
+let xhigh = 7;
 let ylow = -2;
-let yhigh = 30;
+let yhigh = 20;
 
 let x1 = 2;  // our main interval endpoints
 let x2 = 4;
@@ -126,13 +126,12 @@ let solved = false;
 
 // make the board and add the speed function
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow], {xlabel:'x', ylabel:'y'});
-let F = new ProblemFunction(function(x) { return x; }, 'speed curve', 7, [xlow,xhigh], []);
+let F = new ProblemFunction(function(x) { return x*x/2 + 6; }, 'speed curve', 7, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
-let G = function(x) { return x*x/2; };  // the distance function
 
 // create the interval and the rectangle
 let xint = new XInterval(workspace.board, x1,x2);
-let rectangle = new Rectangle(xint,  F.f, { 
+let secant = new Secant(xint, F.f, { 
     annotations: 'on',
     snapMargin:0.5,
     change:'distance',
@@ -145,10 +144,11 @@ let rectangle = new Rectangle(xint,  F.f, {
 // rectangle.xint.x2.setAttribute({fixed:true, color:'#3344AA'});
 
 // variables we'll need later.
-let segment;     // and adjustable segment
+let rectangle;     // and adjustable segment
 let secantRect;  // the solution secantRectangle
 let g;           // functiongraph for the distance
 let xint2;       // a second xinterval
+let xint3;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -162,10 +162,10 @@ let useButton = function(e, buttonType) {
     let percentY = 1 - (e.clientY - myDiv.offsetTop) / myDiv.offsetHeight;
     let bb = workspace.board.getBoundingBox();
     let x = bb[0] + (bb[2] - bb[0]) * percentX;
-    let y = bb[3] + (bb[1] - bb[3]) * percentY;
-    segment = new Segment(workspace.board, [x,y], [x+1,y+1], {
+    xint2 = new XInterval(workspace.board, x, x+2);
+    rectangle = new AdjHeightRectangle(xint2, function(x) { return x; }, {
       annotations:'on', 
-      snapMargin:0.5, 
+      snapMargin:0.05, 
       change:'distance',
       units:'time',
       rate:'rate'
@@ -195,8 +195,8 @@ workspace.board.on('update', function() {
   if (rectangle !== undefined) { 
     rectangle.onUpdate();  
   }
-  if (segment !== undefined) { 
-    segment.onUpdate();  
+  if (secant !== undefined) { 
+    secant.onUpdate();  
   }
   if (secantRect !== undefined) { 
     secantRect.onUpdate();  
@@ -209,8 +209,8 @@ workspace.board.on('update', function() {
 
 
 let checkSolution = function() {
-  if (segment.f1.X() == xint.X1() && segment.f2.X() == xint.X2()) {
-    if (segment.rise() == rectangle.area()) {   
+  if (rectangle.xint.X1() == xint.X1() && rectangle.xint.X2() == xint.X2()) {
+    if (secant.rise() == rectangle.area()) {   
       return true;
     }
   }
@@ -224,7 +224,7 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
 
-    if (segment != undefined) {
+    if (rectangle != undefined) {
 
       if (solved || checkSolution()) {
 
@@ -234,11 +234,11 @@ this.depend = function() {
 
         // not solved and solution correct
         if (solved !== true) {
-          let c = segment.f1.Y(); 
-          xint2 = new XInterval(workspace.board, xint.X1(),xint.X2());
+          
+          xint3 = new XInterval(workspace.board, xint.X1(),xint.X2());
 
-          // replace secant and rectangle with a SecantRectangle
-          secantRect = new SecantRectangle(xint2,  F.f, { 
+          // replace rectangle and secant with a SecantRectangle
+          secantRect = new SecantRectangle(xint3,  F.f, { 
             annotations: 'on',
             snapMargin:0.5,
             change:'distance',
@@ -246,17 +246,9 @@ this.depend = function() {
             rate:'rate',
             attachButtonVisible:false,
           });
-          secantRect.attachButton.toggle();
-          secantRect.xint.midY.moveTo([4,c]);
-          secantRect.onUpdate();
-
-          let dragText1 = workspace.board.create('text', [
-            function() { return xint2.midY.X() + 0.15; }, 
-            function() { return xint2.midY.Y(); }, 
-            'DRAG ME'], {fontSize:12, color:'red', visible:true});
 
           rectangle.delete();  // get rid of the segment and rectangle
-          segment.delete();
+          secant.delete();
 
           solved = true;
         }

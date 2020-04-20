@@ -9,10 +9,15 @@ h1, h2, h3, h4, h5, h6, p, body {
   font-family: 'Asap', 'Open Sans', Arial, sans-serif !important;
 }
 
+header.masthead .post-heading .subheading {
+  font-weight: 100;
+  font-size: 24px;
+}
+
  .narrow-heading {
- 	padding: 100px 0  !important;
+ 	padding: 80px 0 60px 0 !important;
 	@media only screen and (min-width: 768px) {
-  		padding: 100px 0 !important;
+  		padding: 80px 0 60px 0 !important;
 	}
  }
 
@@ -28,6 +33,7 @@ h1, h2, h3, h4, h5, h6, p, body {
 
 .home {
   .overlay {
+    background-color: #999999 !important;
     opacity: 0.1 !important;
   }
 }

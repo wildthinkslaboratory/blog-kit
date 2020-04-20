@@ -158,6 +158,7 @@ smartdown.setVariable('compute', false);
 smartdown.setVariable('error', 100);
 smartdown.setVariable('undo', false);
 
+
 this.dependOn = ['compute', 'undo'];
 this.depend = function() {
   if (env.compute == true) {
