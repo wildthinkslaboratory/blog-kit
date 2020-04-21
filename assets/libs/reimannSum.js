@@ -1,10 +1,10 @@
 let headerDiv = document.getElementById("header-wrapper"); 
 let appDiv = document.getElementById("header-app");
 
-appDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px;background:#CCCCCC'>`;
+appDiv.innerHTML = `<div id='box' class='jxgbox' style='height:200px;background:#CCCCCC'>`;
 
 
-let n = 50;
+let n = 80;
 
 let xlow = -3;
 let xhigh = 3;
@@ -19,7 +19,7 @@ let board = JXG.JSXGraph.initBoard('box', {
 });
 
 // some colors for random selection
-let colors = ['#00FFFF', '#FF00FF', '#0000FF', '#00FF00'];
+let colors = ['#00FFFF', '#FF5500', '#0044FF', '#00FF00', '#FF00FF'];
 
 // some random points
 let p = [];
@@ -34,13 +34,12 @@ let f = JXG.Math.Numerics.lagrangePolynomial(p);
 
 let nfun = function() { return n; }
 let lo = board.create('riemannsum',[f,nfun, 'lower',-3,3],
-	{strokeColor: 'blue', fillColor:colors[Math.floor(Math.random()*colors.length)], fillOpacity:0.5});
+	{strokeColor: '#555555', fillColor:colors[Math.floor(Math.random()*colors.length)], fillOpacity:0.5});
 
 let areaText = board.create('text',[1,-2, function(){ return 'Area of rectangles =' + lo.Value().toFixed(2); }], {fontSize:20});
 
+window.addEventListener('resize', function(event){
+  board.resizeContainer(headerDiv.offsetWidth,  headerDiv.offsetHeight);
+});
 
-this.sizeChanged = function() {
-  board.resizeContainer(headerDiv.offsetWidth,  headerDiv.offsetHeight);  
-};
-
-this.sizeChanged();
+board.resizeContainer(headerDiv.offsetWidth,  headerDiv.offsetHeight);

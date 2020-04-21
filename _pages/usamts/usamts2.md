@@ -5,7 +5,7 @@ header: 'narrow'
 background: '/assets/images/posts/mangoes.jpg'
 ---
 
-This problem is from the USA Mathematical Talent Search [USAMTS](https://www.usamts.org).  It's a unique mathematical competition for middle school and high school students.    
+This problem is from the USA Mathematical Talent Search [USAMTS](https://www.usamts.org), a unique mathematical competition for middle school and high school students.    
 
 
 **4/1/31.** A group of $100$ friends stands in a circle. Initially, one person has $2019$ mangos, and no one else has mangos. The friends split the mangos according to the following rules:

@@ -5,7 +5,7 @@ header: 'narrow'
 background: '/assets/images/posts/fly.svg'
 ---
 
-This problem is from the USA Mathematical Talent Search [USAMTS](https://www.usamts.org).  It's a unique mathematical competition for middle school and high school students.    
+This problem is from the USA Mathematical Talent Search [USAMTS](https://www.usamts.org), a unique mathematical competition for middle school and high school students.    
 
 **4/1/30**. Right triangle $\triangle ABC$ has $\angle C = 90^{\circ}$. A fly is trapped inside $\triangle ABC$. It starts at point $D$, the foot of the altitude from $C$ to $\overline{AB}$, and then makes a (finite) sequence of moves. In each move, it flies in a direction parallel to either $\overline{AC}$ or $\overline{BC}$; upon reaching a leg of the triangle, it then flies to a point on $\overline{AB}$ in a direction parallel to $\overline{CD}$. For example, on its first move, the fly can move to either of the points [Y1](:=Y1=true) or [Y2](:=Y2=true), as shown.
 

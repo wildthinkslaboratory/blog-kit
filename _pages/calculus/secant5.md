@@ -112,7 +112,7 @@ this.depend = function() {
 # :::: success
 Success! 
 Note that 31 ft/s is equivalent to 21 mph.  Maybe reconsider dropping the balloon.
-[Continue](/pages/secant5)
+[Continue](/pages/secantPoints)
 # ::::
 
 # :::: keeptrying

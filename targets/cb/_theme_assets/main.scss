@@ -9,9 +9,21 @@ h1, h2, h3, h4, h5, h6, p, body {
   font-family: 'Asap', 'Open Sans', Arial, sans-serif !important;
 }
 
-header.masthead .post-heading .subheading {
-  font-weight: 600;
-  font-size: 24px;
+header.masthead .post-heading  {
+  .subheading {
+    font-weight: 600;
+    font-size: 24px;
+    @media only screen and (max-width: 768px) {
+      font-weight: 200;
+      font-size: 18px;
+    }
+  }
+  img {
+    height: 150px;
+    @media only screen and (max-width: 768px) {
+      height: 80px;
+    }
+  }
 }
 
  .narrow-heading {
