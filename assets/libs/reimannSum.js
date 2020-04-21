@@ -1,7 +1,7 @@
 let headerDiv = document.getElementById("header-wrapper"); 
 let appDiv = document.getElementById("header-app");
 
-appDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
+appDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px;background:#CCCCCC'>`;
 
 
 let n = 50;
