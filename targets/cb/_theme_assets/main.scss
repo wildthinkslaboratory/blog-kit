@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5, h6, p, body {
 }
 
 header.masthead .post-heading .subheading {
-  font-weight: 100;
+  font-weight: 600;
   font-size: 24px;
 }
 
@@ -33,8 +33,8 @@ header.masthead .post-heading .subheading {
 
 .home {
   .overlay {
-    background-color: #999999 !important;
-    opacity: 0.1 !important;
+    background-color: #888888 !important;
+    opacity: 0.4 !important;
   }
 }
 
@@ -54,12 +54,6 @@ header.masthead {
 
 .smartdown-container .disclosable-shadow {
   max-width: 80%;
-}
-
-.home {
-  .overlay {
-    opacity: 0.5 !important;
-  }
 }
 
 

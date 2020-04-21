@@ -19,7 +19,7 @@ let board = JXG.JSXGraph.initBoard('box', {
 });
 
 // some colors for random selection
-let colors = ['#00FF77', '#FF7700', '#7700FF', '#FFFF00', '#2222FF', '#FF2222'];
+let colors = ['#00FFFF', '#FF00FF', '#0000FF', '#00FF00'];
 
 // some random points
 let p = [];
