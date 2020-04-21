@@ -1,10 +1,12 @@
 (function() {
 
-
-
 // Get the canvas and context
 let headerDiv = document.getElementById("header-wrapper"); 
-let canvas = document.getElementById("header-canvas"); 
+let appDiv = document.getElementById("header-app");
+let canvas = document.createElement('canvas');
+canvas.id = 'header-canvas';
+appDiv.appendChild(canvas);
+
 let context = canvas.getContext("2d");
 
 canvas.width  = headerDiv.offsetWidth;

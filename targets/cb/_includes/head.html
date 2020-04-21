@@ -27,4 +27,9 @@
   {% if page.smartdown == true %}
   {% include smartdown_header.html %}
   {% endif %}
+
+  {% if page.jsxgraph == true %} 
+    <link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js"></script>
+  {% endif %}
 </head>
