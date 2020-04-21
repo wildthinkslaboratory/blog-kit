@@ -4,10 +4,10 @@ header: 'none'
 ---
 
 ### Julia Set Generator
-These fractals are generated from a list of seeds that are pretty good.  You can use a random seed rather than one from my list, but you won't always get a good pattern.  Sometimes changing the color scheme will make a pattern clearer.  Enjoy!  If you want to learn more about fractals, [Mathigon](https://mathigon.org) has a great lesson on [fractals](https://mathigon.org/course/fractals/introduction).
+We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but if you check the 'use a random seed' box you'll get a random seed.  The random seeds don't always produce a visible pattern.  Sometimes changing the color scheme will make a pattern clearer.  You can also take a good seed and nudge it a little to find interesting patterns. Let us know if you find any great seeds so we can add them to our list. Enjoy!  
 
 [random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) [download pdf](:=download=true) 
- Use a random seed [](:XrandomSeed) **seed:** **A** [](:!A)  **B** [](:!B)
+ Use a random seed [](:XrandomSeed) **seed:** **A** [](:?A)  **B** [](:?B)
 
 ```javascript /playable/autoplay
 //smartdown.import=//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js
@@ -37,47 +37,51 @@ let juliaSeeds = [
 [-0.54, 0.54], 
 [0.355, 0.355], 
 [0.37, 0.1],
-[ -0.23697092928656072, 0.7419121059594294],
-[0.10697324928270424,0.6010709065175586],
-[-0.07804297167573648, 0.878422153994636],
-[-0.04358606323629921, -0.6601708270598163],
-[-0.7581522813239732, 0.07887261017004787],
-[-0.6017411670967265, 0.5390473287347921],
-[-0.19385539090162895, -0.6821881025217271],
+[ -0.23697, 0.74191],
+[ 0.10697,0.60107],
+[-0.07804, 0.87842],
+[-0.043586, -0.660170],
+[-0.758152,  0.078872],
+[-0.601741,  0.539047],
+[-0.193855, -0.682188],
 [-0.4, 0.6],
-[0.285,0.01],
-[-0.7411961903536972, -0.21962362117602408],
-[0.30101836182028596, 0.5443731759401387],
-[-0.018460308319966146, -0.8554085997418546],
-[-0.9128701205796774, -0.29222489644553784],
-[0.4034832480232238, 0.24514526587708496],
-[-0.22340162922166784, 0.6631450419561602],    
-[-0.35479981430880425, 0.6490407498754325],
-[-0.5621547884124922, -0.49050615957994803],
-[-0.12184961094331648, -0.6114750423216946],
-[0.2791786490325905, 0.4856080816771371],
-[-0.10884535234970971, -0.8394917132688897],
-[0.24866789623431518, 0.5504502538233282],
-[0.3722367328262186, 0.2815627105214138],
-[-0.21536862444913685, -0.6452945226885285],
-[-0.4571051846659564, -0.5915890312306993],
-[0.0323696710664525, -0.6786702656445183],
-[0.08091882836006659, 0.6479383219983794],
-[-0.5288200362333622, -0.5922745727857719],
-[-0.6264473978490834, -0.43204768148180106],
-[-0.5807064982317873, 0.503872835550512],
-[-0.7705931272548445, 0.01602953761008319],
-[-0.49338497217455823, -0.5469586749726592],
-[-0.540198707857183, -0.5278844906078031],
-[-0.3263700204015514, -0.6550754833698582],
-[-0.7664261914607531, 0.22774108876544763],
-[-0.15789323333436878, -0.836223175705733],
-[-0.7018266311001911, -0.2544160291088893],
-[0.37518460095942996, 0.18675291727930832],
-[-0.6460572457943496, -0.3830972089514366],
-[-0.8158616688764926, 0.27933988405675225],
-[-0.5439326417374875, -0.5438389346400143],
-[-0.11344855701211976, 0.6600007285129061]
+[ 0.285,0.01],
+[-0.741196, -0.219623],
+[ 0.301018,  0.544373],
+[-0.018460, -0.855408],
+[-0.912870, -0.292224],
+[ 0.403483,  0.245145],
+[-0.223401,  0.663145],    
+[-0.354799,  0.649040],
+[-0.562154, -0.490506],
+[ 0.279178,  0.485608],
+[-0.108845, -0.839491],
+[ 0.248667,  0.550450],
+[ 0.372236,  0.281562],
+[-0.215368, -0.645294],
+[-0.457105, -0.591589],
+[ 0.032369, -0.678670],
+[ 0.080918,  0.647938],
+[-0.528820, -0.592274],
+[-0.626447, -0.432047],
+[-0.580706,  0.503872],
+[-0.770593,  0.016029],
+[-0.493384, -0.546958],
+[-0.540198, -0.527884],
+[-0.326370, -0.655075],
+[-0.76643,   0.22774],
+[-0.15789,  -0.83622],
+[-0.70183,  -0.25442],
+[0.37518,   0.18675],
+[-0.64606, -0.38310],
+[-0.81586, 0.27934],
+[-0.54393, -0.54383],
+[-0.11345, 0.66000],
+[-0.10884, -0.838],
+[-0.55, -0.4785],
+[-0.025, -0.8],
+[-0.75, 0.016029],
+[-0.626447,-0.407]
 ];
 
 
@@ -95,6 +99,7 @@ let color_incs = [     // for each color in rgb
 [0,0,0,0,0,0]
 ];
 
+let suspendDepend = false;
 
 function generateColorSeed() {
   // generate random starting color
@@ -176,17 +181,20 @@ function randomFractal() {
   panx = 0;
   pany = 0;
   if (useRandomSeed) {                 // use a random seed
-    console.log('random seed');
-    seedA = Math.random() * 2 - 1;
-    seedB = Math.random() * 2 - 1;
+    seedA = (Math.random() * 2 - 1).toFixed(5);
+    seedB = (Math.random() * 2 - 1).toFixed(5);
   }
   else {                               // use a seed from our list
     let k = juliaSeeds[Math.floor(Math.random() * juliaSeeds.length)];
     seedA = k[0];
     seedB = k[1];
   }
+
+  suspendDepend = true;
   smartdown.setVariable('A', seedA);
   smartdown.setVariable('B', seedB);
+  suspendDepend = false;
+
   zoom = 400 + Math.floor(Math.random() * 1000);
   generateColorSeed();
   generatePalette();
@@ -292,8 +300,21 @@ this.depend = function() {
   //   console.log('seeds', seedA, seedB);
   //   draw();
   // }
-  // if (env.A !== seedA) { seedA = parseFloat(env.A);  draw(); }
-  // if (env.B !== seedB) { seedB = parseFloat(env.B);  draw(); }
+
+  if (!suspendDepend) {
+    let oldA = seedA.toFixed(5);
+    let newA = parseFloat(env.A).toFixed(5);
+    let oldB = seedB.toFixed(5);
+    let newB = parseFloat(env.B).toFixed(5);
+
+    if (oldA != newA || oldB != newB) { 
+      seedA = parseFloat(env.A);  
+      seedB = parseFloat(env.B); 
+      draw();
+    }
+  }
+
+
   if (env.randomSeed == true) { 
     useRandomSeed = true; 
     zoom = 200;
