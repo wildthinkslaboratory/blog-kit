@@ -11,7 +11,7 @@ A rectangular pen $8\text{ft}^2$ in area is to be fenced off for a pet rabbit.  
 
 Say our pen has width $w$ and length $l$.  In order to get $8\text{ft}^2$ in area, we must have $wl = 8$. We also know that the length of fence $F$ will be  $F = 2w + l$.  We can write the amount of fencing in terms of the width $w$  as $F = 2w + \frac{8}{w}$
 
-At what width does the does the amount of fencing switch from decreasing to increasing?  What width gives the minimal cost pen?
+What width gives the minimal cost pen and what is the rate of change of the function at that point?
 # --outlinebox
 # ::::
 
@@ -24,7 +24,7 @@ At what width does the does the amount of fencing switch from decreasing to incr
 
 [?](::clue/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
-transition from decreasing to increasing[](:?s1) minimal cost width [](:?s2)
+minimal cost width [](:?s1) rate of change at minimum cost [](:?s2)
 # ::::
 # :::: toolbar
 ```javascript /autoplay/p5js
@@ -152,28 +152,45 @@ let F = new ProblemFunction(function(x) { return  2*x + 8/x; },
   'fence length', 0.7, [0,xhigh], []);
 let F_id = workspace.addFunction(F);
 
-let w = workspace.board.create('glider', [4,0, workspace.xaxis], {name:'', face:'^', size:12, color:'green'});
+let w = workspace.board.create('glider', [4,0, workspace.xaxis], {
+  name:'', face:'^', size:12, color:'green'});
 let p = workspace.board.create('point', [
   function() { return w.X(); }, 
   function() { return F.f(w.X()); }], {color:'green', name:''});
+
+let checkSnap = function() {
+  let floor = Math.floor(w.X());           // are we close to the lower integer?
+  console.log('floor',floor);
+  if (w.X() < floor + 0.05) {
+    w.moveTo([floor,0]);
+    console.log('snapped');
+  }
+  else {                                         // are we close to the higher integer?
+    let ceiling = Math.ceil(w.X());
+    if (w.X() > ceiling - 0.05) {
+      w.moveTo([ceiling,0]);
+    }
+  }
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board
 
 
 let board1 = JXG.JSXGraph.initBoard('right',
-            {boundingbox: [-1, 7, 7,-1], axis: true,
+            {boundingbox: [-1, 7, 5,-1], axis: true,
             showcopyright: false,
+            axisRatio:true,
             });
 
 workspace.board.addChild(board1);
 
 
 let bunurl = '/assets/images/rabbit.svg';
-let bun = board1.create('image',[bunurl, [0.2,0.2], [0.5,0.5]]);
+let bun = board1.create('image',[bunurl, [0.2,0.2], [0.5,0.5]], {fixed:true});
 
 
-let barn = board1.create('line',[[0,-1], [0,7] ],{strokeColor:'black', strokeWidth:5, straightFirst:false, straightLast:false});
+let barn = board1.create('line',[[0,-1], [0,7] ],{strokeColor:'black', strokeWidth:5, straightFirst:false, straightLast:false, fixed:true});
 
 let widthF = function() { return w.X(); };
 let lengthF = function() { return 8/w.X(); };
@@ -185,7 +202,7 @@ let width1 = board1.create('segment',[[0,0], p1],{strokeColor:'brown', strokeWid
 let lengthLine = board1.create('segment',[p1,p2], {strokeColor:'brown', strokeWidth:2});
 let width2 = board1.create('segment',[p2,p3], {strokeColor:'brown', strokeWidth:2});
 
-let barnText = board1.create('text',[0.2, 4, 'barn wall'], {fontSize:12, color:'#999999'});
+let barnText = board1.create('text',[0.2, 4, 'barn wall'], {fontSize:12, color:'#999999', fixed:true});
 let lengthText = board1.create('text',[
   function() { return w.X() + 0.2; }, 
   function() { return lengthF() / 2; }, 
@@ -199,6 +216,11 @@ let widthText = board1.create('text',[
   function() { return w.X().toFixed(2) + ' ft'; }], 
   {fontSize:12, color:'#999999'});
 
+let areaText = board1.create('text',[
+  function() { return w.X()/2 - 0.2; }, 
+  function() { return lengthF() / 2; }, 
+  function() { return '8 ft^2'; }], 
+  {fontSize:12, color:'#999999'});
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -240,6 +262,7 @@ this.sizeChanged();
 
 workspace.board.on('update', function() {
   workspace.onUpdate();              // hook up workspace update functions
+  checkSnap();
 });
 
 smartdown.setVariable('s1', '');
@@ -251,7 +274,7 @@ this.depend = function() {
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (env.s1 == '2' && env.s2 == '2') {
+    if (env.s1 == '2' && env.s2 == '0') {
       smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }

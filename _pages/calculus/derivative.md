@@ -1,7 +1,7 @@
 ---
 title: Taking Derivatives using the Definition of the Derivative
 smartdown: true
-headerapp: 'randomfractal.js'
+headerapp: 'fractal.js'
 header: 'narrow'
 ---
 

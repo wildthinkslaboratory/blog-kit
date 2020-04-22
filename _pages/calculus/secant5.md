@@ -112,7 +112,7 @@ this.depend = function() {
 # :::: success
 Success! 
 Note that 31 ft/s is equivalent to 21 mph.  Maybe reconsider dropping the balloon.
-[Continue](/pages/secantPoints)
+[Continue](/pages/secant6)
 # ::::
 
 # :::: keeptrying
@@ -190,7 +190,7 @@ let balloonPoint = board1.create('point',
   {name: '', strokeColor: '#7799EE', fillColor: '#7799EE', fillOpacity:0.4, size:6});
 
 let manurl = '/assets/images/manstanding.png';
-let man = board1.create('image',[manurl, [0.6,0], [1,5]]);
+let man = board1.create('image',[manurl, [0.6,0], [1,5]],{fixed:true});
 
 let move = function() { 
   t.moveTo([1.75,0],5000, {effect: '--'} ); 
@@ -207,7 +207,7 @@ let reset = function() {
 let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
-  let percent = (mouseX - margin) / width;
+  let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
 
   workspace.addElementByID(buttonType, percent, F_id, {
     change:'distance', 

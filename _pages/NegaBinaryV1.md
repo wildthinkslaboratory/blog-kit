@@ -1,6 +1,6 @@
 ---
 title: Negative Binary 
-headerapp: 'randomfractal.js'
+headerapp: 'fractal.js'
 smartdown: true
 header: 'narrow'
 ---

@@ -3,6 +3,7 @@ layout: home
 smartdown: true
 jsxgraph: true
 header: 'narrow'
+subtitle: 'interactive math adventures'
 headerapp: 'reimannSum.js'
 ---
 
@@ -13,14 +14,15 @@ digraph G {
 	fontsize="24";
 	fontname="Arial";
 	size="12,12";
+  rankdir="LR";
     subgraph cluster0 {
         style=filled;
-        color=grey96;
+        color=grey90;
         secant[shape=none, URL="/pages/secant1", label="", image="/assets/images/calculus/secant.svg"];
-		rectangle [shape=none, URL="javascript:smartdown.setVariable('rectangle', true);", label="", image="/assets/images/calculus/rectangle.svg"];
-		FTC1 [shape=none, tooltip="secant / rectangle", URL="javascript:smartdown.setVariable('prelude', true);", label="", image="/assets/images/calculus/ftc1.svg"];
-		derivative [shape=none, tooltip="Definition of the Derivative" URL="/pages/derivative", label="", image="/assets/images/calculus/derivative.svg"];
-		chainRule [shape=none, tooltip="Chain Rule", URL="/pages/chainRule", label="", image="/assets/images/calculus/chainrule.svg"];
+		    rectangle [shape=none, URL="javascript:smartdown.setVariable('rectangle', true);", label="", image="/assets/images/calculus/rectangle.svg"];
+		    FTC1 [shape=none, tooltip="secant / rectangle", URL="javascript:smartdown.setVariable('prelude', true);", label="", image="/assets/images/calculus/ftc1.svg"];
+		    derivative [shape=none, tooltip="Definition of the Derivative" URL="/pages/derivative", label="", image="/assets/images/calculus/derivative.svg"];
+		    chainRule [shape=none, tooltip="Chain Rule", URL="/pages/chainRule", label="", image="/assets/images/calculus/chainrule.svg"];
 		  
 		  secant -> FTC1;
 		  rectangle -> FTC1;
@@ -29,29 +31,6 @@ digraph G {
 		  derivative -> chainRule;
         label = "Calculus";
     }
-    subgraph cluster1 {
-        problem1 [shape=none, tooltip="fly problem", URL="/pages/usamts1", label="", image="/assets/images/calculus/usamts1.svg"];
-        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
-        label = "USAMTS Problems";
-        style=filled;
-        color=grey96;
-        rankdir=TB;
-    }
-
-    subgraph cluster2 {
-        negaBinary [shape=none, tooltip="Negative Binary", URL="/pages/NegaBinaryV1", label="", image="/assets/images/calculus/negaBinary.svg"];
-        strings [shape=none, tooltip="Godel meets Exploding Dots", URL="/pages/Strings", label="", image="/assets/images/calculus/strings.svg"];
-        label = "Exploding Dots";
-        style=filled;
-        color=grey96;
-    }
-
-    subgraph cluster3 {
-        fractal [shape=none, tooltip="Fractal Generator", URL="/pages/fractal", label="", image="/assets/images/calculus/fractal.svg"];
-        label = "Other"
-        style=filled;
-        color=grey96;
-  }
     
 }
 ```
@@ -94,7 +73,39 @@ this.depend = function() {
     } 
   };
 ```
+```graphviz/autoplay
+digraph G {
+  tooltip="wildthinks map";
+  fontsize="24";
+  fontname="Arial";
+  size="12,12";
 
+    subgraph cluster1 {
+        problem1 [shape=none, tooltip="fly problem", URL="/pages/usamts1", label="", image="/assets/images/calculus/usamts1.svg"];
+        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
+        label = "USAMTS Problems";
+        style=filled;
+        color=grey90;
+        rankdir=TB;
+    }
+
+    subgraph cluster2 {
+        negaBinary [shape=none, tooltip="Negative Binary", URL="/pages/NegaBinaryV1", label="", image="/assets/images/calculus/negaBinary.svg"];
+        strings [shape=none, tooltip="Godel meets Exploding Dots", URL="/pages/Strings", label="", image="/assets/images/calculus/strings.svg"];
+        label = "Exploding Dots";
+        style=filled;
+        color=grey90;
+    }
+
+    subgraph cluster3 {
+        fractal [shape=none, tooltip="Fractal Generator", URL="/pages/fractal", label="", image="/assets/images/calculus/fractal.svg"];
+        label = "Other"
+        style=filled;
+        color=grey90;
+  }
+    
+}
+```
 # Featured Video
 Goldfish and Robin show how to solve a corn maze using topology.
 ![fullwidth](https://www.youtube.com/watch?v=eQYLL7XnM-4)
