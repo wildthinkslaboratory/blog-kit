@@ -574,7 +574,8 @@ class Segment extends BaseWidget {
   rateTextY() { return this.f1.Y() + this.change() / 2; }
   slopeString() { 
     let s = 'slope = ';
-    if ('noSlopeText' in this.attr && this.attr['noSlopeText'] == true)  { s = ''; }
+    if ('rate' in this.attr && 
+      !('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after')) { s = ''; }
     return s + this.rateTextVal();
   }
 
@@ -779,7 +780,8 @@ class Secant extends BaseWidget {
   rateTextY() { return this.fx1() + this.rise() / 2; }
   slopeString() { 
     let s = 'slope = ';
-    if ('noSlopeText' in this.attr && this.attr['noSlopeText'] == true)  { s = ''; }
+    if ('rate' in this.attr && 
+      !('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after')) { s = ''; }
     return s + this.rateTextVal();
   }
   

@@ -142,7 +142,7 @@ let yhigh = 50;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
   { xlabel:'time (s)', ylabel:'distance (m)'});
-let F = new ProblemFunction(function(x) { return x * x; }, 'position of car', 3.5, [xlow,xhigh], [3, 3.5, 4, 6]);
+let F = new ProblemFunction(function(x) { return x * x; }, 'position of car', 3.5, [xlow,xhigh], [3, 3.5, 4, 5]);
 let F_id = workspace.addFunction(F);
 
 
