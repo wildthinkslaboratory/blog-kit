@@ -23,17 +23,17 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 
-let xlow = -5;
-let xhigh = 5;
+let xlow = -3;
+let xhigh = 3;
 let ylow = -3;
-let yhigh = 10;
+let yhigh = 9;
 
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
-let F = new ProblemFunction(function(x) { return 1 + x * x / 2; }, '', 4, [xlow,xhigh], []);
+let F = new ProblemFunction(function(x) { return 1 + x * x; }, '', 4, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
 
-let xint = new XInterval(workspace.board, 1,3);
+let xint = new XInterval(workspace.board, 1,2);
 let secant = new Secant(xint, F.f, {showUnits:true, annotations:'on', justLines:true});
 workspace.addElement(secant);
 
