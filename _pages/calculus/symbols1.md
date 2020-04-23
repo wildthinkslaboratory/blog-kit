@@ -10,18 +10,48 @@ header: 'none'
 
 #### --outlinebox left1
 
-```javascript /playable/autoplay
+
+#### --outlinebox
+
+
+#### --outlinebox right1
+All of the shapes and lines we've been using to solve problems have names and symbols.  Some of them will be familiar to you and some of them will be new.  
+
+points $(x, f(x))$  and  $(x+h, f(x+h))$
+function $f(x) = x^2 + 1$
+distances $h$ and $f(x+h) - f(x)$ 
+slope    $$\frac{f(x+h) - f(x)}{h}$$ 
+
+Here's the thing...  Look closely at these expressions. Mouse over them. Can you look at each forumula and envision in your mind where it belongs in the picture? Take your time. Mapping the formulas onto the picture might be the hardest part of learning calculus.  Especially if the only picture you have is in your head.  
+[Continue](/pages/derivative1)
+
+#### --outlinebox
+#### --outlinebox
+
+ 
+
+```javascript /autoplay
+
+const outer = document.getElementById('outer1');
+const left = document.getElementById('left1');
+const right = document.getElementById('right1');
+
+outer.classList.remove('decoration-outlinebox');
+left.classList.remove('decoration-outlinebox');
+right.classList.remove('decoration-outlinebox');
+
+outer.classList.add('outer');
+left.classList.add('playable-2-col');
+right.classList.add('text-2-col');
+
+
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
 smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
+//smartdown.import=/assets/libs/mapping.js
 
-
-const myDiv = this.div;
-myDiv.style.width = '100%';
-myDiv.style.height = '100%';
-myDiv.style.margin = 'auto';
-myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
+left.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 
 let xlow = -3;
 let xhigh = 3;
@@ -34,7 +64,14 @@ let F_id = workspace.addFunction(F);
 
 
 let xint = new XInterval(workspace.board, 1,2);
-let secant = new Secant(xint, F.f, {showUnits:true, annotations:'on', justLines:true});
+let secant = new Secant(xint, F.f, {
+  showUnits:true, 
+  annotations:'on', 
+  noRateNumber:true, 
+  noChangeNumber:true,
+  noUnitsNumber:true,
+  justLines:true
+});
 workspace.addElement(secant);
 
 secant.xint.x1.setAttribute({name:'x'});
@@ -93,218 +130,59 @@ let slopeText = workspace.board.create('text', [
   {visible:false});
 
 
-let showF1 = function() {
-  f1.setAttribute({visible:true});
-};
-let hideF1 = function() {
-  f1.setAttribute({visible:false});
-};
-window.showF1 = showF1;
-window.hideF1 = hideF1;
-
-
-let showF2 = function() {
-  f2.setAttribute({visible:true});
-};
-let hideF2 = function() {
-  f2.setAttribute({visible:false});
-};
-window.showF2 = showF2;
-window.hideF2 = hideF2;
-
-
-let showFun = function() {
-  fofX.setAttribute({visible:true});
-};
-let hideFun = function() {
-  fofX.setAttribute({visible:false});
-};
-window.showFun = showFun;
-window.hideFun = hideFun;
-
-
-let showRun = function() {
-  runLine.setAttribute({visible:true});
-};
-let hideRun = function() {
-  runLine.setAttribute({visible:false});
-};
-window.showRun = showRun;
-window.hideRun = hideRun;
-
-
-let showRise = function() {
-  riseLine.setAttribute({visible:true});
-};
-let hideRise = function() {
-  riseLine.setAttribute({visible:false});
-};
-window.showRise = showRise;
-window.hideRise = hideRise;
-
-let showSlope = function() {
-  slopeLine.setAttribute({visible:true});
-  slopeText.setAttribute({visible:true});
-};
-let hideSlope = function() {
-  slopeLine.setAttribute({visible:false});
-  slopeText.setAttribute({visible:false});
-};
-window.showSlope = showSlope;
-window.hideSlope = hideSlope;
-
-
 workspace.board.on('update', function() {
   workspace.onUpdate();
 });
 
 
 this.sizeChanged = function() {
-  workspace.board.resizeContainer(myDiv.offsetWidth, myDiv.offsetHeight);
+  workspace.board.resizeContainer(left.offsetWidth, window.innerHeight * 0.7);
 };
 
 this.sizeChanged();
-
-
-```
-#### --outlinebox
-
-
-#### --outlinebox right1
-All of the shapes and lines we've been using to solve problems have names and symbols.  Some of them will be familiar to you and some of them will be new.  
-
-points $(x, f(x))$  and  $(x+h, f(x+h))$
-function $f(x) = x^2 + 1$
-distances $h$ and $f(x+h) - f(x)$ 
-slope    $$\frac{f(x+h) - f(x)}{h}$$ 
-
-Here's the thing...  Look closely at these expressions. Mouse over them. Can you look at each forumula and envision in your mind where it belongs in the picture? Take your time. Mapping the formulas onto the picture might be the hardest part of learning calculus.  Especially if the only picture you have is in your head.  
-[Continue](/pages/derivative1)
-
-#### --outlinebox
-#### --outlinebox
-
- 
-
-```javascript /autoplay
-
-const outer = document.getElementById('outer1');
-const left = document.getElementById('left1');
-const right = document.getElementById('right1');
-
-outer.classList.remove('decoration-outlinebox');
-left.classList.remove('decoration-outlinebox');
-right.classList.remove('decoration-outlinebox');
 
 outer.classList.add('outer');
 left.classList.add('playable-2-col');
 right.classList.add('text-2-col');
 
 
+
 // set up highlight mapping for formulas.  connect them with their
 // model highlight
 const formula1 = document.getElementById('MathJax-Element-1-Frame');
-formula1.onmouseover = logMouseOver;
-formula1.onmouseout = logMouseOut;
+formula1.onmouseover = onAFFactory(formula1, showAFFactory([f1]));
+formula1.onmouseout = offAFFactory(formula1, hideAFFactory([f1]));
 formula1.classList.add('highlightOffNarrow');
 
-function logMouseOver() {
-  formula1.classList.remove('highlightOffNarrow');
-  formula1.classList.add('highlightOnNarrow');
-  window.showF1();
-}
-
-function logMouseOut() {
-  formula1.classList.remove('highlightOnNarrow');
-  formula1.classList.add('highlightOffNarrow');
-  window.hideF1();
-}
 
 const formula2 = document.getElementById('MathJax-Element-2-Frame');
-formula2.onmouseover = logMouseOver2;
-formula2.onmouseout = logMouseOut2;
+formula2.onmouseover = onAFFactory(formula2, showAFFactory([f2]));
+formula2.onmouseout = offAFFactory(formula2, hideAFFactory([f2]));
 formula2.classList.add('highlightOffNarrow');
 
-function logMouseOver2() {
-  formula2.classList.remove('highlightOffNarrow');
-  formula2.classList.add('highlightOnNarrow');
-  window.showF2();
-}
-
-function logMouseOut2() {
-  formula2.classList.remove('highlightOnNarrow');
-  formula2.classList.add('highlightOffNarrow');
-  window.hideF2();
-}
 
 const formula3 = document.getElementById('MathJax-Element-3-Frame');
-formula3.onmouseover = logMouseOver3;
-formula3.onmouseout = logMouseOut3;
+formula3.onmouseover = onAFFactory(formula3, showAFFactory([fofX]));
+formula3.onmouseout = offAFFactory(formula3, hideAFFactory([fofX]));
 formula3.classList.add('highlightOffNarrow');
 
 
-function logMouseOver3() {
-  formula3.classList.remove('highlightOffNarrow');
-  formula3.classList.add('highlightOnNarrow');
-  window.showFun();
-}
-
-function logMouseOut3() {
-  formula3.classList.remove('highlightOnNarrow');
-  formula3.classList.add('highlightOffNarrow');
-  window.hideFun();
-}
-
 const formula4 = document.getElementById('MathJax-Element-4-Frame');
-formula4.onmouseover = logMouseOver4;
-formula4.onmouseout = logMouseOut4;
+formula4.onmouseover = onAFFactory(formula4, showAFFactory([runLine]));
+formula4.onmouseout = offAFFactory(formula4, hideAFFactory([runLine]));
 formula4.classList.add('highlightOffNarrow');
-
-function logMouseOver4() {
-  formula4.classList.remove('highlightOffNarrow');
-  formula4.classList.add('highlightOnNarrow');
-  window.showRun();
-}
-
-function logMouseOut4() {
-  formula4.classList.remove('highlightOnNarrow');
-  formula4.classList.add('highlightOffNarrow');
-  window.hideRun();
-}
 
 
 const formula5 = document.getElementById('MathJax-Element-5-Frame');
-formula5.onmouseover = logMouseOver5;
-formula5.onmouseout = logMouseOut5;
+formula5.onmouseover = onAFFactory(formula5, showAFFactory([riseLine]));
+formula5.onmouseout = offAFFactory(formula5, hideAFFactory([riseLine]));
 formula5.classList.add('highlightOffNarrow');
 
-function logMouseOver5() {
-  formula5.classList.remove('highlightOffNarrow');
-  formula5.classList.add('highlightOnNarrow');
-  window.showRise();
-}
-
-function logMouseOut5() {
-  formula5.classList.remove('highlightOnWide');
-  formula5.classList.add('highlightOffNarrow');
-  window.hideRise();
-}
 
 const formula6 = document.getElementById('MathJax-Element-6-Frame');
-formula6.onmouseover = logMouseOver6;
-formula6.onmouseout = logMouseOut6;
+formula6.onmouseover = onWideAFFactory(formula6, showAFFactory([slopeLine,slopeText]));
+formula6.onmouseout = offWideAFFactory(formula6, hideAFFactory([slopeLine,slopeText]));
 formula6.classList.add('highlightOffWide');
 
-function logMouseOver6() {
-  formula6.classList.remove('highlightOffWide');
-  formula6.classList.add('highlightOnWide');
-  window.showSlope();
-}
-
-function logMouseOut6() {
-  formula6.classList.remove('highlightOnWide');
-  formula6.classList.add('highlightOffWide');
-  window.hideSlope();
-}
 
 ```

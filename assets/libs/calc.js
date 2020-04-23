@@ -58,7 +58,21 @@ let textWidth = function(t,b) {
   return t.getSize()[0] * boardwidth / b.canvasWidth;
 }
 
+let showAFFactory = function(elements) {
+  return function() {
+    for (let i=0; i < elements.length; i++) {
+      elements[i].setAttribute({visible:true});
+    }
+  }
+}
 
+let hideAFFactory = function(elements) {
+  return function() {
+    for (let i=0; i < elements.length; i++) {
+      elements[i].setAttribute({visible:false});
+    }
+  }
+}
 
 class Slider {
   constructor(board, [xf, yf], [low,high], name) {
@@ -339,7 +353,7 @@ class BaseWidget {
     let n = this.units().toFixed(this.precision).toString();
     if (this.attr != undefined) {
       if ('units' in this.attr) { t = this.attr['units']; }
-      if ('noNumbers' in this.attr && this.attr['noNumbers'] == true) { n = ''; }
+      if ('noUnitsNumber' in this.attr && this.attr['noUnitsNumber'] == true) { n = ''; }
       if (t == '' || n == '') { return t + n; }
       if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
         return n + ' ' + t;
@@ -355,7 +369,7 @@ class BaseWidget {
     let n = this.change().toFixed(this.precision).toString();
     if (this.attr !== undefined) {
       if ('change' in this.attr) { t = this.attr['change']; }
-      if ('noNumbers' in this.attr && this.attr['noNumbers'] == true) { n = ''; }
+      if ('noChangeNumber' in this.attr && this.attr['noChangeNumber'] == true) { n = ''; }
       if (t == '' || n == '') { return t + n; }
       if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
         return n + ' ' + t;
@@ -371,7 +385,7 @@ class BaseWidget {
     let n = this.rate().toFixed(this.precision).toString();
     if (this.attr !== undefined) {
       if ('rate' in this.attr) { t = this.attr['rate']; }
-      if ('noNumbers' in this.attr && this.attr['noNumbers'] == true) { n = ''; }
+      if ('noRateNumber' in this.attr && this.attr['noRateNumber'] == true) { n = ''; }
       if (t == '' || n == '') { return t + n; }
       if ('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after') {
         return n + ' ' + t;
@@ -576,6 +590,7 @@ class Segment extends BaseWidget {
     let s = 'slope = ';
     if ('rate' in this.attr && 
       !('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after')) { s = ''; }
+    if ('justLines' in this.attr && this.attr['justLines'] == true) { s = ''; }
     return s + this.rateTextVal();
   }
 
@@ -779,9 +794,13 @@ class Secant extends BaseWidget {
   }
   rateTextY() { return this.fx1() + this.rise() / 2; }
   slopeString() { 
+    if (this.units() == 0) {
+      return 'slope = UNDEFINED';
+    }
     let s = 'slope = ';
     if ('rate' in this.attr && 
       !('annotationPosition' in this.attr && this.attr['annotationPosition'] == 'after')) { s = ''; }
+    if ('justLines' in this.attr && this.attr['justLines'] == true) { s = ''; }
     return s + this.rateTextVal();
   }
   
@@ -1940,6 +1959,8 @@ class Workspace extends StandardBoard {
   exports.Workspace = Workspace;
   exports.textWidth = textWidth;
   exports.Segment = Segment;
+  exports.showAFFactory = showAFFactory;
+  exports.hideAFFactory = hideAFFactory;
 
 });
 
