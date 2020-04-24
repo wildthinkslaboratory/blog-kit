@@ -10,7 +10,7 @@ Clue
 # --outlinebox
 # ::::
 
-[Submit Solution](:=compute=true) Have a segment.
+[Submit Solution](:=compute=true) A rectangle has many secants. Pick one.
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -92,7 +92,22 @@ this.depend = function() {
 
 ```
 # :::: success
-You've created a Secant Rectangle!
+You've created a Secant Rectangle!  Take a moment to play with it.  
+# --outlinebox why
+**Question:**
+Why does the secant move up and down?
+# --outlinebox
+[What were you supposed to remember?](::remember/tooltip,transparent,shadow)
+[Continue](/pages/ftc1)
+# :::: remember
+# --outlinebox r
+**Remember:**
+If you know the position at two time points, you can figure out the rate of travel during that time interval.
+
+If you know the rate of travel during a time interval, you can figure out the distance traveled during that interval, but you can't figure out the exact position at the endpoints of the interval.
+# --outlinebox
+# ::::
+
 # ::::
 
 # :::: keeptrying
@@ -210,7 +225,7 @@ workspace.board.on('update', function() {
 
 let checkSolution = function() {
   if (segment.f1.X() == xint.X1() && segment.f2.X() == xint.X2()) {
-    if (segment.rise() == rectangle.area()) {   
+    if (segment.change() == rectangle.area()) {   
       return true;
     }
   }

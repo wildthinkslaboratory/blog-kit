@@ -140,14 +140,14 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='left' style='height:700px; width:75%; float:left; border:1px solid gray;background:#FFFFFF;border-radius:8px;'></div><div id='right' style='height:700px; width:24%; float:left; border: 1px solid gray;background:#E2FFDD;border-radius:8px;';></div>`;
 
-let xlow = -1;
+let xlow = -1.5;
 let xhigh = 5;
 let ylow = -2;
 let yhigh = 15;
 
 
 let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
-  { xlabel:'width (ft)', ylabel:'length (ft)'});
+  { xlabel:'width (ft)', ylabel:'fencing (ft)'});
 let F = new ProblemFunction(function(x) { return  2*x + 8/x; }, 
   'fence length', 0.7, [0,xhigh], []);
 let F_id = workspace.addFunction(F);

@@ -10,7 +10,7 @@ Clue
 # --outlinebox
 # ::::
 
-[Submit Solution](:=compute=true) Have a rectangle.
+[Submit Solution](:=compute=true) Every secant has a rectangle.
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -136,7 +136,8 @@ let secant = new Secant(xint, F.f, {
     snapMargin:0.5,
     change:'distance',
     units:'time',
-    rate:'rate'
+    rate:'rate',
+    showUnits:true,
   });
 
 // the rectangle can't move

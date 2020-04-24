@@ -18,7 +18,7 @@ digraph G {
     subgraph cluster0 {
         style=filled;
         color=grey90;
-        secant[shape=none, URL="/pages/secant1", label="", image="/assets/images/calculus/secant.svg"];
+        secant[shape=none, URL="javascript:smartdown.setVariable('secant', true);", label="", image="/assets/images/calculus/secant.svg"];
 		    rectangle [shape=none, URL="javascript:smartdown.setVariable('rectangle', true);", label="", image="/assets/images/calculus/rectangle.svg"];
 		    FTC1 [shape=none, tooltip="secant / rectangle", URL="javascript:smartdown.setVariable('prelude', true);", label="", image="/assets/images/calculus/ftc1.svg"];
         limit [shape=none, tooltip="limit",label="", image="/assets/images/calculus/limits.svg"];
@@ -47,6 +47,13 @@ Everything is always changing.  Even the rate of change is changing.
 # --outlinebox
 # ::::
 
+# :::: change_secant
+# --outlinebox ob1
+Everything is always changing.  Even the rate of change is changing.
+[Begin](/pages/secant1)
+# --outlinebox
+# ::::
+
 # :::: prelude
 # --outlinebox ob1
 Every secant has a rectangle.  A rectangle has many secants.
@@ -58,10 +65,19 @@ Every secant has a rectangle.  A rectangle has many secants.
 ```javascript /autoplay
 smartdown.setVariable('rectangle', false);
 smartdown.setVariable('prelude', false);
+smartdown.setVariable('secant', false);
 
-this.dependOn = ['rectangle', 'prelude'];
+this.dependOn = ['rectangle', 'prelude', 'secant'];
 
 this.depend = function() {
+  if (env.secant == true) {
+    smartdown.setVariable('secant', false);
+    smartdown.showDisclosure('change_secant','','transparent,lightbox,center,shadow'); 
+    setTimeout(function () {
+         smartdown.hideDisclosure('secant','',''); 
+    }, 6000);
+  } 
+
   if (env.rectangle == true) {
       smartdown.setVariable('rectangle', false);
       smartdown.showDisclosure('change_rectangle','','transparent,lightbox,center,shadow'); 

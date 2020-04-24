@@ -46,10 +46,10 @@ What is the average velocity of the car between $t=5$ and $t=10$? [](:?a2)m/s
 # --outlinebox left2
 # :::: l2
 **Get the two points**
-What are the positions of the car at times $t=12$ and $t=24$?
+What is the position of the car at times $t=12$ and $t=24$?
 at $t=12$ [](:?a4)m
 at $t=24$ [](:?a5)m
-[Hint](::hint/button,draggable,closeable,center,shadow)
+[Hint](::hint/button,closeable,draggable,lightbox,center)
 # ::::
 # --outlinebox
 
@@ -72,7 +72,14 @@ A car is driving in a straight line and has an average velocity of 15 m/s betwee
 # --outlinebox
 
 # :::: hint
-OK, its a trick question. We don't have enough information to compute the position of the car at the endpoints. We can't completely reverse the process of our derivation.  This causes an unexpected phenomenom in calculus.  It's going to come up soon so remember this example.
+OK, its a trick question. We don't have enough information to compute the position of the car at those times. This leads to a weird and unexpected phenomenom in calculus and it's going to come up very soon. 
+
+# --outlinebox remember
+**Remember:**
+If you know the position at two time points, you can figure out the rate of travel during that time interval.
+
+If you know the rate of travel during a time interval, you can figure out the distance traveled during that interval, but you can't figure out the exact position at the endpoints.
+# --outlinebox
 [Continue](/pages/rectangleMatch) 
 # ::::
 
@@ -174,7 +181,7 @@ smartdown.setVariable('a5', '');
 this.dependOn = ['a4', 'a5'];
 this.depend = function() {
 	if (env.a4 !== '' || env.a5 !== '') {
-		smartdown.showDisclosure('hint','','draggable,closeable,center,shadow');
+    smartdown.showDisclosure('hint','','closeable,draggable,lightbox,center'); 
 	}
 	
    

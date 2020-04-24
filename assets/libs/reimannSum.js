@@ -15,7 +15,8 @@ JXG.Options.axis.ticks.majorHeight = 20;
 let board = JXG.JSXGraph.initBoard('box', {
 	boundingbox:[xlow,yhigh,xhigh,ylow],
 	axis:true,
-	showCopyright:false
+	showCopyright:false,
+	showNavigation:false,
 });
 
 // some colors for random selection
@@ -23,11 +24,11 @@ let colors = ['#00FFFF', '#FF5500', '#0044FF', '#00FF00', '#FF00FF'];
 
 // some random points
 let p = [];
-p.push(board.create('point',[-2.7,(Math.random()-0.1)*yhigh]));
+p.push(board.create('point',[-2.7,(Math.random()-0.05)*yhigh]));
 p.push(board.create('point',[-1.4,(Math.random()-0.1)*yhigh/3]));
-p.push(board.create('point',[0,(Math.random()-0.1)*yhigh/4]));
+p.push(board.create('point',[0,(Math.random()-0.2)*yhigh/4]));
 p.push(board.create('point',[1.4,(Math.random()-0.1)*yhigh/3]));
-p.push(board.create('point',[2.7,(Math.random()-0.1)*yhigh]));
+p.push(board.create('point',[2.7,(Math.random()-0.05)*yhigh]));
 
 // we make a polynomial from the random points
 let f = JXG.Math.Numerics.lagrangePolynomial(p);

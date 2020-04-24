@@ -7,28 +7,27 @@ header: 'none'
 # :::: tour1
 Here is an object moving in space.  
 [see object move](:=play=true)
-[N](::tour2/closeable,draggable,topright,shadow)
+[N](:=show2=true)
 # ::::
 
 # :::: tour2
-We know that the **distance** traveled is equal to the **rate** times the **time**, and we know two geometric ways of showing this relationship.  Rectangles and slopes are inverses of each other.   
-[show relationship](:=showSR=true)
+The **distance** traveled by the object is equal to the **rate** times the **time**, $d = r \times t.$ We know two different geometric ways of showing this relationship.  [show relationship](:=showSR=true) The slope of the secant tells us the average speed between two time points.  The corresponding rectangle expresses the distance traveled as the product of the rate and the time.
+[N](:=show3=true) 
 # ::::
 
 # :::: tour3
-The slope of our secant tells us the average speed traveled during a given interval.  The corresponding rectangle expresses the distance traveled as the product of the rate and the time.  What happens when these time intervals get smaller?
-[multiple periods](:=toggleArray=true)  [10 time periods](:=segments=10) 
-
+We can make more secants and rectangles over more intervals. [more intervals](:=showArray=true). What happens when these time intervals get smaller?
+Number of Time Periods [](:-segments/1/100/1) [](:!segments) 
+[N](:=show4=true)
 # ::::
 
 # :::: tour4
-Number of Time Periods [](:-segments/1/100/1) [](:!segments) 
-As the time periods get very small, the rectangles define a new function that relates to our original curve.  It's related by the function $d = r \cdot t$.  [show rectangle curve](:=toggleCurveB=true) This function gives the height of our rectangles. Remember that the height of each skinny rectangle is the average speed the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our speed curve.
+As the time periods get very small, the rectangles define a new function that relates to our original curve.  It's related by the function $d = r \times t$.  [show rectangle curve](:=showD=true) This function gives the height of our rectangles. Remember that the height of each skinny rectangle is the average speed the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our speed curve.
+[Continue](/pages/secantRectangle1)
 # ::::
 
-[Tour](::tour1/closeable,draggable,topright,shadow) 
-[see object move](:=play=true) [show](:=showSR=true) [hide](:=hideSR=true) [show array](:=showArray=true) [hide array](:=hideArray=true) [derivative](:=showD=true)
-[](:-segments/1/100/1) [](:!segments) 
+[Tour](::tour1/closeable,draggable,topright,shadow) [see object move](:=play=true)  [more intervals](:=showArray=true) [show rectangle curve](:=showD=true) 
+number of intervals [](:-segments/1/100/1) [](:!segments)
 ```javascript /autoplay
 
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
@@ -88,7 +87,7 @@ secRectArray.hide();
 
 // the derivative graph
 var s = function(t) { return 4 * Math.pow(t-4,3)/8 - 4 * (t-4); }
-var s_graph = workspace.board.create('functiongraph', [s,0,8], {strokeColor:'purple', strokeWidth:4, visible:false});
+var s_graph = workspace.board.create('functiongraph', [s,0,8], {strokeColor:'#4499FF', strokeWidth:4, visible:false});
 
 
 
@@ -126,11 +125,6 @@ let p2 = board2.create('point', [
 
 
 
-
-
-
-
-
 let widthPercent = 0.8;
 let heightPercent = 0.7;
 let widthRatio = 1/6;
@@ -148,36 +142,30 @@ let move = function() {
   t.moveTo([8,0],1000, {effect: '--', callback: function() {  t.moveTo([0,0]); } } ); 
 };
 
+smartdown.setVariable('show1', false);
 smartdown.setVariable('play', false);
-smartdown.setVariable('showSR', false);
-smartdown.setVariable('hideSR', false);
-smartdown.setVariable('showArray', false);
-smartdown.setVariable('hideArray', false);
-smartdown.setVariable('showD', false);
+smartdown.setVariable('show2', false);
 smartdown.setVariable('segments', 4);
+smartdown.setVariable('showSR', false);
+smartdown.setVariable('show3', false);
+smartdown.setVariable('showArray', false);
+smartdown.setVariable('show4', false);
+smartdown.setVariable('showD', false);
 
 // get the number of triangles from smartdown cell
-this.dependOn = ['play', 'showSR', 'hideSR', 'showArray', 'hideArray', 'segments', 'showD'];
+this.dependOn = ['show1', 'play', 'segments', 'show2', 'showSR', 'show3', 'showArray', 'show4', 'showD'];
 this.depend = function() {
 
-  if (env.showSR == true) {
-    SR.show();
-    smartdown.setVariable('showSR', false);
-  }
-
-  if (env.hideSR == true) {
-    SR.hide();
-    smartdown.setVariable('hideSR', false);
-  }
-
-  if (env.showArray == true) {
-    secRectArray.show();
-    smartdown.setVariable('showArray', false);
-  }
-
-  if (env.hideArray == true) {
+  if (env.show1 == true) {
+    smartdown.setVariable('show1',false);
+    smartdown.showDisclosure('tour1','','draggable,closeable,topright,shadow');
+    smartdown.hideDisclosure('tour2','','');
+    smartdown.hideDisclosure('tour3','','');
+    smartdown.hideDisclosure('tour4','','');
+    N = 4;
+    smartdown.setVariable('segments', 4);
     secRectArray.hide();
-    smartdown.setVariable('hideArray', false);
+
   }
 
   if (env.play == true) {
@@ -189,6 +177,37 @@ this.depend = function() {
   if (env.segments != N) {
     N = env.segments;
     secRectArray.slider.setValue(N);
+  }
+
+  if (env.show2 == true) {
+    smartdown.setVariable('show2',false);
+    smartdown.showDisclosure('tour2','','draggable,closeable,topright,shadow');
+    smartdown.hideDisclosure('tour1','','');
+  }
+
+  if (env.showSR == true) {
+    SR.show();
+    smartdown.setVariable('showSR', false);
+  }
+
+  if (env.show3 == true) {
+    smartdown.setVariable('show3',false);
+    smartdown.showDisclosure('tour3','','draggable,closeable,topright,shadow');
+    smartdown.hideDisclosure('tour2','','');
+  }
+
+
+  if (env.showArray == true) {
+    secRectArray.show();
+    SR.hide();
+    smartdown.setVariable('showArray', false);
+  }
+
+  if (env.show4 == true) {
+    smartdown.setVariable('show4',false);
+    smartdown.showDisclosure('tour4','','draggable,closeable,topright,shadow');
+    smartdown.hideDisclosure('tour3','','');
+    smartdown.showDisclosure('toolbar','','transparent');
   }
 
   if (env.showD == true) {
