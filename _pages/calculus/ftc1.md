@@ -4,12 +4,6 @@ smartdown: true
 header: 'none'
 ---
 
-# :::: tour1
-Here is an object moving in space.  
-[see object move](:=play=true)
-[N](:=show2=true)
-# ::::
-
 # :::: tour2
 The **distance** traveled by the object is equal to the **rate** times the **time**, $d = r \times t.$ We know two different geometric ways of showing this relationship.  [show relationship](:=showSR=true) The slope of the secant tells us the average speed between two time points.  The corresponding rectangle expresses the distance traveled as the product of the rate and the time.
 [N](:=show3=true) 
@@ -17,17 +11,18 @@ The **distance** traveled by the object is equal to the **rate** times the **tim
 
 # :::: tour3
 We can make more secants and rectangles over more intervals. [more intervals](:=showArray=true). What happens when these time intervals get smaller?
-Number of Time Periods [](:-segments/1/100/1) [](:!segments) 
+number of intervals [](:-segments/1/100/1) [](:!segments) 
 [N](:=show4=true)
 # ::::
 
 # :::: tour4
-As the time periods get very small, the rectangles define a new function that relates to our original curve.  It's related by the function $d = r \times t$.  [show rectangle curve](:=showD=true) This function gives the height of our rectangles. Remember that the height of each skinny rectangle is the average speed the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our speed curve.
+The rectangles define a new function that relates to our original curve. [show rectangle curve](:=showD=true)  Remember that the height of each skinny rectangle is the average speed the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our speed curve.
+number of intervals [](:-segments/1/100/1) [](:!segments)
 [Continue](/pages/secantRectangle1)
 # ::::
 
-[Tour](::tour1/closeable,draggable,topright,shadow) [see object move](:=play=true)  [more intervals](:=showArray=true) [show rectangle curve](:=showD=true) 
-number of intervals [](:-segments/1/100/1) [](:!segments)
+### The Shadow Rectangle Curve 
+[N](:=show2=true)[see object move](:=play=true) Here is an object moving in space. 
 ```javascript /autoplay
 
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
@@ -177,6 +172,7 @@ this.depend = function() {
   if (env.segments != N) {
     N = env.segments;
     secRectArray.slider.setValue(N);
+    SR.hide();
   }
 
   if (env.show2 == true) {
@@ -199,7 +195,6 @@ this.depend = function() {
 
   if (env.showArray == true) {
     secRectArray.show();
-    SR.hide();
     smartdown.setVariable('showArray', false);
   }
 

@@ -226,42 +226,17 @@ class BoolButton extends Slider {
   }
 }
 
-
-/*
-   This creates an interval on the X axis.  The interval can be resized with two gliders x1 and x2 on 
-   the X axis.  There is also a vertical glider midY in the middle of the interval.
-*/
-class XInterval {
-  constructor(b, X1, X2) {
+class BaseXInterval {
+  constructor(b) {
     this.board = b;
-    this.snapToGrid = true;
-    this.snapMargin = 0.05;
-
     let boundingBox = this.board.getBoundingBox();         // I've added these errors here to 
     this.Yerror = (boundingBox[1] - boundingBox[3]) / 100;  // give the widgets access to them.
     this.Xerror = (boundingBox[2] - boundingBox[0]) / 100;  // like they have access to the board
-
-    // create two gliders on the x axis
     this.xline = this.board.create('line', [[0,0],[1,0]], {visible:false});  // x axis line
-    this.x1 = b.create('glider', [X1,0,this.xline], {name: '', size:5, color:th.startPoint});
-    this.x2 = b.create('glider', [X2,0,this.xline], {name: '', size:5, color:th.endPoint});
-
-    // bind all functions that might be passed in a callback to this context
-    this.X1 = this.X1.bind(this);
-    this.X2 = this.X2.bind(this);
-    this.attachLeftX = this.attachLeftX.bind(this);
-    this.attachRightX = this.attachRightX.bind(this);
-    this.attachY = this.attachY.bind(this);
-    this.midX = this.midX.bind(this);
-    this.units = this.units.bind(this);
-    this.checkSnapToGrid = this.checkSnapToGrid.bind(this);
-    this.checkSnap = this.checkSnap.bind(this);
-    this.onUpdate = this.onUpdate.bind(this);
-
-    // create a vertical glider at the midpoint of the interval
-    this.vline = b.create('line', [[this.midX ,0], [this.midX, 1]], {visible:false});
-    this.midY = b.create('glider', [this.midX(), 0, this.vline], {
-      name: '', size:4, color:th.stroke, visible:false, showInfoBox:false});
+    this.x1 = undefined;
+    this.x2 = undefined;
+    this.vline = undefined;
+    this.midY = undefined;
   }
 
   // getters
@@ -277,6 +252,65 @@ class XInterval {
 
   attachY() { return 2 * this.Yerror; }
 
+  createMidLine() {
+    // create a vertical glider at the midpoint of the interval
+    this.vline = this.board.create('line', [[this.midX ,0], [this.midX, 1]], {visible:false});
+    this.midY = this.board.create('glider', [this.midX(), 0, this.vline], {
+      name: '', size:4, color:th.stroke, visible:false, showInfoBox:false});
+  }
+
+  // remove the interval from the board
+  delete() {
+    this.board.removeObject(this.xline);
+    this.board.removeObject(this.x1);
+    this.board.removeObject(this.x2);
+    this.board.removeObject(this.vline);
+    this.board.removeObject(this.midY);
+  }
+
+  show() {
+    this.x1.setAttribute({visible:true});
+    this.x2.setAttribute({visible:true});
+  }
+
+  hide() {
+    this.x1.setAttribute({visible:false});
+    this.x2.setAttribute({visible:false});
+    this.midY.setAttribute({visible:false});
+  }
+
+  onUpdate() { }
+}
+
+/*
+   This creates an interval on the X axis.  The interval can be resized with two gliders x1 and x2 on 
+   the X axis.  There is also a vertical glider midY in the middle of the interval.
+*/
+class XInterval extends BaseXInterval {
+  constructor(b, X1, X2) {
+    super(b);
+    this.snapToGrid = true;
+    this.snapMargin = 0.05;
+    this.index = -1;
+
+    // create two gliders on the x axis
+    this.x1 = b.create('glider', [X1,0,this.xline], {name: '', size:5, color:th.startPoint});
+    this.x2 = b.create('glider', [X2,0,this.xline], {name: '', size:5, color:th.endPoint});
+
+    // bind all functions that might be passed in a callback to this context
+    this.X1 = this.X1.bind(this);
+    this.X2 = this.X2.bind(this);
+    this.attachLeftX = this.attachLeftX.bind(this);
+    this.attachRightX = this.attachRightX.bind(this);
+    this.attachY = this.attachY.bind(this);
+    this.midX = this.midX.bind(this);
+    this.units = this.units.bind(this);
+    this.checkSnapToGrid = this.checkSnapToGrid.bind(this);
+    this.checkSnap = this.checkSnap.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+
+    this.createMidLine();
+  }
 
   setSnapMargin(margin) { this.snapMargin = margin; }
   turnOffSnapToGrid() { this.snapToGrid = false; }
@@ -305,28 +339,76 @@ class XInterval {
   // call back function for the board on what to update for this object
   onUpdate() { this.checkSnapToGrid(); }
 
-  // remove the interval from the board
-  delete() {
-    this.board.removeObject(this.xline);
-    this.board.removeObject(this.x1);
-    this.board.removeObject(this.x2);
-    this.board.removeObject(this.vline);
-    this.board.removeObject(this.midY);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+class XIntAFEndpoints extends BaseXInterval {
+  constructor(board, AF1, AF2) {
+    super(board);
+    this.x1 = this.board.create('point', [AF1,0], {name: '', size:5, color:th.stroke});
+    this.x2 = this.board.create('point', [AF2,0], {name: '', size:5, color:th.stroke});
+
+    // bind all functions that might be passed in a callback to this context
+    this.X1 = this.X1.bind(this);
+    this.X2 = this.X2.bind(this);
+    this.attachLeftX = this.attachLeftX.bind(this);
+    this.attachRightX = this.attachRightX.bind(this);
+    this.attachY = this.attachY.bind(this);
+    this.midX = this.midX.bind(this);
+    this.units = this.units.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+
+    this.createMidLine();
+
   }
 
-  show() {
-    this.x1.setAttribute({visible:true});
-    this.x2.setAttribute({visible:true});
-  }
-
-  hide() {
-    this.x1.setAttribute({visible:false});
-    this.x2.setAttribute({visible:false});
-    this.midY.setAttribute({visible:false});
-  }
 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////
+
+class XIntArrayElement extends BaseXInterval {
+  constructor(board, xint, index, N) {
+    super(board);
+    this.xint = xint;
+    this.index = index;
+    this.N = N;
+    this.snapped = false;
+
+    // bind all functions that might be passed in a callback to this context
+    this.X1 = this.X1.bind(this);
+    this.X2 = this.X2.bind(this);
+    this.attachLeftX = this.attachLeftX.bind(this);
+    this.attachRightX = this.attachRightX.bind(this);
+    this.attachY = this.attachY.bind(this);
+    this.midX = this.midX.bind(this);
+    this.units = this.units.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+
+    this.x1 = this.board.create('point', [
+      this.X1,
+      0], {name: '', size:5, color:th.stroke});
+    this.x2 = this.board.create('point', [
+      this.X2,
+      0], {name: '', size:5, color:th.stroke});
+
+
+    this.createMidLine();
+
+  }
+
+  X1() {
+    let delta = this.xint.units() / this.N;
+    return this.xint.X1() + this.index * delta;
+  }
+
+  X2() {
+    let delta = this.xint.units() / this.N;
+    return this.xint.X1() + (this.index+1) * delta;   
+  }
+}
+ 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 class BaseWidget {
@@ -1244,6 +1326,7 @@ class SecantRectangle {
       this.rectangle.turnOnAnnotations();
       this.secant.turnOnAnnotations();
   }
+
   turnOffAnnotations() {
       this.rectangle.turnOffAnnotations();
       this.secant.turnOffAnnotations();
@@ -1268,6 +1351,73 @@ class SecantRectangle {
   }
 }
 
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+class SecRectAdjArray {
+  constructor(board, xint, F, N, attr) {
+    this.board = board;
+    this.xint = xint;
+    this.elements = [];
+    this.N = N;
+    this.snapMargin = 0.5;
+ //   this.AF = this.AF.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+    this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
+    this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
+  
+
+    for (let i = 0; i < N; i++) {
+      let arrayXint = new XIntArrayElement(this.board, this.xint, i, N);
+      this.elements.push(new SecantRectangle(arrayXint,F,attr));
+      this.elements[this.elements.length - 1].attachButton.toggle();
+
+      // this.elements[this.elements.length - 1].secant.segment.on('over', this.turnOnAnnotations);
+      // this.elements[this.elements.length - 1].secant.segment.on('out', this.turnOffAnnotations);
+    }
+
+
+  }
+
+
+
+  checkSecantSnap(index) {
+    let element = this.elements[index];
+    let nextElement = this.elements[index + 1];
+    let end = element.xint.midY.Y() + element.secant.change();
+    let nextBegin = nextElement.xint.midY.Y();
+
+    if (Math.abs(nextBegin - end) <  + this.snapMargin) {   // are we close beginning of next segment?
+      element.xint.midY.moveTo([element.xint.midY.X(), nextBegin - element.secant.change()]);
+      element.snapped = true;
+    }
+    else { 
+      element.snapped = false;
+    }
+  }
+
+  onUpdate() {
+    for (let i=0; i < this.elements.length - 1; i++) {
+      this.checkSecantSnap(i);
+    }
+  }
+
+  getId() { return this.xint.index; }
+
+  turnOnAnnotations() {
+    // for (let i=0; i < this.elements.length; i++) {
+    //   // this.elements[i].secant.turnOnAnnotations();
+    //   // this.elements[i].secant.line.setAttribute({visible:false});
+    // }
+  }
+
+  turnOffAnnotations() {
+    for (let i=0; i < this.elements.length; i++) {
+      this.elements[i].secant.turnOffAnnotations();
+    }
+  }
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1961,6 +2111,8 @@ class Workspace extends StandardBoard {
   exports.Segment = Segment;
   exports.showAFFactory = showAFFactory;
   exports.hideAFFactory = hideAFFactory;
+  exports.SecRectAdjArray = SecRectAdjArray;
+  exports.XIntAFEndpoints = XIntAFEndpoints;
 
 });
 
