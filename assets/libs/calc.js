@@ -1354,31 +1354,70 @@ class SecantRectangle {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-class SecRectAdjArray {
+class SecRectAdjArray extends BaseWidget {
   constructor(board, xint, F, N, attr) {
-    this.board = board;
+    super(board,attr);
     this.xint = xint;
     this.elements = [];
     this.N = N;
     this.snapMargin = 0.5;
- //   this.AF = this.AF.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
-    this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
-    this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
-  
+    this.X2 = this.X2.bind(this);
+    this.changeStart = this.changeStart.bind(this);
+    this.area = this.area.bind(this);
+    this.change = this.change.bind(this);
+    this.changeTextX = this.changeTextX.bind(this);
+    this.changeTextY = this.changeTextY.bind(this);
+    this.changeTextVal = this.changeTextVal.bind(this);  
 
     for (let i = 0; i < N; i++) {
       let arrayXint = new XIntArrayElement(this.board, this.xint, i, N);
       this.elements.push(new SecantRectangle(arrayXint,F,attr));
       this.elements[this.elements.length - 1].attachButton.toggle();
-
-      // this.elements[this.elements.length - 1].secant.segment.on('over', this.turnOnAnnotations);
-      // this.elements[this.elements.length - 1].secant.segment.on('out', this.turnOffAnnotations);
     }
 
+    this.elements[0].xint.x1.setAttribute({visible:false});
+    this.elements[this.elements.length-1].xint.x2.setAttribute({visible:false});
+
+    this.p = this.board.create('point', [
+      this.X2,
+      this.changeStart], {visible:false});
+
+    this.riseLine = this.board.create('segment', [
+      this.elements[this.elements.length-1].secant.f2, 
+      this.p], 
+    {
+      strokeColor: th.lightAnnote, 
+      strokeWidth:th.strokeWidthAnnote, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
+
+    this.changeText = this.board.create('text', [
+      this.changeTextX,
+      this.changeTextY,
+      this.changeTextVal],
+      {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
 
   }
 
+  X2() { return this.xint.X2(); }
+  changeStart() { return this.elements[0].secant.fx1(); }
+
+  area() {
+    let sum = 0;
+    for (let i=0; i < this.elements.length; i++) {
+      sum += this.elements[i].area();
+    }
+    return sum;
+  }
+
+  change() { return this.area(); }
+
+  
+  changeTextX() { return this.xint.X2() + this.xint.Xerror; }
+  changeTextY() { return this.changeStart() + this.change() / 2; }
 
 
   checkSecantSnap(index) {
@@ -1396,26 +1435,31 @@ class SecRectAdjArray {
     }
   }
 
+
   onUpdate() {
     for (let i=0; i < this.elements.length - 1; i++) {
       this.checkSecantSnap(i);
     }
+
+    let allSnapped = true;
+    for (let i=0; i < this.elements.length - 1 && allSnapped; i++) {
+      if (!this.elements[i].snapped) { allSnapped = false; }
+    }
+
+    if (allSnapped) {
+      this.riseLine.setAttribute({visible:true});
+      this.changeText.setAttribute({visible:true});
+    }
+    else {
+      this.riseLine.setAttribute({visible:false});
+      this.changeText.setAttribute({visible:false});
+    }
+
+    this.xint.onUpdate();
   }
 
   getId() { return this.xint.index; }
 
-  turnOnAnnotations() {
-    // for (let i=0; i < this.elements.length; i++) {
-    //   // this.elements[i].secant.turnOnAnnotations();
-    //   // this.elements[i].secant.line.setAttribute({visible:false});
-    // }
-  }
-
-  turnOffAnnotations() {
-    for (let i=0; i < this.elements.length; i++) {
-      this.elements[i].secant.turnOffAnnotations();
-    }
-  }
 
 }
 
@@ -1984,7 +2028,7 @@ let widgetConstructor = {
       let slider = new IntSlider(xint.board, [xint.attachRightX, xint.attachY], [1, 100], 'N');
       return new SecantRectArray(xint, F, slider, attr); 
     },
-    6 : function(xint, F, attr) { return new AdjHeightRectangle(xint, F, attr); }
+    6 : function(xint, F, attr) { return new AdjHeightRectangle(xint, F, attr); },
 }
 
 let themeConstructor = {

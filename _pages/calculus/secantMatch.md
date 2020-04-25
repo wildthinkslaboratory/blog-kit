@@ -98,7 +98,7 @@ You've created a Secant Rectangle!  Take a moment to play with it.
 Why does the secant move up and down?
 # --outlinebox
 [What were you supposed to remember?](::remember/tooltip,transparent,shadow)
-[Continue](/pages/ftc1)
+[Continue](/pages/shadowRectCurve)
 # :::: remember
 # --outlinebox r
 **Remember:**
