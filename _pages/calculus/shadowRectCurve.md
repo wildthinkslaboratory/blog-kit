@@ -16,9 +16,9 @@ number of intervals [](:-segments/1/100/1) [](:!segments)
 # ::::
 
 # :::: tour4
-The rectangles define a new function that relates to our original curve. [show rectangle curve](:=showD=true)  Remember that the height of each skinny rectangle is the average speed the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our speed curve.
+The rectangles define a new function that relates to our original curve. [show shadow curve](:=showD=true)  Remember that the height of each skinny rectangle is the average speed the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our speed curve.
 number of intervals [](:-segments/1/100/1) [](:!segments)
-[Continue](/pages/secantRectangle1)
+[Continue](/pages/shadowSecantCurve)
 # ::::
 
 ### The Shadow Rectangle Curve 

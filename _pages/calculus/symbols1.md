@@ -22,7 +22,7 @@ function $f(x) = x^2 + 1$
 distances $h$ and $f(x+h) - f(x)$ 
 slope    $$\frac{f(x+h) - f(x)}{h}$$ 
 
-Here's the thing...  Look closely at these expressions. Mouse over them. Can you look at each forumula and envision in your mind where it belongs in the picture? Take your time. Mapping the formulas onto the picture might be the hardest part of learning calculus.  Especially if the only picture you have is in your head.  
+Here's the thing...  Look closely at these expressions. Mouse over them. Can you look at each forumula and envision in your mind where it belongs in the picture? Take your time. Mapping the formulas onto the picture might be the hardest part of learning calculus.   
 [Continue](/pages/derivative1)
 
 #### --outlinebox

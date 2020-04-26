@@ -1355,13 +1355,21 @@ class SecantRectangle {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+// so this is a weird class with a fairly specific purpose
+// I'm not going to fully extend it to implement the full Widget Interface
+// we'll see how things develop 
 class SecRectAdjArray extends BaseWidget {
   constructor(board, xint, F, N, attr) {
     super(board,attr);
+
+    ///////////////////////////////////////////////////////  initialize data members
     this.xint = xint;
-    this.elements = [];
+    this.elements = [];  
     this.N = N;
     this.snapMargin = 0.5;
+
+
+    ///////////////////////////////////////////////////////  bind functions
     this.onUpdate = this.onUpdate.bind(this);
     this.X2 = this.X2.bind(this);
     this.changeStart = this.changeStart.bind(this);
@@ -1371,15 +1379,21 @@ class SecRectAdjArray extends BaseWidget {
     this.changeTextY = this.changeTextY.bind(this);
     this.changeTextVal = this.changeTextVal.bind(this);  
 
+    ///////////////////////////////////////////////////////  add components to JSXGraph board
+
+    // an array of secant/rectangles
     for (let i = 0; i < N; i++) {
       let arrayXint = new XIntArrayElement(this.board, this.xint, i, N);
       this.elements.push(new SecantRectangle(arrayXint,F,attr));
       this.elements[this.elements.length - 1].attachButton.toggle();
     }
 
+    // we do this so you can see the parent interval colors
     this.elements[0].xint.x1.setAttribute({visible:false});
     this.elements[this.elements.length-1].xint.x2.setAttribute({visible:false});
 
+    // we have an extra annotation line that shows the 
+    // accumulated change of all the secants
     this.p = this.board.create('point', [
       this.X2,
       this.changeStart], {visible:false});
@@ -1403,9 +1417,13 @@ class SecRectAdjArray extends BaseWidget {
 
   }
 
+
+  // these functions are needed callbacks for placing jsxgraph objects.
   X2() { return this.xint.X2(); }
   changeStart() { return this.elements[0].secant.fx1(); }
 
+
+  // interface functions
   area() {
     let sum = 0;
     for (let i=0; i < this.elements.length; i++) {
@@ -1416,11 +1434,33 @@ class SecRectAdjArray extends BaseWidget {
 
   change() { return this.area(); }
 
-  
+  onUpdate() {                                         // first we snap together secants that are close
+    for (let i=0; i < this.elements.length - 1; i++) {
+      this.checkSecantSnap(i);
+    }
+
+    let allSnapped = true;                             // check to see if they are all snapped
+    for (let i=0; i < this.elements.length - 1 && allSnapped; i++) {
+      if (!this.elements[i].snapped) { allSnapped = false; }
+    }
+
+    if (allSnapped) {                                 // if they are all snapped then we turn on annotation
+      this.riseLine.setAttribute({visible:true});
+      this.changeText.setAttribute({visible:true});
+    }
+    else {
+      this.riseLine.setAttribute({visible:false});
+      this.changeText.setAttribute({visible:false});
+    }
+
+    this.xint.onUpdate();                           // update parent interval so it snaps to grid
+  }
+
+  // these are for placing the annotation
   changeTextX() { return this.xint.X2() + this.xint.Xerror; }
   changeTextY() { return this.changeStart() + this.change() / 2; }
 
-
+  // snap the secants together
   checkSecantSnap(index) {
     let element = this.elements[index];
     let nextElement = this.elements[index + 1];
@@ -1435,31 +1475,6 @@ class SecRectAdjArray extends BaseWidget {
       element.snapped = false;
     }
   }
-
-
-  onUpdate() {
-    for (let i=0; i < this.elements.length - 1; i++) {
-      this.checkSecantSnap(i);
-    }
-
-    let allSnapped = true;
-    for (let i=0; i < this.elements.length - 1 && allSnapped; i++) {
-      if (!this.elements[i].snapped) { allSnapped = false; }
-    }
-
-    if (allSnapped) {
-      this.riseLine.setAttribute({visible:true});
-      this.changeText.setAttribute({visible:true});
-    }
-    else {
-      this.riseLine.setAttribute({visible:false});
-      this.changeText.setAttribute({visible:false});
-    }
-
-    this.xint.onUpdate();
-  }
-
-  getId() { return this.xint.index; }
 
 
 }

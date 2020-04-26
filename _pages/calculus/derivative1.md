@@ -19,13 +19,13 @@ We've been answering lots of interesting questions by making our secants really 
 
 
 #### --outlinebox right1
-Consider the function $f(x) = x^2$.  Here's an expression for the slope of the secant line. 
-$$\frac{(x + h)^2 - x^2}{h}$$
-As $h$ gets close to $0$ our estimate of the rate gets more precise, [*h* close to 0](:=close=true) but if $h$ goes all the way to $0$, our estimate is undefined. [*h* all the way to 0](:=gotozero=true) How do we let $h$ go all the way to $0$ without dividing by $0$?
+The position of the car is described by the function $f(t) = t^2$.  How fast is the car traveling at time $t$? Here's an expression for the slope of the secant line. 
+$$\frac{(t + h)^2 - t^2}{h}$$
+As $h$ gets close to $0$ our estimate of the velocity at time $t$ gets more precise, [*h* close to 0](:=close=true) but if $h$ goes all the way to $0$, our estimate is undefined. [*h* all the way to 0](:=gotozero=true) How do we let $h$ go all the way to $0$ without dividing by $0$?
 [Reset](:=reset=true)  
 
 We use the limit as $h$ goes to $0$.
-$$\lim_{h \to 0} \frac{(x + h)^2 - x^2}{h}$$
+$$\lim_{h \to 0} \frac{(t + h)^2 - t^2}{h}$$
 With a limit, we only care about what happens near $h=0$.  If our expression is undefined at $h=0$, it doesn't matter.
 
 [Continue](/pages/derivative1)
@@ -58,16 +58,15 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 smartdown.showDisclosure('intro','','closeable,draggable,center,lightbox');
 
+left.innerHTML = `<div id='top' style='height:100px; width:100%; border:1px solid gray;background:#EEFFCC;border-radius:8px;'></div><div id='bottom' style='height:600px; width:100%; border: 1px solid gray;background:#FFFFFF;border-radius:8px;';></div>`;
 
-left.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
-
-let xlow = -3;
+let xlow = -0.5;
 let xhigh = 3;
 let ylow = -3;
 let yhigh = 8;
 
-let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
-let F = new ProblemFunction(function(x) { return x * x; }, '', 4, [xlow,xhigh], []);
+let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
+let F = new ProblemFunction(function(x) { return x * x; }, '', 4, [0,xhigh], []);
 let F_id = workspace.addFunction(F);
 
 
@@ -76,19 +75,25 @@ let secant = new Secant(xint, F.f, {showUnits:true,
   annotations:'on',  
   noChangeNumber:true,
   noUnitsNumber:true,
-  change:'(x+h)^2 - x^2',
+  change:'(t+h)^2 - t^2',
   units:'h',
   snapMargin:0.008
 });
 workspace.addElement(secant);
 
-secant.xint.x1.setAttribute({name:'x'});
-secant.xint.x2.setAttribute({name:'x + h'});
+secant.xint.x1.setAttribute({name:'t'});
+secant.xint.x2.setAttribute({name:'t + h'});
 
 let triangle = workspace.board.create('polygon', [secant.f1, secant.f2, secant.p1], {
   fillColor:'#55DDFF', 
   fillOpacity: 50,
   strokeWidth:3, visible:false});
+
+let t = workspace.board.create('glider', [0,0, workspace.xaxis], {name:'', face:'^', size:12, color:'green'});
+
+let p = workspace.board.create('point', [
+  function() { return t.X(); }, 
+  function() { return F.f(t.X()); }], {color:'green', name:''});
 
 
 let goClose = function() {
@@ -109,15 +114,55 @@ let resetSecant = function() {
   secant.xint.x2.moveTo([2,0]);
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////
+// second board
+
+
+let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-6,5,36,-2], keepaspectratio:false, axis:false, showCopyright:false});
+
+workspace.board.addChild(board1);
+
+let xaxis1 = board1.create('axis', [[0, 0], [1,0]], 
+  {name:'meters', 
+    withLabel: true,
+    label: {
+      fontSize: 20,
+      position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
+      offset: [-80, 20]   // (in pixels)
+    }
+  });
+
+let yaxis1 = board1.create('axis', [[0, 0], [0, 1]], 
+  {name:'', 
+    withLabel: false, 
+    label: {
+      fontSize: 20,
+      position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
+      offset: [-120, -20]   // (in pixels)
+    },
+    ticks: {visible:false}
+  }); 
+
+
+let carurl = 'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/9e01e8197b3bf685747ae134de3d75feb64ea6f4/car.png';
+let car = board1.create('image',[carurl, [function() { return F.f(t.X()) -4 ; },-0.2], [4,2]]);
+
+
+////////////////////////////////////////////////////////////////////////////////////
 
 workspace.board.on('update', function() {
   workspace.onUpdate();
 });
 
 
+let heightPercent = 0.7;
+let heightRatio = 1/6;
+
 this.sizeChanged = function() {
-  workspace.board.resizeContainer(left.offsetWidth, window.innerHeight * 0.7);
+  workspace.board.resizeContainer(left.offsetWidth, (1-heightRatio) * window.innerHeight * heightPercent);
+  board1.resizeContainer(left.offsetWidth, heightRatio * window.innerHeight * heightPercent);
 };
+
 
 this.sizeChanged();
 
@@ -151,7 +196,7 @@ right.classList.add('text-2-col');
 
 // set up highlight mapping for formulas.  connect them with their
 // model highlight
-const formula1 = document.getElementById('MathJax-Element-2-Frame');
+const formula1 = document.getElementById('MathJax-Element-3-Frame');
 formula1.onmouseover = onWideAFFactory(formula1, showAFFactory([triangle]));
 formula1.onmouseout = offWideAFFactory(formula1, hideAFFactory([triangle]));
 formula1.classList.add('highlightOffWide');
