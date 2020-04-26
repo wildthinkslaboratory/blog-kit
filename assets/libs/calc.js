@@ -2174,6 +2174,8 @@ class Workspace extends StandardBoard {
   exports.hideAFFactory = hideAFFactory;
   exports.SecRectAdjArray = SecRectAdjArray;
   exports.XIntAFEndpoints = XIntAFEndpoints;
+  exports.BlueTheme = BlueTheme;
+  exports.SteelTheme = SteelTheme;
 
 });
 

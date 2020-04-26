@@ -1,5 +1,5 @@
 ---
-title: Derivative 1
+title: Derivative
 smartdown: true
 header: 'none'
 ---
@@ -25,7 +25,7 @@ As $h$ gets close to $0$ our estimate of the velocity at time $t$ gets more prec
 
 We use the limit as $h$ goes to $0$.
 $$\lim_{h \to 0} \frac{(t + h)^2 - t^2}{h}$$
-With a limit, we only care about what happens near $h=0$.  If our expression is undefined at $h=0$, it doesn't matter.
+We let $h$ get infinitely close to $0$ without ever reaching it. With a limit, we only care about what happens near $h=0$.  If our expression is undefined at $h=0$, it doesn't matter.
 
 [Continue](/pages/derivative2)
 

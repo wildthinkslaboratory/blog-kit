@@ -24,6 +24,7 @@ Let's watch again as the secant line gets very small.  [secant to tangent](:=toT
 As the value of $h$ gets infinitely small but never reaches $0$, our secant becomes a [tangent line](::tangent/tooltip).
 
 The slope of the tangent line at any point is defined by the derivative function $f'(t) = 2t$ and gives us the velocity of the car. [show derivative](:=derivative=true)
+Notice that the slope of the tangent line matches the value of the derivative function for all values of $t$.
 
 [Continue](/pages/derivative2)
 
@@ -98,6 +99,14 @@ let df = workspace.board.create('functiongraph', [d, xlow, xhigh], {
   visible:false
 });
 
+let dfhighlight = workspace.board.create('functiongraph', [d, xlow, xhigh], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:6, 
+      visible:false
+    });
+
+
 let t2 = workspace.board.create('glider', [1,0, workspace.xaxis], 
   {name:'', face:'^', size:12, color:colors.fill, visible:false});
 let p2 = workspace.board.create('point', [
@@ -111,13 +120,14 @@ let tangent = workspace.board.create('line', [
   function() { return F.f(t2.X());},
   function() { return - d(t2.X());},1], {color:colors.stroke, visible:false});
 
+
 // some fabulous hackery to figure out the placement of the text
 let fakeText = workspace.board.create('text', [0,ylow - 2,'slope = 2.02'],{visible:true});
 let tWidth = textWidth(fakeText, workspace.board);
 let Xerror = (xhigh - xlow)/50;
 
 let tangentSlopeText = workspace.board.create('text',[
-  function() { return t2.X() - tWidth - Xerror; },
+  function() { return t2.X() - tWidth - 3 * Xerror; },
   function() { return F.f(t2.X());},
   function(){ return 'slope = '+ d(t2.X()).toFixed(2); }], {
     color:colors.lightAnnote,
@@ -256,6 +266,14 @@ this.depend = function() {
 outer.classList.add('outer');
 left.classList.add('playable-2-col');
 right.classList.add('text-2-col');
+
+// set up highlight mapping for formulas.  connect them with their
+// model highlight
+const formula1 = document.getElementById('MathJax-Element-5-Frame');
+formula1.onmouseover = onWideAFFactory(formula1, showAFFactory([dfhighlight]));
+formula1.onmouseout = offWideAFFactory(formula1, hideAFFactory([dfhighlight]));
+formula1.classList.add('highlightOffNarrow');
+
 
 
 ```

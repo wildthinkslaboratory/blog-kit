@@ -1,5 +1,5 @@
 ---
-title: Derivative 2
+title: Derivative
 smartdown: true
 header: 'none'
 ---
@@ -9,11 +9,12 @@ Note that this cancelation is allowed because we know that $h$ will never reach 
 # ::::
 
 ### Solving the Limit
-How do we solve this limit?  What happens to this expression as $h$ gets close to $0$?
+How do we solve this limit on paper without a computer?  What happens to this expression as $h$ gets close to $0$?
 [](:!formula|markdown)
-Some algebra will help make this limit easier to understand.  We can [expand](:=expand=true) the $(t+h)^2$.  Then we [combine](:=combine=true) like terms. We can [cancel](:=cancel=true) the $h$'s from the numerator and denominator. [note](::note/tooltip) Now we have a limit that is easier to think about. What happens to the expression $2t + h$ as the value of $h$ gets close to $0$? It becomes the expression $2t$.  To recap, we started with the function $f(t) = t^2$, we wrote an expression for a secant line on this function then took the limit as the secant line gets very small. We got a new function 
+Some algebra will help make this limit easier to understand.  We can [expand](:=expand=true) the $(t+h)^2$.  Then we [combine](:=combine=true) like terms. We can [cancel](:=cancel=true) the $h$'s from the numerator and denominator. [Note](::note/tooltip) Now we have a limit that is easier to think about. What happens to the expression $2t + h$ as the value of $h$ gets close to $0$? It becomes the expression $2t$.  To recap, we started with the function $f(t) = t^2$, we wrote an expression for a secant line on this function then took the limit as the secant line gets very small. We got a new function 
 $$f'(t) = 2t$$
 which we call the **derivative** of the function $f(t)$ and it tells us the velocity of the car at any point in time.
+[Continue](/pages/derivative3)
 
 
 
