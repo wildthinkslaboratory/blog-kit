@@ -21,14 +21,13 @@ We've been answering lots of interesting questions by making our secants really 
 #### --outlinebox right1
 The position of the car is described by the function $f(t) = t^2$.  How fast is the car traveling at time $t$? Here's an expression for the slope of the secant line. 
 $$\frac{(t + h)^2 - t^2}{h}$$
-As $h$ gets close to $0$ our estimate of the velocity at time $t$ gets more precise, [*h* close to 0](:=close=true) but if $h$ goes all the way to $0$, our estimate is undefined. [*h* all the way to 0](:=gotozero=true) How do we let $h$ go all the way to $0$ without dividing by $0$?
-[Reset](:=reset=true)  
+As $h$ gets close to $0$ our estimate of the velocity at time $t$ gets more precise, [*h* close to 0](:=close=true) but if $h$ goes all the way to $0$, our estimate is undefined. [*h* all the way to 0](:=gotozero=true) How do we let $h$ go all the way to $0$ without dividing by $0$? [Reset](:=reset=true)  
 
 We use the limit as $h$ goes to $0$.
 $$\lim_{h \to 0} \frac{(t + h)^2 - t^2}{h}$$
 With a limit, we only care about what happens near $h=0$.  If our expression is undefined at $h=0$, it doesn't matter.
 
-[Continue](/pages/derivative1)
+[Continue](/pages/derivative2)
 
 #### --outlinebox
 #### --outlinebox
