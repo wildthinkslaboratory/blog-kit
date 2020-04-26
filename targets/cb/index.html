@@ -8,16 +8,18 @@ headerapp: 'reimannSum.js'
 ---
 
 
+# --outlinebox calculus
 ```graphviz/autoplay
 digraph G {
+  
 	tooltip="wildthinks map";
 	fontsize="24";
 	fontname="Arial";
 	size="12,12";
   rankdir="LR";
-    subgraph cluster0 {
-        style=filled;
-        color=grey90;
+  bgcolor=transparent;
+    subgraph cluster1 {
+      color="transparent";
         secant[shape=none, URL="javascript:smartdown.setVariable('secant', true);", label="", image="/assets/images/calculus/secant.svg"];
 		    rectangle [shape=none, URL="javascript:smartdown.setVariable('rectangle', true);", label="", image="/assets/images/calculus/rectangle.svg"];
 		    FTC1 [shape=none, tooltip="secant / rectangle", URL="javascript:smartdown.setVariable('prelude', true);", label="", image="/assets/images/calculus/ftc1.svg"];
@@ -35,11 +37,24 @@ digraph G {
       derivative -> e;
       e -> FTC2;
       chainRule -> FTC2;
-        label = "Calculus";
+      label="Calculus";
     }
     
 }
 ```
+# --outlinebox
+
+```javascript /autoplay
+
+const calcDiv = document.getElementById('calculus');
+
+calcDiv.style.border = '2px solid #DDDDDD';
+calcDiv.style.borderRadius = '25px';
+calcDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
 # :::: change_rectangle
 # --outlinebox ob1
 Everything is always changing.  Even the rate of change is changing.
@@ -95,19 +110,22 @@ this.depend = function() {
     } 
   };
 ```
+
+# --outlinebox other
 ```graphviz/autoplay
 digraph G {
   tooltip="wildthinks map";
   fontsize="24";
   fontname="Arial";
   size="12,12";
+  bgcolor=transparent;
 
     subgraph cluster1 {
         problem1 [shape=none, tooltip="fly problem", URL="/pages/usamts1", label="", image="/assets/images/calculus/usamts1.svg"];
         problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
         label = "USAMTS Problems";
         style=filled;
-        color=grey90;
+        color=transparent;
         rankdir=TB;
     }
 
@@ -116,18 +134,31 @@ digraph G {
         strings [shape=none, tooltip="Godel meets Exploding Dots", URL="/pages/Strings", label="", image="/assets/images/calculus/strings.svg"];
         label = "Exploding Dots";
         style=filled;
-        color=grey90;
+        color=transparent;
     }
 
     subgraph cluster3 {
         fractal [shape=none, tooltip="Fractal Generator", URL="/pages/fractal", label="", image="/assets/images/calculus/fractal.svg"];
         label = "Other"
         style=filled;
-        color=grey90;
+        color=transparent;
   }
     
 }
 ```
+# --outlinebox
+
+```javascript /autoplay
+
+const otherDiv = document.getElementById('other');
+
+otherDiv.style.border = '2px solid #DDDDDD';
+otherDiv.style.borderRadius = '25px';
+otherDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
 # Featured Video
 Goldfish and Robin show how to solve a corn maze using topology.
 ![fullwidth](https://www.youtube.com/watch?v=eQYLL7XnM-4)
