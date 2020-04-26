@@ -84,6 +84,9 @@ if [ "$3" == "--remote" ]; then
 	cp -r _layouts _site/_layouts/
 	cp -r assets _site/assets/
 
+	if [[ -d classic ]]; then
+		cp -r classic _site/classic/
+	fi
 	if [[ -d _data ]]; then
 		cp -r _data _site/_data/
 	fi
@@ -123,6 +126,3 @@ fi
 # echo "# Open url: https://127.0.0.1:8989${targetBaseUrl}"
 # htp . 8989
 # exit 1
-
-
-

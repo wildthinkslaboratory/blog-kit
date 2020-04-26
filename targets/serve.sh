@@ -21,6 +21,12 @@ cd ${target}
 rm -rf _site/
 mkdir _site/
 
+
+pattern_theme='^theme: ([^#]+) \# blog-kit-theme'
+pattern_remote_theme='^remote_theme: ([^#]+) \# blog-kit-remote_theme'
+
+egrep -v "$pattern_remote_theme" _config.yml > _site/_config.yml
+
 syncChanges() {
 	echo "+++ syncChanges"
 	cp -v -r ../../_pages/* _pages/
@@ -49,6 +55,7 @@ trap "kill 0" EXIT
 (fswatch -o _theme_pages _theme_posts _theme_assets | while read g; do syncThemeChanges; done) &
 
 bundle exec jekyll serve \
+	--config=_site/_config.yml \
 	--baseurl=${targetBaseUrl} \
 	2>&1 \
 	| grep --line-buffered -v 'Passing a string to call() is deprecated and will be illegal' \
