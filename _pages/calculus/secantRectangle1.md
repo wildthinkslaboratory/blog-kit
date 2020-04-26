@@ -7,7 +7,7 @@ smartdown: true
 # :::: clue
 # --outlinebox
 ##### Car Ride
-The car is at position 5 meters at time $t=0$ and follows the speed curve given.  Estimate how far has the car traveled at time $t=8$ and it's position at time $t=8$?  Round your answers to the nearest whole number.
+The car is at position 5 meters at time $t=0$ and follows the speed curve given.  Estimate how far has the car travels between time $t=0$ and time $t=8$.  What is the car's position at time $t=8$?  Round your answers to the nearest whole number.
 # --outlinebox
 # ::::
 
@@ -111,7 +111,7 @@ this.depend = function() {
 
 # :::: success
 Success! 
-[Continue](/pages/rectangle4)
+[Continue](/pages/secantRectangle2)
 # ::::
 
 # :::: keeptrying
