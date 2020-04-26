@@ -153,7 +153,7 @@ JXG.Options.axis.ticks.majorHeight = 40;
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board
 
-board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[xlow,7,xhigh,-3], keepaspectratio:false, axis:false, showCopyright:false});
+board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[xlow,7,xhigh,-3], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
 
 
 let xaxis1 = board1.create('axis', [[0, 0], [1,0]], 

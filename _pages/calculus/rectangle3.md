@@ -156,7 +156,7 @@ let Atext = workspace.board.create('text', [
 // second board
 
 
-let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-20,5,100,-2], keepaspectratio:false, axis:false, showCopyright:false});
+let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-20,5,100,-2], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
 
 workspace.board.addChild(board1);
 

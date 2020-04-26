@@ -1964,7 +1964,8 @@ class StandardBoard {
       boundingbox:Box, 
       keepaspectratio:false, 
       axis:false, 
-      showCopyright:false
+      showCopyright:false,
+      showNavigation:false,
     });
 
     // some fabulous hackery to figure out the placement of the text

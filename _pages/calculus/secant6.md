@@ -180,6 +180,7 @@ let checkSnap = function() {
 let board1 = JXG.JSXGraph.initBoard('right',
             {boundingbox: [-1, 7, 5,-1], axis: true,
             showcopyright: false,
+            showNavigation:false,
             axisRatio:true,
             });
 

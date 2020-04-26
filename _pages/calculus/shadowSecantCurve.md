@@ -96,7 +96,7 @@ var s_graph = workspace.board.create('functiongraph', [s,0,8], {strokeColor:'#44
 
 
 
-let board2 = JXG.JSXGraph.initBoard('right', {boundingbox:[-1,16,2,-4], keepaspectratio:false, axis:false, showCopyright:false});
+let board2 = JXG.JSXGraph.initBoard('right', {boundingbox:[-1,16,2,-4], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
 
 let board2Yaxis = board2.create('axis', [[0, 0], [0, 1]], 
       {name:'m', 

@@ -174,7 +174,7 @@ let resetSecant = function() {
 // second board
 
 
-let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-6,5,36,-2], keepaspectratio:false, axis:false, showCopyright:false});
+let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-6,5,36,-2], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
 
 workspace.board.addChild(board1);
 

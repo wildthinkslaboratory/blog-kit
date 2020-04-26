@@ -158,7 +158,7 @@ let p = workspace.board.create('point', [
 // second board
 
 
-let board1 = JXG.JSXGraph.initBoard('right', {boundingbox:[-1,40,3,-5], keepaspectratio:false, axis:false, showCopyright:false});
+let board1 = JXG.JSXGraph.initBoard('right', {boundingbox:[-1,40,3,-5], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
 
 
 workspace.board.addChild(board1);
