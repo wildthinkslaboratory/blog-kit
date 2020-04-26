@@ -21,7 +21,7 @@ number of intervals [](:-segments/1/100/1) [](:!segments)
 [Continue](/pages/secantRectangle1)
 # ::::
 
-### The Shadow Rectangle Curve 
+### The Shadow Secant Curve 
 [N](:=show2=true)[see object move](:=play=true) Here is an object moving in space. 
 ```javascript /autoplay
 
@@ -45,15 +45,16 @@ let orange = '#EE5500';
 
 let xlow = -1.5;
 let xhigh = 8;
-let ylow = -4;
-let yhigh = 16;
+let ylow = -20;
+let yhigh = 30;
 
 
 let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
   { xlabel:'time (s)', ylabel:'position (m)', colorTheme:'steel'});
-let F = new ProblemFunction(function(t) { return Math.pow(t-4,4)/8 - 2 * (t-4) * (t-4) + 12; }, 
-  'position of object', 5, [0,xhigh], []);
+let F = new ProblemFunction(function(t) { return 4 * Math.pow(t-4,3)/8 - 4 * (t-4); }, 
+  'speed of object', 5, [0,xhigh], []);
 let F_id = workspace.addFunction(F);
+
 
 let t = workspace.board.create('point', [0,0], {visible:false});
 var p = workspace.board.create('point', [
@@ -68,20 +69,28 @@ let SR = new SecantRectangle(xint, F.f, {
   units:'t',
   attachButtonVisible:false
 });
+SR.attachButton.toggle();
+SR.xint.midY.moveTo([0,10]);
 SR.hide();
+
+
 
 let N = 4;
 let xintSR = new XInterval(workspace.board, 0, xhigh);
 let slider = new IntSlider(xintSR.board, [xintSR.attachRightX, xintSR.attachY], [1, 100], 'N');
 slider.setValue(N);
+
 let secRectArray = new SecantRectArray(xintSR, F.f, slider, {
   annotations:'off',
   attachButtonVisible:false
 });
+secRectArray.attachButton.toggle();
+//secRectArray.xint.midY.moveTo([0,20]);
 secRectArray.hide();
 
-// the derivative graph
-var s = function(t) { return 4 * Math.pow(t-4,3)/8 - 4 * (t-4); }
+
+// the derivative graph 
+var s = function(t) { return Math.pow(t-4,4)/8 - 2 * (t-4) * (t-4) + 12; };
 var s_graph = workspace.board.create('functiongraph', [s,0,8], {strokeColor:'#4499FF', strokeWidth:4, visible:false});
 
 
@@ -116,7 +125,7 @@ workspace.board.addChild(board2);
 
 let p2 = board2.create('point', [
   1.2, 
-  function() { return p.Y(); }], {color:orange, name:'', size:6});
+  function() { return s(p.X()); }], {color:orange, name:'', size:6});
 
 
 
@@ -151,17 +160,17 @@ smartdown.setVariable('showD', false);
 this.dependOn = ['show1', 'play', 'segments', 'show2', 'showSR', 'show3', 'showArray', 'show4', 'showD'];
 this.depend = function() {
 
-  if (env.show1 == true) {
-    smartdown.setVariable('show1',false);
-    smartdown.showDisclosure('tour1','','draggable,closeable,topright,shadow');
-    smartdown.hideDisclosure('tour2','','');
-    smartdown.hideDisclosure('tour3','','');
-    smartdown.hideDisclosure('tour4','','');
-    N = 4;
-    smartdown.setVariable('segments', 4);
-    secRectArray.hide();
+  // if (env.show1 == true) {
+  //   smartdown.setVariable('show1',false);
+  //   smartdown.showDisclosure('tour1','','draggable,closeable,topright,shadow');
+  //   smartdown.hideDisclosure('tour2','','');
+  //   smartdown.hideDisclosure('tour3','','');
+  //   smartdown.hideDisclosure('tour4','','');
+  //   N = 4;
+  //   smartdown.setVariable('segments', 4);
+  //   secRectArray.hide();
 
-  }
+  // }
 
   if (env.play == true) {
     smartdown.setVariable('play', false);
@@ -172,13 +181,12 @@ this.depend = function() {
   if (env.segments != N) {
     N = env.segments;
     secRectArray.slider.setValue(N);
-    SR.hide();
   }
 
   if (env.show2 == true) {
     smartdown.setVariable('show2',false);
     smartdown.showDisclosure('tour2','','draggable,closeable,topright,shadow');
-    smartdown.hideDisclosure('tour1','','');
+    //smartdown.hideDisclosure('tour1','','');
   }
 
   if (env.showSR == true) {
@@ -196,6 +204,7 @@ this.depend = function() {
   if (env.showArray == true) {
     secRectArray.show();
     smartdown.setVariable('showArray', false);
+    SR.hide();
   }
 
   if (env.show4 == true) {

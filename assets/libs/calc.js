@@ -1343,6 +1343,7 @@ class SecantRectangle {
 
   show() {
     this.secant.show();
+    this.xint.midY.setAttribute({visible:true});
     this.rectangle.show();
   }
   hide() {
@@ -1845,13 +1846,13 @@ class SecantRectArray {
     let x1 = this.xint.X1();
     let x2 = this.xint.X2();
     let delta = this.deltaX();
-    let x = [];
-    let y = [];
-    let lastPoint = x2 + 0.01;
+    let x = [x1];
+    let y = [0 + this.constant()];
+    let lastPoint = x2;
     let cum = 0;
-    for (let i=x1; i <= lastPoint; i += delta) {
-      x.push(i);
-      cum += this.f(i - delta/2) * delta;  // first get the area of current rectangle
+    for (let i=x1; i < lastPoint; i += delta) {
+      x.push(i + delta);
+      cum += this.f(i + delta/2) * delta;  // first get the area of current rectangle
       y.push(cum + this.constant());                      // sum of all rectangles so far.
     }
     this.secants.secants.dataX = x;
@@ -1902,6 +1903,7 @@ class SecantRectArray {
   show() {
     this.rectangles.show();
     this.secants.show();
+    this.xint.midY.setAttribute({visible:true});
     this.setUpAnnotations();
   }
 

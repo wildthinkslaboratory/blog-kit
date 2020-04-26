@@ -14,7 +14,7 @@ The car is at position 5 meters at time $t=0$ and follows the speed curve given.
 # :::: notes
 # --aliceblue
 ##### Note
-We can estimate the area under a curve by adding up the area of lots of tiny rectangles, but without a computer that's not a very practical solution.  If we want an exact answer, rather than a good estimate, we'd need to sum up an infinite number of rectangles.  No one knows how to do that directly.  The **the fundamental theorem of calculus** provides a brilliant solution.  Instead of adding up the areas of the rectangles, add up the vertical rise of all the tiny secants.  
+We can estimate the area under a curve by adding up the area of lots of tiny rectangles, but without a computer that's not a very practical solution.  If we want an exact answer, rather than a good estimate, we'd need to sum up an infinite number of rectangles.  No one knows how to do that directly.  The **the fundamental theorem of calculus** finds a clever way around this problem.  We can start here by noticing that the information we need is also in the secants.   
 # --aliceblue
 # ::::
 
