@@ -9,19 +9,23 @@ h1, h2, h3, h4, h5, h6, p, body {
   font-family: 'Asap', 'Open Sans', Arial, sans-serif !important;
 }
 
-header.masthead .post-heading  {
-  .subheading {
-    font-weight: 600;
-    font-size: 24px;
-    @media only screen and (max-width: 768px) {
-      font-weight: 200;
-      font-size: 18px;
+
+header.masthead  {
+  background-color: transparent !important;
+  .post-heading  {
+    .subheading {
+      font-weight: 600;
+      font-size: 24px;
+      @media only screen and (max-width: 768px) {
+        font-weight: 200;
+        font-size: 18px;
+      }
     }
-  }
-  img {
-    height: 150px;
-    @media only screen and (max-width: 768px) {
-      height: 80px;
+    img {
+      height: 150px;
+      @media only screen and (max-width: 768px) {
+        height: 80px;
+      }
     }
   }
 }
@@ -34,7 +38,7 @@ header.masthead .post-heading  {
  }
 
 .noheader {
-  margin-bottom: 100px !important;
+  margin-bottom: 60px !important;
 }
 
 .noheadernav {
@@ -50,9 +54,7 @@ header.masthead .post-heading  {
   }
 }
 
-header.masthead {
-	background-color: transparent !important;
-}
+
 
 .app-wrapper {
 	position: absolute;
@@ -146,7 +148,7 @@ header.masthead {
 .tabrow {
     text-align: center;
     list-style: none;
-    margin: 0px 0 0px;
+    margin: 0px;
     padding: 0;
     line-height: 24px;
     height: 26px;
@@ -189,7 +191,7 @@ header.masthead {
     width: 100%;
     bottom: 0;
     left: 0;
-    border-bottom: 1px solid #AAA;
+    border-bottom: 1px solid #DDD;
     z-index: 1;
 }
 .tabrow li:before,
