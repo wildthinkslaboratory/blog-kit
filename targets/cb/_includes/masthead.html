@@ -12,16 +12,6 @@
         {% endif %}
       {% endfor %}
     </ul>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script>
-      $(function() {
-        $("li").click(function(e) {
-          //e.preventDefault();
-          $("li").removeClass("selected");
-          $(this).addClass("selected");
-        });
-      });
-  </script>
   {% endif %}
 {% else %}
 
