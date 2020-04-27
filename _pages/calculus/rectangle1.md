@@ -1,6 +1,7 @@
 ---
 title: Rectangle 
 header: 'none'
+lesson: rectangle
 smartdown: true
 ---
 
