@@ -4,10 +4,10 @@ header: 'none'
 ---
 
 ### Julia Set Generator
-We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but if you check the 'use a random seed' box you'll get a random seed.  The random seeds don't always produce a visible pattern.  Sometimes changing the color scheme will make a pattern clearer.  You can also take a good seed and nudge it a little to find interesting patterns. Let us know if you find any great seeds so we can add them to our list. Enjoy!  
+We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but if you can enter your own seed or tweak one of the given seeds. Let us know if you find any great seeds so we can add them to our list. Enjoy!  
 
 [random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) [download pdf](:=download=true) 
- Use a random seed [](:XrandomSeed) **seed:** **A** [](:?A)  **B** [](:?B)
+**seed:** **A** [](:?A)  **B** [](:?B)
 
 ```javascript /playable/autoplay
 //smartdown.import=//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js

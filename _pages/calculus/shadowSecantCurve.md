@@ -51,7 +51,7 @@ let yhigh = 30;
 
 
 let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
-  { xlabel:'time (s)', ylabel:'position (m)', colorTheme:'steel'});
+  { xlabel:'time (s)', ylabel:'speed (m/s)', colorTheme:'steel'});
 let F = new ProblemFunction(function(t) { return 4 * Math.pow(t-4,3)/8 - 4 * (t-4); }, 
   'speed of object', 5, [0,xhigh], []);
 let F_id = workspace.addFunction(F);
