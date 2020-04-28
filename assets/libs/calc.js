@@ -1022,7 +1022,8 @@ class Rectangle extends BaseWidget {
 
     this.rect = this.board.create('polygon', [this.xint.x1, this.f1, this.f2, this.xint.x2], 
     {
-      borders: { strokeColor: th.stroke, highlightStrokeColor: th.highlightStroke},
+      //borders: { strokeColor: th.stroke, highlightStrokeColor: th.highlightStroke},
+      borders: { strokeColor: '#4488DD', strokeWidth: 8},
       fillColor:th.fill, 
       highlightFillColor:th.highlightFill, 
       fillOpacity:th.fillOpacity,
