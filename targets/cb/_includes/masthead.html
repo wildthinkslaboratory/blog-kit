@@ -4,7 +4,7 @@
 </header>  
   {% if page.lesson %}
     <ul class="tabrow">
-      {% for pg in site.rectangle %}
+      {% for pg in site.lessons[page.lesson] %}
         {% if pg.url == page.url %}
           <li class="selected"><a href="{{ pg.url | relative_url }}">{{ pg.name }}</a></li>
         {% else %}

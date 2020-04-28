@@ -2,6 +2,7 @@
 title: Everything has a Name and Symbols
 smartdown: true
 header: 'none'
+lesson: 3
 ---
 
 ### Everything has a Name and Symbols

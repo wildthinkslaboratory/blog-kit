@@ -1,7 +1,7 @@
 ---
 title: Plotting Rectangle Area 
 header: 'none'
-lesson: rectangle
+lesson: 0
 smartdown: true
 ---
 

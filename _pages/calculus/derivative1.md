@@ -2,6 +2,7 @@
 title: Derivative
 smartdown: true
 header: 'none'
+lesson: 3
 ---
 
 # :::: intro

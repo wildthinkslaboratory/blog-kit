@@ -1,6 +1,7 @@
 ---
 title: Secant Rectangle
 header: 'none'
+lesson: 2
 smartdown: true
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Rectangle 
 header: 'none'
-lesson: rectangle
+lesson: 0
 smartdown: true
 ---
 

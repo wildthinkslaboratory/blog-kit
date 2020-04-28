@@ -20,26 +20,67 @@ disqus:
     # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
     shortname: wildthinkslaboratory-github-io
 
-rectangle:
-  - url: /pages/rectangle1/
-    name: 1
-  - url: /pages/rectangle2/
-    name: 2
-  - url: /pages/rectangle3/
-    name: 3
-  - url: /pages/rectangle4/
-    name: 4
-  - url: /pages/rectangle5/
-    name: 5
-  - url: /pages/rectangleAUC/
-    name: 6
-  - url: /pages/work/
-    name: 7
-  - url: /pages/balance/
-    name: 8
-  - url: /pages/rectanglePoints/
-    name: 9
 
+lessons :
+  - 
+    - url: /pages/rectangle1/
+      name: 1
+    - url: /pages/rectangle2/
+      name: 2
+    - url: /pages/rectangle3/
+      name: 3
+    - url: /pages/rectangle4/
+      name: 4
+    - url: /pages/rectangle5/
+      name: 5
+    - url: /pages/rectangleAUC/
+      name: 6
+    - url: /pages/work/
+      name: 7
+    - url: /pages/balance/
+      name: 8
+    - url: /pages/rectanglePoints/
+      name: 9
+
+  - 
+    - url: /pages/secant1/
+      name: 1
+    - url: /pages/secant2/
+      name: 2
+    - url: /pages/secant3/
+      name: 3
+    - url: /pages/secant4/
+      name: 4
+    - url: /pages/secant5/
+      name: 5
+    - url: /pages/secant6/
+      name: 6
+    - url: /pages/secantPoints/
+      name: 7
+
+  - 
+    - url: /pages/prelude/
+      name: 1
+    - url: /pages/rectangleMatch/
+      name: 2
+    - url: /pages/secantMatch/
+      name: 3
+    - url: /pages/shadowRectCurve/
+      name: 4
+    - url: /pages/shadowSecantCurve/
+      name: 5
+    - url: /pages/secantRectangle1/
+      name: 6
+  
+  - 
+    - url: /pages/symbols1/
+      name: 1
+    - url: /pages/derivative1/
+      name: 2
+    - url: /pages/derivative2/
+      name: 3
+    - url: /pages/derivative3/
+      name: 4 
 
 # Build settings
 # remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes

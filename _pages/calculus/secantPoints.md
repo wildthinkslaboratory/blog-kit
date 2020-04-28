@@ -1,6 +1,7 @@
 ---
 title: Plotting Secant Slope 
 header: 'none'
+lesson: 1
 smartdown: true
 ---
 
