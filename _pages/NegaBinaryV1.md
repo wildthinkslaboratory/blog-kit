@@ -264,8 +264,6 @@ Also, we learned a new rule:   $\fbox{$\bullet$} \fbox{$\bullet$} \leftarrow \fb
 
 ## What's the code for -3?
 
-
-
 ```javascript /playable/autoplay/p5js
 
 // import the dots library

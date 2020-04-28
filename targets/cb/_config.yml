@@ -82,6 +82,18 @@ lessons :
     - url: /pages/derivative3/
       name: 4 
 
+  -
+    - url: /pages/NegaBinary1/
+      name: 1
+    - url: /pages/NegaBinary2/
+      name: 2
+    - url: /pages/NegaBinary3/
+      name: 3
+    - url: /pages/NegaBinary4/
+      name: 4
+    - url: /pages/NegaBinary5/
+      name: 5
+      
 # Build settings
 # remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes
 theme: jekyll-theme-clean-blog
