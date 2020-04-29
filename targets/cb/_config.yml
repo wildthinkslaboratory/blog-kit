@@ -22,7 +22,7 @@ disqus:
 
 
 lessons :
-  - 
+  rectangle: 
     - url: /pages/rectangle1/
       name: 1
     - url: /pages/rectangle2/
@@ -42,7 +42,7 @@ lessons :
     - url: /pages/rectanglePoints/
       name: 9
 
-  - 
+  secant:
     - url: /pages/secant1/
       name: 1
     - url: /pages/secant2/
@@ -55,10 +55,12 @@ lessons :
       name: 5
     - url: /pages/secant6/
       name: 6
-    - url: /pages/secantPoints/
+    - url: /pages/secant7/
       name: 7
+    - url: /pages/secantPoints/
+      name: 8
 
-  - 
+  secant_rectangle: 
     - url: /pages/prelude/
       name: 1
     - url: /pages/rectangleMatch/
@@ -72,7 +74,7 @@ lessons :
     - url: /pages/secantRectangle1/
       name: 6
   
-  - 
+  derivative: 
     - url: /pages/symbols1/
       name: 1
     - url: /pages/derivative1/
@@ -85,7 +87,8 @@ lessons :
       name: 5 
     - url: /pages/derivative5/
       name: 6
-  -
+      
+  negative_binary:
     - url: /pages/NegaBinary1/
       name: 1
     - url: /pages/NegaBinary2/

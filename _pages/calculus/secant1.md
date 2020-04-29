@@ -1,7 +1,7 @@
 ---
 title: Secant 
 header: 'none'
-lesson: 1
+lesson: 'secant'
 smartdown: true
 ---
 

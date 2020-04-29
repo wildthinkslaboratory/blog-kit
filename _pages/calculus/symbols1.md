@@ -2,7 +2,7 @@
 title: Everything has a Name and Symbols
 smartdown: true
 header: 'none'
-lesson: 3
+lesson: 'derivative'
 ---
 
 ### Everything has a Name and Symbols

@@ -2,7 +2,7 @@
 title: Negative Binary 
 smartdown: true
 header: 'none'
-lesson: 4
+lesson: 'negative_binary'
 ---
 
 #### What's the code for -3?

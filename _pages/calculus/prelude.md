@@ -1,7 +1,7 @@
 ---
 title: Prelude to Secant Rectangle 
 header: 'none'
-lesson: 2
+lesson: 'secant_rectangle'
 smartdown: true
 ---
 

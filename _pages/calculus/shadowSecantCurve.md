@@ -2,7 +2,7 @@
 title: Secant Rectangle
 smartdown: true
 header: 'none'
-lesson: 2
+lesson: 'secant_rectangle'
 ---
 
 # :::: tour2

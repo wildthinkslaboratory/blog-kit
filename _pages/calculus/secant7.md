@@ -5,28 +5,21 @@ lesson: 'secant'
 smartdown: true
 ---
 
+
 # :::: clue
 # --outlinebox
-###### Bunny Pen
-A rectangular pen $8\text{ft}^2$ in area is to be fenced off for a pet rabbit.  One side of the pen will be the barn wall. The remaining three sides we'll make with fencing. However, fencing is really expensive.  We need to find the dimensions for the pen that minimizes the length of fence.
-
-Say our pen has width $w$ and length $l$.  In order to get $8\text{ft}^2$ in area, we must have $wl = 8$. We also know that the length of fence $F$ will be  $F = 2w + l$.  We can write the amount of fencing in terms of the width $w$  as $F = 2w + \frac{8}{w}$
-
-What width gives the minimal cost pen and what is the rate of change of the function at that point?
+##### Rocket Launch
+Here is a graph showing the speed of a rocket during it's first launch phase. Estimate the acceleration of the rocket at 60 seconds and 120 seconds after lift off. 
 # --outlinebox
 # ::::
 
-# :::: notes
-# --aliceblue
-##### Note
 
-# --aliceblue
-# ::::
+[?](::clue/button,transparent,draggable,closeable,center,shadow) [Launch!](:=play=true) [Submit Solution](:=compute=true) You have a secant.
 
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
-minimal cost width [](:?s1) rate of change at minimum cost [](:?s2)
+acceleration at $t=60$ [](:?s1) $m / s^2$  $t=120$ [](:?s2) $m / s^2$  
 # ::::
+
 # :::: toolbar
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -49,7 +42,7 @@ let B = new ResourcePanel(p5);
 // Add the buttons you want on your resource panel
 // NOTE:  The value of page variable env.numButtons should match the number of buttons you add here
 
-B.addButton('secant'); 
+B.addButton('secant');
 
 smartdown.setVariable('numButtons', 1);  // keep track of number of buttons
 
@@ -77,17 +70,17 @@ p5.mousePressed = function()     // this function is called everytime the user c
     smartdown.setVariable('active', true);     // alert page we have an active button
   }
   
-  p5.loop();    // EnergyHack to enable looping for duration of drag.
+  // p5.loop();    // EnergyHack to enable looping for duration of drag.
 };
 
 
 p5.mouseReleased = function() {     // this function is called when the user releases the mouse
                                     // button after a click.
 
- // EnergyHack to stop looping 5 sec after release.
- window.setTimeout(function() {
-   p5.noLoop();
- }, 5000);
+  // EnergyHack to stop looping 5 sec after release.
+//  window.setTimeout(function() {
+//    p5.noLoop();
+//  }, 5000);
 };
 
 
@@ -116,13 +109,13 @@ this.depend = function() {
 
 # :::: success
 Success! 
-But don't be a cheapskate.  Buy some more fencing and give the bun some space to hop.
-[Continue](/pages/secant7)
+[Continue](/pages/secantPoints)
 # ::::
 
 # :::: keeptrying
 Keep trying. 
 # ::::
+
 
 
 ```javascript /autoplay
@@ -139,109 +132,79 @@ const myDiv = this.div;
 myDiv.style.width = '100%';
 myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
-myDiv.innerHTML = `<div id='left' style='height:700px; width:75%; float:left; border:1px solid gray;background:#FFFFFF;border-radius:8px;'></div><div id='right' style='height:700px; width:24%; float:left; border: 1px solid gray;background:#E2FFDD;border-radius:8px;';></div>`;
+myDiv.innerHTML = `<div id='left' style='height:700px; width:75%; float:left; border:1px solid gray;background:#FFFFFF;border-radius:8px;'></div><div id='right' style='height:700px; width:24%; float:left; border: 1px solid gray;background:#CCEEFF;border-radius:8px;';></div>`;
 
-let xlow = -1.5;
-let xhigh = 5;
-let ylow = -2;
-let yhigh = 15;
+let workspaceDivWidth = 0.75;
+let pictureDivWidth = 0.24;
+let workspaceDivHeight = 700;
+let pictureDivHeight = 700;
 
+let xlow = -30;
+let xhigh = 150;
+let ylow = -200;
+let yhigh = 2000;
 
+let c = 1 / 360;
 let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
-  { xlabel:'width (ft)', ylabel:'fencing (ft)'});
-let F = new ProblemFunction(function(x) { return  2*x + 8/x; }, 
-  'fence length', 0.7, [0,xhigh], []);
+  { xlabel:'time (s)', ylabel:'speed (m/s)'});
+let F = new ProblemFunction(function(x) { return c * Math.pow(x,3) / 3; }, 
+  'speed of rocket', 100, [0,xhigh], [60,120]);
 let F_id = workspace.addFunction(F);
 
-let w = workspace.board.create('glider', [4,0, workspace.xaxis], {
-  name:'', face:'^', size:12, color:'green'});
-let p = workspace.board.create('point', [
-  function() { return w.X(); }, 
-  function() { return F.f(w.X()); }], {color:'green', name:''});
+let t = workspace.board.create('glider', [0,0, workspace.xaxis], {name:'', face:'^', size:12, color:'green'});
 
-let checkSnap = function() {
-  let floor = Math.floor(w.X());           // are we close to the lower integer?
-  console.log('floor',floor);
-  if (w.X() < floor + 0.05) {
-    w.moveTo([floor,0]);
-    console.log('snapped');
-  }
-  else {                                         // are we close to the higher integer?
-    let ceiling = Math.ceil(w.X());
-    if (w.X() > ceiling - 0.05) {
-      w.moveTo([ceiling,0]);
-    }
-  }
-}
+let p = workspace.board.create('point', [
+  function() { return t.X(); }, 
+  function() { return F.f(t.X()); }], {color:'green', name:''});
+
+////////////////////////////////////////////////////////////////////////////////////
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board
 
 
-let board1 = JXG.JSXGraph.initBoard('right',
-            {boundingbox: [-1, 7, 5,-1], axis: true,
-            showcopyright: false,
-            showNavigation:false,
-            axisRatio:true,
-            });
+let board1 = JXG.JSXGraph.initBoard('right', {boundingbox:[-1,60000,2,-5000], keepaspectratio:false, axis:true, showCopyright:false, showNavigation:false});
+
 
 workspace.board.addChild(board1);
 
-
-let bunurl = '/assets/images/rabbit.svg';
-let bun = board1.create('image',[bunurl, [0.2,0.2], [0.5,0.5]], {fixed:true});
-
-
-let barn = board1.create('line',[[0,-1], [0,7] ],{strokeColor:'black', strokeWidth:5, straightFirst:false, straightLast:false, fixed:true});
-
-let widthF = function() { return w.X(); };
-let lengthF = function() { return 8/w.X(); };
-let p1 = board1.create('point', [widthF,0], {visible:false});
-let p2 = board1.create('point', [widthF,lengthF], {visible:false});
-let p3 = board1.create('point', [0,lengthF], {visible:false});
-
-let width1 = board1.create('segment',[[0,0], p1],{strokeColor:'brown', strokeWidth:2});
-let lengthLine = board1.create('segment',[p1,p2], {strokeColor:'brown', strokeWidth:2});
-let width2 = board1.create('segment',[p2,p3], {strokeColor:'brown', strokeWidth:2});
-
-let barnText = board1.create('text',[0.2, 4, 'barn wall'], {fontSize:12, color:'#999999', fixed:true});
-let lengthText = board1.create('text',[
-  function() { return w.X() + 0.2; }, 
-  function() { return lengthF() / 2; }, 
-  function() { return lengthF().toFixed(2) + ' ft'; }], 
-  {fontSize:12, color:'#999999'});
+let distance = function(x) { return c * Math.pow(x,4) / 12; }
+let rocketurl = 'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/cab590371e4346929cf9096e53d163e772e1d132/rocket.png';
+let rocket = board1.create('image',[rocketurl, [0.9,function() { return distance(t.X()) - 3000 ; }], [0.2,3000]]);
 
 
-let widthText = board1.create('text',[
-  function() { return w.X()/2 - 0.3; }, 
-  function() { return lengthF() + 0.2; }, 
-  function() { return w.X().toFixed(2) + ' ft'; }], 
-  {fontSize:12, color:'#999999'});
+let move = function() { 
+  t.moveTo([xhigh,0],5000, {effect: '--'} ); 
+}
 
-let areaText = board1.create('text',[
-  function() { return w.X()/2 - 0.2; }, 
-  function() { return lengthF() / 2; }, 
-  function() { return '8 ft^2'; }], 
-  {fontSize:12, color:'#999999'});
 
+let computeError = function() {
+  return 100 * Math.abs(1 - workspace.area() / 45600);
+};
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Event handling
+let checkAnswer = function() {
+  let error = computeError().toFixed(2);
+  smartdown.setVariable('error', error);
+  return error < 0.1;
+};
 
 let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
-
-  workspace.addElementByID(buttonType, percent, F_id, {
-    change:'ft', 
-    rate:'ft/ft', 
-    units:'ft',
+  workspace.addElementByID(1, percent, F_id, {
+    snapMargin:0.5,
     annotations:'on',
+    units:'s',
+    change: 'm/s',
+    rate: 'm / s^2',
     annotationPosition:'after',
-    showUnits:true 
-  });  
+    showUnits:true,
+  });
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 
@@ -253,7 +216,7 @@ this.div.onmousedown = function(e) {
 
 let widthPercent = 0.8;
 let heightPercent = 0.7;
-let widthRatio = 1/2;
+let widthRatio = 1/4;
 
 this.sizeChanged = function() {
   workspace.board.resizeContainer(window.innerWidth * widthPercent * (1 - widthRatio - 0.01), window.innerHeight * heightPercent);      
@@ -264,19 +227,24 @@ this.sizeChanged();
 
 workspace.board.on('update', function() {
   workspace.onUpdate();              // hook up workspace update functions
-  checkSnap();
 });
 
+smartdown.setVariable('compute', false);
+smartdown.setVariable('play', false);
 smartdown.setVariable('s1', '');
 smartdown.setVariable('s2', '');
-smartdown.setVariable('compute', false);
 
-this.dependOn = ['compute'];
+this.dependOn = ['compute', 'undo', 'play'];
 this.depend = function() {
+
+  if (env.play == true) {
+    smartdown.setVariable('play', false);
+    move();
+  }
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (env.s1 == '2' && env.s2 == '0') {
+    if (env.s1 == 10 && env.s2 == 40) {
       smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
@@ -285,7 +253,13 @@ this.depend = function() {
       smartdown.hideDisclosure('success','','');
     }
   }
+
+  // if (env.undo == true) {                // uncomment if you want an undo button
+  //   workspace.undo();
+  //   smartdown.setVariable('undo', false);
+  // }
 };
+
 
 
 ```
