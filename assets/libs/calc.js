@@ -1482,7 +1482,16 @@ class SecRectAdjArray extends BaseWidget {
     }
   }
 
-
+  delete() {
+    this.board.removeObject(this.changeText);
+    this.board.removeObject(this.riseLine);
+    this.board.removeObject(this.p);
+    while (this.elements.length > 0) {
+      let e = this.elements.pop();
+      e.delete();
+    }
+    this.xint.delete();
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////

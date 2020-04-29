@@ -73,6 +73,8 @@ lessons :
       name: 5
     - url: /pages/secantRectangle1/
       name: 6
+    - url: /pages/secantRectangle2/
+      name: 7
   
   derivative: 
     - url: /pages/symbols1/

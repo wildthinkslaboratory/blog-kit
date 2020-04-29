@@ -5,7 +5,7 @@ ogimage: /assets/images/calculus/fractal.jpg
 ---
 
 ### Julia Set Generator
-We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but if you can enter your own seed or tweak one of the given seeds. Let us know if you find any great seeds so we can add them to our list. Enjoy!  
+We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but you can enter your own seed or tweak one of the given seeds. Let us know if you find any great seeds so we can add them to our list. Enjoy!  
 
 [random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) [download pdf](:=download=true) 
 **seed:** **A** [](:?A)  **B** [](:?B)
@@ -90,7 +90,7 @@ let juliaSeeds = [
 [-0.76643, 0.1],
 [-0.10, -0.8397],
 [-0.749, 0.0229],
-[-0.542, -0.493]
+[-0.542, -0.4933]
 ];
 
 
