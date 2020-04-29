@@ -234,7 +234,7 @@ smartdown.setVariable('play', false);
 smartdown.setVariable('s1', '');
 smartdown.setVariable('s2', '');
 
-this.dependOn = ['compute', 'undo', 'play'];
+this.dependOn = ['compute', 'play'];
 this.depend = function() {
 
   if (env.play == true) {
