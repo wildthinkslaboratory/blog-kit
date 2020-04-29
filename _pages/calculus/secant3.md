@@ -9,7 +9,7 @@ ogimage: /assets/images/calculus/secant.jpg
 # :::: clue
 # --outlinebox
 ##### Car Ride
-The graph shows the position of the car through time.  Use the **secant** find the average speed the car is traveling during these time periods: $3 \leq t \leq 5$, $3 \leq t \leq 4$ and $3 \leq t \leq 3.5$. 
+The graph shows the position of the car through time.  Use the **secant** find the average speed the car is traveling during these time periods: $3 \leq t \leq 4$, $3 \leq t \leq 3.5$ and $3 \leq t \leq 3.25$. 
 # --outlinebox
 # ::::
 
@@ -22,7 +22,7 @@ The graph shows the position of the car through time.  Use the **secant** find t
 
 [?](::clue/button,transparent,draggable,closeable,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
-$3 \leq t \leq 5$ [](:?s1)  $3 \leq t \leq 4$ [](:?s2) $3 \leq t \leq 3.5$ [](:?s3) 
+$3 \leq t \leq 4$ [](:?s1)  $3 \leq t \leq 3.5$ [](:?s2) $3 \leq t \leq 3.25$ [](:?s3) 
 # ::::
 # :::: toolbar
 ```javascript /autoplay/p5js
@@ -144,6 +144,18 @@ let yhigh = 50;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
   { xlabel:'time (s)', ylabel:'distance (m)'});
+workspace.xaxis.removeAllTicks();
+
+workspace.board.create('ticks', [workspace.xaxis, 1], { // The number here is the distance between Major ticks
+  strokeColor:'#999',
+  majorHeight:10, // Need this because the JXG.Options one doesn't apply
+  drawLabels:true, // Needed, and only works for equidistant ticks
+  minorTicks:3, // The NUMBER of small ticks between each Major tick
+  drawZero:true
+ }
+);
+
+
 let F = new ProblemFunction(function(x) { return x * x; }, 'position of car', 3.5, [xlow,xhigh], [3, 3.5, 4, 5]);
 let F_id = workspace.addFunction(F);
 
@@ -229,8 +241,28 @@ this.sizeChanged = function() {
 this.sizeChanged();
 
 
+let checkSnap = function(point) {       // snap to 0.25 intervals
+  let xval = point.X() * 4;
+  let floor = Math.floor(xval);           // are we close to the lower integer?
+  if (xval < floor + 0.5) {
+    point.moveTo([floor/4,0]);
+  }
+  else {                                         // are we close to the higher integer?
+    let ceiling = Math.ceil(xval);
+    if (xval > ceiling - 0.5) {
+      point.moveTo([ceiling/4,0]);
+    }
+  }
+}
+
+
 workspace.board.on('update', function() {
   workspace.onUpdate();              // hook up workspace update functions
+  if (workspace.elements.length > 0) {
+    let xint = workspace.elements[workspace.elements.length - 1].xint;
+    checkSnap(xint.x1);
+    checkSnap(xint.x2);
+  }
 });
 
 
@@ -250,7 +282,7 @@ this.depend = function() {
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (env.s1 == 8 && env.s2 == 7 && env.s3 == 6.5) {
+    if (env.s1 == 7 && env.s2 == 6.5 && env.s3 == 6.25) {
       smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }

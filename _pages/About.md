@@ -1,5 +1,5 @@
 ---
-title: about 
+title: About 
 background: '/assets/images/Heidi.png'
 smartdown: true
 ---
