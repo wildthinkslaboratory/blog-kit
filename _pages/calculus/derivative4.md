@@ -5,11 +5,7 @@ header: 'none'
 lesson: 3
 ---
 
-# :::: tangent
-If a line intersects a function at the point $p$ and the slope of the line matches the **derivative** of the function at that same point $p$, then it is a **tangent** line to the function.  
-# ::::
-
-### Turning the Secant Into a Tangent
+### The Definition of the Derivative
 
 #### --outlinebox outer1
 
@@ -20,17 +16,11 @@ If a line intersects a function at the point $p$ and the slope of the line match
 
 
 #### --outlinebox right1
-Now we know that the limit as our secant gets very small for any time $t$ is described by the function $$f'(t) = 2t.$$
-Let's watch again as the secant line gets very small.  [secant to tangent](:=toTangent=true) [Reset](:=reset=true)
-As the value of $h$ gets arbitrarily small but never reaches $0$, our secant is getting closer and closer to a [tangent line](::tangent/tooltip).
-
-The slope of the tangent line at any point is defined by the derivative function $f'(t) = 2t$ and gives us the velocity of the car. [show derivative](:=derivative=true)
-Notice that the slope of the tangent line matches the value of the derivative function for all values of $t$.
-
-[Continue](/pages/derivative2)
-
-
-
+To find the **derivative** of the function $f(x)$, we take the slope of the secant $$\frac{f(x+h) - f(x)}{h}$$ and then take its limit as $h$ goes to $0$.
+$$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$   That means letting the secant get as small as we want without disappearing. [secant to tangent](:=toTangent=true) [Reset](:=reset=true)
+The secant turns into a **tangent** line and the derivative function
+$$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$  
+tells us the slope of the tangent line.
 #### --outlinebox
 #### --outlinebox
 
@@ -57,16 +47,15 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 //smartdown.import=/assets/libs/calc.js
 //smartdown.import=/assets/libs/mapping.js
 
-
-left.innerHTML = `<div id='top' style='height:100px; width:100%; border:1px solid gray;background:#EEFFCC;border-radius:8px;'></div><div id='bottom' style='height:600px; width:100%; border: 1px solid gray;background:#FFFFFF;border-radius:8px;';></div>`;
+left.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 
 let xlow = -0.5;
 let xhigh = 3;
 let ylow = -3;
 let yhigh = 8;
 
-let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
-let F = new ProblemFunction(function(x) { return x * x; }, '', 4, [0,xhigh], []);
+let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
+let F = new ProblemFunction(function(x) { return x * x; }, '', 4, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
 let xint = new XInterval(workspace.board, 1,2);
@@ -74,20 +63,19 @@ let secant = new Secant(xint, F.f, {showUnits:true,
   annotations:'on',  
   noChangeNumber:true,
   noUnitsNumber:true,
-  change:'(t+h)^2 - t^2',
+  change:'f(x+h) - f(x)',
   units:'h',
   snapMargin:0.008
 });
 workspace.addElement(secant);
 
-secant.xint.x1.setAttribute({name:'t'});
-secant.xint.x2.setAttribute({name:'t + h'});
+secant.xint.x1.setAttribute({name:'x'});
+secant.xint.x2.setAttribute({name:'x + h'});
 
-// a glider that moves the car
-let t = workspace.board.create('glider', [0,0, workspace.xaxis], {name:'', face:'^', size:12, color:'green'});
-let p = workspace.board.create('point', [
-  function() { return t.X(); }, 
-  function() { return F.f(t.X()); }], {color:'green', name:''});
+let triangle = workspace.board.create('polygon', [secant.f1, secant.f2, secant.p1], {
+  fillColor:'#55DDFF', 
+  fillOpacity: 50,
+  strokeWidth:3, visible:false});
 
 // get the color scheme for our extra workspace objects
 let colors = new SteelTheme();
@@ -99,6 +87,7 @@ let df = workspace.board.create('functiongraph', [d, xlow, xhigh], {
   highlightStrokeColor:colors.verylightAnnote,
   visible:false
 });
+
 
 let dfhighlight = workspace.board.create('functiongraph', [d, xlow, xhigh], 
     {
@@ -146,6 +135,9 @@ let animationCallBack = function() {
   p3.setAttribute({visible:true});
   tangent.setAttribute({visible:true});
   tangentSlopeText.setAttribute({visible:true});
+  df.setAttribute({visible:true});
+  p2.setAttribute({visible:true});
+  t2.setAttribute({visible:true});
 
 };
 
@@ -171,81 +163,26 @@ let resetSecant = function() {
   secant.xint.x2.moveTo([2,0]);
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////
-// second board
-
-
-let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-6,5,36,-2], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
-
-workspace.board.addChild(board1);
-
-let xaxis1 = board1.create('axis', [[0, 0], [1,0]], 
-  {name:'meters', 
-    withLabel: true,
-    label: {
-      fontSize: 20,
-      position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
-      offset: [-80, 20]   // (in pixels)
-    }
-  });
-
-let yaxis1 = board1.create('axis', [[0, 0], [0, 1]], 
-  {name:'', 
-    withLabel: false, 
-    label: {
-      fontSize: 20,
-      position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
-      offset: [-120, -20]   // (in pixels)
-    },
-    ticks: {visible:false}
-  }); 
-
-
-let carurl = 'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/9e01e8197b3bf685747ae134de3d75feb64ea6f4/car.png';
-let car = board1.create('image',[carurl, [function() { return F.f(t.X()) -4 ; },-0.2], [4,2]]);
-
-
-////////////////////////////////////////////////////////////////////////////////////
 
 workspace.board.on('update', function() {
   workspace.onUpdate();
 });
 
 
-let heightPercent = 0.7;
-let heightRatio = 1/6;
-
 this.sizeChanged = function() {
-  workspace.board.resizeContainer(left.offsetWidth, (1-heightRatio) * window.innerHeight * heightPercent);
-  board1.resizeContainer(left.offsetWidth, heightRatio * window.innerHeight * heightPercent);
+  workspace.board.resizeContainer(left.offsetWidth, window.innerHeight * 0.7);
 };
-
 
 this.sizeChanged();
 
-smartdown.setVariable('derivative', false);
+
 smartdown.setVariable('toTangent', false);
 smartdown.setVariable('reset', false);
 let derivativeOn = false;
 
-this.dependOn = ['derivative', 'toTangent', 'reset'];
+this.dependOn = ['toTangent', 'reset'];
 this.depend = function() {
-  if (env.derivative == true) {
-    smartdown.setVariable('derivative',false);
-    if (derivativeOn){
-      df.setAttribute({visible:false});
-      p2.setAttribute({visible:false});
-      t2.setAttribute({visible:false});
-      derivativeOn = false;
-    }
-    else {
-      df.setAttribute({visible:true});
-      p2.setAttribute({visible:true});
-      t2.setAttribute({visible:true});
-      derivativeOn = true;
-    }
 
-  }
   if (env.toTangent == true) {
     smartdown.setVariable('toTangent', false);
     goClose();
@@ -259,22 +196,29 @@ this.depend = function() {
     tangent.setAttribute({visible:false});
     tangentSlopeText.setAttribute({visible:false});
     secant.xint.x1.moveTo([1,0]);
+    df.setAttribute({visible:false});
+    p2.setAttribute({visible:false});
+    t2.setAttribute({visible:false});
   }
 };
-
-//////////////////////////////////////////////////////////////// NOTATION MAPPING
 
 outer.classList.add('outer');
 left.classList.add('playable-2-col');
 right.classList.add('text-2-col');
 
+
 // set up highlight mapping for formulas.  connect them with their
 // model highlight
-const formula1 = document.getElementById('MathJax-Element-7-Frame');
-formula1.onmouseover = onWideAFFactory(formula1, showAFFactory([dfhighlight]));
-formula1.onmouseout = offWideAFFactory(formula1, hideAFFactory([dfhighlight]));
-formula1.classList.add('highlightOffNarrow');
+const formula1 = document.getElementById('MathJax-Element-2-Frame');
+formula1.onmouseover = onWideAFFactory(formula1, showAFFactory([triangle]));
+formula1.onmouseout = offWideAFFactory(formula1, hideAFFactory([triangle]));
+formula1.classList.add('highlightOffWide');
 
+
+const formula2 = document.getElementById('MathJax-Element-6-Frame');
+formula2.onmouseover = onWideAFFactory(formula2, showAFFactory([dfhighlight]));
+formula2.onmouseout = offWideAFFactory(formula2, hideAFFactory([dfhighlight]));
+formula2.classList.add('highlightOffWide');
 
 
 ```
