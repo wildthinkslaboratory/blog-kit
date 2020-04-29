@@ -1107,7 +1107,10 @@ class Rectangle extends BaseWidget {
     let margin = (this.xint.X1() < this.xint.X2()) ? this.xint.Xerror : - this.xint.Xerror;
     return this.xint.X2() +  margin; 
   }
-  wdY() { return this.height() + 2 * this.xint.Yerror; }
+  wdY() { 
+    if (this.height() >= 0) { return this.height() + 2 * this.xint.Yerror; }
+    return this.height() - 2 * this.xint.Yerror;
+  }
   setFillColor(c) { this.rect.setAttribute({fillColor:c}); }
 
   // interface functions
@@ -1141,7 +1144,10 @@ class Rectangle extends BaseWidget {
 
   // this mangages the width text annotation
   unitsTextX() { return this.xint.midX() - this.unitsTextWidth()/2; }
-  unitsTextY() { return this.height() + 4 * this.xint.Yerror; }
+  unitsTextY() { 
+    if (this.rate() >= 0) { return this.height() + 4 * this.xint.Yerror; }
+    return this.height() - 6 * this.xint.Yerror; 
+  }
 
   // call back functions for annotations
   turnOnAnnotations() {

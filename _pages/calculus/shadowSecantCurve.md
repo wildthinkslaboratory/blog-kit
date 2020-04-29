@@ -147,7 +147,6 @@ let move = function() {
   t.moveTo([8,0],1000, {effect: '--', callback: function() {  t.moveTo([0,0]); } } ); 
 };
 
-smartdown.setVariable('show1', false);
 smartdown.setVariable('play', false);
 smartdown.setVariable('show2', false);
 smartdown.setVariable('segments', 4);
@@ -158,20 +157,8 @@ smartdown.setVariable('show4', false);
 smartdown.setVariable('showD', false);
 
 // get the number of triangles from smartdown cell
-this.dependOn = ['show1', 'play', 'segments', 'show2', 'showSR', 'show3', 'showArray', 'show4', 'showD'];
+this.dependOn = ['play', 'segments', 'show2', 'showSR', 'show3', 'showArray', 'show4', 'showD'];
 this.depend = function() {
-
-  // if (env.show1 == true) {
-  //   smartdown.setVariable('show1',false);
-  //   smartdown.showDisclosure('tour1','','draggable,closeable,topright,shadow');
-  //   smartdown.hideDisclosure('tour2','','');
-  //   smartdown.hideDisclosure('tour3','','');
-  //   smartdown.hideDisclosure('tour4','','');
-  //   N = 4;
-  //   smartdown.setVariable('segments', 4);
-  //   secRectArray.hide();
-
-  // }
 
   if (env.play == true) {
     smartdown.setVariable('play', false);
@@ -187,7 +174,6 @@ this.depend = function() {
   if (env.show2 == true) {
     smartdown.setVariable('show2',false);
     smartdown.showDisclosure('tour2','','draggable,closeable,topright,shadow');
-    //smartdown.hideDisclosure('tour1','','');
   }
 
   if (env.showSR == true) {
