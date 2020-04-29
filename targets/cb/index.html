@@ -21,8 +21,8 @@ digraph G {
   bgcolor=transparent;
     subgraph cluster1 {
       color="transparent";
+        rectangle [shape=none, URL="javascript:smartdown.setVariable('rectangle', true);", label="", image="/assets/images/calculus/rectangle.svg"];
         secant[shape=none, URL="javascript:smartdown.setVariable('secant', true);", label="", image="/assets/images/calculus/secant.svg"];
-		    rectangle [shape=none, URL="javascript:smartdown.setVariable('rectangle', true);", label="", image="/assets/images/calculus/rectangle.svg"];
 		    FTC1 [shape=none, tooltip="secant / rectangle", URL="javascript:smartdown.setVariable('prelude', true);", label="", image="/assets/images/calculus/ftc1.svg"];
         limit [shape=none, tooltip="limit",label="", image="/assets/images/calculus/limits.svg"];
 		    derivative [shape=none, tooltip="Definition of the Derivative" URL="/pages/symbols1", label="", image="/assets/images/calculus/derivative.svg"];
@@ -30,8 +30,8 @@ digraph G {
         e [shape=none, tooltip="e",label="", image="/assets/images/calculus/eToTheX.svg"];
         FTC2 [shape=none, tooltip="fundamental theorem of calculus",label="", image="/assets/images/calculus/ftc2.svg"];
 		  
+      rectangle -> FTC1;
 		  secant -> FTC1;
-		  rectangle -> FTC1;
       FTC1 -> limit;
       limit -> derivative;
 		  derivative -> chainRule;
