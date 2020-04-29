@@ -3,7 +3,7 @@ title: Rectangle
 header: 'none'
 lesson: 'rectangle'
 smartdown: true
-ogimage: /assets/images/posts/calculus.jpg
+ogimage: /assets/images/calculus/rectangle.svg
 ---
 
 # :::: toolbar
