@@ -22,6 +22,7 @@ $$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$   That means letting the seca
 The secant turns into a **tangent** line and the derivative function
 $$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$  
 tells us the slope of the tangent line.
+[Continue](/pages/derivative5)
 #### --outlinebox
 #### --outlinebox
 

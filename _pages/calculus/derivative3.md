@@ -28,7 +28,7 @@ As the value of $h$ gets arbitrarily small but never reaches $0$, our secant is 
 The slope of the tangent line at any point is defined by the derivative function $f'(t) = 2t$ and gives us the velocity of the car. [show derivative](:=derivative=true)
 Notice that the slope of the tangent line matches the value of the derivative function for all values of $t$.
 
-[Continue](/pages/derivative2)
+[Continue](/pages/derivative4)
 
 
 
