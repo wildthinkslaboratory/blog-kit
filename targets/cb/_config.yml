@@ -83,7 +83,8 @@ lessons :
       name: 4 
     - url: /pages/derivative4/
       name: 5 
-
+    - url: /pages/derivative5/
+      name: 6
   -
     - url: /pages/NegaBinary1/
       name: 1
