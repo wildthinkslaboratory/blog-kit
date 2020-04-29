@@ -3,6 +3,7 @@ title: Plotting Secant Slope
 header: 'none'
 lesson: 'secant'
 smartdown: true
+ogimage: /assets/images/calculus/secant.jpg
 ---
 
 # :::: notes

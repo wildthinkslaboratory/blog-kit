@@ -3,6 +3,7 @@ title: 'USAMTS Problem 4/1/30'
 smartdown: true
 header: 'narrow'
 background: '/assets/images/posts/fly.svg'
+ogimage: /assets/images/calculus/usamts2.jpg
 ---
 
 This problem is from the USA Mathematical Talent Search [USAMTS](https://www.usamts.org), a unique mathematical competition for middle school and high school students.    

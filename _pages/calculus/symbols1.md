@@ -3,6 +3,7 @@ title: Everything has a Name and Symbols
 smartdown: true
 header: 'none'
 lesson: 'derivative'
+ogimage: /assets/images/calculus/derivative.jpg
 ---
 
 ### Everything has a Name and Symbols

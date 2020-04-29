@@ -3,6 +3,7 @@ title: Derivative
 smartdown: true
 header: 'none'
 lesson: 'derivative'
+ogimage: /assets/images/calculus/derivative.jpg
 ---
 
 # :::: tangent

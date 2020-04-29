@@ -3,6 +3,7 @@ title: Negative Binary
 smartdown: true
 header: 'none'
 lesson: 'negative_binary'
+ogimage: /assets/images/calculus/negaBinary.jpg
 ---
 
 #### Play

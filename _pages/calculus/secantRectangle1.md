@@ -3,6 +3,7 @@ title: Secant Rectangle
 header: 'none'
 lesson: 'secant_rectangle'
 smartdown: true
+ogimage: /assets/images/calculus/ftc1.jpg
 ---
 
 # :::: clue

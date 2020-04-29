@@ -1,6 +1,7 @@
 ---
 smartdown: true
 header: 'none'
+ogimage: /assets/images/calculus/fractal.jpg
 ---
 
 ### Julia Set Generator

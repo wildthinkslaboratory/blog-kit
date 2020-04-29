@@ -3,6 +3,7 @@ title: Secant
 header: 'none'
 lesson: 'secant'
 smartdown: true
+ogimage: /assets/images/calculus/secant.jpg
 ---
 
 # :::: clue

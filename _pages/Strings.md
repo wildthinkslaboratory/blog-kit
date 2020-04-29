@@ -3,6 +3,7 @@ title: Exploding Dots Meets Kurt Gödel
 header: 'narrow'
 headerapp: 'fractal.js'
 smartdown: true
+ogimage: /assets/images/calculus/strings.jpg
 ---
 
 # --outlinebox notice
