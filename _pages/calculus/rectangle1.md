@@ -109,7 +109,7 @@ A rectangle is a great way to represent a rate of change problem.  The area of t
 
 # :::: clue3
 # --aliceblue
- We can use a rectangle to represent the cost of manifacturing widgets.  The area of the rectangle represents the change in cost.
+ We can use a rectangle to represent the cost of manufacturing widgets.  The area of the rectangle represents the change in cost.
  [N](:=show4=true)
 # --aliceblue
 
