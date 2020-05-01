@@ -4,17 +4,27 @@ smartdown: true
 header: 'none'
 ogimage: /assets/images/calculus/fractal.jpg
 ---
-
 ### Julia Set Generator
-We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but you can enter your own seed or tweak one of the given seeds. Let us know if you find any great seeds so we can add them to our list. Enjoy!  
+We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but you can enter your own seed or tweak one of the given seeds. Let us know if you find any great seeds so we can add them to our list. Enjoy!
 
+
+# :::: intro
+### Julia Set Generator
+We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but you can enter your own seed or tweak one of the given seeds. Let us know if you find any great seeds so we can add them to our list. Enjoy!
+[Close](::intro)
+# ::::
+
+# :::: panel
 [random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) [download pdf](:=download=true) 
 **seed:** **A** [](:?A)  **B** [](:?B)
+# ::::
 
-```javascript /playable/autoplay
+```javascript /autoplay/kiosk
 //smartdown.import=//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js
 
 
+smartdown.showDisclosure('panel','','center,draggable,shadow');
+smartdown.showDisclosure('intro','','center,draggable,shadow');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';
@@ -24,8 +34,8 @@ myDiv.innerHTML = `<canvas id="appCanvas"></canvas>`
 
 let canvas = document.getElementById("appCanvas"); 
 let context = canvas.getContext("2d");
-canvas.width  = window.innerWidth * 0.8;
-canvas.height = window.innerHeight * 0.7;
+canvas.width  = window.innerWidth;
+canvas.height = window.innerHeight;
 
 // our favorite julia seeds
 let juliaSeeds = [ 
@@ -206,7 +216,7 @@ function randomFractal() {
   smartdown.setVariable('B', seedB);
   suspendDepend = false;
 
-  zoom = 400 + Math.floor(Math.random() * 1000);
+  zoom = 1000 + Math.floor(Math.random() * 1000);
   generateColorSeed();
   generatePalette();
 }
@@ -386,8 +396,55 @@ this.depend = function() {
 
 }
 
-
-
-
-
 ```
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d

@@ -26,6 +26,8 @@ class BlueTheme {
     this.accent1 = purpleblue;
     this.accent2 = lightpurpleblue;
     this.fillOpacity = 0.5;
+    this.fill2 = '#FF66AA';
+    this.stroke2 = '#DD4488';
   }
 }
 
@@ -46,6 +48,8 @@ class SteelTheme {
     this.accent1 = purpleblue;
     this.accent2 = lightpurpleblue;
     this.fillOpacity = 0.2;
+    this.fill2 = '#FF66AA';
+    this.stroke2 = '#DD4488';
   }
 }
 
@@ -83,7 +87,7 @@ class Slider {
     let boundingBox = this.board.getBoundingBox();
     this.Yerror = (boundingBox[1] - boundingBox[3]) / 50;  
     this.Xerror = (boundingBox[2] - boundingBox[0]) / 50;
-    this.xdelta = 3 * this.Xerror;
+    this.xdeltaP = 3 * this.Xerror;
     this.Y = yf;      // position on the board
     this.X1 = xf;
     this.precision = 3;
@@ -120,12 +124,12 @@ class Slider {
 
   }
 
-  X2() { return this.X1() + this.xdelta; }
+  X2() { return this.X1() + this.xdeltaP; }
   gliderX() { return this.g.X(); }
-  textX() { return  this.X1() + this.xdelta + this.Xerror; }
+  textX() { return  this.X1() + this.xdeltaP + this.Xerror; }
 
   value() {
-    let percent = (this.g.X() - this.X1()) / this.xdelta;
+    let percent = (this.g.X() - this.X1()) / this.xdeltaP;
     return (this.low + (this.high - this.low) * percent).toFixed(this.precision);
   }
 
@@ -134,7 +138,7 @@ class Slider {
   setValue(v) {
     if (v < this.low || v > this.high) return;
     let percent = (v - this.low)/(this.high - this.low);
-    this.g.moveTo([this.X1() + percent * this.xdelta ,this.Y()]);
+    this.g.moveTo([this.X1() + percent * this.xdeltaP ,this.Y()]);
   }
 
   setPrecision(i) { this.precision = i; }
@@ -177,7 +181,7 @@ class BoolButton extends Slider {
   constructor(board, [xf, yf], name) {
     super(board, [xf, yf], [0,2], name);
     this.state = false;
-    this.xdelta = 0;
+    this.xdeltaP = 0;
     this.toggleCallback = undefined;
 
     this.toggle = this.toggle.bind(this);
@@ -399,13 +403,13 @@ class XIntArrayElement extends BaseXInterval {
   }
 
   X1() {
-    let delta = this.xint.units() / this.N;
-    return this.xint.X1() + this.index * delta;
+    let deltaP = this.xint.units() / this.N;
+    return this.xint.X1() + this.index * deltaP;
   }
 
   X2() {
-    let delta = this.xint.units() / this.N;
-    return this.xint.X1() + (this.index+1) * delta;   
+    let deltaP = this.xint.units() / this.N;
+    return this.xint.X1() + (this.index+1) * deltaP;   
   }
 }
  
@@ -1565,23 +1569,23 @@ class RectangleArray extends BaseWidget {
     this.total_area = 0;
     let x1 = this.xint.X1();
     let x2 = this.xint.X2();
-    let delta = (x2 - x1) / this.slider.value();
+    let deltaP = (x2 - x1) / this.slider.value();
     let x = [x1];
     let y = [0];
-    let lastRect = x2 - delta + 0.01;
-    for (let i=x1; i < lastRect; i += delta) {
+    let lastRect = x2 - deltaP + 0.01;
+    for (let i=x1; i < lastRect; i += deltaP) {
 
-      let height = this.f(i + delta/2);
+      let height = this.f(i + deltaP/2);
       x.push(i);  // four points of our rectangle
       y.push(height);
 
-      x.push(i + delta);
+      x.push(i + deltaP);
       y.push(height);
 
-      x.push(i + delta);
+      x.push(i + deltaP);
       y.push(0);
 
-      this.total_area += delta * height;
+      this.total_area += deltaP * height;
     }
 
     this.rectangles.dataX = x;
@@ -1730,11 +1734,11 @@ class SecantArray extends BaseWidget {
   updateDataArray() {
     let x1 = this.xint.X1();
     let x2 = this.xint.X2();
-    let delta = (x2-x1) / this.slider.value();
+    let deltaP = (x2-x1) / this.slider.value();
     let x = [];
     let y = [];
     let lastPoint = x2 + 0.01;
-    for (let i=x1; i <= lastPoint; i += delta) {
+    for (let i=x1; i <= lastPoint; i += deltaP) {
       x.push(i);
       y.push(this.f(i));
     }
@@ -1810,7 +1814,7 @@ class SecantRectArray {
     this.updateSecantData = this.updateSecantData.bind(this);
     this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
     this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
-    this.deltaX = this.deltaX.bind(this);
+    this.deltaPX = this.deltaPX.bind(this);
     this.constant = this.constant.bind(this);
     this.switchFunctions = this.switchFunctions.bind(this);
     this.area = this.area.bind(this);
@@ -1864,25 +1868,25 @@ class SecantRectArray {
     if (this.attachButton.state) {
       return this.f(x);      // rectangle curve is attached
     }
-    let dx = this.deltaX();
+    let dx = this.deltaPX();
     return  (this.f(x + dx/2) - this.f(x - dx/2)) / dx;  // slope of secant 
   }
 
   // helper functions for updateSecantData
-  deltaX() { return this.xint.units() / this.slider.value(); }
+  deltaPX() { return this.xint.units() / this.slider.value(); }
   constant() { return this.xint.midY.Y(); }
 
   updateSecantData() {
     let x1 = this.xint.X1();
     let x2 = this.xint.X2();
-    let delta = this.deltaX();
+    let deltaP = this.deltaPX();
     let x = [x1];
     let y = [0 + this.constant()];
     let lastPoint = x2;
     let cum = 0;
-    for (let i=x1; i < lastPoint; i += delta) {
-      x.push(i + delta);
-      cum += this.f(i + delta/2) * delta;  // first get the area of current rectangle
+    for (let i=x1; i < lastPoint; i += deltaP) {
+      x.push(i + deltaP);
+      cum += this.f(i + deltaP/2) * deltaP;  // first get the area of current rectangle
       y.push(cum + this.constant());                      // sum of all rectangles so far.
     }
     this.secants.secants.dataX = x;
@@ -1943,7 +1947,110 @@ class SecantRectArray {
   }
 }
 
+class Limit {
+  constructor(board, F, xVal, lVal) {
+    this.board = board;
+    this.f = F;
+    this.xValue = xVal;
+    this.lValue = lVal;
+    this.xaxis = this.board.create('line', [[0,0],[1,0]], {visible:false});  // x axis line
+    this.deltaP = this.board.create('glider', [this.xValue - 0.5, 0, this.xaxis], {
+      color:th.startPoint, size:4, name:'' });
 
+    this.limit = this.limit.bind(this);
+    this.X = this.X.bind(this);
+    this.leftB = this.leftB.bind(this);
+    this.rightB = this.rightB.bind(this);
+    this.lowerB = this.lowerB.bind(this);
+    this.upperB = this.upperB.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+
+
+
+    this.active = this.board.create('functiongraph', 
+      [this.f, this.leftB ,this.rightB], {strokeColor:th.stroke, strokeWidth:4});
+
+    let bb = this.board.getBoundingBox();
+    let ylow = bb[3];
+    let yhigh = bb[1];
+    let xlow = bb[0];
+    let xhigh = bb[2];
+
+    this.p1 = this.board.create('point', [this.leftB, ylow], {visible:false});
+    this.p2 = this.board.create('point', [this.leftB, yhigh], {visible:false});
+    this.p3 = this.board.create('point', [this.rightB, ylow], {visible:false});
+    this.p4 = this.board.create('point', [this.rightB, yhigh], {visible:false});
+    this.xRect = this.board.create('polygon', [this.p1,this.p2,this.p4,this.p3], {
+     fillColor:th.fill, 
+     fillOpacity: 0.05,
+     highlightFillColor:th.fill,
+     highlightFillOpacity: 0.1,
+     borders: { strokeColor:th.verylightAnnote, highlightStrokeColor: th.verylightAnnote}
+    });
+
+    this.Xline = this.board.create('line', [[this.X,0],[this.X,1]], 
+      {strokeColor:this.darkAnnote, strokeWidth:1, fixed:true});
+    this.yaxis = this.board.create('line', [[0,0],[0,1]], {visible:false});  // x axis line
+
+    this.Lline = this.board.create('line', [[0,this.limit], [1,this.limit]], 
+      {strokeColor:th.darkAnnote, strokeWidth:1});
+
+    this.epsilonP = this.board.create('glider', [0,this.lValue - 0.5 ,this.yaxis], {
+      color:th.startPoint, size:4, name:''});
+
+    this.p5 = this.board.create('point', [xlow, this.lowerB ], {visible:false});
+    this.p6 = this.board.create('point', [xhigh, this.lowerB], {visible:false});
+    this.p7 = this.board.create('point', [xlow, this.upperB], {visible:false});
+    this.p8 = this.board.create('point', [xhigh, this.upperB], {visible:false});
+    this.lRect = this.board.create('polygon', [this.p5,this.p6,this.p8,this.p7], {
+      fillColor:th.fill2,
+      fillOpacity: 0.4,
+      highlightFillColor: th.fill2,
+      highlightFillOpacity: 0.4,
+      borders: {strokeColor:th.stroke2, highlightStrokeColor:th.stroke2}
+    });
+
+  }
+
+  limit() { return this.lValue; }
+  X() { return this.xValue; }
+  leftB() { return this.deltaP.X(); }
+  rightB() { return this.xValue + (this.xValue - this.deltaP.X()); }
+  lowerB() { return this.epsilonP.Y(); }
+  upperB() { return this.lValue + (this.lValue - this.epsilonP.Y());}
+
+  delta() { return Math.abs(this.xValue - this.deltaP.X()); }
+  epsilon() { return Math.abs(this.lValue - this.epsilonP.Y()); }
+
+  setLimit(l) { this.lValue = l; }
+  setX(x) { this.xValue = x; }
+
+  reduceEpsilon() {
+    this.epsilonP.moveTo([0,this.epsilonP.Y() + (this.lValue - this.epsilonP.Y()) / 2 ]);
+  }
+
+  delete() {
+    this.board.removeObject(this.lRect);
+    this.board.removeObject(this.p8);
+    this.board.removeObject(this.p7);
+    this.board.removeObject(this.p6);
+    this.board.removeObject(this.p5);
+    this.board.removeObject(this.epsilonP);
+    this.board.removeObject(this.Lline);
+    this.board.removeObject(this.yaxis);
+    this.board.removeObject(this.Xline);
+    this.board.removeObject(this.xRect);
+    this.board.removeObject(this.p4);
+    this.board.removeObject(this.p3);
+    this.board.removeObject(this.p2);
+    this.board.removeObject(this.p1);
+    this.board.removeObject(this.active);
+    this.board.removeObject(this.deltaP);
+    this.board.removeObject(this.xaxis);
+  }
+
+  onUpdate() {}
+}
 
 
 class ProblemFunction {
@@ -2192,6 +2299,7 @@ class Workspace extends StandardBoard {
   exports.XIntAFEndpoints = XIntAFEndpoints;
   exports.BlueTheme = BlueTheme;
   exports.SteelTheme = SteelTheme;
+  exports.Limit = Limit;
 
 });
 
