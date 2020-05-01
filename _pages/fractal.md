@@ -7,24 +7,24 @@ ogimage: /assets/images/calculus/fractal.jpg
 ### Julia Set Generator
 We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but you can enter your own seed or tweak one of the given seeds. Let us know if you find any great seeds so we can add them to our list. Enjoy!
 
-
 # :::: intro
+# --outlinebox int
 ### Julia Set Generator
 We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but you can enter your own seed or tweak one of the given seeds. Let us know if you find any great seeds so we can add them to our list. Enjoy!
-[Close](::intro)
+# --outlinebox
 # ::::
 
 # :::: panel
 [random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) [download pdf](:=download=true) 
-**seed:** **A** [](:?A)  **B** [](:?B)
+**seed:** **A** [](:?A)  **B** [](:?B) [draw seed](:=redraw=true)
 # ::::
 
 ```javascript /autoplay/kiosk
 //smartdown.import=//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js
 
 
-smartdown.showDisclosure('panel','','center,draggable,shadow');
-smartdown.showDisclosure('intro','','center,draggable,shadow');
+smartdown.showDisclosure('panel','','bottomright,draggable,shadow');
+smartdown.showDisclosure('intro','','transparent,center,closeable,draggable,shadow');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';
@@ -32,8 +32,10 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<canvas id="appCanvas"></canvas>`
 
+
 let canvas = document.getElementById("appCanvas"); 
 let context = canvas.getContext("2d");
+
 canvas.width  = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -288,8 +290,10 @@ function newColors() {
 }
 
 window.addEventListener('resize', function(event){
-  canvas.width  = myDiv.offsetWidth;
-  canvas.height = window.innerHeight * 0.7;
+
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+
   draw();
 });
 
@@ -312,28 +316,29 @@ smartdown.setVariable('A', seedA);
 smartdown.setVariable('B', seedB);
 smartdown.setVariable('redraw', false);
 
-
-this.dependOn = ['randomRedraw','color','zoomin', 'zoomout','up', 'down','left','right','download', 'randomSeed', 'A', 'B', 'redraw'];
+this.dependOn = ['randomRedraw','color','zoomin', 'zoomout','up', 'down','left','right','download', 'randomSeed', 'redraw'];
 this.depend = function() {
 
-  // if (env.redraw == true) {
-  //   smartdown.setVariable('redraw', false);
-  //   console.log('seeds', seedA, seedB);
-  //   draw();
-  // }
-
-  if (!suspendDepend) {
-    let oldA = seedA.toFixed(5);
-    let newA = parseFloat(env.A).toFixed(5);
-    let oldB = seedB.toFixed(5);
-    let newB = parseFloat(env.B).toFixed(5);
-
-    if (oldA != newA || oldB != newB) { 
-      seedA = parseFloat(env.A);  
-      seedB = parseFloat(env.B); 
-      draw();
-    }
+  if (env.redraw == true) {
+    smartdown.setVariable('redraw', false);
+    seedA = parseFloat(env.A);  
+    seedB = parseFloat(env.B); 
+    console.log('seeds', seedA, seedB);
+    draw();
   }
+
+  // if (!suspendDepend) {
+  //   let oldA = seedA.toFixed(5);
+  //   let newA = parseFloat(env.A).toFixed(5);
+  //   let oldB = seedB.toFixed(5);
+  //   let newB = parseFloat(env.B).toFixed(5);
+
+  //   if (oldA != newA || oldB != newB) { 
+  //     seedA = parseFloat(env.A);  
+  //     seedB = parseFloat(env.B); 
+  //     draw();
+  //   }
+  // }
 
 
   if (env.randomSeed == true) { 
@@ -354,32 +359,32 @@ this.depend = function() {
   }
   if (env.zoomin == true) {
     smartdown.setVariable('zoomin', false);
-    zoom += 50;
+    zoom += 100;
     draw();
   }
   if (env.zoomout == true) {
     smartdown.setVariable('zoomout', false);
-    zoom -= 50;
+    zoom -= 100;
     draw();
   }
   if (env.up == true) {
     smartdown.setVariable('up', false);
-    pany -= 50;
+    pany -= 100;
     draw();
   }
   if (env.down == true) {
     smartdown.setVariable('down', false);
-    pany += 50;
+    pany += 100;
     draw();
   }
   if (env.left == true) {
     smartdown.setVariable('left', false);
-    panx -= 50;
+    panx -= 100;
     draw();
   }
   if (env.right == true) {
     smartdown.setVariable('right', false);
-    panx += 50;
+    panx += 100;
     draw();
   }
   if (env.download == true) {
@@ -394,57 +399,23 @@ this.depend = function() {
 
   }
 
+
 }
 
 ```
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
