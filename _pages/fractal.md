@@ -15,8 +15,25 @@ We had a great time learning about fractals at [Mathigon's](https://mathigon.org
 # ::::
 
 # :::: panel
-[random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) [download pdf](:=download=true) 
+[random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) 
 **seed:** **A** [](:?A)  **B** [](:?B) [draw seed](:=redraw=true)
+[prepare a download](:=download=true) 
+
+```javascript /autoplay/inline
+this.div.innerHTML = `<a></a>`;
+
+this.dependOn = ['imageForDownload'];
+this.depend = function() {
+  if (env.imageForDownload == '') {
+    this.div.innerHTML = `<a></a>`;
+  }
+  else {
+      this.div.innerHTML = `<a target="_blank" rel="noopener noreferrer" href=${env.imageForDownload}>download link</a>`;
+  }
+
+}
+
+```
 # ::::
 
 ```javascript /autoplay/kiosk
@@ -315,88 +332,74 @@ smartdown.setVariable('randomSeed', false);
 smartdown.setVariable('A', seedA);
 smartdown.setVariable('B', seedB);
 smartdown.setVariable('redraw', false);
+smartdown.setVariable('imageForDownload', '');
 
 this.dependOn = ['randomRedraw','color','zoomin', 'zoomout','up', 'down','left','right','download', 'randomSeed', 'redraw'];
 this.depend = function() {
 
-  if (env.redraw == true) {
-    smartdown.setVariable('redraw', false);
-    seedA = parseFloat(env.A);  
-    seedB = parseFloat(env.B); 
-    console.log('seeds', seedA, seedB);
-    draw();
-  }
-
-  // if (!suspendDepend) {
-  //   let oldA = seedA.toFixed(5);
-  //   let newA = parseFloat(env.A).toFixed(5);
-  //   let oldB = seedB.toFixed(5);
-  //   let newB = parseFloat(env.B).toFixed(5);
-
-  //   if (oldA != newA || oldB != newB) { 
-  //     seedA = parseFloat(env.A);  
-  //     seedB = parseFloat(env.B); 
-  //     draw();
-  //   }
-  // }
-
-
-  if (env.randomSeed == true) { 
-    useRandomSeed = true; 
-    zoom = 200;
-  }
-  else { useRandomSeed = false; }
-
-	if (env.randomRedraw == true) {
-		smartdown.setVariable('randomRedraw', false);
-    randomFractal();
-		draw();
-	}
-  if (env.color == true) {
-    smartdown.setVariable('color', false);
-    newColors();
-    draw();
-  }
-  if (env.zoomin == true) {
-    smartdown.setVariable('zoomin', false);
-    zoom += 100;
-    draw();
-  }
-  if (env.zoomout == true) {
-    smartdown.setVariable('zoomout', false);
-    zoom -= 100;
-    draw();
-  }
-  if (env.up == true) {
-    smartdown.setVariable('up', false);
-    pany -= 100;
-    draw();
-  }
-  if (env.down == true) {
-    smartdown.setVariable('down', false);
-    pany += 100;
-    draw();
-  }
-  if (env.left == true) {
-    smartdown.setVariable('left', false);
-    panx -= 100;
-    draw();
-  }
-  if (env.right == true) {
-    smartdown.setVariable('right', false);
-    panx += 100;
-    draw();
-  }
   if (env.download == true) {
     smartdown.setVariable('download', false);
-    var imgData = canvas.toDataURL("image/jpeg", 1.0);
-    var pdf = new jsPDF();
 
-    console.log(canvas.width, canvas.height);
-    pdf.addImage(imgData, 'JPEG', 0, 0, 210, canvas.height * 210 / canvas.width);
+    const imgData = canvas.toDataURL("image/jpg");
+    smartdown.setVariable('imageForDownload', imgData);
+  }
+  else {
+    smartdown.setVariable('imageForDownload', '');
+    if (env.redraw == true) {
+      smartdown.setVariable('redraw', false);
+      seedA = parseFloat(env.A);  
+      seedB = parseFloat(env.B); 
+      console.log('seeds', seedA, seedB);
+      draw();
+    }
 
-    pdf.save("download.pdf");
 
+    if (env.randomSeed == true) { 
+      useRandomSeed = true; 
+      zoom = 200;
+    }
+    else { useRandomSeed = false; }
+
+    if (env.randomRedraw == true) {
+      smartdown.setVariable('randomRedraw', false);
+      randomFractal();
+      draw();
+    }
+    if (env.color == true) {
+      smartdown.setVariable('color', false);
+      newColors();
+      draw();
+    }
+    if (env.zoomin == true) {
+      smartdown.setVariable('zoomin', false);
+      zoom += 100;
+      draw();
+    }
+    if (env.zoomout == true) {
+      smartdown.setVariable('zoomout', false);
+      zoom -= 100;
+      draw();
+    }
+    if (env.up == true) {
+      smartdown.setVariable('up', false);
+      pany -= 100;
+      draw();
+    }
+    if (env.down == true) {
+      smartdown.setVariable('down', false);
+      pany += 100;
+      draw();
+    }
+    if (env.left == true) {
+      smartdown.setVariable('left', false);
+      panx -= 100;
+      draw();
+    }
+    if (env.right == true) {
+      smartdown.setVariable('right', false);
+      panx += 100;
+      draw();
+    }
   }
 
 
