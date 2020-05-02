@@ -1947,16 +1947,39 @@ class SecantRectArray {
   }
 }
 
-class Limit {
-  constructor(board, F, xVal, lVal) {
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class EpsilonDeltaLimit {
+  constructor(board, F, xVal, lVal, attr = {}) {
+
+    ///////////////////////////////////////////////////////  initialize data members
     this.board = board;
     this.f = F;
-    this.xValue = xVal;
-    this.lValue = lVal;
+    this.xValue = xVal;               // the x value we are taking the limit at
+    this.lValue = lVal;               // limit at x
+    this.attr = attr;
+    this.deltaStrategy = undefined;   // strategy for reducing delta in response to epsilon
+    this.yaxis = this.board.create('line', [[0,0],[0,1]], {visible:false});  // y axis line
     this.xaxis = this.board.create('line', [[0,0],[1,0]], {visible:false});  // x axis line
-    this.deltaP = this.board.create('glider', [this.xValue - 0.5, 0, this.xaxis], {
-      color:th.startPoint, size:4, name:'' });
 
+    let bb = this.board.getBoundingBox();  // get the board dimensions
+    let ylow = bb[3];
+    let yhigh = bb[1];
+    let xlow = bb[0];
+    let xhigh = bb[2];
+    let firstDelta = (xhigh - xlow) * 0.2;
+    let firstEpsilon = (yhigh - ylow) * 0.1;
+
+
+    this.deltaP = this.board.create('glider', [this.xValue - firstDelta, 0, this.xaxis], {
+      color:th.startPoint, size:4, name:'' });
+    this.epsilonP = this.board.create('glider', [0,this.lValue - firstEpsilon ,this.yaxis], {
+      color:th.startPoint, size:4, name:''});
+
+    ///////////////////////////////////////////////////////  bind functions
     this.limit = this.limit.bind(this);
     this.X = this.X.bind(this);
     this.leftB = this.leftB.bind(this);
@@ -1965,17 +1988,14 @@ class Limit {
     this.upperB = this.upperB.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
 
-
+    ///////////////////////////////////////////////////////  data members with callback functions
+    this.Xline = this.board.create('line', [[this.X,0],[this.X,1]], 
+      {strokeColor:this.darkAnnote, strokeWidth:1, fixed:true});
+    this.Lline = this.board.create('line', [[0,this.limit], [1,this.limit]], 
+      {strokeColor:th.darkAnnote, strokeWidth:1});
 
     this.active = this.board.create('functiongraph', 
-      [this.f, this.leftB ,this.rightB], {strokeColor:th.stroke, strokeWidth:4});
-
-    let bb = this.board.getBoundingBox();
-    let ylow = bb[3];
-    let yhigh = bb[1];
-    let xlow = bb[0];
-    let xhigh = bb[2];
-
+      [this.f, this.leftB ,this.rightB], {strokeColor:th.stroke, strokeWidth:3});
     this.p1 = this.board.create('point', [this.leftB, ylow], {visible:false});
     this.p2 = this.board.create('point', [this.leftB, yhigh], {visible:false});
     this.p3 = this.board.create('point', [this.rightB, ylow], {visible:false});
@@ -1987,16 +2007,6 @@ class Limit {
      highlightFillOpacity: 0.1,
      borders: { strokeColor:th.verylightAnnote, highlightStrokeColor: th.verylightAnnote}
     });
-
-    this.Xline = this.board.create('line', [[this.X,0],[this.X,1]], 
-      {strokeColor:this.darkAnnote, strokeWidth:1, fixed:true});
-    this.yaxis = this.board.create('line', [[0,0],[0,1]], {visible:false});  // x axis line
-
-    this.Lline = this.board.create('line', [[0,this.limit], [1,this.limit]], 
-      {strokeColor:th.darkAnnote, strokeWidth:1});
-
-    this.epsilonP = this.board.create('glider', [0,this.lValue - 0.5 ,this.yaxis], {
-      color:th.startPoint, size:4, name:''});
 
     this.p5 = this.board.create('point', [xlow, this.lowerB ], {visible:false});
     this.p6 = this.board.create('point', [xhigh, this.lowerB], {visible:false});
@@ -2018,15 +2028,23 @@ class Limit {
   rightB() { return this.xValue + (this.xValue - this.deltaP.X()); }
   lowerB() { return this.epsilonP.Y(); }
   upperB() { return this.lValue + (this.lValue - this.epsilonP.Y());}
-
   delta() { return Math.abs(this.xValue - this.deltaP.X()); }
   epsilon() { return Math.abs(this.lValue - this.epsilonP.Y()); }
 
+
   setLimit(l) { this.lValue = l; }
   setX(x) { this.xValue = x; }
+  setDeltaStrategy(f) { this.deltaStrategy = f; }
 
   reduceEpsilon() {
     this.epsilonP.moveTo([0,this.epsilonP.Y() + (this.lValue - this.epsilonP.Y()) / 2 ]);
+  }
+
+  reduceDelta() {
+    if (this.deltaStrategy !== undefined) {
+      this.deltaP.moveTo([this.xValue - this.deltaStrategy(this.epsilon()),0]);
+    }
+    return;
   }
 
   delete() {
@@ -2051,6 +2069,115 @@ class Limit {
 
   onUpdate() {}
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+// case 1 yV == F(xV)
+// case 2 yV == undefined
+// case 3 yV !== undefined and yV !== F(xV)
+// case 4 yV = F(xV), but F is discontinuous at xV
+class ApproachLimit {
+  constructor(board, F, xV, fxV, attr = {}) {
+    this.board = board;
+    this.f = F;
+    this.xValue = xV;
+    this.fxValue = fxV;
+    this.attr = attr;
+    let boundingBox = this.board.getBoundingBox();         // I've added these errors here to 
+    this.Yerror = (boundingBox[1] - boundingBox[3]) / 100;  // give the widgets access to them.
+    this.Xerror = (boundingBox[2] - boundingBox[0]) / 100;  // like they have access to the board
+    this.precision = 2;
+
+
+    this.xaxis = this.board.create('line', [[0,0],[1,0]], {visible:false});  // x axis line   
+    this.glider = this.board.create('glider', [0,0, this.xaxis], {name:'', face:'^', size:12, color:'green'});
+
+    if (this.fxValue == undefined || this.fxValue !== this.f(this.xValue)) {
+      this.hole = this.board.create('point', [this.xValue, this.f(this.xValue)], { 
+        name:'', 
+        strokeColor: th.verylightAnnote, 
+        fillColor: '#FFFFFF', 
+        fillOpacity:0.6, size:4, fixed:true});
+    }
+
+    if (this.fxValue !== undefined && this.fxValue !== this.f(this.xValue)) {
+      this.fxPoint = this.board.create('point', [this.xValue, this.fxValue], 
+        {name:'', color:th.verylightAnnote});
+    }
+
+    this.gliderX = this.gliderX.bind(this);
+    this.fx = this.fx.bind(this);
+    this.textX = this.textX.bind(this);
+    this.textY = this.textY.bind(this);
+    this.textVal = this.textVal.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+
+    this.p = this.board.create('point', [
+     this.gliderX,
+     this.fx,
+     ], {name:'', size:4, color:'green'})
+
+    this.fVal = this.board.create('text',[
+      this.textX,
+      this.textY,
+      this.textVal],{fontSize:14});
+
+  }
+
+  gliderX() { return this.glider.X(); }
+  textX() { return this.glider.X() + this.Xerror; }
+  textY() { 
+    if (this.p.X() == this.xValue && this.fxValue !== undefined ) {
+      return this.fxValue + this.Yerror;
+    }
+    return this.f(this.glider.X()) + this.Yerror; 
+  }
+  textVal() { 
+    if (this.p.X() == this.xValue) {
+      if (this.fxValue == undefined){
+        return 'UNDEFINED';
+      }
+      return '(' + this.p.X().toFixed(2) + ',' + this.fxValue.toFixed(2) + ')'; 
+    }
+    return '(' + this.p.X().toFixed(this.precision) + ',' + this.p.Y().toFixed(this.precision) + ')'; 
+  }
+
+  // if function is undefined at this point it will still return a number
+  fx() {                                     
+    if (this.glider.X() == this.xValue && this.fxValue != undefined) { 
+      return this.fxValue; 
+    }
+    return this.f(this.glider.X()); 
+  }
+
+  onUpdate() {
+    let delta = Math.abs(this.xValue - this.p.X());
+    if (delta !== 0) {
+      let pr = 2;
+      while (Math.floor(delta * Math.pow(10,pr)) == 0) {
+        pr += 1;
+      }
+      this.precision = pr;
+      this.p.setAttribute({visible:true});
+    }
+    else {
+      if (this.fxValue == undefined) {
+        this.p.setAttribute({visible:false});
+      }
+    }
+  }
+
+  reduceDelta() {
+    this.glider.moveTo([this.glider.X() + (this.xValue - this.glider.X()) / 2,0],1000, {effect: '--'} );
+  }
+
+  eliminateDelta() {
+    this.glider.moveTo([this.xValue,0],1000, {effect: '--'} );
+  }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
 
 
 class ProblemFunction {
@@ -2299,7 +2426,9 @@ class Workspace extends StandardBoard {
   exports.XIntAFEndpoints = XIntAFEndpoints;
   exports.BlueTheme = BlueTheme;
   exports.SteelTheme = SteelTheme;
-  exports.Limit = Limit;
+  exports.EpsilonDeltaLimit = EpsilonDeltaLimit;
+  exports.ApproachLimit = ApproachLimit;
+
 
 });
 
