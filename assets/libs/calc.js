@@ -9,6 +9,7 @@ const tomato = '#FF2222';
 const purpleblue = '#7766FF';
 const lightpurpleblue  = '#EEEEFF';
 
+
 class BlueTheme {
   constructor() {
     this.fill = blue;

@@ -24,83 +24,87 @@ disqus:
 lessons :
   rectangle: 
     - url: /pages/rectangle1/
-      name: 1
+      name: one
     - url: /pages/rectangle2/
-      name: 2
+      name: two
     - url: /pages/rectangle3/
-      name: 3
+      name: three
     - url: /pages/rectangle4/
-      name: 4
+      name: four
     - url: /pages/rectangle5/
-      name: 5
+      name: five
     - url: /pages/rectangleAUC/
-      name: 6
+      name: six
     - url: /pages/work/
-      name: 7
+      name: seven
     - url: /pages/balance/
-      name: 8
+      name: eight
     - url: /pages/rectanglePoints/
-      name: 9
+      name: nine
 
   secant:
     - url: /pages/secant1/
-      name: 1
+      name: one
     - url: /pages/secant2/
-      name: 2
+      name: two
     - url: /pages/secant3/
-      name: 3
+      name: three
     - url: /pages/secant4/
-      name: 4
+      name: four
     - url: /pages/secant5/
-      name: 5
+      name: five
     - url: /pages/secant6/
-      name: 6
+      name: six
     - url: /pages/secant7/
-      name: 7
+      name: seven
     - url: /pages/secantPoints/
-      name: 8
+      name: eight
 
   secant_rectangle: 
     - url: /pages/prelude/
-      name: 1
+      name: one
     - url: /pages/rectangleMatch/
-      name: 2
+      name: two
     - url: /pages/secantMatch/
-      name: 3
+      name: three
     - url: /pages/shadowRectCurve/
-      name: 4
+      name: four
     - url: /pages/shadowSecantCurve/
-      name: 5
+      name: five
     - url: /pages/secantRectangle1/
-      name: 6
+      name: six
     - url: /pages/secantRectangle2/
-      name: 7
+      name: seven
   
   derivative: 
     - url: /pages/symbols1/
-      name: 1
+      name: one
     - url: /pages/derivative1/
-      name: 2
+      name: two
     - url: /pages/derivative2/
-      name: 3
+      name: three
     - url: /pages/derivative3/
-      name: 4 
+      name: four 
     - url: /pages/derivative4/
-      name: 5 
+      name: five 
     - url: /pages/derivative5/
-      name: 6
+      name: six
       
   negative_binary:
     - url: /pages/NegaBinary1/
-      name: 1
+      name: one
     - url: /pages/NegaBinary2/
-      name: 2
+      name: two
     - url: /pages/NegaBinary3/
-      name: 3
+      name: three
     - url: /pages/NegaBinary4/
-      name: 4
+      name: four
     - url: /pages/NegaBinary5/
-      name: 5
+      name: five
+
+  limit:
+    - url: /pages/limit1/
+      name: one
       
 # Build settings
 # remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes
