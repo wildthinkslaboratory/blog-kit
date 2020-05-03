@@ -1,15 +1,15 @@
 ---
 title: Limit
 smartdown: true
-lesson: 'limit'
-ogimage: /assets/images/calculus/limits.jpg
+lesson: 'more_limits'
 header: 'none'
+ogimage: /assets/images/calculus/limits.jpg
 ---
 
 # :::: note1 
 You can drag the green slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
 # ::::
-### Thinking about Limits
+### More Limits
 
 #### --outlinebox outer1
 
@@ -20,23 +20,24 @@ You can drag the green slider to get close to $x=1$, but you can get super close
 
 
 #### --outlinebox right1
-Here is a graph of the function
+Take a look at the following function.  Something is happening at $x=2$.
 $$ 
-f(x) = \frac{x^2 - 1}{x - 1}
+f(x) = \begin{cases} 
+      	x + 1 & \text{$x < 2$ or $x > 2$} \newline
+      	4 & x = 2 
+   \end{cases}
 $$
-Something interesting is happening at $x=1$.  You can:
-1. Go [closer](:=reduce=true) to $x=1$.  
-2. Go [all the way](:=all=true) to $x=1$.
+
+1. Go [closer](:=reduce=true) to $x=2$.  
+2. Go [all the way](:=all=true) to $x=2$.
+
+The limit as $x$ gets close to $2$ is [](:?s1). 
+The value at $x=2$ is [](:?s2)
+
 [NOTE:](::note1/tooltip)
 
-When $x=1$ the value of $f$ is undefined.  You can read more on the perils of dividing by zero [here](/pages/divideByZero#-blank).
-When $x$ gets close to $1$, $f(x)$ is getting close to [](:?s1). 
-# :::: conclusion
-We say that the **limit** of $f(x)$ as $x$ goes to $1$ is $2$ and we write it like this
-$$
-\lim_{x \to 1} \frac{x^2 - 1}{x-1} = 2
-$$
-[Continue](/pages/limit2)
+
+[Continue](/pages/limit4)
 # ::::
 #### --outlinebox
 #### --outlinebox
@@ -81,7 +82,7 @@ let F = new ProblemFunction(
 	'', 3.5, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
-let limit = new ApproachLimit(workspace.board, F.f, 1, undefined);
+let limit = new ApproachLimit(workspace.board, F.f, 2, 4);
 
 
 
@@ -140,11 +141,18 @@ right.classList.add('text-2-col');
 ```javascript /autoplay
 
 smartdown.setVariable('s1','');
-this.dependOn = ['s1'];  
+smartdown.setVariable('s2','');
+this.dependOn = ['s1', 's2'];  
 this.depend = function() {
   
-	if (env.s1 == '2') {
-		smartdown.showDisclosure('conclusion','','transparent');
+	if (env.s1 == '3') {
+		smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
+      	setTimeout(function () {
+        	smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');
+      	}, 3000);
+	}
+
+	if (env.s2 == '4') {
 		smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
       	setTimeout(function () {
         	smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');

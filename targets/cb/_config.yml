@@ -105,7 +105,16 @@ lessons :
   limit:
     - url: /pages/limit1/
       name: one
-      
+    - url: /pages/limit2/
+      name: two
+
+  more_limits:
+    - url: /pages/limit3/
+      name: one
+    - url: /pages/limit4/
+      name: two
+
+            
 # Build settings
 # remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes
 theme: jekyll-theme-clean-blog
