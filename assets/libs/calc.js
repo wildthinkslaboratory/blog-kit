@@ -1980,7 +1980,7 @@ class EpsilonDeltaLimit {
     this.deltaP = this.board.create('glider', [this.xValue - firstDelta, 0, this.xaxis], {
       color:th.startPoint, size:4, name:'' });
     this.epsilonP = this.board.create('glider', [0,this.lValue - firstEpsilon ,this.yaxis], {
-      color:th.startPoint, size:4, name:''});
+      color:th.stroke2, size:4, name:''});
 
     ///////////////////////////////////////////////////////  bind functions
     this.limit = this.limit.bind(this);
@@ -2072,8 +2072,10 @@ class EpsilonDeltaLimit {
   setX(x) { this.xValue = x; }
   setDeltaStrategy(f) { this.deltaStrategy = f; }
 
-  reduceEpsilon(moveTime = 0) {
-    this.epsilonP.moveTo([0,this.epsilonP.Y() + (this.lValue - this.epsilonP.Y()) / 2 ],moveTime, {effect: '--'});
+  reduceEpsilon(moveTime = 0, cbf = function(){ }) {
+    this.epsilonP.moveTo(
+      [0,this.epsilonP.Y() + (this.lValue - this.epsilonP.Y()) / 2 ],
+      moveTime, {effect: '--', callback: cbf});
   }
 
   reduceDelta(moveTime = 0) {

@@ -98,7 +98,7 @@ left.classList.remove('decoration-outlinebox');
 middle.classList.remove('decoration-outlinebox');
 right.classList.remove('decoration-outlinebox');
 
-outer.classList.add('outer');
+outer.classList.add('outer-multi-col');
 left.classList.add('text-3-col');
 middle.classList.add('text-3-col');
 right.classList.add('text-3-col');
@@ -119,7 +119,7 @@ left2.classList.remove('decoration-outlinebox');
 middle2.classList.remove('decoration-outlinebox');
 right2.classList.remove('decoration-outlinebox');
 
-outer2.classList.add('outer');
+outer2.classList.add('outer-multi-col');
 left2.classList.add('text-3-col');
 middle2.classList.add('text-3-col');
 right2.classList.add('text-3-col');

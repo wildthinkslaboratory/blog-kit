@@ -4,11 +4,18 @@
 
 @import "styles";
 
+/*  All fonts are set to Asap to match smartdown fonts. */
 
 h1, h2, h3, h4, h5, h6, p, body {
   font-family: 'Asap', 'Open Sans', Arial, sans-serif !important;
 }
 
+/*************************************************************************
+  PAGE HEADERS:
+  - first we adjust the main header
+  - we add a narrow header
+  - and a no header option
+**************************************************************************/
 
 header.masthead  {
   background-color: transparent !important;
@@ -30,7 +37,7 @@ header.masthead  {
   }
 }
 
- .narrow-heading {
+.narrow-heading {
  	padding: 80px 0 60px 0 !important;
 	@media only screen and (min-width: 768px) {
   		padding: 80px 0 60px 0 !important;
@@ -41,12 +48,14 @@ header.masthead  {
   margin-bottom: 60px !important;
 }
 
+// the navigation menu needs to stay dark when there's no header
 .noheadernav {
   a {
       color: #444 !important;
     }
 }
 
+// if it's the home page we lighten the overlay
 .home {
   .overlay {
     background-color: #BBBBBB !important;
@@ -54,8 +63,7 @@ header.masthead  {
   }
 }
 
-
-
+// this wrapper allows us to put an app in the background of header
 .app-wrapper {
 	position: absolute;
     top: 0;
@@ -65,13 +73,22 @@ header.masthead  {
     z-index: -1 !important;
 }
 
+/*************************************************************************
+  smartdown work around for the fact that disclosables are too wide.
+
+**************************************************************************/
 
 .smartdown-container .disclosable-shadow {
   max-width: 80%;
 }
 
 
-.outer {
+/*************************************************************************
+  formatting for multi column layout. 
+
+**************************************************************************/
+
+.outer-multi-col {
  
 }
 
@@ -92,7 +109,7 @@ header.masthead  {
 }
 
 @media (min-width: 800px) {
-  .outer {
+  .outer-multi-col {
    
   }
 
@@ -113,9 +130,12 @@ header.masthead  {
     display: inline-block;
     vertical-align: top;
   }
-
 }
 
+/*************************************************************************
+  
+
+**************************************************************************/
 
 .highlightOnWide {
   background-color: #55DDFF;
@@ -144,6 +164,13 @@ header.masthead  {
   border-radius: 5px;
   border: 1px solid #DDE9EE !important;
 }
+
+
+/*************************************************************************
+  
+
+**************************************************************************/
+
 
 .tabrow {
     text-align: center;
@@ -222,6 +249,11 @@ header.masthead  {
     box-shadow: -2px 2px 0 #FFF;
 }
 
+/*************************************************************************
+  
+
+**************************************************************************/
+
 .credits {
   width: 100%;
     background: #EEE;
@@ -239,4 +271,24 @@ header.masthead  {
     position: relative;
     z-index: 0;
     padding: 0 25px 0 25px;
+}
+
+/*************************************************************************
+  
+
+**************************************************************************/
+
+
+.instructions {
+  border: 2px solid #CCC;
+  background-color: #EEF9FF;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.instructions_hl {
+  border: 2px solid #CCC;
+  background-color: #FFF9EE;
+  padding: 10px;
+  border-radius: 5px;
 }

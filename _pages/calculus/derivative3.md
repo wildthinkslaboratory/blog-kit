@@ -47,7 +47,7 @@ outer.classList.remove('decoration-outlinebox');
 left.classList.remove('decoration-outlinebox');
 right.classList.remove('decoration-outlinebox');
 
-outer.classList.add('outer');
+outer.classList.add('outer-multi-col');
 left.classList.add('playable-2-col');
 right.classList.add('text-2-col');
 
@@ -265,7 +265,7 @@ this.depend = function() {
 
 //////////////////////////////////////////////////////////////// NOTATION MAPPING
 
-outer.classList.add('outer');
+outer.classList.add('outer-multi-col');
 left.classList.add('playable-2-col');
 right.classList.add('text-2-col');
 
