@@ -1,11 +1,19 @@
 ---
 title: Limit
 smartdown: true
+lesson: 'more_limits'
 header: 'none'
+ogimage: /assets/images/calculus/limits.jpg
 ---
-### The Epsilon Delta Game
 
-x [](:?myX) limit [](:?myLimit) [smaller epsilon](:=reduce=true) epsilon [](:!epsilon) delta [](:!delta)
+# :::: clue
+# --outlinebox 
+Try using the delta / epsilon game to prove that
+$$\lim_{x \to 0} x \sin\left( \frac{1}{x} \right) = 0$$
+# --outlinebox 
+# ::::
+#### Play Again
+[?](::clue/button,transparent,draggable,closeable,center,shadow)[my turn](:=myTurn=true) Take your turn and hit [Submit Turn](:=compute=true) Repeat!
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
 
@@ -34,8 +42,6 @@ let F = new ProblemFunction(
 	'', 3.5, [xlow,xhigh], [1]);
 let F_id = workspace.addFunction(F);
 
-let hole = workspace.board.create('point', [1,2], { name:'', strokeColor: '#AAAAAA', fillColor: '#FFFFFF', fillOpacity:0.4, size:4})
-
 let limit = new EpsilonDeltaLimit(workspace.board, F.f, 0, 0);
 
 
@@ -56,7 +62,7 @@ this.div.onmousedown = function(e) {
 
 
 let widthPercent = 0.8;
-let heightPercent = 0.7;
+let heightPercent = 0.6;
 
 this.sizeChanged = function() {
   workspace.board.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);       
@@ -67,32 +73,50 @@ this.sizeChanged();
 
 workspace.board.on('update', function() {
   workspace.onUpdate();              // hook up workspace update functions
-  smartdown.setVariable('epsilon', limit.epsilon().toFixed(3));
-  smartdown.setVariable('delta', limit.delta().toFixed(3));
 });
 
-smartdown.setVariable('epsilon', limit.epsilon().toFixed(3));
-smartdown.setVariable('delta', limit.delta().toFixed(3));
-smartdown.setVariable('reduce', false);
-smartdown.setVariable('myLimit', limit.limit());
-smartdown.setVariable('myX', limit.X());
+smartdown.setVariable('myTurn', false);
+smartdown.setVariable('compute', false);
 
-this.dependOn = ['reduce', 'myLimit', 'myX'];  
+
+this.dependOn = ['myTurn', 'compute'];  
 this.depend = function() {
   
-	if (env.reduce == true) {
-		smartdown.setVariable('reduce', false);
-		limit.reduceEpsilon();
-	}
-	else {
-		limit.setX(parseFloat(env.myX));
-		limit.setLimit(parseFloat(env.myLimit));
-		workspace.board.update();
+	if (env.myTurn == true) {
+		console.log('my turn!')
+		smartdown.setVariable('myTurn', false);
+		limit.reduceEpsilon(1000);
 	}
 
-
+	if (env.compute == true) {
+		smartdown.setVariable('compute', false);
+		if (limit.delta() <= limit.epsilon()) {
+			smartdown.showDisclosure('success','','bottomright,transparent,colorbox,shadow');
+	      	setTimeout(function () {
+	        	smartdown.hideDisclosure('success','','bottomright,colorbox,shadow');
+	      	}, 3000);
+		}
+		else {
+			smartdown.showDisclosure('tryagain','','bottomright,transparent,colorbox,shadow');
+	      	setTimeout(function () {
+	        	smartdown.hideDisclosure('tryagain','','bottomright,colorbox,shadow');
+	      	}, 3000);
+		}
+	}
 };
 
 
 ```
+# :::: success
+# --colorbox
+Great Move!
+# --colorbox
+# ::::
+
+# :::: tryagain
+# --colorbox
+Try again.
+# --colorbox
+# ::::
+
 

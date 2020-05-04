@@ -1973,6 +1973,8 @@ class EpsilonDeltaLimit {
     let xhigh = bb[2];
     let firstDelta = (xhigh - xlow) * 0.2;
     let firstEpsilon = (yhigh - ylow) * 0.1;
+    this.Yerror = (bb[1] - bb[3]) / 100;  // give the widgets access to them.
+    this.Xerror = (bb[2] - bb[0]) / 100;  // like they have access to the board
 
 
     this.deltaP = this.board.create('glider', [this.xValue - firstDelta, 0, this.xaxis], {
@@ -1989,9 +1991,10 @@ class EpsilonDeltaLimit {
     this.upperB = this.upperB.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
 
+
     ///////////////////////////////////////////////////////  data members with callback functions
     this.Xline = this.board.create('line', [[this.X,0],[this.X,1]], 
-      {strokeColor:this.darkAnnote, strokeWidth:1, fixed:true});
+      {strokeColor:this.darkAnnote, strokeWidth:1});
     this.Lline = this.board.create('line', [[0,this.limit], [1,this.limit]], 
       {strokeColor:th.darkAnnote, strokeWidth:1});
 
@@ -2009,17 +2012,49 @@ class EpsilonDeltaLimit {
      borders: { strokeColor:th.verylightAnnote, highlightStrokeColor: th.verylightAnnote}
     });
 
+    // this.p9 = this.board.create('point', [this.xValue, 4*this.Yerror ],{visible:false});
+    // this.p10 = this.board.create('point', [this.rightB, 4*this.Yerror ],{visible:false});
+
+    // this.deltaLine = this.board.create('segment', [this.p9, this.p10], 
+    // {
+    //   strokeColor: th.lightAnnote, 
+    //   strokeWidth:th.strokeWidthAnnote, 
+    //   firstArrow:true, 
+    //   lastArrow:true, 
+    //   visible:true
+    // });
+
+    // this.deltaText = this.board.create('text', [
+    //   this.deltaTextX,
+    //   this.deltaTextY,
+    //   ''],
+    //   {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
+
+
     this.p5 = this.board.create('point', [xlow, this.lowerB ], {visible:false});
     this.p6 = this.board.create('point', [xhigh, this.lowerB], {visible:false});
     this.p7 = this.board.create('point', [xlow, this.upperB], {visible:false});
     this.p8 = this.board.create('point', [xhigh, this.upperB], {visible:false});
     this.lRect = this.board.create('polygon', [this.p5,this.p6,this.p8,this.p7], {
       fillColor:th.fill2,
-      fillOpacity: 0.4,
+      fillOpacity: 0.1,
       highlightFillColor: th.fill2,
-      highlightFillOpacity: 0.4,
+      highlightFillOpacity: 0.1 ,
       borders: {strokeColor:th.stroke2, highlightStrokeColor:th.stroke2}
     });
+
+    // this.p11 = this.board.create('point', [4*this.Xerror, this.lValue],{visible:false});
+    // this.p12 = this.board.create('point', [4*this.Xerror, this.upperB],{visible:false});
+
+    // this.epsilonLine = this.board.create('segment', [this.p11, this.p12], 
+    // {
+    //   strokeColor: th.lightAnnote, 
+    //   strokeWidth:th.strokeWidthAnnote, 
+    //   firstArrow:true, 
+    //   lastArrow:true, 
+    //   visible:true
+    // });
+
 
   }
 
@@ -2037,13 +2072,13 @@ class EpsilonDeltaLimit {
   setX(x) { this.xValue = x; }
   setDeltaStrategy(f) { this.deltaStrategy = f; }
 
-  reduceEpsilon() {
-    this.epsilonP.moveTo([0,this.epsilonP.Y() + (this.lValue - this.epsilonP.Y()) / 2 ]);
+  reduceEpsilon(moveTime = 0) {
+    this.epsilonP.moveTo([0,this.epsilonP.Y() + (this.lValue - this.epsilonP.Y()) / 2 ],moveTime, {effect: '--'});
   }
 
-  reduceDelta() {
+  reduceDelta(moveTime = 0) {
     if (this.deltaStrategy !== undefined) {
-      this.deltaP.moveTo([this.xValue - this.deltaStrategy(this.epsilon()),0]);
+      this.deltaP.moveTo([this.xValue - this.deltaStrategy(this.epsilon()),0],moveTime, {effect: '--'});
     }
     return;
   }
@@ -2066,6 +2101,54 @@ class EpsilonDeltaLimit {
     this.board.removeObject(this.active);
     this.board.removeObject(this.deltaP);
     this.board.removeObject(this.xaxis);
+  }
+
+  showEpsilon() {
+    this.lRect.setAttribute({visible:true});
+    this.epsilonP.setAttribute({visible:true});
+    this.Lline.setAttribute({visible:true});
+    for (let i=0; i < this.lRect.borders.length; i++) {
+      this.lRect.borders[i].setAttribute({visible:true});
+    }
+  }
+
+  showDelta() {
+    this.xRect.setAttribute({visible:true});
+    this.Xline.setAttribute({visible:true});
+    this.active.setAttribute({visible:true});
+    this.deltaP.setAttribute({visible:true});
+    for (let i=0; i < this.xRect.borders.length; i++) {
+      this.xRect.borders[i].setAttribute({visible:true});
+    }
+  }
+
+  hideEpsilon() {
+    this.lRect.setAttribute({visible:false});
+    this.epsilonP.setAttribute({visible:false});
+    this.Lline.setAttribute({visible:false});
+    for (let i=0; i < this.lRect.borders.length; i++) {
+      this.lRect.borders[i].setAttribute({visible:false});
+    }
+  }
+
+  hideDelta() {
+    this.xRect.setAttribute({visible:false});
+    this.Xline.setAttribute({visible:false});
+    this.active.setAttribute({visible:false});
+    this.deltaP.setAttribute({visible:false});
+    for (let i=0; i < this.xRect.borders.length; i++) {
+      this.xRect.borders[i].setAttribute({visible:false});
+    }
+  }
+
+  show() {
+    this.showDelta();
+    this.showEpsilon();
+  }
+
+  hide() {
+    this.hideDelta();
+    this.hideEpsilon();
   }
 
   onUpdate() {}
