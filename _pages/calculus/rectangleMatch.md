@@ -94,7 +94,10 @@ this.depend = function() {
 
 ```
 # :::: success
-You've created a Secant Rectangle!  Play with it a little and then you can [continue](/pages/secantMatch).
+You've created a Secant Rectangle!  
+The **secant** and the **rectangle** are two different geometric ways of showing the same relationship.
+$$ \text{distance} = \text{rate} \times \text{time} $$
+Play with it a little and then you can [continue](/pages/secantMatch).
 # ::::
 
 # :::: keeptrying

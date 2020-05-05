@@ -17,6 +17,8 @@ function loadImages(playablep5) {
     playablep5.loadImage(path + 'secantRectArray2.png')]);
   images.push([playablep5.loadImage(path + 'limit.png'),
     playablep5.loadImage(path + 'limit2.png')]);
+  images.push([playablep5.loadImage(path + 'limit.png'),
+    playablep5.loadImage(path + 'limit2.png')]);
   images.push([playablep5.loadImage(path + 'epsilonDelta.png'),
     playablep5.loadImage(path + 'epsilonDelta2.png')]);
 }

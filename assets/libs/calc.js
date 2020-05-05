@@ -2396,6 +2396,7 @@ class Workspace extends StandardBoard {
   constructor(divName, Box, attributes = {}) {
     super(divName, Box, attributes)
     this.elements = [];
+    this.limits = [];
 
     this.onUpdate = this.onUpdate.bind(this);
     this.rise = this.rise.bind(this);

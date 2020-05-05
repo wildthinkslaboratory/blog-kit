@@ -98,18 +98,15 @@ You've created a Secant Rectangle!  Take a moment to play with it.
 # --outlinebox why
 **Question:**
 Why does the secant move up and down?
+[show explanation](::explanation/button,transparent)
 # --outlinebox
-[What were you supposed to remember?](::remember/tooltip,transparent,shadow)
+# :::: explanation
+**Explanation:**
+If we start with a secant, then we know the position of our object at the two time points at the endpoints of the secant.  We can compute the rate and distance that we need to draw the matching rectangle.
+
+If instead, we start with the rectangle, we know the rate over a given time period.  We can compute the distance traveled, but we don't have enought information to figure out the exact position of the object at the time interval endpoints.  The vertical position of the secant is unknown.
 [Continue](/pages/shadowRectCurve)
-# :::: remember
-# --outlinebox r
-**Remember:**
-If you know the position at two time points, you can figure out the rate of travel during that time interval.
-
-If you know the rate of travel during a time interval, you can figure out the distance traveled during that interval, but you can't figure out the exact position at the endpoints of the interval.
-# --outlinebox
 # ::::
-
 # ::::
 
 # :::: keeptrying
