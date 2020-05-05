@@ -483,11 +483,7 @@ class BaseWidget {
     return n;
   }
 
-  unitsTextWidth() {
-    if (this.unitsText == undefined ) return 0;
-    this.unitsText.updateSize();
-    return this.unitsText.getSize()[0] * this.boardwidth / this.board.canvasWidth;
-  }
+  unitsTextX() { return this.xint.midX(); }
 
   changeTextWidth() {
     if (this.changeText == undefined ) return 0;
@@ -534,7 +530,6 @@ class Segment extends BaseWidget {
     this.unitsTextX = this.unitsTextX.bind(this);
     this.unitsTextY = this.unitsTextY.bind(this);
     this.unitsTextVal = this.unitsTextVal.bind(this);
-    this.unitsTextWidth = this.unitsTextWidth.bind(this);
     this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
     this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
@@ -598,8 +593,11 @@ class Segment extends BaseWidget {
     this.unitsText = this.board.create('text', [
       this.unitsTextX,
       this.unitsTextY,
-      this.unitsTextVal],
-      {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
+      this.unitsTextVal],{
+        strokeColor: th.lightAnnote, 
+        fontSize: th.fontSizeAnnote, 
+        anchorX:'middle',
+        visible:false});
 
     ///////////////////////////////////////////////////////  attribute settings
 
@@ -691,7 +689,6 @@ class Segment extends BaseWidget {
   changeTextY() { return this.f1.Y() + this.change() / 2; }
 
 
-  unitsTextX() { return this.midX() - this.unitsTextWidth()/2; }
   unitsTextY() { 
     if (this.f1.Y() <= this.f2.Y())  {
       return this.f1.Y() - 3 * this.Yerror; 
@@ -766,7 +763,6 @@ class Secant extends BaseWidget {
     this.unitsTextX = this.unitsTextX.bind(this);
     this.unitsTextY = this.unitsTextY.bind(this);
     this.unitsTextVal = this.unitsTextVal.bind(this);
-    this.unitsTextWidth = this.unitsTextWidth.bind(this);
     this.turnOnAnnotations = this.turnOnAnnotations.bind(this);
     this.turnOffAnnotations = this.turnOffAnnotations.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
@@ -836,8 +832,11 @@ class Secant extends BaseWidget {
     this.unitsText = this.board.create('text', [
       this.unitsTextX,
       this.unitsTextY,
-      this.unitsTextVal],
-      {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
+      this.unitsTextVal],{
+        strokeColor: th.lightAnnote, 
+        fontSize: th.fontSizeAnnote, 
+        anchorX:'middle',
+        visible:false});
 
     ///////////////////////////////////////////////////////  attribute settings
 
@@ -903,7 +902,6 @@ class Secant extends BaseWidget {
   
 
   // this is all for the units string annotation
-  unitsTextX() { return this.xint.midX() - this.unitsTextWidth()/2; }
   unitsTextY() { 
     if (this.f1.Y() <= this.f2.Y())  {
       return this.f1.Y() - 3 * this.xint.Yerror; 
@@ -1039,7 +1037,10 @@ class Rectangle extends BaseWidget {
       this.changeTextX,
       this.changeTextY,
       this.changeTextVal],
-      { strokeColor: th.darkAnnote, fontSize:th.fontSizeAnnote, visible:false });
+      { strokeColor: th.darkAnnote, 
+        fontSize:th.fontSizeAnnote, 
+        anchorX:'middle',
+        visible:false });
 
     this.p1 = this.board.create('point',[
       this.hdX,
@@ -1093,7 +1094,9 @@ class Rectangle extends BaseWidget {
       this.unitsTextVal],
       {
         strokeColor: th.lightAnnote, 
-        fontSize: th.fontSizeAnnote, visible:false});
+        fontSize: th.fontSizeAnnote, 
+        anchorX:'middle',
+        visible:false});
 
 
     ///////////////////////////////////////////////////////  attribute settings
@@ -1133,7 +1136,7 @@ class Rectangle extends BaseWidget {
 
 
   // this mangages the area text annotation
-  changeTextX() { return this.xint.midX() - this.changeTextWidth()/2; }
+  changeTextX() { return this.xint.midX(); }
   changeTextY() { return this.height() / 2; }
 
 
@@ -1148,7 +1151,6 @@ class Rectangle extends BaseWidget {
 
 
   // this mangages the width text annotation
-  unitsTextX() { return this.xint.midX() - this.unitsTextWidth()/2; }
   unitsTextY() { 
     if (this.rate() >= 0) { return this.height() + 4 * this.xint.Yerror; }
     return this.height() - 6 * this.xint.Yerror; 
