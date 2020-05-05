@@ -46,7 +46,7 @@ let B = new ResourcePanel(p5);
 // Add the buttons you want on your resource panel
 // NOTE:  The value of page variable env.numButtons should match the number of buttons you add here
 
-B.addButton('approach limit'); 
+B.addButton('secant'); 
 
 smartdown.setVariable('numButtons', 1);  // keep track of number of buttons
 

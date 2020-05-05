@@ -591,7 +591,7 @@ class Segment extends BaseWidget {
       });
 
     this.unitsText = this.board.create('text', [
-      this.unitsTextX,
+      this.midX,
       this.unitsTextY,
       this.unitsTextVal],{
         strokeColor: th.lightAnnote, 
@@ -1016,12 +1016,12 @@ class Rectangle extends BaseWidget {
     this.f1 = this.board.create('point', [
       this.xint.X1, 
       this.height], 
-      {color: th.stroke, size:3, name:'', visible:true});
+      {color: th.stroke, size:3, name:'', visible:false});
 
     this.f2 = this.board.create('point', [
       this.xint.X2, 
       this.height], 
-      {color: th.stroke, size:3, name:'', visible:true});
+      {color: th.stroke, size:3, name:'', visible:false});
 
     this.rect = this.board.create('polygon', [this.xint.x1, this.f1, this.f2, this.xint.x2], 
     {

@@ -270,7 +270,13 @@ this.depend = function() {
           let dragText1 = workspace.board.create('text', [
             function() { return xint2.midY.X() + 0.15; }, 
             function() { return xint2.midY.Y(); }, 
-            'DRAG ME'], {fontSize:12, color:'red', visible:true});
+            'DRAG ME'], {
+              fontSize:12, 
+              color:'red',
+              cssClass:'alert',
+              highlightCssClass:'alert',
+              visible:true,
+          });
 
           rectangle.delete();  // get rid of the segment and rectangle
           segment.delete();

@@ -65,7 +65,7 @@ let instructions = workspace.board.create('text', [
 		anchorX:'right', 
 		anchorY:'bottom', 
 		cssClass:'instructions',
-		highlightCssClass:'instructions_hl'});
+		highlightCssClass:'instructions'});
 
 
 
