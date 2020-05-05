@@ -287,8 +287,9 @@ header.masthead  {
 }
 
 .alert {
-  border: 2px solid #FF4444;
-  color: #FF4444;
-  padding: 8px;
+  border: 1px solid #FF8888;
+  background-color: #FFEEEE;
+  color: #FF4444 !important;
+  padding: 5px;
   border-radius: 5px;
 }

@@ -6,9 +6,14 @@ header: 'none'
 ogimage: /assets/images/calculus/limits.jpg
 ---
 
+# :::: success
+Success!  To officially prove the limit correct  
+[Continue](/pages/nextLimit)
+# ::::
+
 # :::: clue
 # --outlinebox 
-You are Delta.  You have a function $f(x)=3x$, and you think $$\lim_{x \to 2} 3x = 6.$$  To prove your limit is correct, you have to counter every move made by Epsilon.  Epsilon will make smaller and smaller intervals around $6$.  You have to adjust the Delta interval so that all the function values inside your interval are also inside Epsilon's interval.
+You are Delta.  You have a function $f(x)=3x$, and you think $$\lim_{x \to 2} 3x = 6.$$  To prove your limit is correct, you have to counter every move made by Epsilon.  Epsilon will make smaller and smaller intervals around $6$.  You have to adjust the Delta interval around $2$ so that all the function values inside your interval are also inside Epsilon's interval.
 # --outlinebox 
 # ::::
 
@@ -117,6 +122,10 @@ this.depend = function() {
 		smartdown.setVariable('compute', false);
 		if (limit.delta() <= limit.epsilon() / 3) {
 			instructions.setAttribute({visible:false});
+
+			if (limit.epsilon() <= 0.2) {
+				smartdown.showDisclosure('success', '', 'center,draggable,closeable,shadow');
+			}
 			smartdown.hideDisclosure('delta_turn', '', '');
 			smartdown.showDisclosure('epsilon_turn', '', 'transparent');
 			limit.reduceEpsilon(3000, function() {

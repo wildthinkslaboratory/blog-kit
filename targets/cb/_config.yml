@@ -107,20 +107,15 @@ lessons :
       name: one
     - url: /pages/limit2/
       name: two
+    - url: /pages/limitSummary1/
+      name: three
 
   more_limits:
-    - url: /pages/limit3/
+    - url: /pages/limitDEIntro/
       name: one
-    - url: /pages/limit4/
+    - url: /pages/limitDE2/
       name: two
-    - url: /pages/limit5/
-      name: three
-    - url: /pages/limit6/
-      name: four
-    - url: /pages/limit7/
-      name: five
-    - url: /pages/limit8/
-      name: six
+
 
             
 # Build settings

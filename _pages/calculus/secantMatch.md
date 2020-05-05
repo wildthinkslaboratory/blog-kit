@@ -272,7 +272,6 @@ this.depend = function() {
             function() { return xint2.midY.Y(); }, 
             'DRAG ME'], {
               fontSize:12, 
-              color:'red',
               cssClass:'alert',
               highlightCssClass:'alert',
               visible:true,
