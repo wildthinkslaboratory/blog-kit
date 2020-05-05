@@ -1,10 +1,19 @@
 ---
 title: Limit
 smartdown: true
-lesson: 'more_limits'
+lesson: 'limit'
 header: 'none'
 ogimage: /assets/images/calculus/limits.jpg
 ---
+# :::: success
+Success!
+
+The limit of $f(x)$ as $x$ goes to $2$ is $3$.
+$$\lim_{x \to 2} f(x) = 3$$
+and the value of $f(x)$ at $x=2$ is 4.
+$$f(2) = 4$$
+[Continue](/pages/limit3)
+# ::::
 
 # :::: note1 
 You can drag the green slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
@@ -30,14 +39,13 @@ $$
 
 1. Go [closer](:=reduce=true) to $x=2$.  
 2. Go [all the way](:=all=true) to $x=2$.
+[NOTE:](::note1/tooltip)
 
 The limit as $x$ gets close to $2$ is [](:?s1). 
 The value at $x=2$ is [](:?s2)
 
 [NOTE:](::note1/tooltip)
 
-
-[Continue](/pages/limit4)
 # ::::
 #### --outlinebox
 #### --outlinebox
@@ -145,26 +153,10 @@ smartdown.setVariable('s2','');
 this.dependOn = ['s1', 's2'];  
 this.depend = function() {
   
-	if (env.s1 == '3') {
-		smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
-      	setTimeout(function () {
-        	smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');
-      	}, 3000);
+	if (env.s1 == '3' && env.s2 == '4') {
+		smartdown.showDisclosure('success','','center,draggable,closeable,shadow');
 	}
-
-	if (env.s2 == '4') {
-		smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
-      	setTimeout(function () {
-        	smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');
-      	}, 3000);
-	}
-
 
 };
 ```
 
-# :::: correct
-# --colorbox
-Correct!
-# --colorbox
-# ::::

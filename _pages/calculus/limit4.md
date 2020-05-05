@@ -7,7 +7,7 @@ ogimage: /assets/images/calculus/limits.jpg
 ---
 
 # :::: note1 
-You can drag the green slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
+You can drag the light blue slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
 # ::::
 ### More Limits
 

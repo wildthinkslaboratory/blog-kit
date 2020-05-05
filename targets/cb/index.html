@@ -17,7 +17,7 @@ digraph G {
 	fontsize="24";
 	fontname="Arial";
 	size="12,12";
-  rankdir="LR";
+  rankdir=LR;
   bgcolor=transparent;
     subgraph cluster1 {
       color="transparent";
@@ -25,6 +25,7 @@ digraph G {
         secant[shape=none, URL="/pages/secant1", label="", image="/assets/images/calculus/secant.svg"];
 		    FTC1 [shape=none, tooltip="secant / rectangle", URL="/pages/prelude", label="", image="/assets/images/calculus/ftc1.svg"];
         limit [shape=none, URL="javascript:smartdown.setVariable('soon', true);", tooltip="limit",label="", image="/assets/images/calculus/limits.svg"];
+        epsilonDelta [shape=none, URL="javascript:smartdown.setVariable('soon', true);", tooltip="epsilon delta proofs",label="", image="/assets/images/calculus/epsilonDelta.svg"];
 		    derivative [shape=none, tooltip="Definition of the Derivative" URL="/pages/symbols1", label="", image="/assets/images/calculus/derivative.svg"];
 		    chainRule [shape=none, tooltip="Chain Rule", URL="/pages/chainRule", label="", image="/assets/images/calculus/chainrule.svg"];
         e [shape=none, tooltip="e",label="", image="/assets/images/calculus/eToTheX.svg"];
@@ -34,11 +35,16 @@ digraph G {
 		  secant -> FTC1;
       FTC1 -> limit;
       limit -> derivative;
+      limit -> epsilonDelta;
+      epsilonDelta -> derivative;
 		  derivative -> chainRule;
       derivative -> e;
       e -> FTC2;
       chainRule -> FTC2;
       label="Calculus";
+      { rank=same; rectangle, secant }
+      { rank=same; limit, epsilonDelta }
+      { rank=same; e, chainRule }
     }
     
 }

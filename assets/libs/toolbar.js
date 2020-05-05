@@ -15,6 +15,10 @@ function loadImages(playablep5) {
     playablep5.loadImage(path + 'secantArray2.png')]);
   images.push([playablep5.loadImage(path + 'secantRectArray.png'),
     playablep5.loadImage(path + 'secantRectArray2.png')]);
+  images.push([playablep5.loadImage(path + 'limit.png'),
+    playablep5.loadImage(path + 'limit2.png')]);
+  images.push([playablep5.loadImage(path + 'epsilonDelta.png'),
+    playablep5.loadImage(path + 'epsilonDelta2.png')]);
 }
 
 let toolTypes = {};
@@ -24,6 +28,9 @@ toolTypes['secant rectangle'] = 2;
 toolTypes['rectangle array'] = 3;
 toolTypes['secant array'] = 4;
 toolTypes['secant rectangle array'] = 5;
+toolTypes['limit'] = 6;
+toolTypes['epsilon delta'] = 7;
+
 
 
 

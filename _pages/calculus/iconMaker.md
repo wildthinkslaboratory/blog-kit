@@ -20,17 +20,23 @@ myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:500px; width:500px'>`;
 
 let xlow = -2;
-let xhigh = 10;
-let ylow = -4;
-let yhigh = 8;
+let xhigh = 5;
+let ylow = -2;
+let yhigh = 5;
 
 JXG.Options.text.display = 'internal';
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{xlabel:'', ylabel:''});
-let F = new ProblemFunction(function(x) {  return 2 * Math.sin(x) + 3; }, 
-  '', 3.5, [-2,10], []);
+let F = new ProblemFunction(
+	function(x) { return x + 1; }, 
+	'', 3.5, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
 workspace.functions[F_id].graph.setAttribute({strokeWidth:3});
+
+
+let limit = new ApproachLimit(workspace.board, F.f, 1, undefined);
+
+
 
 // let point = workspace.board.create('point', [4,F.f(4)], {color:'#4488DD', size:8, name:''});
 // let point2 = workspace.board.create('point', [5, F.f(4) + 1.5], {visible:false});
@@ -38,9 +44,9 @@ workspace.functions[F_id].graph.setAttribute({strokeWidth:3});
 // let tangent = workspace.board.create('line', [point, point2], {color:'#4488DD', strokeWidth:8});
 
 
-let xint = new XInterval(workspace.board, 2,6);
-xint.x1.setAttribute({size:6});
-xint.x2.setAttribute({size:6});
+// let xint = new XInterval(workspace.board, 2,6);
+// xint.x1.setAttribute({size:6});
+// xint.x2.setAttribute({size:6});
 
 // let slider = new IntSlider(xint.board, [xint.attachRightX, xint.attachY], [1, 100], 'N');
 // slider.setValue(12);
@@ -70,11 +76,11 @@ xint.x2.setAttribute({size:6});
 // rectangle.f2.setAttribute({color:'#4488DD', size:12});
 
 
-let secant = new Secant(xint, F.f, { });
-workspace.addElement(secant);
-secant.segment.setAttribute({strokeColor:'#4488DD', strokeWidth:12});
-secant.f1.setAttribute({color:'#4488DD', size:12});
-secant.f2.setAttribute({color:'#4488DD', size:12});
+// let secant = new Secant(xint, F.f, { });
+// workspace.addElement(secant);
+// secant.segment.setAttribute({strokeColor:'#4488DD', strokeWidth:12});
+// secant.f1.setAttribute({color:'#4488DD', size:12});
+// secant.f2.setAttribute({color:'#4488DD', size:12});
 
 
 

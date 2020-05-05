@@ -3,7 +3,7 @@ title: Limit
 smartdown: true
 lesson: 'more_limits'
 header: 'none'
-ogimage: /assets/images/calculus/limits.jpg
+ogimage: /assets/images/calculus/epsilonDelta.jpg
 ---
 
 # :::: success

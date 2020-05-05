@@ -2178,7 +2178,8 @@ class ApproachLimit {
 
 
     this.xaxis = this.board.create('line', [[0,0],[1,0]], {visible:false});  // x axis line   
-    this.glider = this.board.create('glider', [0,0, this.xaxis], {name:'', face:'^', size:12, color:'green'});
+    this.glider = this.board.create('glider', [0,0, this.xaxis], {
+      name:'', face:'^', size:12, color:th.fill});
 
     if (this.fxValue == undefined || this.fxValue !== this.f(this.xValue)) {
       this.hole = this.board.create('point', [this.xValue, this.f(this.xValue)], { 
@@ -2203,7 +2204,7 @@ class ApproachLimit {
     this.p = this.board.create('point', [
      this.gliderX,
      this.fx,
-     ], {name:'', size:4, color:'green'})
+     ], {name:'', size:4, color:th.stroke})
 
     this.fVal = this.board.create('text',[
       this.textX,

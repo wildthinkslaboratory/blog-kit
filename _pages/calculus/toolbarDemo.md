@@ -21,7 +21,7 @@ const myDiv = this.div;
 myDiv.style.background = '#FFFFFF';
 myDiv.style.borderRadius = '8px';
 
-let maxButtons = 6;
+let maxButtons = 8;
 let xSpacer = 10, ySpacer = 5, width = 40;
 let B = new ToolPanel(p5,40, 10, 10);
 
@@ -36,9 +36,11 @@ B.addButton('secant rectangle');
 B.addButton('rectangle array');
 B.addButton('secant array');
 B.addButton('secant rectangle array');
+B.addButton('limit');
+B.addButton('epsilon delta');
 //B.initialize();
 
-smartdown.setVariable('numButtons', 6);  // keep track of number of buttons
+smartdown.setVariable('numButtons', 8);  // keep track of number of buttons
 
 ///////////////////////////////////////////////////////////////////
 

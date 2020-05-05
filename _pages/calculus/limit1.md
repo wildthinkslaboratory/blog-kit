@@ -6,6 +6,17 @@ ogimage: /assets/images/calculus/limits.jpg
 header: 'none'
 ---
 
+# :::: conclusion
+Success!
+
+You just found the **limit** of $f(x)$ as $x$ goes to $1$.  We write it like this
+$$
+\lim_{x \to 1} \frac{x^2 - 1}{x-1} = 2
+$$
+The **limit** of a function at a point is not the same as the value of the function at that point.  So even though this function is undefined when $x=1$, it still has a limit at that point with a value of $2$.
+[Continue](/pages/limit2)
+# ::::
+
 # :::: note1 
 You can drag the green slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
 # ::::
@@ -31,13 +42,6 @@ Something interesting is happening at $x=1$.  You can:
 
 When $x=1$ the value of $f$ is undefined.  You can read more on the perils of dividing by zero [here](/pages/divideByZero#-blank).
 When $x$ gets close to $1$, $f(x)$ is getting close to [](:?s1). 
-# :::: conclusion
-We say that the **limit** of $f(x)$ as $x$ goes to $1$ is $2$ and we write it like this
-$$
-\lim_{x \to 1} \frac{x^2 - 1}{x-1} = 2
-$$
-[Continue](/pages/limit2)
-# ::::
 #### --outlinebox
 #### --outlinebox
 
@@ -144,19 +148,10 @@ this.dependOn = ['s1'];
 this.depend = function() {
   
 	if (env.s1 == '2') {
-		smartdown.showDisclosure('conclusion','','transparent');
-		smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
-      	setTimeout(function () {
-        	smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');
-      	}, 3000);
+		smartdown.showDisclosure('conclusion','','center,draggable,closeable,shadow');
 	}
 
 
 };
 ```
 
-# :::: correct
-# --colorbox
-Correct!
-# --colorbox
-# ::::
