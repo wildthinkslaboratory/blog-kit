@@ -14,8 +14,7 @@ The car begins from a stationary position and gradually increases it's speed.  H
 # ::::
 
 # :::: notes
-# --aliceblue
-##### Note
+# --aliceblue note
 What should the dimensions of this rectangle be?  The time interval is 4 seconds, but what is the rate?  It may help to figure out the average speed that the car travels during that time period.
 # --aliceblue
 # ::::
@@ -274,3 +273,10 @@ this.depend = function() {
 
 ```
 
+```javascript /autoplay
+
+const note = document.getElementById('note');
+note.classList.remove('decoration-aliceblue');
+note.classList.add('note');
+
+```

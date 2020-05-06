@@ -1,10 +1,17 @@
 ---
 title: Limit
 smartdown: true
-lesson: 'more_limits'
+lesson: 'limit'
 header: 'none'
 ogimage: /assets/images/calculus/limits.jpg
 ---
+# :::: success
+Success!
+
+
+
+[Continue](/pages/limit4)
+# ::::
 
 # :::: note1 
 You can drag the green slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
@@ -20,25 +27,18 @@ You can drag the green slider to get close to $x=1$, but you can get super close
 
 
 #### --outlinebox right1
-Take a look at the following function.  Something is happening at $x=2$.
+Take a look at the following function.  Nothing is interesting is happening at $x=3$.
 $$ 
-f(x) = \begin{cases} 
-      	x + 1 & \text{$x < 2$ or $x > 2$} \newline
-      	4 & x = 2 
-   \end{cases}
+f(x) = x^2
 $$
 
-1. Go [closer](:=reduce=true) to $x=2$.  
-2. Go [all the way](:=all=true) to $x=2$.
-
-The limit as $x$ gets close to $2$ is [](:?s1). 
-The value at $x=2$ is [](:?s2)
-
+1. Go [closer](:=reduce=true) to $x=3$.  
+2. Go [all the way](:=all=true) to $x=3$.
 [NOTE:](::note1/tooltip)
 
+The limit as $x$ gets close to $3$ is [](:?s1). 
+The value at $x=3$ is [](:?s2)
 
-[Continue](/pages/limit4)
-# ::::
 #### --outlinebox
 #### --outlinebox
 
@@ -71,18 +71,18 @@ left.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 let xlow = -2;
 let xhigh = 5;
 let ylow = -2;
-let yhigh = 5;
+let yhigh = 25;
 
 let th = new BlueTheme();
 
 JXG.Options.layer['functiongraph'] = 5;
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow], {xlabel:'', ylabel:''});
 let F = new ProblemFunction(
-	function(x) { return x + 1; }, 
-	'', 3.5, [xlow,xhigh], []);
+	function(x) { return x * x; }, 
+	'', 3.5, [xlow,xhigh], [3]);
 let F_id = workspace.addFunction(F);
 
-let limit = new ApproachLimit(workspace.board, F.f, 2, 4);
+let limit = new ApproachLimit(workspace.board, F.f, 3, 9);
 
 
 
@@ -145,26 +145,10 @@ smartdown.setVariable('s2','');
 this.dependOn = ['s1', 's2'];  
 this.depend = function() {
   
-	if (env.s1 == '3') {
-		smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
-      	setTimeout(function () {
-        	smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');
-      	}, 3000);
+	if (env.s1 == '9' && env.s2 == '9') {
+		smartdown.showDisclosure('success','','center,draggable,closeable,shadow');
 	}
-
-	if (env.s2 == '4') {
-		smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
-      	setTimeout(function () {
-        	smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');
-      	}, 3000);
-	}
-
 
 };
 ```
 
-# :::: correct
-# --colorbox
-Correct!
-# --colorbox
-# ::::

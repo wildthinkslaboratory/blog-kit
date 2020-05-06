@@ -44,9 +44,6 @@ $$
 The limit as $x$ gets close to $2$ is [](:?s1). 
 The value at $x=2$ is [](:?s2)
 
-[NOTE:](::note1/tooltip)
-
-# ::::
 #### --outlinebox
 #### --outlinebox
 

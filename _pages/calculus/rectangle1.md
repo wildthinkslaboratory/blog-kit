@@ -8,7 +8,7 @@ ogimage: /assets/images/calculus/rectangle.jpg
 
 # :::: toolbar
 # :::: withClue
-[N](:=show1=true) Here.  Have a rectangle.
+[note](:=show1=true) Here.  Have a rectangle.
 # ::::
 
 # :::: noClue
@@ -96,21 +96,21 @@ this.depend = function() {
 We can use a rectangle to show the relationship between **distance**, **rate** and **time**.  
 $$d = r \cdot t$$
 The area of the rectangle represents a change in position.
-[N](:=show3=true)
+[next](:=show3=true)
 # --aliceblue
 # ::::
 
 # :::: clue1
 # --aliceblue
 A rectangle is a great way to represent a rate of change problem.  The area of the rectangle represents the amount of **change**.    
-[N](:=show2=true)
+[next](:=show2=true)
 # --aliceblue
 # ::::
 
 # :::: clue3
 # --aliceblue
  We can use a rectangle to represent the cost of manufacturing widgets.  The area of the rectangle represents the change in cost.
- [N](:=show4=true)
+ [next](:=show4=true)
 # --aliceblue
 
 # ::::

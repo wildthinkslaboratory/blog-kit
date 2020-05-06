@@ -104,7 +104,7 @@ Why does the secant move up and down?
 **Explanation:**
 If we start with a secant, then we know the position of our object at the two time points at the endpoints of the secant.  We can compute the rate and distance that we need to draw the matching rectangle.
 
-If instead, we start with the rectangle, we know the rate over a given time period.  We can compute the distance traveled, but we don't have enought information to figure out the exact position of the object at the time interval endpoints.  The vertical position of the secant is unknown.
+If instead, we start with the rectangle, we know the rate over a given time period.  We can compute the distance traveled, but we don't have enough information to figure out the exact position of the object at the time interval endpoints.  The vertical position of the secant is unknown.
 [Continue](/pages/shadowRectCurve)
 # ::::
 # ::::
