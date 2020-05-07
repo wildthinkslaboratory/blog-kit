@@ -21,7 +21,7 @@ What should the dimensions of this rectangle be?  The time interval is 4 seconds
 
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [N](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here's another rectangle. 
+[?](::clue/button,transparent,draggable,closeable,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here's another rectangle. 
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////

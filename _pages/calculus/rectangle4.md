@@ -29,7 +29,7 @@ As the intervals get smaller, the height of the rectangle more accurately repres
 # ::::
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [N](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) You have [](:!numButtons) rectangle(s). 
+[?](::clue/button,transparent,draggable,closeable,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) You have [](:!numButtons) rectangle(s). 
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////

@@ -14,7 +14,7 @@ Thank you for testing my prototype!
 It would be so helpful to me if you could fill out this short [feedback form](https://docs.google.com/forms/d/e/1FAIpQLSdVNvzSXPHYqIrtb_ftMRhK9qAg1I1Up2qdvV2Mmzk79LAnTQ/viewform) to help me make this lesson better.
 # ::::
 
-[N](::notes/button,draggable,closeable,center,shadow) [clear](:=clear=true) [new color](:=incColor=true) [](:!pointColor)
+[note](::notes/button,draggable,closeable,center,shadow) [clear](:=clear=true) [new color](:=incColor=true) [](:!pointColor)
 
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
