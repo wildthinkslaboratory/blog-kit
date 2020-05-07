@@ -109,7 +109,7 @@ this.depend = function() {
 # :::: success
 Success! 
 Error of [](:!error)%. 
-[N](::exitnotes/button,transparent,draggable,closeable,topleft,shadow) [Continue](/pages/rectangleAUC)
+[note](::exitnotes/button,transparent,draggable,closeable,topleft,shadow) [Continue](/pages/rectangleAUC)
 # ::::
 
 # :::: keeptrying
