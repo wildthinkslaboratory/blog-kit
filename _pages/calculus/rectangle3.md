@@ -96,8 +96,9 @@ this.dependOn = ['numButtons'];  // if we're removing buttons the numButtons wil
 this.depend = function() {
   
   if (env.numButtons < B.size()) {  // If we have more buttons than the page has elements, delete the active button
-     B.removeActiveButton();  // we've used this resource
-     smartdown.setVariable('active', false);
+    B.removeActiveButton();  // we've used this resource
+    smartdown.setVariable('active', false);
+    if (B.size() == 0) { p5.noLoop(); }
   }
 };
 

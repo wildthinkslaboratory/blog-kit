@@ -84,6 +84,7 @@ this.depend = function() {
   if (env.num < B.size()) {  // If we have more buttons than the page has elements, delete the active button
      B.removeActiveButton();  // we've used this resouce
      smartdown.setVariable('active', false);
+     if (B.size() == 0) { p5.noLoop(); }
   }
 };
 
