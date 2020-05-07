@@ -62,7 +62,8 @@ p5.mousePressed = function()     // this function is called everytime the user c
     smartdown.setVariable('active', true);     // alert page we have an active button
   }
   
-  p5.loop();    // EnergyHack to enable looping for duration of drag.
+
+  //p5.loop();    // EnergyHack to enable looping for duration of drag.
 };
 
 
@@ -96,21 +97,21 @@ this.depend = function() {
 # --aliceblue
 We can use a rectangle to show the relationship between **distance**, **rate** and **time**.  
 $$d = r \cdot t$$
-The area of the rectangle represents a change in position.
+The area of the rectangle represents the distance traveled.  
 [next](:=show3=true)
 # --aliceblue
 # ::::
 
 # :::: clue1
 # --aliceblue
-A rectangle is a great way to represent a rate of change problem.  The area of the rectangle represents the amount of **change**.    
+A rectangle is a great way to represent a rate of change problem.  
 [next](:=show2=true)
 # --aliceblue
 # ::::
 
 # :::: clue3
 # --aliceblue
- We can use a rectangle to represent the cost of manufacturing widgets.  The area of the rectangle represents the change in cost.
+ We can use a rectangle to represent the cost of manufacturing widgets.  The area of the rectangle represents the total cost.
  [next](:=show4=true)
 # --aliceblue
 
@@ -237,13 +238,21 @@ smartdown.setVariable('show1', false);
 smartdown.setVariable('show2', false);
 smartdown.setVariable('show3', false);
 smartdown.setVariable('show4', false);
-this.dependOn = ['show1', 'show2', 'show3', 'show4'];
+this.dependOn = ['show1', 'show2', 'show3', 'show4', 'active'];
 this.depend = function() {
+
+  if (env.active == true) {
+    myDiv.style.cursor = "url('/assets/images/calculus/rectCursor.svg'), auto";
+  }
+  else {
+    myDiv.style.cursor = "default";
+  }
+
   if (env.show1 == true) {
     console.log('show1');
     smartdown.setVariable('show1', false);
     smartdown.showDisclosure('clue1','','transparent,closeable,draggable,topright,shadow');
-    rectangle.setAttribute({ units: 'units', rate: 'change per unit', change: 'total change'});  
+    rectangle.setAttribute({ units: 'units', rate: 'amount per unit', change: 'total amount'});  
     rectangle.setFillColor('#FF8800');
     board.board.update();
   }

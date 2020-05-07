@@ -4,23 +4,30 @@ header: 'none'
 smartdown: true
 ---
 
-
+# :::: note1
 # --aliceblue note
 This is a note.  A note has extra information that is not required to complete the lesson.  It may be used to:
 	- provide a written explanation of the ideas explored geometrically in the app.
 	- it may provide 
 # --aliceblue
+# ::::
 
+# :::: alert1
 # --aliceblue alert
 This is an alert.  This is crucial information about how the app works. 
 # --aliceblue
+# ::::
 
+# :::: task1
 # --aliceblue task
 ###### Question or Task
 Pose a question to answer or describe a task to complete.
 # --aliceblue
+# ::::
 
-
+[note](::note1/button)
+[alert](::alert1/button)
+[task](::task1/center,transparent,shadow)
 
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js

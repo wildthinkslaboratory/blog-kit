@@ -51,6 +51,7 @@ p5.mousePressed = function()                     // this function is called ever
   
   if (id != -1) {
     smartdown.setVariable('mode', name);
+    smartdown.setVariable('active', true);     // alert page we have an active button
   }
   
 
@@ -67,6 +68,15 @@ p5.mouseReleased = function() {                  // this function is called when
 //  window.setTimeout(function() {
 //    p5.noLoop();
 //  }, 5000);
+};
+
+smartdown.setVariable('active', false);
+
+this.dependOn = ['active'];  // if we're removing buttons the numButtons will go down
+this.depend = function() {
+  if (env.active == false) {  
+     B.removeActiveButton();  // we've used this resource
+  }
 };
 
 ```
@@ -141,6 +151,7 @@ this.div.onmousedown = function(e) {
   let margin = (window.innerWidth - width)/2;
   let percent = (e.clientX - margin) / width;
   workspace.addElementByID(env.mode, percent, F_id, {});
+  smartdown.setVariable('active', false);
 };
 
 let widthPercent = 0.8;
@@ -161,8 +172,16 @@ smartdown.setVariable('error', 100);
 smartdown.setVariable('undo', false);
 
 
-this.dependOn = ['compute', 'undo'];
+this.dependOn = ['compute', 'undo', 'active'];
 this.depend = function() {
+
+  if (env.active == true) {
+    myDiv.style.cursor = "url('/assets/images/calculus/rectCursor.svg'), auto";
+  }
+  else {
+    myDiv.style.cursor = "default";
+  }
+
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {

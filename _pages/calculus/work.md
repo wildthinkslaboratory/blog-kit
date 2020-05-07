@@ -101,12 +101,10 @@ p5.mouseReleased = function() {     // this function is called when the user rel
 smartdown.setVariable('buttonType', 0);
 smartdown.setVariable('active', false);
 
-this.dependOn = ['numButtons'];  // if we're removing buttons the numButtons will go down
+this.dependOn = ['active'];  // if we're removing buttons the numButtons will go down
 this.depend = function() {
-  
-  if (env.numButtons < B.size()) {  // If we have more buttons than the page has elements, delete the active button
+  if (env.active == false) {  
      B.removeActiveButton();  // we've used this resource
-     smartdown.setVariable('active', false);
   }
 };
 
@@ -242,8 +240,7 @@ let useButton = function(mouseX, buttonType) {
   let percent = (mouseX - margin) / width;
   workspace.addElementByID(buttonType, percent, F_id, 
     {change:'work', rate:'force', units:'distance'}); 
-
-  // smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
+  smartdown.setVariable('active', false);
 };
 
 
@@ -273,8 +270,16 @@ smartdown.setVariable('compute', false);
 smartdown.setVariable('error', 100);
 smartdown.setVariable('undo', false);
 
-this.dependOn = ['compute', 'undo'];
+this.dependOn = ['compute', 'undo', 'active'];
 this.depend = function() {
+
+  if (env.active == true) {
+    myDiv.style.cursor = "url('/assets/images/calculus/rectCursor.svg'), auto";
+  }
+  else {
+    myDiv.style.cursor = "default";
+  }
+
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {

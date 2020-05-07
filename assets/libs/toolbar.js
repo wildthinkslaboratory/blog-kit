@@ -208,6 +208,16 @@ class ToolPanel extends ButtonArray {
     let value = toolTypes[toolType];
     super.addButton(toolType, images[value][0], images[value][1]);
   }
+
+  removeActiveButton() {
+    for (let i=0; i < this.buttons.length; i++) {
+      if (this.buttons[i].state) {
+        this.buttons[i].toggle();
+        this.state = 0;
+        break;
+      }
+    }
+  }
 }
 
 class CalculusToolbar extends ToolPanel {
