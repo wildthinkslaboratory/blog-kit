@@ -7,10 +7,10 @@ ogimage: /assets/images/calculus/secant.jpg
 ---
 
 # :::: clue
-# --outlinebox
-##### Water Balloon Drop
+# --aliceblue question
+###### Water Balloon Drop
 You see your friend out of a window that is 30 feet above the ground.  You consider dropping a water balloon on your friend's head.  Your friend is 5 feet tall.  How fast will the balloon be traveling when it hits his head? Round your answer to the nearest whole number.
-# --outlinebox
+# --aliceblue
 # ::::
 
 # :::: notes
@@ -276,3 +276,18 @@ this.depend = function() {
 
 ```
 
+```javascript /autoplay
+
+// const note = document.getElementById('note');
+// note.classList.remove('decoration-aliceblue');
+// note.classList.add('note');
+
+// const alert = document.getElementById('alert');
+// alert.classList.remove('decoration-aliceblue');
+// alert.classList.add('alert');
+
+const task = document.getElementById('question');
+task.classList.remove('decoration-aliceblue');
+task.classList.add('task');
+
+```

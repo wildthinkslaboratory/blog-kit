@@ -279,14 +279,14 @@ header.masthead  {
 **************************************************************************/
 
 // instruction boxes
-.instructions {
+.jsxgraph-instructions {
   border: 2px solid #CCC;
   background-color: #EEF9FF;
   padding: 10px;
   border-radius: 5px;
 }
 
-.alert {
+.jsxgraph-alert {
   border: 1px solid #FF8888;
   background-color: #FFEEEE;
   color: #FF4444 !important;
@@ -300,10 +300,37 @@ header.masthead  {
 **************************************************************************/
 
 .note {
-  border: 2px solid #AAAAAA;
-  background-color: #FFFFCC;
+  border: 3px solid #EE9944;
+  background-color: #FFC;
+  color: #333;
+  padding: 30px !important;
+  xline-height: 30px;
+  border-radius: 10px;
+}
+
+.task {
+  border: 3px solid #55DD99;
+  background-color: #FFF;
+  color: #333;
+  padding: 30px !important;
+  line-height: 30px;
+  border-radius: 10px;
+}
+
+.alert {
+  border: 3px solid #FF8888;
+  background-color: #FEE;
   color: #333;
   padding: 20px !important;
   line-height: 30px;
-  border-radius: 5px;
+  border-radius: 10px;
+}
+
+.app-instructions {
+  border: 2px solid #55DD99;
+  background-color: #FFF;
+  color: #333;
+  padding: 30px !important;
+  line-height: 30px;
+  border-radius: 10px;
 }

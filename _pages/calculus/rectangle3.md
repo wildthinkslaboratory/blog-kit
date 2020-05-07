@@ -273,10 +273,3 @@ this.depend = function() {
 
 ```
 
-```javascript /autoplay
-
-const note = document.getElementById('note');
-note.classList.remove('decoration-aliceblue');
-note.classList.add('note');
-
-```

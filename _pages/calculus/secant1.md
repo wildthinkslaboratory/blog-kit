@@ -8,7 +8,7 @@ ogimage: /assets/images/calculus/secant.jpg
 
 # :::: toolbar
 # :::: withClue
-[N](::secant/button,transparent,closeable,draggable,topright,shadow) Here.  Have a secant.
+[note](::secant/button,transparent,closeable,draggable,topright,shadow) Here.  Have a secant.
 # ::::
 
 # :::: noClue
@@ -94,38 +94,38 @@ this.depend = function() {
 # :::: secant
 # --outlinebox
 A **secant line** of a graph $y=f(x)$ is any line that intersects the graph in at least two distinct points.
-[N](:=show1=true)
+[next](:=show1=true)
 # --outlinebox
 # ::::
 
 # :::: clue1
-# --aliceblue
+# --outlinebox
 A secant is a great way to show the relationship between **distance**, **rate** and **time**.  The slope of a secant represents the rate.  The rate is the change in distance divided by the change in time.
 $$r = \frac{d}{t}$$
-[N](:=show2=true)
-# --aliceblue
+[next](:=show2=true)
+# --outlinebox
 # ::::
 
 # :::: clue2
-# --aliceblue
+# --outlinebox
 We can use secants for any rate of change problem, really.  The slope of the secant tells us the rate of change of one thing relative to another.
-[N](:=show3=true)
-# --aliceblue
+[next](:=show3=true)
+# --outlinebox
 # ::::
 
 # :::: clue3
-# --aliceblue
+# --outlinebox
  In rate problems, the units are often a measure of **time**, like seconds, days or years.  But they don't have to be. 
- [N](:=show4=true)
-# --aliceblue
+ [next](:=show4=true)
+# --outlinebox
 
 # ::::
 
 # :::: clue4
-# --aliceblue
+# --outlinebox
  Let's solve a problem with a secant.
  [Continue](/pages/secant2)
-# --aliceblue
+# --outlinebox
 
 # ::::
 

@@ -7,10 +7,10 @@ ogimage: /assets/images/calculus/secant.jpg
 ---
 
 # :::: clue
-# --outlinebox
-##### Car Ride
+# --aliceblue question
+###### Car Ride
 The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the speed the car is traveling at these exact times $t=2$, $t=4$ and $t=6$. 
-# --outlinebox
+# --aliceblue
 # ::::
 
 # :::: notes
@@ -277,3 +277,18 @@ this.depend = function() {
 
 ```
 
+```javascript /autoplay
+
+// const note = document.getElementById('note');
+// note.classList.remove('decoration-aliceblue');
+// note.classList.add('note');
+
+// const alert = document.getElementById('alert');
+// alert.classList.remove('decoration-aliceblue');
+// alert.classList.add('alert');
+
+const task = document.getElementById('question');
+task.classList.remove('decoration-aliceblue');
+task.classList.add('task');
+
+```

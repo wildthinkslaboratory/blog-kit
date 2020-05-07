@@ -269,8 +269,8 @@ this.depend = function() {
             function() { return xint2.midY.Y(); }, 
             'DRAG ME'], {
               fontSize:12, 
-              cssClass:'alert',
-              highlightCssClass:'alert',
+              cssClass:'jsxgraph-alert',
+              highlightCssClass:'jsxgraph-alert',
               visible:true,
           });
 
@@ -293,3 +293,18 @@ this.depend = function() {
 
 ```
 
+```javascript /autoplay
+
+// const note = document.getElementById('note');
+// note.classList.remove('decoration-aliceblue');
+// note.classList.add('note');
+
+// const alert = document.getElementById('alert');
+// alert.classList.remove('decoration-aliceblue');
+// alert.classList.add('alert');
+
+// const task = document.getElementById('question');
+// task.classList.remove('decoration-aliceblue');
+// task.classList.add('task');
+
+```

@@ -69,8 +69,8 @@ let instructions = workspace.board.create('text', [
 		fontSize:18, 
 		anchorX:'right', 
 		anchorY:'bottom', 
-		cssClass:'instructions',
-		highlightCssClass:'instructions'});
+		cssClass:'jsxgraph-instructions',
+		highlightCssClass:'jsxgraph-instructions'});
 
 
 

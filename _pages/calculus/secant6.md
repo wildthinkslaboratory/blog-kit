@@ -7,14 +7,14 @@ ogimage: /assets/images/calculus/secant.jpg
 ---
 
 # :::: clue
-# --outlinebox
+# --aliceblue question
 ###### Bunny Pen
 A rectangular pen $8\text{ft}^2$ in area is to be fenced off for a pet rabbit.  One side of the pen will be the barn wall. The remaining three sides we'll make with fencing. However, fencing is really expensive.  We need to find the dimensions for the pen that minimizes the length of fence.
 
 Say our pen has width $w$ and length $l$.  In order to get $8\text{ft}^2$ in area, we must have $wl = 8$. We also know that the length of fence $F$ will be  $F = 2w + l$.  We can write the amount of fencing in terms of the width $w$  as $F = 2w + \frac{8}{w}$
 
 What width gives the minimal cost pen and what is the rate of change of the function at that point?
-# --outlinebox
+# --aliceblue
 # ::::
 
 # :::: notes
@@ -291,3 +291,18 @@ this.depend = function() {
 
 ```
 
+```javascript /autoplay
+
+// const note = document.getElementById('note');
+// note.classList.remove('decoration-aliceblue');
+// note.classList.add('note');
+
+// const alert = document.getElementById('alert');
+// alert.classList.remove('decoration-aliceblue');
+// alert.classList.add('alert');
+
+const task = document.getElementById('question');
+task.classList.remove('decoration-aliceblue');
+task.classList.add('task');
+
+```
