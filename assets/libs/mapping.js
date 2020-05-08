@@ -30,6 +30,36 @@ let offWideAFFactory = function(formula, hideFunction) {
   };
 }
 
+
+class Task {
+  constructor(document, wrapperId, taskId) {
+    this.wrapper = document.getElementById(wrapperId);
+    this.wrapper.style.width = "50%";
+    this.task = document.getElementById(taskId);
+    this.task.classList.remove('decoration-aliceblue');
+    this.task.classList.add('task');
+  }
+}
+
+class Note {
+  constructor(document, wrapperId, taskId) {
+    this.wrapper = document.getElementById(wrapperId);
+    this.wrapper.style.width = "80%";
+    this.task = document.getElementById(taskId);
+    this.task.classList.remove('decoration-aliceblue');
+    this.task.classList.add('note');
+  }
+}
+
+class Alert {
+  constructor(document, wrapperId, taskId) {
+    this.wrapper = document.getElementById(wrapperId);
+    this.wrapper.style.width = "50%";
+    this.task = document.getElementById(taskId);
+    this.task.classList.remove('decoration-aliceblue');
+    this.task.classList.add('alert');
+  }
+}
 let dummy = 5;
 
 
@@ -54,6 +84,9 @@ let dummy = 5;
   exports.offWideAFFactory = offWideAFFactory;
   exports.onAFFactory = onAFFactory;
   exports.offAFFactory = offAFFactory;
+  exports.Task = Task;
+  exports.Note = Note;
+  exports.Alert = Alert;
   exports.dummy = dummy;
 
 

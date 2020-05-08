@@ -20,7 +20,7 @@ The graph shows the position of the car through time.  Figure out how fast the c
 # --aliceblue
 # ::::
 
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[?](::clue/button,transparent,center,draggable,closeable) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 $t=1$ [](:?s1)  $t=2$ [](:?s2) $t=3$ [](:?s3) 
 # ::::

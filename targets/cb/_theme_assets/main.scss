@@ -82,6 +82,9 @@ header.masthead  {
   max-width: 80%;
 }
 
+.smartdown-container .disclosable-wrapper.disclosable-lightbox {
+  outline: 9999px solid rgba(0,0,0,0.2) !important;
+}
 
 /*************************************************************************
   formatting for multi column layout. 
@@ -300,22 +303,33 @@ header.masthead  {
 **************************************************************************/
 
 .note {
-  border: 3px solid #EE9944;
-  background-color: #FFC;
+  border: 2px solid #EEBB77;
+  background-color: #FFD;
   color: #333;
   padding: 30px !important;
-  xline-height: 30px;
   border-radius: 10px;
+  box-shadow: 
+    0px 0px 1000px black, 
+    0 2.8px 2.2px rgba(255, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086);
 }
 
 .task {
-  xborder: 3px solid #55DD99;
+  border: 3px solid #55DD99;
   background-color: #FFF;
   color: #333;
   padding: 30px !important;
-  line-height: 30px;
   border-radius: 10px;
-
+  box-shadow: 
+    0px 0px 1000px black, 
+    0 2.8px 2.2px rgba(255, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086);
 }
 
 .alert {
@@ -325,6 +339,14 @@ header.masthead  {
   padding: 20px !important;
   line-height: 30px;
   border-radius: 10px;
+  width: 50%;
+  margin: auto;
+  position: fixed;
+  top: 50%;
+  left: 0; right: 0;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2), 
+    -10px 8px 15px rgba(0, 0, 0, 0.2), 
+    10px 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 .app-instructions {
