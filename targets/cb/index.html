@@ -57,6 +57,7 @@ digraph G {
 
 console.log('fixing style');
 const calcDiv = document.getElementById('calculus');
+calcDiv.classList.remove('decoration-outlinebox');
 
 calcDiv.style.border = '2px solid #DDDDDD';
 calcDiv.style.borderRadius = '25px';
@@ -74,9 +75,9 @@ The remaining chapters are intended to supplement a standard calculus class.  Th
 
 
 # :::: coming_soon
-# --outlinebox
+# --partialborder
 Coming soon!
-# --outlinebox
+# --partialborder
 # ::::
 
 ```javascript /autoplay
@@ -87,10 +88,10 @@ this.dependOn = ['soon'];
 this.depend = function() {
   if (env.soon == true) {
     smartdown.setVariable('soon', false);
-    smartdown.showDisclosure('coming_soon','','transparent,lightbox,center,shadow'); 
+    smartdown.showDisclosure('coming_soon','','transparent,center,shadow'); 
     setTimeout(function () {
          smartdown.hideDisclosure('coming_soon','',''); 
-    }, 2000);
+    }, 5000);
   } 
 };
 ```
@@ -138,6 +139,7 @@ digraph G {
 ```javascript /autoplay
 
 const otherDiv = document.getElementById('other');
+otherDiv.classList.remove('decoration-outlinebox');
 
 otherDiv.style.border = '2px solid #DDDDDD';
 otherDiv.style.borderRadius = '25px';

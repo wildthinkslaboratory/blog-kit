@@ -20,7 +20,7 @@ The graph shows the position of the car through time.  Figure out how fast the c
 # --aliceblue
 # ::::
 
-[?](::clue/button,transparent,center,draggable,closeable) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[?](:=showTask=true) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 $t=1$ [](:?s1)  $t=2$ [](:?s2) $t=3$ [](:?s3) 
 # ::::
@@ -71,7 +71,7 @@ p5.mousePressed = function()     // this function is called everytime the user c
   
   if (id != -1) {                              // if it's a valid button
     smartdown.setVariable('buttonType', bType);         // set page mode correct type of button
-    smartdown.setVariable('active', true);     // alert page we have an active button
+    smartdown.setVariable('', true);     // alert page we have an active button
   }
   
   p5.loop();    // EnergyHack to enable looping for duration of drag.
@@ -280,16 +280,17 @@ this.depend = function() {
 
 ```javascript /autoplay
 
-// const note = document.getElementById('note');
-// note.classList.remove('decoration-aliceblue');
-// note.classList.add('note');
+//smartdown.import=/assets/libs/mapping.js
 
-// const alert = document.getElementById('alert');
-// alert.classList.remove('decoration-aliceblue');
-// alert.classList.add('alert');
+let task = new Task(document, 'clue', 'question');
+smartdown.setVariable('showTask', false);
+this.dependOn = ['showTask'];
+this.depend = function() {
 
-const task = document.getElementById('question');
-task.classList.remove('decoration-aliceblue');
-task.classList.add('task');
-
+  if (env.showTask == true) {
+    smartdown.setVariable('showTask', false);
+    smartdown.showDisclosure('clue', '', 'transparent,center,draggable,closeable');
+    task.wrapper.style.left = "25%";
+  }
+}
 ```

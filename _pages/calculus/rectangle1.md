@@ -251,7 +251,10 @@ this.depend = function() {
   if (env.show1 == true) {
     console.log('show1');
     smartdown.setVariable('show1', false);
-    smartdown.showDisclosure('clue1','','transparent,closeable,draggable,center,shadow');
+    smartdown.showDisclosure('clue1','','transparent,draggable,center,shadow');
+    smartdown.hideDisclosure('clue2','','');
+    smartdown.hideDisclosure('clue3','','');
+    smartdown.hideDisclosure('clue4','','');
     rectangle.setAttribute({ units: 'units', rate: 'amount per unit', change: 'total amount'});  
     rectangle.setFillColor('#FF8800');
     board.board.update();
@@ -259,7 +262,7 @@ this.depend = function() {
   if (env.show2 == true) {
     smartdown.setVariable('show2', false);
     smartdown.hideDisclosure('clue1','','');
-    smartdown.showDisclosure('clue2','','transparent,closeable,draggable,center,shadow');
+    smartdown.showDisclosure('clue2','','transparent,draggable,center,shadow');
     rectangle.setAttribute({ units: 'time', rate: 'rate', change: 'distance'});
     rectangle.setFillColor('#AAFF00');
     board.board.update();
@@ -267,7 +270,7 @@ this.depend = function() {
   if (env.show3 == true) {
     smartdown.setVariable('show3', false);
     smartdown.hideDisclosure('clue2','','');
-    smartdown.showDisclosure('clue3','','transparent,closeable,draggable,center,shadow');
+    smartdown.showDisclosure('clue3','','transparent,draggable,center,shadow');
     rectangle.setAttribute({ units: 'number of widgets', rate: 'cost per widget', change: 'total cost'});
     rectangle.setFillColor('#FFFF00');
     board.board.update();
