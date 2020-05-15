@@ -2181,7 +2181,7 @@ class ApproachLimit {
     this.glider = this.board.create('glider', [0,0, this.xaxis], {
       name:'', face:'^', size:12, color:th.fill});
 
-    if (this.fxValue == undefined || this.fxValue !== this.f(this.xValue)) {
+    if (this.f(this.xValue) !== undefined && (this.fxValue == undefined || this.fxValue !== this.f(this.xValue))) {
       this.hole = this.board.create('point', [this.xValue, this.f(this.xValue)], { 
         name:'', 
         strokeColor: th.verylightAnnote, 
@@ -2256,8 +2256,8 @@ class ApproachLimit {
     }
   }
 
-  reduceDelta() {
-    this.glider.moveTo([this.glider.X() + (this.xValue - this.glider.X()) / 2,0],1000, {effect: '--'} );
+  reduceDelta(cbf = function() {}) {
+    this.glider.moveTo([this.glider.X() + (this.xValue - this.glider.X()) / 2,0],1000, {effect: '--', callback: cbf} );
   }
 
   eliminateDelta() {

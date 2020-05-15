@@ -6,13 +6,15 @@ header: 'none'
 ogimage: /assets/images/calculus/limits.jpg
 ---
 # :::: success
+# --partialborder
 Success!
 
 The limit of $f(x)$ as $x$ goes to $2$ is $3$.
 $$\lim_{x \to 2} f(x) = 3$$
 and the value of $f(x)$ at $x=2$ is 4.
 $$f(2) = 4$$
-[Continue](/pages/limit3)
+[Continue](/pages/limit4)
+# --partialborder
 # ::::
 
 # :::: note1 
@@ -151,7 +153,7 @@ this.dependOn = ['s1', 's2'];
 this.depend = function() {
   
 	if (env.s1 == '3' && env.s2 == '4') {
-		smartdown.showDisclosure('success','','center,draggable,closeable,shadow');
+		smartdown.showDisclosure('success','','center,transparent,draggable,closeable,shadow');
 	}
 
 };

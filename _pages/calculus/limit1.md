@@ -7,18 +7,20 @@ header: 'none'
 ---
 
 # :::: conclusion
-Success!
+# --partialborder 
+You just found a **limit**! 
 
-You just found the **limit** of $f(x)$ as $x$ goes to $1$.  We write it like this
+The function is undefined when $x=1$.  It's like there's a tiny, tiny hole in the function there.  Still, to the left and the right of that tiny hole the function is getting super close to the value $2$.  We say that $2$ is the limit of the function as $x$ goes to $1$ and we write it like this
 $$
 \lim_{x \to 1} \frac{x^2 - 1}{x-1} = 2
 $$
-The **limit** of a function at a point is not the same as the value of the function at that point.  So even though this function is undefined when $x=1$, it still has a limit at that point with a value of $2$.
-[Continue](/pages/limit2)
+So the limit of a function at a point is not the same as the value of the function at that point. 
+[Continue](/pages/limit3)
+# --partialborder
 # ::::
 
 # :::: note1 
-You can drag the green slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
+You can drag the blue slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
 # ::::
 ### Thinking about Limits
 
@@ -38,7 +40,7 @@ $$
 Something interesting is happening at $x=1$.  You can:
 1. Go [closer](:=reduce=true) to $x=1$.  
 2. Go [all the way](:=all=true) to $x=1$.
-[NOTE:](::note1/tooltip)
+**NOTE:** You can drag the blue slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
 
 When $x=1$ the value of $f$ is undefined.  You can read more on the perils of dividing by zero [here](/pages/divideByZero#-blank).
 When $x$ gets close to $1$, $f(x)$ is getting close to [](:?s1). 
@@ -148,7 +150,7 @@ this.dependOn = ['s1'];
 this.depend = function() {
   
 	if (env.s1 == '2') {
-		smartdown.showDisclosure('conclusion','','center,draggable,closeable,shadow');
+		smartdown.showDisclosure('conclusion','','center,transparent,shadow');
 	}
 
 

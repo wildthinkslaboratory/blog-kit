@@ -6,10 +6,12 @@ header: 'none'
 ogimage: /assets/images/calculus/limits.jpg
 ---
 # :::: success
+# --partialborder
 Success!
+To find the limit of a function at a certain point, we look to see what value the function is getting close to near that point.  For this function, the value it approaches to the right of the point and the value it approaches from the left do not agree.  In this case, we say that the limit at $x=0$ does not exist. 
 
-
-[Continue](/pages/limit4)
+[Continue](/pages/limit5)
+# --partialborder
 # ::::
 
 # :::: note1 
@@ -148,11 +150,12 @@ right.classList.add('text-2-col');
 
 smartdown.setVariable('s1','');
 smartdown.setVariable('s2','');
-this.dependOn = ['s1', 's2'];  
+smartdown.setVariable('s3','');
+this.dependOn = ['s1', 's2', 's3'];  
 this.depend = function() {
   
-	if (env.s1 == '9' && env.s2 == '9') {
-		smartdown.showDisclosure('success','','center,draggable,closeable,shadow');
+	if (env.s1 == '1' && env.s2 == '0' && env.s3 == '1') {
+		smartdown.showDisclosure('success','','center,transparent,draggable,closeable,shadow');
 	}
 
 };

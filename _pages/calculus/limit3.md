@@ -5,12 +5,14 @@ lesson: 'limit'
 header: 'none'
 ogimage: /assets/images/calculus/limits.jpg
 ---
+
+
 # :::: success
+# --partialborder
 Success!
-
-
-
-[Continue](/pages/limit4)
+For well behaved functions like this one, the limit at a point is the same as the function value.  In the next few examples, we'll focus on badly behaved functions.
+[Continue](/pages/limit2)
+# --partialborder
 # ::::
 
 # :::: note1 
@@ -27,11 +29,11 @@ You can drag the green slider to get close to $x=1$, but you can get super close
 
 
 #### --outlinebox right1
-Take a look at the following function.  Nothing is interesting is happening at $x=3$.
+Consider the function
 $$ 
 f(x) = x^2
 $$
-
+What is the limit of the function at $x=3$?
 1. Go [closer](:=reduce=true) to $x=3$.  
 2. Go [all the way](:=all=true) to $x=3$.
 [NOTE:](::note1/tooltip)
@@ -146,7 +148,7 @@ this.dependOn = ['s1', 's2'];
 this.depend = function() {
   
 	if (env.s1 == '9' && env.s2 == '9') {
-		smartdown.showDisclosure('success','','center,draggable,closeable,shadow');
+		smartdown.showDisclosure('success','','center,transparent,closeable,draggable,shadow');
 	}
 
 };

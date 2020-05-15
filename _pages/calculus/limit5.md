@@ -6,13 +6,16 @@ header: 'none'
 ogimage: /assets/images/calculus/limits.jpg
 ---
 # :::: success
+# --partialborder
 Success!
 
-The limit of $f(x)$ as $x$ goes to $2$ is $3$.
-$$\lim_{x \to 2} f(x) = 3$$
-and the value of $f(x)$ at $x=2$ is 4.
-$$f(2) = 4$$
-[Continue](/pages/limit3)
+
+[Continue](/pages/limitSummary1)
+# --partialborder
+# ::::
+
+# :::: formatting
+You can represent infinity $\infty$ as `inf` and negative infinity $-\infty$ as `-inf`.
 # ::::
 
 # :::: note1 
@@ -29,18 +32,19 @@ You can drag the green slider to get close to $x=1$, but you can get super close
 
 
 #### --outlinebox right1
-Take a look at the following function.  Something is happening at $x=2$.
+Take a look at the following function. 
 $$ 
-f(x) = \frac{(2+h)^3 - 2^3}{h} 
+f(x) = \frac{x+1}{x-1}
 $$
-
-1. Go [closer](:=reduce=true) to $x=2$.  
-2. Go [all the way](:=all=true) to $x=2$.
+What happens to the function near $x=1$?
+1. Go [closer](:=reduce=true) to $x=1$.  
+2. Go [all the way](:=all=true) to $x=1$.
 [NOTE:](::note1/tooltip)
 
-The limit as $x$ gets close to $2$ is [](:?s1). 
-The value at $x=2$ is [](:?s2)
-
+The value of the $f(x)$ is undefined when $x=1$.
+The limit as $x$ gets close to $1$ from the right is [](:?s1). 
+The limit as $x$ gets close to $1$ from the left is [](:?s2). 
+[Formatting Hints](::formatting/tooltip)
 #### --outlinebox
 #### --outlinebox
 
@@ -72,20 +76,24 @@ left.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 
 let xlow = -2;
 let xhigh = 5;
-let ylow = -2;
-let yhigh = 5;
+let ylow = -48;
+let yhigh = 50;
 
 let th = new BlueTheme();
 
 JXG.Options.layer['functiongraph'] = 5;
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow], {xlabel:'', ylabel:''});
 let F = new ProblemFunction(
-	function(x) { return x + 1; }, 
+	function(x) { 
+		if (x == 1) return undefined;
+		return (x + 1) / (x-1); 
+	}, 
 	'', 3.5, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
-let limit = new ApproachLimit(workspace.board, F.f, 2, 4);
+let limit = new ApproachLimit(workspace.board, F.f, 1, undefined);
 
+let asymptote = workspace.board.create('line', [[1,0.2],[1,-0.2]], {strokeColor:'#DDD', stroteWidth:1})
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -113,6 +121,8 @@ workspace.board.on('update', function() {
 });
 
 
+
+
 smartdown.setVariable('reduce', false);
 smartdown.setVariable('all', false);
 
@@ -121,7 +131,12 @@ this.depend = function() {
   
 	if (env.reduce == true) {
 		smartdown.setVariable('reduce', false);
-		limit.reduceDelta();		
+		const newFValue = F.f(limit.glider.X() + (1 - limit.glider.X()) / 2);
+		while (newFValue < workspace.board.getBoundingBox()[3] || 
+			newFValue > workspace.board.getBoundingBox()[1]) {
+			workspace.board.zoomOut();	
+		}
+		limit.reduceDelta();
 	}
 
 	if (env.all == true) {
@@ -147,8 +162,8 @@ smartdown.setVariable('s2','');
 this.dependOn = ['s1', 's2'];  
 this.depend = function() {
   
-	if (env.s1 == '3' && env.s2 == '4') {
-		smartdown.showDisclosure('success','','center,draggable,closeable,shadow');
+	if (env.s1 == 'inf' && env.s2 == '-inf') {
+		smartdown.showDisclosure('success','','center,transparent,draggable,closeable,shadow');
 	}
 
 };

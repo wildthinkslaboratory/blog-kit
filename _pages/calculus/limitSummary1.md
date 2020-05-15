@@ -8,29 +8,131 @@ ogimage: /assets/images/calculus/epsilonDelta.jpg
 
 ### Informal Limits
 
+#### --outlinebox outer1
+
+#### --outlinebox left1
+
+#### --outlinebox
+
+
+#### --outlinebox right1
 We've looked at a few limit examples and we've developed this informal description of a limit:
 
 # --outlinebox ob_limit
 **Informal Description of a Limit**
-Say we have a function $f(x)$.  The limit of $f(x)$ at some point $x=a$ is the value the function gets close to as $x$ gets very close but remains distinct from $a$.  
+Say we have a function $f(x)$.  The limit of $f(x)$ at some point $x=a$ is the value the function gets [close](:=reduce=true) to as $x$ gets very close but remains distinct from $a$.  
 # --outlinebox
 
-We've learned that: 
-1. The limit of a function at a point usually matches the value of the function at that point.   
-2. There are weird functions where the limit at point is different than the value at the point.  
-3. There are definitely functions where the limit at a point may be undefined.  
+An informal understanding of limits sufficed in the study of calculus for 150 years.  Read this fabulous [quote from mathematician James Tanton](::tantonOnLimits/center,transparent,draggable,closeable) on this topic.
 
-In calculus, some of the most important functions are undefined right at the point where we need their value the most. Fortunately, the limit at these points often does exists and has a real value. We'll see that in these cases, limits can really help us out of a jam. 
+#### --outlinebox
+#### --outlinebox
 
-From here you have a choice.  You can stick with an informal understanding of limits and move on to the lesson on [derivatives](/pages/symbols1), or you can learn more about limits in the lesson on [epsilon delta proofs](/pages/limitDEIntro). 
+ 
 
-A few thoughts before you choose.
+```javascript /autoplay
 
-1. An informal understanding of limits sufficed in the study of calculus for 150 years.  Read this fabulous [quote from mathematician James Tanton](::tantonOnLimits/center,draggable,closeable) on this topic.
+const outer = document.getElementById('outer1');
+const left = document.getElementById('left1');
+const right = document.getElementById('right1');
 
-2. The section on epsilon delta proofs is much more intuitive and entertaining when done with interactive explanations than it is in a normal text book where it's usually a bit tedious.
+outer.classList.remove('decoration-outlinebox');
+left.classList.remove('decoration-outlinebox');
+right.classList.remove('decoration-outlinebox');
+
+outer.classList.add('outer-multi-col');
+left.classList.add('playable-2-col');
+right.classList.add('text-2-col');
+
+
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
+
+smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
+
+// import the calc library
+//smartdown.import=/assets/libs/calc.js
+
+left.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
+
+let xlow = -2;
+let xhigh = 5;
+let ylow = -2;
+let yhigh = 5;
+
+let th = new BlueTheme();
+
+JXG.Options.layer['functiongraph'] = 5;
+let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow], {xlabel:'', ylabel:''});
+let F = new ProblemFunction(
+	function(x) { return x + 1; }, 
+	'', 3.5, [xlow,xhigh], []);
+let F_id = workspace.addFunction(F);
+
+let limit = new ApproachLimit(workspace.board, F.f, 1, undefined);
+
+let limitText = workspace.board.create('text', [1,-0.3, 'a'],{fontSize:18, anchorX:'middle'});
+
+let asymptote = workspace.board.create('segment', [[1,0.2],[1,-0.2]], {strokeColor:'#DDD', stroteWidth:1})
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+// Event handling
+
+this.div.onmousedown = function(e) { 
+  
+};
+
+
+let heightPercent = 0.7;
+
+this.sizeChanged = function() {
+  workspace.board.resizeContainer(left.offsetWidth, window.innerHeight * heightPercent);
+};
+
+
+this.sizeChanged();
+
+
+workspace.board.on('update', function() {
+	limit.onUpdate();
+  workspace.onUpdate();              // hook up workspace update functions
+});
+
+
+smartdown.setVariable('reduce', false);
+smartdown.setVariable('all', false);
+
+this.dependOn = ['reduce', 'all'];  
+this.depend = function() {
+  
+	if (env.reduce == true) {
+		smartdown.setVariable('reduce', false);
+		limit.reduceDelta();		
+	}
+
+	if (env.all == true) {
+		smartdown.setVariable('all', false);
+		limit.eliminateDelta();
+	}
+
+
+};
+
+outer.classList.add('outer-multi-col');
+left.classList.add('playable-2-col');
+right.classList.add('text-2-col');
+
+
+```
+
+
+
+
+
 
 # :::: tantonOnLimits
+# --partialborder
 ![icon](https://aperiodical.com/wp-content/uploads/2018/06/tanton-300x300.png)
 **On the study of limits in highschool calculus:**
 "... Many programs give the impression that this material is a precursor to rigor and technical precision, but, in the end, appeal to intuition over and over again. A student who thinks deeply is given the impression that a foundation is laid, but one with no cement or stone and therefore no real means to support a structure of any weight.
@@ -38,5 +140,6 @@ At this stage of the discussion, the notion of a “limit” should indeed be in
 The standard high-school curriculum does not present the problems that call for precise formulation of a limit, nor does it present the technical definition that goes with it! There is a half-hearted attempt to be “precise,” which, in the end is only confusing. "
 
 From James Tanton's *Thinking Mathematics: Volume 6, Some Calculus*
+# --partialborder
 # ::::
 

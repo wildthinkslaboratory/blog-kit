@@ -18,6 +18,7 @@ You are Delta.  You have a function $f(x)=3x$, and you think $$\lim_{x \to 2} 3x
 # ::::
 
 # :::: toolbar
+# --aliceblue
 # :::: epsilon_turn
 ### Epsilon's Turn
 # ::::
@@ -26,9 +27,10 @@ You are Delta.  You have a function $f(x)=3x$, and you think $$\lim_{x \to 2} 3x
 # ::::
 Adjust the Delta interval so that all the function values inside your interval are also inside Epsilon's interval.
 [Submit Turn](:=compute=true) 
+# --aliceblue
 # ::::
 
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [Play](:=play=true)
+[?](::clue/button,transparent,draggable,closeable,shadow,center) [Play](:=play=true)
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
 
@@ -109,7 +111,7 @@ this.depend = function() {
   
 	if (env.play == true) {
 		smartdown.setVariable('play', false);
-		smartdown.showDisclosure('toolbar','','topright,draggable,closeable,shadow');
+		smartdown.showDisclosure('toolbar','','topright,transparent,draggable,closeable');
 		instructions.setAttribute({visible:true});
 	}
 
