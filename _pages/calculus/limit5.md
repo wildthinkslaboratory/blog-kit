@@ -8,8 +8,7 @@ ogimage: /assets/images/calculus/limits.jpg
 # :::: success
 # --partialborder
 Success!
-
-
+This function is undefined at $x=1$ and also the limit at $x=1$ doesn't exist.  
 [Continue](/pages/limitSummary1)
 # --partialborder
 # ::::
