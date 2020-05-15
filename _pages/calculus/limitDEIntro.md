@@ -7,8 +7,11 @@ ogimage: /assets/images/calculus/epsilonDelta.jpg
 ---
 
 # :::: success
-Success!  To officially prove the limit correct  
+# --partialbox
+Success!  
+ 
 [Continue](/pages/nextLimit)
+# --partialbox
 # ::::
 
 # :::: clue
@@ -136,9 +139,9 @@ this.depend = function() {
 			});
 		}
 		else {
-			smartdown.showDisclosure('tryagain','','bottomright,transparent,colorbox,shadow');
+			smartdown.showDisclosure('tryagain','','bottomright,transparent,colorbox');
 	      	setTimeout(function () {
-	        	smartdown.hideDisclosure('tryagain','','bottomright,colorbox,shadow');
+	        	smartdown.hideDisclosure('tryagain','','bottomright,colorbox');
 	      	}, 3000);
 		}
 	}

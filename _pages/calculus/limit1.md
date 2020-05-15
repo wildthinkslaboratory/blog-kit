@@ -10,11 +10,11 @@ header: 'none'
 # --partialborder 
 You just found a **limit**! 
 
-The function is undefined when $x=1$.  It's like there's a tiny, tiny hole in the function there.  Still, to the left and the right of that tiny hole the function is getting super close to the value $2$.  We say that $2$ is the limit of the function as $x$ goes to $1$ and we write it like this
+The function is undefined when $x=1$.  There's a tiny, tiny hole in the function there.  Still, to the left and the right of that tiny hole the function is getting super close to the value $2$.  We say that $2$ is the limit of the function as $x$ goes to $1$ and we write it like this
 $$
 \lim_{x \to 1} \frac{x^2 - 1}{x-1} = 2
 $$
-So the limit of a function at a point is not the same as the value of the function at that point. 
+So the limit of a function at a point is not the same thing as the value of the function at that point. 
 [Continue](/pages/limit3)
 # --partialborder
 # ::::

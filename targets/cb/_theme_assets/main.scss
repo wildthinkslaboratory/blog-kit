@@ -88,6 +88,10 @@ header.masthead  {
   padding-top: 10px; 
 }
 
+.playable-3-col {
+  padding-top: 10px; 
+}
+
 .text-2-col {
   padding-left: 20px;
   padding-right: 20px;
@@ -116,6 +120,12 @@ header.masthead  {
 
   .playable-2-col {
     width: 50%;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .playable-3-col {
+    width: 32%;
     display: inline-block;
     vertical-align: top;
   }
@@ -282,9 +292,10 @@ header.masthead  {
 // instruction boxes
 .jsxgraph-instructions {
   border: 2px solid #CCC;
-  background-color: #EEF9FF;
+  background-color: #FFFFFF;
   padding: 10px;
   border-radius: 5px;
+  box-shadow: 0 5px 5px #999;
 }
 
 .jsxgraph-alert {

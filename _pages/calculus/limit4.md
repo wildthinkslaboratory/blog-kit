@@ -8,14 +8,14 @@ ogimage: /assets/images/calculus/limits.jpg
 # :::: success
 # --partialborder
 Success!
-To find the limit of a function at a certain point, we look to see what value the function is getting close to near that point.  For this function, the value it approaches to the right of the point and the value it approaches from the left do not agree.  In this case, we say that the limit at $x=0$ does not exist. 
+For this function, the value gets close to 1 on the right side of $x=0$ and it gets close to $0$ on the left side of $x=0$.  Because the left and right limits at $x=0$ don't agree, we say that the limit at $x=0$ does not exist. 
 
 [Continue](/pages/limit5)
 # --partialborder
 # ::::
 
 # :::: note1 
-You can drag the green slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
+You can drag the blue slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
 # ::::
 ### More Limits
 
