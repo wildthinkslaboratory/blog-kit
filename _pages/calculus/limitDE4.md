@@ -19,9 +19,7 @@ To fully prove that $$\lim_{x \to 2} 3x = 6,$$ we would need to show that Delta 
 
 # :::: clue
 # --outlinebox 
-You say that the limit as $x$ goes to $2$ of $3x$ is [](:!suggestedLimit).
-
-To prove your limit is correct, you have to counter every move made by Epsilon.  Epsilon will make smaller and smaller intervals around [](:!suggestedLimit).  You have to adjust the Delta interval around $2$ so that all the function values inside your interval are also inside Epsilon's interval.
+You are Delta.  You have a function $f(x)=3x$, and you think $$\lim_{x \to 2} 3x = 6.$$  To prove your limit is correct, you have to counter every move made by Epsilon.  Epsilon will make smaller and smaller intervals around $6$.  You have to adjust the Delta interval around $2$ so that all the function values inside your interval are also inside Epsilon's interval.
 # --outlinebox 
 # ::::
 
@@ -38,8 +36,7 @@ Adjust the Delta interval so that all the function values inside your interval a
 # --aliceblue
 # ::::
 
-
-What is the limit of the function $f(x)=3x$ as $x$ goes to $2$? [](:?suggestedLimit)
+[?](::clue/button,transparent,draggable,closeable,shadow,center) [Play](:=play=true)
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
 
@@ -65,14 +62,23 @@ JXG.Options.layer['functiongraph'] = 5;
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow], {xlabel:'', ylabel:''});
 let F = new ProblemFunction(
 	function(x) { return 3 * x;}, 
-	'', 3.5, [xlow,xhigh], [2]);
+	'', 3.5, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
-let approachLimit = new ApproachLimit(workspace.board, F.f, 2, 6);
-approachLimit.glider.moveTo([1,0]);
+let limit = new EpsilonDeltaLimit(workspace.board, F.f, 2, 6);
 
-let limit;
-let instructions;
+
+
+let instructions = workspace.board.create('text', [
+	function() { return limit.deltaP.X(); },
+	function() { return limit.deltaP.Y() + 0.2; },
+	'Drag the green dot to<br>adjust the Delta interval'
+	], {visible:false, 
+		fontSize:18, 
+		anchorX:'right', 
+		anchorY:'bottom', 
+		cssClass:'jsxgraph-instructions',
+		highlightCssClass:'jsxgraph-instructions'});
 
 
 
@@ -100,41 +106,31 @@ workspace.board.on('update', function() {
   workspace.onUpdate();              // hook up workspace update functions
 });
 
-
+smartdown.setVariable('myTurn', false);
 smartdown.setVariable('compute', false);
-smartdown.setVariable('suggestedLimit', '');
-let beginPlay = false;
+smartdown.setVariable('play', false);
 
 smartdown.showDisclosure('delta_turn', '', 'transparent');
 
-this.dependOn = ['compute', 'suggestedLimit'];  
+this.dependOn = ['myTurn', 'compute', 'play'];  
 this.depend = function() {
+  
+	if (env.play == true) {
+		smartdown.setVariable('play', false);
+		smartdown.showDisclosure('toolbar','','topright,transparent,draggable,closeable');
+		instructions.setAttribute({visible:true});
+	}
 
-	if (!beginPlay && env.suggestedLimit !== '') {
-		beginPlay = true;
-		approachLimit.hide();
-		const limitValue = parseInt(env.suggestedLimit);
-
-		limit = new EpsilonDeltaLimit(workspace.board, F.f, 2, limitValue);
-
-		instructions = workspace.board.create('text', [
-			function() { return limit.deltaP.X(); },
-			function() { return limit.deltaP.Y() + 0.2; },
-			'Drag the green dot to<br>adjust the Delta interval'
-			], {visible:true, 
-				fontSize:18, 
-				anchorX:'right', 
-				anchorY:'bottom', 
-				cssClass:'jsxgraph-instructions',
-				highlightCssClass:'jsxgraph-instructions'});
-		smartdown.showDisclosure('toolbar','','center,transparent,draggable,closeable');
-		smartdown.showDisclosure('clue','','center,transparent,draggable,closeable,shadow');
+	if (env.myTurn == true) {
+		smartdown.setVariable('myTurn', false);
+		limit.reduceEpsilon(1000);
 	}
 
 	if (env.compute == true) {
 		smartdown.setVariable('compute', false);
-		if (limit.checkDelta()) {
+		if (limit.delta() <= limit.epsilon() / 3) {
 			instructions.setAttribute({visible:false});
+
 			if (limit.epsilon() <= 0.2) {
 				smartdown.showDisclosure('success', '', 'center,draggable,closeable,shadow');
 			}

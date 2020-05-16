@@ -2014,25 +2014,6 @@ class EpsilonDeltaLimit {
      borders: { strokeColor:th.verylightAnnote, highlightStrokeColor: th.verylightAnnote}
     });
 
-    // this.p9 = this.board.create('point', [this.xValue, 4*this.Yerror ],{visible:false});
-    // this.p10 = this.board.create('point', [this.rightB, 4*this.Yerror ],{visible:false});
-
-    // this.deltaLine = this.board.create('segment', [this.p9, this.p10], 
-    // {
-    //   strokeColor: th.lightAnnote, 
-    //   strokeWidth:th.strokeWidthAnnote, 
-    //   firstArrow:true, 
-    //   lastArrow:true, 
-    //   visible:true
-    // });
-
-    // this.deltaText = this.board.create('text', [
-    //   this.deltaTextX,
-    //   this.deltaTextY,
-    //   ''],
-    //   {strokeColor: th.lightAnnote, fontSize: th.fontSizeAnnote, visible:false});
-
-
     this.p5 = this.board.create('point', [xlow, this.lowerB ], {visible:false});
     this.p6 = this.board.create('point', [xhigh, this.lowerB], {visible:false});
     this.p7 = this.board.create('point', [xlow, this.upperB], {visible:false});
@@ -2044,20 +2025,6 @@ class EpsilonDeltaLimit {
       highlightFillOpacity: 0.1 ,
       borders: {strokeColor:th.stroke2, highlightStrokeColor:th.stroke2}
     });
-
-    // this.p11 = this.board.create('point', [4*this.Xerror, this.lValue],{visible:false});
-    // this.p12 = this.board.create('point', [4*this.Xerror, this.upperB],{visible:false});
-
-    // this.epsilonLine = this.board.create('segment', [this.p11, this.p12], 
-    // {
-    //   strokeColor: th.lightAnnote, 
-    //   strokeWidth:th.strokeWidthAnnote, 
-    //   firstArrow:true, 
-    //   lastArrow:true, 
-    //   visible:true
-    // });
-
-
   }
 
   limit() { return this.lValue; }
@@ -2085,6 +2052,16 @@ class EpsilonDeltaLimit {
       this.deltaP.moveTo([this.xValue - this.deltaStrategy(this.epsilon()),0],moveTime, {effect: '--'});
     }
     return;
+  }
+
+  checkDelta() {
+    const dt = this.delta() / 10;
+    for (let i = this.leftB(); i < this.rightB(); i += dt) {
+      if (this.f(i) < this.lowerB() || this.f(i) > this.upperB()) {
+        return false;
+      }
+    }
+    return true;
   }
 
   delete() {
@@ -2160,12 +2137,10 @@ class EpsilonDeltaLimit {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-// case 1 yV == F(xV)
-// case 2 yV == undefined
-// case 3 yV !== undefined and yV !== F(xV)
-// case 4 yV = F(xV), but F is discontinuous at xV
 class ApproachLimit {
   constructor(board, F, xV, fxV, attr = {}) {
+
+    ///////////////////////////////////////////////////////  initialize data members
     this.board = board;
     this.f = F;
     this.xValue = xV;
@@ -2175,7 +2150,6 @@ class ApproachLimit {
     this.Yerror = (boundingBox[1] - boundingBox[3]) / 100;  // give the widgets access to them.
     this.Xerror = (boundingBox[2] - boundingBox[0]) / 100;  // like they have access to the board
     this.precision = 2;
-
 
     this.xaxis = this.board.create('line', [[0,0],[1,0]], {visible:false});  // x axis line   
     this.glider = this.board.create('glider', [0,0, this.xaxis], {
@@ -2212,6 +2186,7 @@ class ApproachLimit {
       this.textVal],{fontSize:14});
 
   }
+
 
   gliderX() { return this.glider.X(); }
   textX() { return this.glider.X() + this.Xerror; }
@@ -2264,6 +2239,42 @@ class ApproachLimit {
     this.glider.moveTo([this.xValue,0],1000, {effect: '--'} );
   }
 
+  show() {
+    if (this.hole) {
+      this.hole.setAttribute({visible:true});
+    }
+    if (this.fxPoint) {
+      this.fxPoint.setAttribute({visible:true});
+    }
+    this.glider.setAttribute({visible:true});
+    this.p.setAttribute({visible:true});
+    this.fVal.setAttribute({visible:true});
+  }
+
+  hide() {
+    if (this.hole) {
+      this.hole.setAttribute({visible:false});
+    }
+    if (this.fxPoint) {
+      this.fxPoint.setAttribute({visible:false});
+    }
+    this.glider.setAttribute({visible:false});
+    this.p.setAttribute({visible:false});
+    this.fVal.setAttribute({visible:false});
+  }
+
+  delete() {
+    if (this.hole) {
+      this.board.removeObject(this.hole);
+    }
+    if (this.fxPoint) {
+      this.board.removeObject(this.fxPoint);
+    }
+    this.board.removeObject(this.glider);
+    this.board.removeObject(this.p);
+    this.board.removeObject(this.fVal);
+    this.board.removeObject(this.xaxis);
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
