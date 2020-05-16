@@ -8,10 +8,10 @@ ogimage: /assets/images/calculus/secant.jpg
 
 
 # :::: clue
-# --aliceblue question
+# --outlinebox question
 ###### Rocket Launch
 Here is a graph showing the speed of a rocket during it's first launch phase. Estimate the acceleration of the rocket at 60 seconds and 120 seconds after lift off. 
-# --aliceblue
+# --outlinebox
 # ::::
 
 
@@ -266,18 +266,3 @@ this.depend = function() {
 
 ```
 
-```javascript /autoplay
-
-// const note = document.getElementById('note');
-// note.classList.remove('decoration-aliceblue');
-// note.classList.add('note');
-
-// const alert = document.getElementById('alert');
-// alert.classList.remove('decoration-aliceblue');
-// alert.classList.add('alert');
-
-const task = document.getElementById('question');
-task.classList.remove('decoration-aliceblue');
-task.classList.add('task');
-
-```

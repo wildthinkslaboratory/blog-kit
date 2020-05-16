@@ -21,14 +21,14 @@ We've been answering lots of interesting questions by making our secants really 
 
 
 #### --outlinebox right1
-The position of the car is described by the function $f(t) = t^2$.  We can estimate the velocity of the car at some time $t$ with the slope of a secant line.  Here's an expression for the slope of the secant line. 
+We found the velocity of the car at $t=2$.  Now we'll find a function that will tell us the speed of the car at anytime we want.  We can estimate the velocity of the car at any time $t$ with the slope of a secant line, which can be expressed as
 $$\frac{(t + h)^2 - t^2}{h}$$
-As $h$ gets close to $0$ our estimate gets more precise, [*h* close to 0](:=close=true) but if $h$ goes all the way to $0$, our estimate is undefined. [*h* all the way to 0](:=gotozero=true) How do we let $h$ go all the way to $0$ without dividing by $0$? [Reset](:=reset=true)  
+[*h* close to 0](:=close=true) [*h* all the way to 0](:=gotozero=true)  [Reset](:=reset=true)  
 
-We can use the limit as $h$ goes to $0$.
+The velocity of the car is the limit as $h$ goes to $0$ of the slope of the secant line
 $$\lim_{h \to 0} \frac{(t + h)^2 - t^2}{h}$$
-We let $h$ get arbitrarily close to $0$ without ever reaching it. With a limit, we only care about what happens near $h=0$.  If our expression is undefined at $h=0$, it doesn't matter.
 
+If we use a little algebra, we can solve this limit and get the function.
 [Continue](/pages/derivative2)
 
 #### --outlinebox
@@ -57,7 +57,6 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 //smartdown.import=/assets/libs/calc.js
 //smartdown.import=/assets/libs/mapping.js
 
-smartdown.showDisclosure('intro','','closeable,draggable,center,lightbox');
 
 left.innerHTML = `<div id='top' style='height:100px; width:100%; border:1px solid gray;background:#EEFFCC;border-radius:8px;'></div><div id='bottom' style='height:600px; width:100%; border: 1px solid gray;background:#FFFFFF;border-radius:8px;';></div>`;
 

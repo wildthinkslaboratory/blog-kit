@@ -79,16 +79,18 @@ lessons :
   derivative: 
     - url: /pages/symbols1/
       name: one
-    - url: /pages/derivative1/
+    - url: /pages/derivative0/
       name: two
-    - url: /pages/derivative2/
+    - url: /pages/derivative1/
       name: three
+    - url: /pages/derivative2/
+      name: four
     - url: /pages/derivative3/
-      name: four 
-    - url: /pages/derivative4/
       name: five 
+    - url: /pages/derivative4/
+      name: six 
     - url: /pages/derivative5/
-      name: six
+      name: seven
       
   negative_binary:
     - url: /pages/NegaBinary1/

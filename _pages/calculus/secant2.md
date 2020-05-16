@@ -7,10 +7,10 @@ ogimage: /assets/images/calculus/secant.jpg
 ---
 
 # :::: clue
-# --aliceblue question
+# --outlinebox question
 ###### Car Ride
 The graph shows the position of the car through time.  Figure out how fast the car is traveling at times $t=1$, $t=2$ and $t=3$
-# --aliceblue
+# --outlinebox
 # ::::
 
 # :::: notes
@@ -278,19 +278,3 @@ this.depend = function() {
 
 ```
 
-```javascript /autoplay
-
-//smartdown.import=/assets/libs/mapping.js
-
-let task = new Task(document, 'clue', 'question');
-smartdown.setVariable('showTask', false);
-this.dependOn = ['showTask'];
-this.depend = function() {
-
-  if (env.showTask == true) {
-    smartdown.setVariable('showTask', false);
-    smartdown.showDisclosure('clue', '', 'transparent,center,draggable,closeable');
-    task.wrapper.style.left = "25%";
-  }
-}
-```

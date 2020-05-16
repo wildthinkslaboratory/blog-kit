@@ -11,7 +11,10 @@ We've been answering lots of interesting questions by making our secants really 
 # ::::
 
 ##### The Derivative When $t=2$
-[?](::clue/center,transparent,draggable,closeable,shadow)
+# :::: the_question
+[?](::clue/center,transparent,draggable,closeable,shadow) The limit of the slope of the secant $\lim_{h \to 0} \frac{(2 + h)^2 - 2^2}{h}$ is [](:?s1). 
+The velocity of the car at $t=2$ is [](:?s2).
+# ::::
 #### --outlinebox outer1
 
 #### --outlinebox left1
@@ -20,17 +23,13 @@ We've been answering lots of interesting questions by making our secants really 
 
 
 #### --outlinebox middle1
-Here's an expression for the slope of the secant line when the initial time point is fixed at $2$. 
+On the left is a secant on the interval between $2$ and $2+h$. The slope of this secant line is 
 $$\frac{(2 + h)^2 - 2^2}{h}$$
+The value $h$ is the width of our secant interval.  To find the speed at point $t=2$, we want the slope of the secant line when $h=0$.  Unfortunately, the slope is undefined when $h=0$.  
 1. Go [closer](:=reduce=true) to $h=0$.
 2. Go [all the way](:=all=true) to $h=0$.
 
-The limit of the secant slope as $h$ goes to $0$
-$$
-\lim_{h \to 0} \frac{(2 + h)^2 - 2^2}{h}
-$$
-is [](:?s1). 
-The velocity of the car at $t=2$ is [](:?s2).
+
 
 #### --outlinebox
 
@@ -97,6 +96,16 @@ let limitExpression = workspace1.board.create('functiongraph',[F1.f,xlow1,xhigh1
 
 limit.glider.moveTo([1,0]);
 
+let hLine = workspace1.board.create('segment', [[0,0], limit.glider], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:5, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
+
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -107,7 +116,7 @@ let xhigh2 = 6;
 let ylow2 = -3;
 let yhigh2 = 30;
 
-let workspace2 = new Workspace('bottom', [xlow2,yhigh2,xhigh2,ylow2],{ xlabel:'t', ylabel:'f(t)', colorTheme:'steel' });
+let workspace2 = new Workspace('bottom', [xlow2,yhigh2,xhigh2,ylow2],{ xlabel:'time (s)', ylabel:'distance(m)', colorTheme:'steel' });
 let F2 = new ProblemFunction(function(x) { return x * x; }, '', 4, [0,xhigh2], []);
 let F_id2 = workspace2.addFunction(F2);
 
@@ -135,6 +144,15 @@ let triangle = workspace2.board.create('polygon', [secant.f1, secant.f2, secant.
   fillColor:'#55DDFF', 
   fillOpacity: 50,
   strokeWidth:3, visible:false});
+
+let hWidth = workspace2.board.create('segment', [secant.p1, secant.f1], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:5, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
 
 let t = workspace2.board.create('glider', [0,0, workspace2.xaxis], 
 	{name:'', face:'^', size:12, color:'green'});
@@ -206,7 +224,7 @@ workspace2.board.on('update', function() {
 });
 
 
-let heightPercent = 0.7;
+let heightPercent = 0.6;
 let heightRatio = 1/6;
 
 this.sizeChanged = function() {
@@ -238,11 +256,15 @@ this.depend = function() {
 
 // set up highlight mapping for formulas.  connect them with their
 // model highlight
-const formula1 = document.getElementById('MathJax-Element-3-Frame');
+const formula1 = document.getElementById('MathJax-Element-6-Frame');
 formula1.onmouseover = onWideAFFactory(formula1, showAFFactory([triangle, limitExpression]));
 formula1.onmouseout = offWideAFFactory(formula1, hideAFFactory([triangle, limitExpression]));
 formula1.classList.add('highlightOffWide');
 
+const formula2 = document.getElementById('MathJax-Element-7-Frame');
+formula2.onmouseover = onAFFactory(formula2, showAFFactory([hLine, hWidth]));
+formula2.onmouseout = offAFFactory(formula2, hideAFFactory([hLine, hWidth]));
+formula2.classList.add('highlightOffNarrow');
 
 ```
 
@@ -252,3 +274,27 @@ formula1.classList.add('highlightOffWide');
 The position of the car is described by the function $f(t) = t^2$.  Find the velocity of the car at time $t=2$?  
 # --outlinebox
 # ::::
+
+# :::: success
+# --partialborder
+Success!
+As the width of our secant interval $h$ gets close to $0$, the slope of the secant line gets close to $4$.   
+[Continue](/pages/derivative1)
+# --partialborder
+# ::::
+
+
+```javascript /autoplay
+
+smartdown.setVariable('s1','');
+smartdown.setVariable('s2','');
+this.dependOn = ['s1', 's2'];  
+this.depend = function() {
+  
+  if (env.s1 == '4' && env.s2 == '4') {
+    smartdown.showDisclosure('success','','center,transparent,draggable,closeable,shadow');
+  }
+
+};
+```
+
