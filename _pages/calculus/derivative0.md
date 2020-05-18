@@ -30,7 +30,6 @@ The value $h$ is the width of our secant interval.  To find the speed at point $
 2. Go [all the way](:=all=true) to $h=0$.
 
 
-
 #### --outlinebox
 
 

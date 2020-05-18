@@ -121,10 +121,14 @@ lessons :
   more_limits:
     - url: /pages/limitDEIntro/
       name: one
-    - url: /pages/limitDE2/
+    - url: /pages/limitDE1/
       name: two
-
-
+    - url: /pages/limitDE2/
+      name: three
+    - url: /pages/limitDE3/
+      name: four
+    - url: /pages/limitDE4/
+      name: five
             
 # Build settings
 # remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes

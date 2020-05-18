@@ -13,7 +13,7 @@ Success!
 To fully prove that $$\lim_{x \to 2} 3x = 6,$$ we would need to show that Delta can counter any move that Epsison makes, no matter how close Epsilon's interval gets to $6$.
 
 
-[Continue](/pages/nextLimit)
+[Continue](/pages/limitDE1)
 # --partialborder
 # ::::
 
@@ -22,24 +22,24 @@ To fully prove that $$\lim_{x \to 2} 3x = 6,$$ we would need to show that Delta 
 You say that the limit as $x$ goes to $2$ of $3x$ is [](:!suggestedLimit).
 
 To prove your limit is correct, you have to counter every move made by Epsilon.  Epsilon will make smaller and smaller intervals around [](:!suggestedLimit).  You have to adjust the Delta interval around $2$ so that all the function values inside your interval are also inside Epsilon's interval.
+[Play](:=play=true)
 # --outlinebox 
 # ::::
 
-# :::: toolbar
-# --aliceblue
+# :::: hint
+# --partialborder
+Adjust the Delta interval so that all the function values inside your interval are also inside Epsilon's interval. 
+# --partialborder
+# ::::
+
+
+What is the limit of the function $f(x)=3x$ as $x$ goes to $2$? [](:?suggestedLimit) [closer](:=reduce=true) [all the way](:=all=true)
 # :::: epsilon_turn
-### Epsilon's Turn
+**Epsilon's Turn**
 # ::::
 # :::: delta_turn
-### Delta's Turn
+**Delta's Turn** [Submit Turn](:=compute=true) 
 # ::::
-Adjust the Delta interval so that all the function values inside your interval are also inside Epsilon's interval.
-[Submit Turn](:=compute=true) 
-# --aliceblue
-# ::::
-
-
-What is the limit of the function $f(x)=3x$ as $x$ goes to $2$? [](:?suggestedLimit)
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
 
@@ -103,13 +103,31 @@ workspace.board.on('update', function() {
 
 smartdown.setVariable('compute', false);
 smartdown.setVariable('suggestedLimit', '');
+smartdown.setVariable('play', false);
+smartdown.setVariable('reduce', false);
+smartdown.setVariable('all', false);
 let beginPlay = false;
 
-smartdown.showDisclosure('delta_turn', '', 'transparent');
 
-this.dependOn = ['compute', 'suggestedLimit'];  
+this.dependOn = ['compute', 'suggestedLimit', 'play', 'all', 'reduce'];  
 this.depend = function() {
 
+	if (env.reduce == true) {
+		smartdown.setVariable('reduce', false);
+		approachLimit.reduceDelta();		
+	}
+
+	if (env.all == true) {
+		smartdown.setVariable('all', false);
+		approachLimit.eliminateDelta();
+	}
+
+	if (env.play == true) {
+		smartdown.setVariable('play', false);
+		smartdown.hideDisclosure('clue','','center,transparent,draggable,closeable,shadow');	
+		smartdown.showDisclosure('delta_turn', '', 'transparent');
+	
+	}
 	if (!beginPlay && env.suggestedLimit !== '') {
 		beginPlay = true;
 		approachLimit.hide();
@@ -127,7 +145,6 @@ this.depend = function() {
 				anchorY:'bottom', 
 				cssClass:'jsxgraph-instructions',
 				highlightCssClass:'jsxgraph-instructions'});
-		smartdown.showDisclosure('toolbar','','center,transparent,draggable,closeable');
 		smartdown.showDisclosure('clue','','center,transparent,draggable,closeable,shadow');
 	}
 
@@ -136,7 +153,7 @@ this.depend = function() {
 		if (limit.checkDelta()) {
 			instructions.setAttribute({visible:false});
 			if (limit.epsilon() <= 0.2) {
-				smartdown.showDisclosure('success', '', 'center,draggable,closeable,shadow');
+				smartdown.showDisclosure('success', '', 'center,transparent,draggable,closeable,shadow');
 			}
 			smartdown.hideDisclosure('delta_turn', '', '');
 			smartdown.showDisclosure('epsilon_turn', '', 'transparent');
@@ -146,10 +163,7 @@ this.depend = function() {
 			});
 		}
 		else {
-			smartdown.showDisclosure('tryagain','','bottomright,transparent,colorbox');
-	      	setTimeout(function () {
-	        	smartdown.hideDisclosure('tryagain','','bottomright,colorbox');
-	      	}, 3000);
+			smartdown.showDisclosure('tryagain','','bottomright,closeable,draggable,transparent');
 		}
 	}
 };
@@ -164,7 +178,8 @@ Great Move!
 
 # :::: tryagain
 # --colorbox
-Try again.
+Try again. 
+Adjust the Delta interval so that all the function values inside your interval are also inside Epsilon's interval. 
 # --colorbox
 # ::::
 

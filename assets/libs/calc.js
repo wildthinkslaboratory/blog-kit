@@ -2055,7 +2055,7 @@ class EpsilonDeltaLimit {
   }
 
   checkDelta() {
-    const dt = this.delta() / 10;
+    const dt = this.delta() / 50;
     for (let i = this.leftB(); i < this.rightB(); i += dt) {
       if (this.f(i) < this.lowerB() || this.f(i) > this.upperB()) {
         return false;
@@ -2252,15 +2252,17 @@ class ApproachLimit {
   }
 
   hide() {
+    this.glider.setAttribute({visible:false});
+    this.p.setAttribute({visible:false, size:0});  // there's some kind of weird bug in jsxgraph
+    this.fVal.setAttribute({visible:false});
+
     if (this.hole) {
       this.hole.setAttribute({visible:false});
     }
     if (this.fxPoint) {
       this.fxPoint.setAttribute({visible:false});
     }
-    this.glider.setAttribute({visible:false});
-    this.p.setAttribute({visible:false});
-    this.fVal.setAttribute({visible:false});
+
   }
 
   delete() {

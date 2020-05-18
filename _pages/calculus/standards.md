@@ -28,7 +28,7 @@ Pose a question to answer or describe a task to complete.
 
 [note](::note1/center,transparent,shadow)
 [alert](::alert1/center,transparent)
-[task](::task1/center,draggable,transparent,shadow) 
+[task](::task1/center,draggable,closeable,transparent,shadow) 
 
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
