@@ -26,9 +26,34 @@ Pose a question to answer or describe a task to complete.
 # --outlinebox
 # ::::
 
-[note](::note1/center,transparent,shadow)
+# :::: plain
+This is a plain box with no inside formatting.
+# ::::
+
+#### Plain Box
+A plain box is white popup.  
+[task lightbox and shadow](::plain/center,draggable,closeable,transparent,outline,lightbox) 
+[task no drag](::plain/center,transparent,shadow,lightbox) 
+[task no shadow](::plain/center,transparent) 
+[task lightbox](::plain/center,transparent,lightbox) 
+
+
+#### Note
+Maybe a note is closable with a button instead of the cross button.
+[note](::note1/center,transparent)
+[note](::note1/center,transparent,draggable,closeable,outline)
+[note](::note1/center,transparent,draggable,closeable,outline,shadow)
+[note](::note1/center,transparent,draggable,closeable,outline,lightbox)
+
+
 [alert](::alert1/center,transparent)
-[task](::task1/center,draggable,closeable,transparent,shadow) 
+
+#### Task
+I think a task is always closable.  
+[task lightbox and shadow](::task1/center,draggable,closeable,transparent,shadow,lightbox) 
+[task no drag](::task1/center,transparent,shadow,lightbox) 
+[task no shadow](::task1/center,transparent) 
+[task lightbox](::task1/center,transparent,lightbox) 
 
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js

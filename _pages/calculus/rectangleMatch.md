@@ -95,10 +95,12 @@ this.depend = function() {
 
 ```
 # :::: success
+# --outlinebox
 You've created a Secant Rectangle!  
 The **secant** and the **rectangle** are two different geometric ways of showing the same relationship.
 $$ \text{distance} = \text{rate} \times \text{time} $$
 Play with it a little and then you can [continue](/pages/secantMatch).
+# --outlinebox
 # ::::
 
 # :::: keeptrying
@@ -236,7 +238,7 @@ this.depend = function() {
       if (solved || checkSolution()) {
 
         // solved or solution correct 
-        smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+        smartdown.showDisclosure('success','','center,draggable,closeable,transparent,shadow,lightbox');
         smartdown.hideDisclosure('keeptrying','','');
 
         // not solved and solution correct
