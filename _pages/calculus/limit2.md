@@ -5,6 +5,8 @@ lesson: 'limit'
 header: 'none'
 ogimage: /assets/images/calculus/limits.jpg
 ---
+
+
 # :::: success
 # --partialborder
 Success!
@@ -72,6 +74,7 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
+
 
 left.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 

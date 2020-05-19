@@ -13,7 +13,7 @@ We need to be careful when canceling variables or variable expressions in a frac
 ### Solving the Limit
 How do we solve this limit on paper without a computer?  What happens to this expression as $h$ gets close to $0$?
 [](:!formula|markdown)
-Some algebra will help make this limit easier to understand.  We can [expand](:=expand=true) the $(t+h)^2$.  Then we [combine](:=combine=true) like terms. We can [cancel](:=cancel=true) the $h$'s from the numerator and denominator. [NOTE](::note/tooltip) Now we have a limit that is easier to think about. What happens to the expression $2t + h$ as the value of $h$ gets close to $0$? Now we can [evaluate the limit](:=limit=true). It becomes the expression $2t$.  
+Some algebra will help make this limit easier to understand.  We can [expand](:=expand=true) the $(t+h)^2$.  Then we [combine](:=combine=true) like terms. We can [cancel](:=cancel=true) the $h$'s from the numerator and denominator. [NOTE](::note/tooltip,transparent) Now we have a limit that is easier to think about. What happens to the expression $2t + h$ as the value of $h$ gets close to $0$? Now we can [evaluate the limit](:=limit=true). It becomes the expression $2t$.  
 To recap, we started with the function $f(t) = t^2$, we wrote an expression for a secant line on this function then took the limit as the secant line gets very small. We got a new function 
 $$f'(t) = 2t$$
 which we call the **derivative** of the function $f(t)=t^2$ and it tells us the velocity of the car at any point in time.

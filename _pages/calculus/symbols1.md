@@ -25,7 +25,7 @@ distances $h$ and $f(x+h) - f(x)$
 slope    $$\frac{f(x+h) - f(x)}{h}$$ 
 
 Take a close look at these expressions. Mouse over them. Look at each forumula and try to envision in your mind where it belongs in the picture? Mapping the formulas onto the picture might be the hardest part of learning calculus so take your time and practice. 
-[Continue](/pages/derivative1)
+[Continue](/pages/derivative0)
 
 #### --outlinebox
 #### --outlinebox

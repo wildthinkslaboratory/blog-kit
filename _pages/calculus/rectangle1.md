@@ -94,11 +94,11 @@ this.depend = function() {
 
 
 # :::: clue2
-# --aliceblue
+# --partialborder
 We can use a rectangle to represent the distance traveled.
 $$\text{distance} = \text{rate} \times \text{time}$$ 
 [next](:=show3=true)
-# --aliceblue
+# --partialborder
 # ::::
 
 # :::: clue1
@@ -109,11 +109,11 @@ A rectangle is a great way to represent a rate of change problem.
 # ::::
 
 # :::: clue3
-# --aliceblue
+# --partialborder
  We can use a rectangle to represent the cost of manufacturing widgets. 
  $$\text{cost} = \text{cost per widget} \times \text{number of widgets}$$  
  [next](:=show4=true)
-# --aliceblue
+# --partialborder
 
 # ::::
 
@@ -223,6 +223,7 @@ this.div.onmousedown = function(e) {
     smartdown.setVariable('num', env.num - 1);
     smartdown.showDisclosure('withClue','','transparent');
     smartdown.hideDisclosure('noClue','','transparent');
+    smartdown.showDisclosure('clue1','','transparent,draggable,closeable,center,outline,shadow,lightbox');
   }
 
 };
@@ -251,7 +252,7 @@ this.depend = function() {
   if (env.show1 == true) {
     console.log('show1');
     smartdown.setVariable('show1', false);
-    smartdown.showDisclosure('clue1','','transparent,draggable,center,shadow');
+    smartdown.showDisclosure('clue1','','transparent,draggable,closeable,center,outline,shadow');
     smartdown.hideDisclosure('clue2','','');
     smartdown.hideDisclosure('clue3','','');
     smartdown.hideDisclosure('clue4','','');
@@ -262,7 +263,7 @@ this.depend = function() {
   if (env.show2 == true) {
     smartdown.setVariable('show2', false);
     smartdown.hideDisclosure('clue1','','');
-    smartdown.showDisclosure('clue2','','transparent,draggable,center,shadow');
+    smartdown.showDisclosure('clue2','','transparent,draggable,closeable,center,outline,shadow');
     rectangle.setAttribute({ units: 'time', rate: 'rate', change: 'distance'});
     rectangle.setFillColor('#AAFF00');
     board.board.update();
@@ -270,7 +271,7 @@ this.depend = function() {
   if (env.show3 == true) {
     smartdown.setVariable('show3', false);
     smartdown.hideDisclosure('clue2','','');
-    smartdown.showDisclosure('clue3','','transparent,draggable,center,shadow');
+    smartdown.showDisclosure('clue3','','transparent,draggable,closeable,center,outline,shadow');
     rectangle.setAttribute({ units: 'number of widgets', rate: 'cost per widget', change: 'total cost'});
     rectangle.setFillColor('#FFFF00');
     board.board.update();
@@ -278,7 +279,7 @@ this.depend = function() {
   if (env.show4 == true) {
     smartdown.setVariable('show4', false);
     smartdown.hideDisclosure('clue3','','');
-    smartdown.showDisclosure('clue4','','transparent,closeable,draggable,center,shadow');
+    smartdown.showDisclosure('clue4','','transparent,draggable,closeable,center,outline,shadow,lightbox');
   }
 };
                       

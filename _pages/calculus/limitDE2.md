@@ -6,6 +6,13 @@ header: 'none'
 ogimage: /assets/images/calculus/epsilonDelta.jpg
 ---
 
+# :::: intro_note
+# --aliceblue
+In this example, the limit at $x=2$ doesn't exist.  Pick a limit and try to play the game anyway.  It helps illustrate why the delta / epsilon way of thinking about limits works.  Try playing around with Epsilon's interval as well as Delta's.  There are Epsilon intervals that Delta can counter, but when Epsilon gets close to your chosen limit, Delta eventually fails.
+# --aliceblue
+# ::::
+
+
 # :::: success
 # --partialborder
 Success!  
@@ -19,7 +26,7 @@ To fully prove that $$\lim_{x \to 2} 3x = 6,$$ we would need to show that Delta 
 
 # :::: clue
 # --outlinebox 
-You say that the limit as $x$ goes to $2$ of $3x$ is [](:!suggestedLimit).
+You say that the limit as $x$ goes to $2$ is [](:!suggestedLimit).
 
 To prove your limit is correct, you have to counter every move made by Epsilon.  Epsilon will make smaller and smaller intervals around [](:!suggestedLimit).  You have to adjust the Delta interval around $2$ so that all the function values inside your interval are also inside Epsilon's interval.
 [Play](:=play=true)
@@ -42,6 +49,9 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
+
+
+smartdown.showDisclosure('intro_note','','transparent,draggable,closeable,topright,outline,shadow,lightbox');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';

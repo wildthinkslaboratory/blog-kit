@@ -6,20 +6,19 @@ header: 'none'
 ogimage: /assets/images/calculus/epsilonDelta.jpg
 ---
 
+
 # :::: success
 # --partialborder
 Success!  
-
-To fully prove that $$\lim_{x \to 0} x \sin(\frac{1}{x}) = 0,$$ we would need to show that Delta can counter any move that Epsison makes, no matter how close Epsilon's interval gets to $0$.
-
-
+$$\lim_{x \to 0} x \sin\left(\frac{1}{x}\right) = 0$$ 
+Again, this game could continue for smaller and smaller intervals.  We'd like to be sure that Delta continues to counter Epsilon's moves.
 [Continue](/pages/limitDE2)
 # --partialborder
 # ::::
 
 # :::: clue
 # --outlinebox 
-You say that the limit as $x$ goes to $0$ of $x \sin(\frac{1}{x})$ is [](:!suggestedLimit).
+You say that the limit as $x$ goes to $0$ of $x \sin\Left(\frac{1}{x}\Right)$ is [](:!suggestedLimit).
 
 To prove your limit is correct, you have to counter every move made by Epsilon.  Epsilon will make smaller and smaller intervals around [](:!suggestedLimit).  You have to adjust the Delta interval around $0$ so that all the function values inside your interval are also inside Epsilon's interval.
 [Play](:=play=true)

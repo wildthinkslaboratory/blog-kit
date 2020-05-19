@@ -25,10 +25,11 @@ The velocity of the car at $t=2$ is [](:?s2).
 #### --outlinebox middle1
 On the left is a secant on the interval between $2$ and $2+h$. The slope of this secant line is 
 $$\frac{(2 + h)^2 - 2^2}{h}$$
-The value $h$ is the width of our secant interval.  To find the speed at point $t=2$, we want the slope of the secant line when $h=0$.  Unfortunately, the slope is undefined when $h=0$.  
+The value $h$ is the width of our secant interval.  To find the speed at point $t=2$, we want the slope of the secant line when $h=0$.  Unfortunately, the slope is undefined when $h=0$.  So instead, we'll take the limit as $h$ goes to $0$.   
 1. Go [closer](:=reduce=true) to $h=0$.
 2. Go [all the way](:=all=true) to $h=0$.
 
+The limit as $h$ goes to $0$ is [](:?s1)
 
 #### --outlinebox
 
@@ -277,7 +278,9 @@ The position of the car is described by the function $f(t) = t^2$.  Find the vel
 # :::: success
 # --partialborder
 Success!
-As the width of our secant interval $h$ gets close to $0$, the slope of the secant line gets close to $4$.   
+The instantaneous speed of the car at time $t=2$ is defined as
+$$\lim_{h \to 0}\frac{(2 + h)^2 - 2^2}{h}.$$ 
+The idea of a **limit** got us out of a jam here.  This limit is called the **derivative** evaluated at $t=2$.  
 [Continue](/pages/derivative1)
 # --partialborder
 # ::::
@@ -286,11 +289,11 @@ As the width of our secant interval $h$ gets close to $0$, the slope of the seca
 ```javascript /autoplay
 
 smartdown.setVariable('s1','');
-smartdown.setVariable('s2','');
-this.dependOn = ['s1', 's2'];  
+
+this.dependOn = ['s1'];  
 this.depend = function() {
   
-  if (env.s1 == '4' && env.s2 == '4') {
+  if (env.s1 == '4') {
     smartdown.showDisclosure('success','','center,transparent,draggable,closeable,shadow');
   }
 

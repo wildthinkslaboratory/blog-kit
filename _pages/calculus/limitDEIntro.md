@@ -10,7 +10,7 @@ ogimage: /assets/images/calculus/epsilonDelta.jpg
 # --partialborder
 Success!  
 
-To fully prove that $$\lim_{x \to 2} 3x = 6,$$ we would need to show that Delta can counter any move that Epsison makes, no matter how close Epsilon's interval gets to $6$.
+To fully prove that $$\lim_{x \to 2} 3x = 6,$$ we would need to show that Delta can counter any move that Epsilon makes, no matter how close Epsilon's interval gets to $6$.  That would take an infinite number of steps.  Later we'll find a shorter way of proving limits.
 
 
 [Continue](/pages/limitDE1)

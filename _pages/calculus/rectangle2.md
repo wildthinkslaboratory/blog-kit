@@ -7,10 +7,10 @@ ogimage: /assets/images/calculus/rectangle.jpg
 ---
 
 # :::: clue
-# --outlinebox
+# --aliceblue
 ##### Car Ride
 The car travels at a constant speed of 10 meters per second.  How far has the car traveled after 4 seconds?
-# --outlinebox
+# --aliceblue
 # ::::
 
 # :::: notes
@@ -22,7 +22,7 @@ The car travels at a constant speed of 10 meters per second.  How far has the ca
 
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here's another rectangle. 
+[?](::clue/button,transparent,draggable,closeable,outline,center,shadow,lightbox) [Submit Solution](:=compute=true) Here's another rectangle. 
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -125,7 +125,7 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 //smartdown.import=/assets/libs/calc.js
 
 smartdown.showDisclosure('toolbar','','transparent');
-
+smartdown.showDisclosure('clue','','transparent,draggable,closeable,outline,center,shadow,lightbox');
 const myDiv = this.div;
 myDiv.style.width = '100%';
 myDiv.style.height = '100%';
@@ -262,11 +262,11 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,center,shadow,lightbox,outline');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow,lightbox,outline');
       smartdown.hideDisclosure('success','','');
     }
   }

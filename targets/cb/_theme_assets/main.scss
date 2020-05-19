@@ -311,13 +311,6 @@ header.masthead  {
   Calculus Theme
 
 **************************************************************************/
-.smartdown-container .decoration-outlinebox {
-
-  color: #333 !important;
-  padding: 1px 30px 30px 30px !important;
-  border: none !important;
-  border-radius: none !important;
-}
 
 
 .alert {
@@ -335,7 +328,11 @@ header.masthead  {
 }
 
 .smartdown-container .decoration-outlinebox {
-
+  color: #333 !important;
+  background: #FFF !important;
+  padding: 1px 30px 30px 30px !important;
+  border: none !important;
+  border-radius: none !important;
 }
 
 
@@ -400,11 +397,15 @@ header.masthead  {
 
   .disclosable-content {
     border: none !important;
-    background: #FFF !important;
+    color: #FFFFFF !important;
+    background: #2288DD !important;
+
     border-bottom-left-radius: 10px !important;
     border-bottom-right-radius: 10px !important;
     border-top-left-radius: 10px ! important;
     border-top-right-radius: 10px ! important;
+
+
 
     &.disclosable-outline-content {
 
@@ -453,7 +454,7 @@ header.masthead  {
 
     .disclosable-header {
       cursor: move;
-      background: #DDD !important;
+      background: #EEE !important;
       border-top-left-radius: 10px !important;
       border-top-right-radius: 10px !important;
 
@@ -461,7 +462,7 @@ header.masthead  {
       &.disclosable-header-position {
       }
       button.disclosable-button-close {
-        background: #FFF !important;
+        background: #EEE !important;
         border-radius: 2px !important;
         border: none !important;
         height: 18px !important;
