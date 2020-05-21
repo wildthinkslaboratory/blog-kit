@@ -7,7 +7,9 @@ ogimage: /assets/images/calculus/derivative.jpg
 ---
 
 # :::: tangent
+# --partialborder
 If a line intersects a function at the point $p$ and the slope of the line matches the **derivative** of the function at that same point $p$, then it is a **tangent** line to the function.  
+# --partialborder
 # ::::
 
 ### Turning the Secant Into a Tangent
@@ -23,7 +25,7 @@ If a line intersects a function at the point $p$ and the slope of the line match
 #### --outlinebox right1
 Now we know that the limit as our secant gets very small for any time $t$ is described by the function $$f'(t) = 2t.$$
 Let's watch again as the secant line gets very small.  [secant to tangent](:=toTangent=true) [Reset](:=reset=true)
-As the value of $h$ gets arbitrarily small but never reaches $0$, our secant is getting closer and closer to a [tangent line](::tangent/tooltip).
+As the value of $h$ gets arbitrarily small but never reaches $0$, our secant is getting closer and closer to a [tangent line](::tangent/tooltip,transparent).
 
 The slope of the tangent line at any point is defined by the derivative function $f'(t) = 2t$ and gives us the velocity of the car. [show derivative](:=derivative=true)
 Notice that the slope of the tangent line matches the value of the derivative function for all values of $t$.

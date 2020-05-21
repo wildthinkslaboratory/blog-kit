@@ -294,7 +294,7 @@ this.dependOn = ['s1'];
 this.depend = function() {
   
   if (env.s1 == '4') {
-    smartdown.showDisclosure('success','','center,transparent,draggable,closeable,shadow');
+    smartdown.showDisclosure('success','','center,transparent,draggable,closeable,outline,shadow');
   }
 
 };

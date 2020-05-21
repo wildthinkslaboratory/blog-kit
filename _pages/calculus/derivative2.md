@@ -7,7 +7,9 @@ ogimage: /assets/images/calculus/derivative.jpg
 ---
 
 # :::: note
+# --partialborder
 We need to be careful when canceling variables or variable expressions in a fraction.  If there's a possibility that the denominator could be $0$ this can lead us to derive an expression that is false.  In this case we are safe because we have already assumed that $h$ will never reach $0$, so we won't be dividing by zero.  [more on dividing by zero](/pages/divideByZero#-blank)
+# --partialborder
 # ::::
 
 ### Solving the Limit
