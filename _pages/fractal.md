@@ -43,7 +43,7 @@ this.depend = function() {
 
 
 smartdown.showDisclosure('panel','','bottomright,draggable,shadow');
-smartdown.showDisclosure('intro','','transparent,center,closeable,draggable,shadow');
+smartdown.showDisclosure('intro','','transparent,center,closeable,draggable,shadow,outline');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';

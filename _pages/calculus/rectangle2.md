@@ -7,18 +7,12 @@ ogimage: /assets/images/calculus/rectangle.jpg
 ---
 
 # :::: clue
-# --aliceblue
+# --outlinebox
 ##### Car Ride
 The car travels at a constant speed of 10 meters per second.  How far has the car traveled after 4 seconds?
-# --aliceblue
+# --outlinebox
 # ::::
 
-# :::: notes
-# --aliceblue
-##### Note
-
-# --aliceblue
-# ::::
 
 
 # :::: toolbar
@@ -125,7 +119,8 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 //smartdown.import=/assets/libs/calc.js
 
 smartdown.showDisclosure('toolbar','','transparent');
-smartdown.showDisclosure('clue','','transparent,draggable,closeable,outline,center,shadow,lightbox');
+//smartdown.showDisclosure('clue','','transparent,draggable,closeable,outline,center,shadow,lightbox');
+
 const myDiv = this.div;
 myDiv.style.width = '100%';
 myDiv.style.height = '100%';

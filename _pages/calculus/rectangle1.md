@@ -118,10 +118,10 @@ A rectangle is a great way to represent a rate of change problem.
 # ::::
 
 # :::: clue4
-# --aliceblue
+# --outlinebox
  Let's solve a problem with a rectangle.
  [Continue](/pages/rectangle2)
-# --aliceblue
+# --outlinebox
 
 # ::::
 

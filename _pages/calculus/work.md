@@ -14,7 +14,7 @@ When we pull on a spring, the amount of force required changes with the distance
 # ::::
 
 # :::: notes
-# --aliceblue
+# --partialborder
 ##### Note 1
 Work is equal to force times distance
 $$W = F \cdot d$$
@@ -22,12 +22,12 @@ We can model work as the area of a rectangle whose dimensions are distance and f
 
 ##### Note 2
 It's hard to **see** the amount of work done in the picture of the spring.  A simple way to think about work (as opposed to force) is that doing work requires energy and makes you tired. To show how much work is being done, we change the color of the background.  As the amount of work done pulling the spring goes up, the background gets redder.
-# --aliceblue
+# --partialborder
 # ::::
 
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
+[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,outline,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -283,11 +283,11 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {
-      smartdown.showDisclosure('success','','draggable,closeable,topleft,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('success','','');
     }
   }

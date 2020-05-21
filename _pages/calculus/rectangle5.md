@@ -22,7 +22,7 @@ Here is a graph showing the speed of a rocket during it's first launch phase. Es
 
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) You have a rectangle array!
+[?](::clue/button,transparent,draggable,closeable,outline,lightbox,center,shadow) [Submit Solution](:=compute=true) You have a rectangle array!
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -109,7 +109,7 @@ this.depend = function() {
 # :::: success
 Success! 
 Error of [](:!error)%. 
-[note](::exitnotes/button,transparent,draggable,closeable,topleft,shadow) [Continue](/pages/rectangleAUC)
+[note](::exitnotes/button,transparent,draggable,closeable,outline,topleft,shadow) [Continue](/pages/rectangleAUC)
 # ::::
 
 # :::: keeptrying
@@ -118,10 +118,10 @@ Error of [](:!error)%.  The error must be below 0.1%.
 # ::::
 
 # :::: exitnotes
-# --aliceblue
+# --partialborder
 If you've come this far, you may have achieved an error that says 0.00% correct.  However, you used at most 100 rectangles to achieve that error.  So theoretically, you could have improved your estimate even more by using 200 rectangles.  This is actually true.  200 rectangles is more accurate than 100 rectangles.  The 100 rectangle solution isn't actually perfect and produces a small error, but we round that error to two decimal points which makes it look like it's perfect.  
 This is just part of the difficulty of solving these problems with computers.  Computers require us to set bounds on precision and often we can't get exact results.  In this case, we could have set the precision of our answer to three decimal points.  Maybe then we could see the difference between a 100 rectangle approximation and a 200 rectangle approximation.  Of course we likely couldn't see the difference between a 200 rectangle approximation and a 400 rectangle approximation.  These issues are unavoidable using our current strategies.  Later we will see a symbolic way of solving these types of problems that will give us exact answers.
-# --aliceblue
+# --partialborder
 # ::::
 
 ```javascript /autoplay
@@ -258,11 +258,11 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('success','','');
     }
   }

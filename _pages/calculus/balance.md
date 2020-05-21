@@ -7,32 +7,35 @@ ogimage: /assets/images/calculus/rectangle.jpg
 ---
 
 # :::: clue
-# --outlinebox
+# --outlinebox olb1
 ##### Sword Balance Point
-A sword is 80 centimeters long.  A large portion of the sword's weight is in the hilt.  As you move away from the hilt, the sword tapers to a narrow blade. We'll ignore the cross sectional shape of the sword for now and instead think of it as a one dimensional bar with a variable density along it's length.  The density per centimeter is shown in the graph.  Estimate the [balance point](::balancepoint/tooltip) of the sword using the red triangle. 
+A sword is 80 centimeters long.  A large portion of the sword's weight is in the hilt.  As you move away from the hilt, the sword tapers to a narrow blade. We'll ignore the cross sectional shape of the sword for now and instead think of it as a one dimensional bar with a variable density along it's length.  The density per centimeter is shown in the graph.  Estimate the [balance point](::balancepoint/tooltip,transparent) of the sword using the red triangle. 
 
 The answer isn't a whole number so do your best to estimate it.  Later when we learn to solve these problems symbolically we'll be able to answer this question exactly.
 
 # :::: balancepoint
+# --partialborder pb1
 The **balance point** is the point along the length of the sword where it will balance perfectly on your finger.
+# --partialborder
 # ::::
+
 # --outlinebox
 # ::::
 
 # :::: notes
-# --aliceblue
+# --partialborder
 ##### Note 1
 Mass is equal to the linear density times the length
 $$M = d \cdot l$$
 and we can model that with a rectangle.
 ##### Note 2
 Typically the balance point of a sword is a small distance past the hilt.  At first it might seem that it would be best to hold the sword at the balance point since this would appear to make the sword more maneuverable.  However,  having the balance point just beyond the place where you hold it allows the user to take some advantage of gravity when bringing the sword down on it's target.
-# --aliceblue
+# --partialborder
 # ::::
 
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
+[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,outline,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -280,11 +283,11 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,center,lightbox,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('success','','');
     }
   }

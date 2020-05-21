@@ -14,9 +14,11 @@ Remember the main rule!
  Two purple **dots** on the right change into one blue negative **dot** or **antidot** in the box to the left.   $\fbox{$\circ$} \leftarrow \fbox{${\bullet \bullet}$} $
 # --outlinebox
 
-Let's write the number $2$.  We'll start by putting two dots into the rightmost box of the [**playable**](::playable/tooltip).
+Let's write the number $2$.  We'll start by putting two dots into the rightmost box of the [**playable**](::playable/tooltip,transparent).
 # :::: playable
+# --partialborder
 The interactive app below is called a **playable**.  Notice the thin gray bar above it.  You can reset the app by clicking on this band, once to stop the playable and again to start it.  When the playable is stopped you can see the playable's code.
+# --partialborder
 # ::::
 
 ```javascript /autoplay/p5js

@@ -14,22 +14,22 @@ Here is a graph showing the speed of a rocket during it's first launch phase. Es
 # ::::
 
 # :::: notes
-# --aliceblue
+# --partialborder
 ##### Note 
 What should the dimensions of this rectangle be?  The time will be 120 seconds, but what is the rate?  It's not clear what the average speed of the rocket is.  But we now have four rectangles!
-# --aliceblue
+# --partialborder
 # ::::
 
 # :::: exitnotes
-# --aliceblue
+# --partialborder
 Each rectangle in our solution estimates the distance traveled during a time interval.  By breaking the problem down into smaller pieces we can make better use of the information from the speed graph.  
 
 As the intervals get smaller, the height of the rectangle more accurately represents the average speed for that interval.  This makes the overall estimate better.  Of course why should we stop at four intervals?  How far can we push this idea?
-# --aliceblue
+# --partialborder
 # ::::
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) You have [](:!numButtons) rectangle(s). 
+[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,closeable,outline,center,shadow) [Submit Solution](:=compute=true) You have [](:!numButtons) rectangle(s). 
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
@@ -118,7 +118,7 @@ this.depend = function() {
 # :::: success
 Success! 
 Error of [](:!error)%. 
-[note](::exitnotes/button,transparent,draggable,closeable,topleft,shadow) [Continue](/pages/rectangle5)
+[note](::exitnotes/button,transparent,draggable,closeable,outline,topleft,shadow) [Continue](/pages/rectangle5)
 # ::::
 
 # :::: keeptrying
@@ -277,7 +277,7 @@ this.depend = function() {
       else {
         smartdown.hideDisclosure('more_rectangles','','');
       }
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('success','','');
     }
   }

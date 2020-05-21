@@ -279,10 +279,12 @@ this.depend = function() {
 ```
 [P](:-P/0/1/0.01)  
 [Q](:-Q/0/1/0.01)
-[fly left](:=left=true) [fly down](:=down=true) [reset](:=reset=true) [Application Notes](::appnotes/tooltip)
+[fly left](:=left=true) [fly down](:=down=true) [reset](:=reset=true) [Application Notes](::appnotes/tooltip,transparent)
 
 # :::: appnotes
+# --partialborder
 - you can adjust the interval $[P,Q]$ with the $P$ and $Q$ sliders.
 - use the buttons to fly left, fly down or reset the app to start over.
 - you can click on segment $\overline{AB}$ to reset the app and start a flight path from a specific point on  $\overline{AB}$.
+# --partialborder
 # ::::

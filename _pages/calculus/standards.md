@@ -89,6 +89,33 @@ Here we'll work on [tooltips](::my_tooltip/tooltip,transparent).  What kind of d
 # --outlinebox
 
 I think this still looks pretty good even with the minimal outline.
+
+#### color boxes
+
+# --colorbox
+A color box is for a high profile message against a light background.
+# --colorbox
+
+We might want to write a note with the note decoration.
+
+# --partialborder
+This is a note
+# --partialborder
+
+And the final decoration is the control panel decoration.
+
+# --aliceblue
+This is the last decoration.  I'm out of decorations now.
+# --aliceblue
+
+# :::: cb
+# --colorbox
+A color box is for a high profile message against a light background.
+# --colorbox
+# ::::
+
+[color popup](::cb/button,center,closeable,draggable,outline,transparent)
+
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
 

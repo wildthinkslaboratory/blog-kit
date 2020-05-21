@@ -21,12 +21,12 @@ One of the most powerful ideas that people learn from James Tanton's [Exploding 
 Here is the base $26$ machine from the video.  It uses the rule $1 \leftarrow 26$.  The **dots** are red and **antidots** are light blue.  Instead of using the standard number symbols `{0123456789}` to encode numbers, it uses the alphabet `{abcdefghijlmnopqrstuvwxyz}`.  
 
 # :::: playable
-
+# --partialborder
 The interactive app below is called a **playable**.  Notice the thin gray bar above it.  You can reset the app by clicking on this band, once to stop the playable and again to start it.  When the playable is stopped you can see the playable's code.  
-
+# --partialborder
 # ::::
 
-In the [**playable**](::playable/tooltip) below, I've initilized the machine with the string `cab`, which has a base $10$ value of $1353$.  Said another way, the base $10$ number $1353$ has the code `cab` in this base $26$ machine.  
+In the [**playable**](::playable/tooltip,transparent) below, I've initilized the machine with the string `cab`, which has a base $10$ value of $1353$.  Said another way, the base $10$ number $1353$ has the code `cab` in this base $26$ machine.  
 
 
 ```javascript /playable/autoplay/p5js

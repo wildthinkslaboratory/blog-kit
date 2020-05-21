@@ -22,18 +22,19 @@ Show that there are exactly eight people stuck with mangos, which can no longer 
 It's hard to model all $100$ people in an app.  The mangos get really small and you don't really want to work $2019$ mangos around $100$ people, trust me.  This app starts with $12$ people and you can add as many mangos to the circle as you want.  Hover over the app instructions to get the full details. Currently this app doesn't work well on mobile devices.  I hope to improve the mobile experience soon.
 
 # :::: app_instructions
+# --partialborder
 - add mangos by clicking on the start box/person.
 - drag a mango clockwise one box to share mangos.
 - drag a mango counter clockwise one box to eat a mango.
 - change the number of people with the slider and then reset the app by hitting the gray stop/play button above the app.  This will reset the app with the new number of people.
-
+# --partialborder
 # ::::
 
 ```javascript /autoplay
   smartdown.setVariable('N', 12);
 ```
 
-[Application Instructions](::app_instructions/tooltip) 
+[Application Instructions](::app_instructions/tooltip,transparent) 
 Number of People [](:-N/8/32/2) [](:!N)
 ```javascript /playable/autoplay/p5js
 

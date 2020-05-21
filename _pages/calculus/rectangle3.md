@@ -9,19 +9,19 @@ ogimage: /assets/images/calculus/rectangle.jpg
 # :::: clue
 # --outlinebox
 ##### Car Ride
-The car begins from a stationary position and gradually increases it's speed.  How far has the car traveled after 4 seconds?  
+Here is a graph showing the speed of a car.  The car begins from a stationary position and gradually increases it's speed.  How far has the car traveled after 4 seconds?  
 # --outlinebox
 # ::::
 
 # :::: notes
-# --aliceblue note
+# --partialborder note
 What should the dimensions of this rectangle be?  The time interval is 4 seconds, but what is the rate?  It may help to figure out the average speed that the car travels during that time period.
-# --aliceblue
+# --partialborder
 # ::::
 
 
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here's another rectangle. 
+[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Submit Solution](:=compute=true) Here's another rectangle. 
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////

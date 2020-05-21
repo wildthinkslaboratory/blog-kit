@@ -333,7 +333,41 @@ header.masthead  {
   color: #333 !important;
   background: #FFF !important;
   border: 1px solid #DDD !important;
+
+  padding-top: 30px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  padding-bottom: 30px !important;
+
   border-radius: none !important;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+
+.smartdown-container .decoration-colorbox {
+  background:  #66AAFF !important;
+  border: none !important;
+
+  padding-top: 30px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  padding-bottom: 30px !important;
+
+  border-radius: none !important;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+}
+
+.smartdown-container .decoration-partialborder {
+  color: #333 !important;
+  background: #FFD !important;
+  border: 2px solid #EEAA55 !important;
 
   padding-top: 30px !important;
   padding-left: 30px !important;
@@ -346,40 +380,16 @@ header.masthead  {
   border-top-right-radius: 10px;
 }
 
-
-.smartdown-container .decoration-colorbox {
-  background:  #66AAFF !important;
-  border: none !important;
-  border-radius: none !important;
-
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-
-}
-
-.smartdown-container .decoration-partialborder {
-  color: #333 !important;
-  background: #FFD !important;
-  padding: 30px !important;
-
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-
-  border: 2px solid #EEAA55 !important;
-  xborder-top: 2px solid #EEAA33 !important;
-  xborder-bottom: 2px solid #EEAA33 !important;
-
-}
-
 .smartdown-container .decoration-aliceblue {
   color: #333 !important;
   background: #EEF7FF !important;
-  padding: 1px 30px 30px 30px !important;
   border: 2px solid #55AAEE !important;
+
+  padding-top: 30px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  padding-bottom: 30px !important;
+
   border-radius: none !important; 
 
 }
@@ -468,7 +478,6 @@ header.masthead  {
   }
 
   &.disclosable-attach {
-
   }
 
   &.disclosable-position {
