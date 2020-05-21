@@ -278,9 +278,9 @@ The position of the car is described by the function $f(t) = t^2$.  Find the vel
 # :::: success
 # --partialborder
 Success!
-The instantaneous speed of the car at time $t=2$ is defined as
+The instantaneous speed of the car at time $t=2$ is defined as the limit of the slope of the secant line
 $$\lim_{h \to 0}\frac{(2 + h)^2 - 2^2}{h}.$$ 
-The idea of a **limit** got us out of a jam here.  This limit is called the **derivative** evaluated at $t=2$.  
+The idea of a **limit** got us out of a jam here.  This limit of the slope of the secant line is called the **derivative** and we've evaluated it at $t=2$.  
 [Continue](/pages/derivative1)
 # --partialborder
 # ::::

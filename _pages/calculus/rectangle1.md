@@ -95,22 +95,22 @@ this.depend = function() {
 
 # :::: clue2
 # --partialborder
-We can use a rectangle to represent the distance traveled.
+We can use a rectangle to show how distance is related to rate and time.
 $$\text{distance} = \text{rate} \times \text{time}$$ 
 [next](:=show3=true)
 # --partialborder
 # ::::
 
 # :::: clue1
-# --aliceblue
+# --partialborder
 A rectangle is a great way to represent a rate of change problem.  
 [next](:=show2=true)
-# --aliceblue
+# --partialborder
 # ::::
 
 # :::: clue3
 # --partialborder
- We can use a rectangle to represent the cost of manufacturing widgets. 
+ We can use the area of a rectangle to represent the cost of manufacturing widgets. 
  $$\text{cost} = \text{cost per widget} \times \text{number of widgets}$$  
  [next](:=show4=true)
 # --partialborder
@@ -223,7 +223,6 @@ this.div.onmousedown = function(e) {
     smartdown.setVariable('num', env.num - 1);
     smartdown.showDisclosure('withClue','','transparent');
     smartdown.hideDisclosure('noClue','','transparent');
-    smartdown.showDisclosure('clue1','','transparent,draggable,closeable,center,outline,shadow,lightbox');
   }
 
 };

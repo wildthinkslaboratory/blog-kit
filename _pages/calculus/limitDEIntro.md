@@ -153,7 +153,7 @@ this.depend = function() {
 		if (limit.checkDelta()) {
 			instructions.setAttribute({visible:false});
 			if (limit.epsilon() <= 0.2) {
-				smartdown.showDisclosure('success', '', 'center,transparent,draggable,closeable,shadow');
+				smartdown.showDisclosure('success', '', 'center,transparent,draggable,closeable,outline,shadow');
 			}
 			smartdown.hideDisclosure('delta_turn', '', '');
 			smartdown.showDisclosure('epsilon_turn', '', 'transparent');
@@ -163,7 +163,7 @@ this.depend = function() {
 			});
 		}
 		else {
-			smartdown.showDisclosure('tryagain','','bottomright,closeable,draggable,transparent');
+			smartdown.showDisclosure('tryagain','','bottomright,closeable,outline,draggable,transparent');
 		}
 	}
 };

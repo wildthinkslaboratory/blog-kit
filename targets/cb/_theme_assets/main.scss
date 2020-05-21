@@ -312,31 +312,50 @@ header.masthead  {
 
 **************************************************************************/
 
-
-.alert {
-  border: 3px solid #FF8888;
-  background-color: #FEE;
-  color: #333;
-  padding: 20px !important;
-  line-height: 30px;
-  border-radius: 10px;
-  width: 50%;
-  margin: auto;
-  position: fixed;
-  top: 50%;
-  left: 0; right: 0;
+.smartdown-container .disclosable-trigger-button {
 }
+
+.smartdown-container .disclosable-trigger-tooltip-wrapper {
+
+}
+
+.smartdown-container .disclosable-trigger-tooltip-wrapper .disclosable-trigger-tooltip {
+  color: #EEAA33 !important;
+  xcolor: #639ad7;
+}
+
+.smartdown-container .disclosable-trigger-tooltip-wrapper .disclosable-trigger-tooltip:hover {
+
+}
+
 
 .smartdown-container .decoration-outlinebox {
   color: #333 !important;
   background: #FFF !important;
-  padding: 1px 30px 30px 30px !important;
-  border: none !important;
+  border: 1px solid #DDD !important;
   border-radius: none !important;
+
+  padding-top: 30px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  padding-bottom: 30px !important;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 
 .smartdown-container .decoration-colorbox {
+  background:  #66AAFF !important;
+  border: none !important;
+  border-radius: none !important;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 
 }
 
@@ -350,12 +369,18 @@ header.masthead  {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 
-  border-top: double #EEAA77 !important;
-  border-bottom: double #EEAA77 !important;
+  border: 2px solid #EEAA55 !important;
+  xborder-top: 2px solid #EEAA33 !important;
+  xborder-bottom: 2px solid #EEAA33 !important;
 
 }
 
 .smartdown-container .decoration-aliceblue {
+  color: #333 !important;
+  background: #EEF7FF !important;
+  padding: 1px 30px 30px 30px !important;
+  border: 2px solid #55AAEE !important;
+  border-radius: none !important; 
 
 }
 
@@ -391,20 +416,17 @@ header.masthead  {
   &.disclosable-lightbox {
     outline: none !important;
     box-shadow: 
-      0px 0 0 1000px rgba(0, 0, 0, 0.2) !important;
+      0px 0 0 1000px rgba(0, 0, 0, 0.3) !important;
   }
 
 
   .disclosable-content {
     border: none !important;
-    color: #FFFFFF !important;
-    background: #2288DD !important;
-
+    background: #FFF !important;
     border-bottom-left-radius: 10px !important;
     border-bottom-right-radius: 10px !important;
     border-top-left-radius: 10px ! important;
     border-top-right-radius: 10px ! important;
-
 
 
     &.disclosable-outline-content {
@@ -418,6 +440,7 @@ header.masthead  {
       > div {
         border-top-left-radius: 0px ! important;
         border-top-right-radius: 0px ! important;
+        padding-top: 10px !important;
       }
     }
 
@@ -455,6 +478,9 @@ header.masthead  {
     .disclosable-header {
       cursor: move;
       background: #EEE !important;
+      border-top: 1px solid #DDD !important;
+      border-left: 1px solid #DDD !important;
+      border-right: 1px solid #DDD !important;
       border-top-left-radius: 10px !important;
       border-top-right-radius: 10px !important;
 

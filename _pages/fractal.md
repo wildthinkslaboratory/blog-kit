@@ -15,6 +15,7 @@ We had a great time learning about fractals at [Mathigon's](https://mathigon.org
 # ::::
 
 # :::: panel
+# --aliceblue
 [random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) 
 **seed:** **A** [](:?A)  **B** [](:?B) [draw seed](:=redraw=true)
 [prepare a download](:=download=true) 
@@ -34,6 +35,7 @@ this.depend = function() {
 }
 
 ```
+# --aliceblue
 # ::::
 
 ```javascript /autoplay/kiosk
