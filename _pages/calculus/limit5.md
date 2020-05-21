@@ -14,11 +14,15 @@ This function is undefined at $x=1$ and also the limit at $x=1$ doesn't exist.
 # ::::
 
 # :::: formatting
+# --partialborder
 You can represent infinity $\infty$ as `inf` and negative infinity $-\infty$ as `-inf`.
+# --partialborder
 # ::::
 
 # :::: note1 
+# --partialborder
 You can drag the blue slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
+# --partialborder
 # ::::
 ### More Limits
 
@@ -38,12 +42,12 @@ $$
 What happens to the function near $x=1$?
 1. Go [closer](:=reduce=true) to $x=1$.  
 2. Go [all the way](:=all=true) to $x=1$.
-[NOTE:](::note1/tooltip)
+[NOTE:](::note1/tooltip,transparent)
 
 The value of the $f(x)$ is undefined when $x=1$.
 The limit as $x$ gets close to $1$ from the right is [](:?s1). 
 The limit as $x$ gets close to $1$ from the left is [](:?s2). 
-[Formatting Hints](::formatting/tooltip)
+[Formatting Hints](::formatting/tooltip,transparent)
 #### --outlinebox
 #### --outlinebox
 
@@ -162,7 +166,7 @@ this.dependOn = ['s1', 's2'];
 this.depend = function() {
   
 	if (env.s1 == 'inf' && env.s2 == '-inf') {
-		smartdown.showDisclosure('success','','center,transparent,draggable,closeable,shadow');
+		smartdown.showDisclosure('success','','center,transparent,draggable,closeable,outline,shadow');
 	}
 
 };

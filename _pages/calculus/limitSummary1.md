@@ -27,7 +27,7 @@ We learned that:
 1.  The limit at a point isn't always the same as the value of the function at that point.
 2.  Sometimes the limit may not exist.
 
-An informal understanding of limits sufficed in the study of calculus for 150 years.  Read this fabulous [quote from mathematician James Tanton](::tantonOnLimits/center,transparent,draggable,closeable) on this topic.
+An informal understanding of limits sufficed in the study of calculus for 150 years.  Read this fabulous [quote from mathematician James Tanton](::tantonOnLimits/center,transparent,draggable,outline,shadow,closeable,scrollable) on this topic.
 
 #### --outlinebox
 #### --outlinebox

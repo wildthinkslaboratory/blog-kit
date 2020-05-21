@@ -150,7 +150,7 @@ this.dependOn = ['s1'];
 this.depend = function() {
   
 	if (env.s1 == '2') {
-		smartdown.showDisclosure('conclusion','','center,transparent,shadow');
+		smartdown.showDisclosure('conclusion','','center,transparent,closeable,draggable,outline,shadow');
 	}
 
 

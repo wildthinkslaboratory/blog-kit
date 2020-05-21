@@ -7,9 +7,9 @@ ogimage: /assets/images/calculus/epsilonDelta.jpg
 ---
 
 # :::: intro_note
-# --aliceblue
+# --partialborder
 In this example, the limit at $x=2$ doesn't exist.  Pick a limit and try to play the game anyway.  It helps illustrate why the delta / epsilon way of thinking about limits works.  Try playing around with Epsilon's interval as well as Delta's.  There are Epsilon intervals that Delta can counter, but when Epsilon gets close to your chosen limit, Delta eventually fails.
-# --aliceblue
+# --partialborder
 # ::::
 
 
@@ -134,7 +134,7 @@ this.depend = function() {
 
 	if (env.play == true) {
 		smartdown.setVariable('play', false);
-		smartdown.hideDisclosure('clue','','center,transparent,draggable,closeable,shadow');	
+		smartdown.hideDisclosure('clue','','');	
 		smartdown.showDisclosure('delta_turn', '', 'transparent');
 	
 	}
@@ -155,7 +155,7 @@ this.depend = function() {
 				anchorY:'bottom', 
 				cssClass:'jsxgraph-instructions',
 				highlightCssClass:'jsxgraph-instructions'});
-		smartdown.showDisclosure('clue','','center,transparent,draggable,closeable,shadow');
+		smartdown.showDisclosure('clue','','center,transparent,draggable,closeable,outline,lightbox,shadow');
 	}
 
 	if (env.compute == true) {
@@ -163,7 +163,7 @@ this.depend = function() {
 		if (limit.checkDelta()) {
 			instructions.setAttribute({visible:false});
 			if (limit.epsilon() <= 0.2) {
-				smartdown.showDisclosure('success', '', 'center,transparent,draggable,closeable,shadow');
+				smartdown.showDisclosure('success', '', 'center,transparent,draggable,closeable,outline,shadow');
 			}
 			smartdown.hideDisclosure('delta_turn', '', '');
 			smartdown.showDisclosure('epsilon_turn', '', 'transparent');

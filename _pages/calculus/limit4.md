@@ -15,7 +15,9 @@ For this function, the value gets close to 1 on the right side of $x=0$ and it g
 # ::::
 
 # :::: note1 
+# --partialborder
 You can drag the blue slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
+# --partialborder
 # ::::
 ### More Limits
 
@@ -37,7 +39,7 @@ f(x) = \begin{cases}
 $$
 1. Go [closer](:=reduce=true) to $x=0$.  
 2. Go [all the way](:=all=true) to $x=0$.
-[NOTE:](::note1/tooltip)
+[NOTE:](::note1/tooltip,transparent)
 
 The limit as $x$ gets close to $0$ from the right is [](:?s1). 
 The limit as $x$ gets close to $0$ from the left is [](:?s2). 
@@ -155,7 +157,7 @@ this.dependOn = ['s1', 's2', 's3'];
 this.depend = function() {
   
 	if (env.s1 == '1' && env.s2 == '0' && env.s3 == '1') {
-		smartdown.showDisclosure('success','','center,transparent,draggable,closeable,shadow');
+		smartdown.showDisclosure('success','','center,transparent,draggable,closeable,outline,shadow');
 	}
 
 };

@@ -145,7 +145,7 @@ this.depend = function() {
 				anchorY:'bottom', 
 				cssClass:'jsxgraph-instructions',
 				highlightCssClass:'jsxgraph-instructions'});
-		smartdown.showDisclosure('clue','','center,transparent,draggable,closeable,shadow');
+		smartdown.showDisclosure('clue','','center,transparent,draggable,closeable,shadow,lightbox,outline');
 	}
 
 	if (env.compute == true) {

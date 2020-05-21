@@ -16,7 +16,9 @@ For well behaved functions like this one, the limit at a point is the same as th
 # ::::
 
 # :::: note1 
+# --partialborder
 You can drag the blue slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
+# --partialborder
 # ::::
 ### More Limits
 
@@ -36,7 +38,7 @@ $$
 What is the limit of the function at $x=3$?
 1. Go [closer](:=reduce=true) to $x=3$.  
 2. Go [all the way](:=all=true) to $x=3$.
-[NOTE:](::note1/tooltip)
+[NOTE:](::note1/tooltip,transparent)
 
 The limit as $x$ gets close to $3$ is [](:?s1). 
 The value at $x=3$ is [](:?s2)
@@ -148,7 +150,7 @@ this.dependOn = ['s1', 's2'];
 this.depend = function() {
   
 	if (env.s1 == '9' && env.s2 == '9') {
-		smartdown.showDisclosure('success','','center,transparent,closeable,draggable,shadow');
+		smartdown.showDisclosure('success','','center,transparent,closeable,outline,draggable,shadow');
 	}
 
 };

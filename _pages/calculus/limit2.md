@@ -20,7 +20,9 @@ $$f(2) = 4$$
 # ::::
 
 # :::: note1 
+# --partialborder
 You can drag the blue slider to get close to $x=1$, but you can get super close and still not reach it by using the [closer](:=reduce=true) button multiple times.
+# --partialborder
 # ::::
 ### More Limits
 
@@ -43,7 +45,7 @@ $$
 
 1. Go [closer](:=reduce=true) to $x=2$.  
 2. Go [all the way](:=all=true) to $x=2$.
-[NOTE:](::note1/tooltip)
+[NOTE:](::note1/tooltip,transparent)
 
 The limit as $x$ gets close to $2$ is [](:?s1). 
 The value at $x=2$ is [](:?s2)
@@ -156,7 +158,7 @@ this.dependOn = ['s1', 's2'];
 this.depend = function() {
   
 	if (env.s1 == '3' && env.s2 == '4') {
-		smartdown.showDisclosure('success','','center,transparent,draggable,closeable,shadow');
+		smartdown.showDisclosure('success','','center,transparent,draggable,outline,closeable,shadow');
 	}
 
 };

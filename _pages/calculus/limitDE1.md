@@ -18,7 +18,7 @@ Again, this game could continue for smaller and smaller intervals.  We'd like to
 
 # :::: clue
 # --outlinebox 
-You say that the limit as $x$ goes to $0$ of $x \sin\Left(\frac{1}{x}\Right)$ is [](:!suggestedLimit).
+You say that the limit as $x$ goes to $0$ of $x \sin\left(\frac{1}{x}\right)$ is [](:!suggestedLimit).
 
 To prove your limit is correct, you have to counter every move made by Epsilon.  Epsilon will make smaller and smaller intervals around [](:!suggestedLimit).  You have to adjust the Delta interval around $0$ so that all the function values inside your interval are also inside Epsilon's interval.
 [Play](:=play=true)
@@ -157,7 +157,7 @@ this.depend = function() {
 				anchorY:'bottom', 
 				cssClass:'jsxgraph-instructions',
 				highlightCssClass:'jsxgraph-instructions'});
-		smartdown.showDisclosure('clue','','center,transparent,draggable,closeable,shadow');
+		smartdown.showDisclosure('clue','','center,transparent,draggable,closeable,outline,lightbox,shadow');
 	}
 
 	if (env.compute == true) {
@@ -166,7 +166,7 @@ this.depend = function() {
 			instructions.setAttribute({visible:false});
 			console.log(limit.epsilon());
 			if (limit.epsilon() <= 0.025) {
-				smartdown.showDisclosure('success', '', 'center,transparent,draggable,closeable,shadow');
+				smartdown.showDisclosure('success', '', 'center,transparent,draggable,outline,closeable,shadow');
 			}
 			smartdown.hideDisclosure('delta_turn', '', '');
 			smartdown.showDisclosure('epsilon_turn', '', 'transparent');
