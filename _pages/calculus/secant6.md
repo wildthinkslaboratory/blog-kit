@@ -24,7 +24,7 @@ What width gives the minimal cost pen and what is the rate of change of the func
 # --aliceblue
 # ::::
 
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here's another secant. 
+[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 minimal cost width [](:?s1) rate of change at minimum cost [](:?s2)
 # ::::
@@ -279,11 +279,11 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (env.s1 == '2' && env.s2 == '0') {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('success','','');
     }
   }

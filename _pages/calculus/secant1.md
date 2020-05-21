@@ -8,7 +8,7 @@ ogimage: /assets/images/calculus/secant.jpg
 
 # :::: toolbar
 # :::: withClue
-[note](::secant/button,transparent,closeable,draggable,topright,shadow) Here.  Have a secant.
+[note](::secant/button,transparent,closeable,draggable,topright,outline,shadow) Here.  Have a secant.
 # ::::
 
 # :::: noClue
@@ -93,32 +93,32 @@ this.depend = function() {
 
 
 # :::: secant
-# --outlinebox
+# --partialborder
 A **secant line** of a graph $y=f(x)$ is any line that intersects the graph in at least two distinct points.
 [next](:=show1=true)
-# --outlinebox
+# --partialborder
 # ::::
 
 # :::: clue1
-# --outlinebox
+# --partialborder
 A secant is a great way to show the relationship between **distance**, **rate** and **time**.  The slope of a secant represents the rate.  The rate is the change in distance divided by the change in time.
 $$r = \frac{d}{t}$$
 [next](:=show2=true)
-# --outlinebox
+# --partialborder
 # ::::
 
 # :::: clue2
-# --outlinebox
+# --partialborder
 We can use secants for any rate of change problem, really.  The slope of the secant tells us the rate of change of one thing relative to another.
 [next](:=show3=true)
-# --outlinebox
+# --partialborder
 # ::::
 
 # :::: clue3
-# --outlinebox
+# --partialborder
  In rate problems, the units are often a measure of **time**, like seconds, days or years.  But they don't have to be. 
  [next](:=show4=true)
-# --outlinebox
+# --partialborder
 
 # ::::
 
@@ -241,7 +241,7 @@ this.depend = function() {
   if (env.show1 == true) {
     smartdown.setVariable('show1', false);
     smartdown.hideDisclosure('secant','','');
-    smartdown.showDisclosure('clue1','','transparent,closeable,draggable,topright,shadow');
+    smartdown.showDisclosure('clue1','','transparent,closeable,draggable,outline,topright,shadow');
     secant.setAttribute({ units: 'time', rate: 'rate', change: 'distance'});
     secant.setLineColor('#FF3300');
     board.board.update();
@@ -249,7 +249,7 @@ this.depend = function() {
   if (env.show2 == true) {
     smartdown.setVariable('show2', false);
     smartdown.hideDisclosure('clue1','','');
-    smartdown.showDisclosure('clue2','','transparent,closeable,draggable,topright,shadow');
+    smartdown.showDisclosure('clue2','','transparent,closeable,draggable,outline,topright,shadow');
     secant.setAttribute({ units: 'units', rate: 'change per unit', change: 'total change'});
     secant.setLineColor('#00CC99');
     board.board.update();
@@ -257,7 +257,7 @@ this.depend = function() {
   if (env.show3 == true) {
     smartdown.setVariable('show3', false);
     smartdown.hideDisclosure('clue2','','');
-    smartdown.showDisclosure('clue3','','transparent,closeable,draggable,topright,shadow');
+    smartdown.showDisclosure('clue3','','transparent,closeable,draggable,outline,topright,shadow');
     secant.setAttribute({ units: 'number of widgets', rate: 'cost per widget', change: 'total cost'});
     secant.setLineColor('#FFAA00');
     board.board.update();
@@ -265,7 +265,7 @@ this.depend = function() {
   if (env.show4 == true) {
     smartdown.setVariable('show4', false);
     smartdown.hideDisclosure('clue3','','');
-    smartdown.showDisclosure('clue4','','transparent,closeable,draggable,center,shadow');
+    smartdown.showDisclosure('clue4','','transparent,closeable,draggable,outline,lightbox,center,shadow');
   }
 };
                       

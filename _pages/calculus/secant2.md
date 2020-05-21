@@ -13,14 +13,9 @@ The graph shows the position of the car through time.  Figure out how fast the c
 # --outlinebox
 # ::::
 
-# :::: notes
-# --aliceblue
-##### Note
 
-# --aliceblue
-# ::::
 
-[?](:=showTask=true) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 $t=1$ [](:?s1)  $t=2$ [](:?s2) $t=3$ [](:?s3) 
 # ::::
@@ -71,7 +66,7 @@ p5.mousePressed = function()     // this function is called everytime the user c
   
   if (id != -1) {                              // if it's a valid button
     smartdown.setVariable('buttonType', bType);         // set page mode correct type of button
-    smartdown.setVariable('', true);     // alert page we have an active button
+    smartdown.setVariable('active', true);     // alert page we have an active button
   }
   
   p5.loop();    // EnergyHack to enable looping for duration of drag.
@@ -258,7 +253,7 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (env.s1 == 10 && env.s2 == 10 && env.s3 == 10) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,center,shadow,lightbox');
       smartdown.hideDisclosure('keeptrying','','');
       p1.setAttribute({visible:true});
       p2.setAttribute({visible:true});
@@ -268,7 +263,7 @@ this.depend = function() {
       workspace.undo();
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow,lightbox');
       smartdown.hideDisclosure('success','','');
     }
   }

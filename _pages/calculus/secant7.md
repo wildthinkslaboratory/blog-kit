@@ -15,7 +15,7 @@ Here is a graph showing the speed of a rocket during it's first launch phase. Es
 # ::::
 
 
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [Launch!](:=play=true) [Submit Solution](:=compute=true) You have a secant.
+[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Launch!](:=play=true) [Submit Solution](:=compute=true) You have a secant.
 
 # :::: answerbar
 acceleration at $t=60$ [](:?s1) $m / s^2$  $t=120$ [](:?s2) $m / s^2$  
@@ -247,11 +247,11 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (env.s1 == 10 && env.s2 == 40) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('success','','');
     }
   }

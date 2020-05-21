@@ -12,7 +12,7 @@ When you adjust the right hand side of the secant it will plot an $(x,y)$ point.
 # --partialborder
 # ::::
 
-[note](::notes/transparent,draggable,closeable,center,shadow) [clear](:=clear=true) [new color](:=incColor=true) [](:!pointColor)
+[note](::notes/transparent,draggable,closeable,outline,center,shadow) [clear](:=clear=true) [new color](:=incColor=true) [](:!pointColor)
 
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js

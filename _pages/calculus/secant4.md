@@ -13,14 +13,9 @@ The graph shows the position of the car through time.  Use the **secant** to giv
 # --outlinebox
 # ::::
 
-# :::: notes
-# --aliceblue
-##### Note
 
-# --aliceblue
-# ::::
 
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 $t=2$ [](:?s1)  $t=4$ [](:?s2) $t=6$ [](:?s3) 
 # ::::
@@ -258,7 +253,7 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (env.s1 == 4 && env.s2 == 8 && env.s3 == 12) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
       p1.setAttribute({visible:true});
       p2.setAttribute({visible:true});
@@ -268,7 +263,7 @@ this.depend = function() {
       workspace.undo();
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('success','','');
     }
   }

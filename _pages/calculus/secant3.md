@@ -13,14 +13,8 @@ The graph shows the position of the car through time.  Use the **secant** find t
 # --outlinebox
 # ::::
 
-# :::: notes
-# --aliceblue
-##### Note
 
-# --aliceblue
-# ::::
-
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 $3 \leq t \leq 4$ [](:?s1)  $3 \leq t \leq 3.5$ [](:?s2) $3 \leq t \leq 3.25$ [](:?s3) 
 # ::::
@@ -284,11 +278,11 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (env.s1 == 7 && env.s2 == 6.5 && env.s3 == 6.25) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,center,lightbox,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,lightbox,shadow');
       smartdown.hideDisclosure('success','','');
     }
   }
