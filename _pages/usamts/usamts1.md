@@ -179,6 +179,7 @@ p5.setup = function() {                          // this function is called when
 };
 
 
+let firstDraw = true;
 p5.windowResized = function() {                  // this function is called when the user changes
   canvasWidth = p5.windowWidth * widthScale;  // the size of the window.  It will rescale all the
   canvasHeight = p5.windowWidth * heightScale;    // components to fit into the new window size.
@@ -187,14 +188,24 @@ p5.windowResized = function() {                  // this function is called when
   xMargin = canvasWidth * 0.1;   // margins for the main triangle
   yMargin = xMargin;
   unit = canvasWidth - 2 * xMargin;  // how wide should the triangle be
-  drawTriangle();
+  if (firstDraw) {
+    firstDraw = false;
+    setTimeout(function () { // something isn't loading fast enough and we get an error, so just give it 2 secs
+      drawTriangle(); 
+    }, 2000);
+ 
+  }
+  else {
+    drawTriangle();
+  }
+
 
 }
 
 
-p5.draw = function() {                           // this function gets called repeatedly in a loop.
+// p5.draw = function() {                           // this function gets called repeatedly in a loop.
 
-}
+// }
 
 
 
@@ -282,7 +293,7 @@ this.depend = function() {
 [fly left](:=left=true) [fly down](:=down=true) [reset](:=reset=true) [Application Notes](::appnotes/tooltip,transparent)
 
 # :::: appnotes
-# --partialborder
+# --partialborder pb1
 - you can adjust the interval $[P,Q]$ with the $P$ and $Q$ sliders.
 - use the buttons to fly left, fly down or reset the app to start over.
 - you can click on segment $\overline{AB}$ to reset the app and start a flight path from a specific point on  $\overline{AB}$.
