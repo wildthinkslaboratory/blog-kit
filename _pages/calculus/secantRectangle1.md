@@ -14,13 +14,13 @@ The car is at position 5 meters at time $t=0$ and follows the speed curve given.
 # ::::
 
 # :::: notes
-# --aliceblue
+# --partialborder
 ##### Note
-We can estimate the area under a curve by adding up the area of lots of tiny rectangles, but without a computer that's not a very practical solution.  If we want an exact answer, rather than a good estimate, we'd need to sum up an infinite number of rectangles.  No one knows how to do that directly.  The **the fundamental theorem of calculus** finds a clever way around this problem.  We can start here by noticing that the information we need is also in the secants.   
-# --aliceblue
+We know that the are of each rectangle estimates the distance traveled during the rectangle's time period.  If we add up all the rectangle areas, we can get the total distance traveled.  What if you didn't have any way to add up the areas of the rectangles?  How else can we get the distance traveled? 
+# --partialborder
 # ::::
 
-[?](::clue/button,transparent,draggable,closeable,center,shadow) [N](::notes/button,transparent,draggable,closeable,center,shadow) [Submit Solution](:=compute=true) Here. You have a weird secant rectangle array. 
+[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,outline,closeable,center,shadow) [Submit Solution](:=compute=true) Here. You have a weird secant rectangle array. 
 # :::: answerbar
 distance traveled at $t=8$ [](:?s1)m  position at $t=8$ [](:?s2)m 
 # ::::
@@ -278,11 +278,11 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,center,shadow,lightbox');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow,lightbox');
       smartdown.hideDisclosure('success','','');
     }
   }

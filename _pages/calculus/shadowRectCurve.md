@@ -7,24 +7,30 @@ ogimage: /assets/images/calculus/ftc1.jpg
 ---
 
 # :::: tour2
+# --partialborder 
 The **distance** traveled by the object is equal to the **rate** times the **time**, $d = r \times t.$ We know two different geometric ways of showing this relationship.  [show relationship](:=showSR=true) The slope of the secant tells us the average speed between two time points.  The corresponding rectangle expresses the distance traveled as the product of the rate and the time.
-[N](:=show3=true) 
+[next](:=show3=true) 
+# --partialborder 
 # ::::
 
 # :::: tour3
+# --partialborder 
 We can make more secants and rectangles over more intervals. [more intervals](:=showArray=true). What happens when these time intervals get smaller?
 number of intervals [](:-segments/1/100/1) [](:!segments) 
-[N](:=show4=true)
+[next](:=show4=true)
+# --partialborder 
 # ::::
 
 # :::: tour4
+# --partialborder 
 The rectangles define a new function that relates to our original curve. [show shadow curve](:=showD=true)  Remember that the height of each skinny rectangle is the average speed the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our speed curve.
 number of intervals [](:-segments/1/100/1) [](:!segments)
 [Continue](/pages/shadowSecantCurve)
+# --partialborder 
 # ::::
 
 ### The Shadow Rectangle Curve 
-[N](:=show2=true)[see object move](:=play=true) Here is an object moving in space. 
+[notes](:=show2=true)[see object move](:=play=true) Here is an object moving in space. 
 ```javascript /autoplay
 
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
@@ -139,7 +145,6 @@ let move = function() {
   t.moveTo([8,0],1000, {effect: '--', callback: function() {  t.moveTo([0,0]); } } ); 
 };
 
-smartdown.setVariable('show1', false);
 smartdown.setVariable('play', false);
 smartdown.setVariable('show2', false);
 smartdown.setVariable('segments', 4);
@@ -150,20 +155,10 @@ smartdown.setVariable('show4', false);
 smartdown.setVariable('showD', false);
 
 // get the number of triangles from smartdown cell
-this.dependOn = ['show1', 'play', 'segments', 'show2', 'showSR', 'show3', 'showArray', 'show4', 'showD'];
+this.dependOn = ['play', 'segments', 'show2', 'showSR', 'show3', 'showArray', 'show4', 'showD'];
 this.depend = function() {
 
-  if (env.show1 == true) {
-    smartdown.setVariable('show1',false);
-    smartdown.showDisclosure('tour1','','draggable,closeable,topright,shadow');
-    smartdown.hideDisclosure('tour2','','');
-    smartdown.hideDisclosure('tour3','','');
-    smartdown.hideDisclosure('tour4','','');
-    N = 4;
-    smartdown.setVariable('segments', 4);
-    secRectArray.hide();
 
-  }
 
   if (env.play == true) {
     smartdown.setVariable('play', false);
@@ -179,8 +174,9 @@ this.depend = function() {
 
   if (env.show2 == true) {
     smartdown.setVariable('show2',false);
-    smartdown.showDisclosure('tour2','','draggable,closeable,topright,shadow');
-    smartdown.hideDisclosure('tour1','','');
+    smartdown.showDisclosure('tour2','','transparent,outline,draggable,closeable,topright,shadow');
+    smartdown.hideDisclosure('tour3','','');
+    smartdown.hideDisclosure('tour4','','');
   }
 
   if (env.showSR == true) {
@@ -190,7 +186,7 @@ this.depend = function() {
 
   if (env.show3 == true) {
     smartdown.setVariable('show3',false);
-    smartdown.showDisclosure('tour3','','draggable,closeable,topright,shadow');
+    smartdown.showDisclosure('tour3','','transparent,outline,draggable,closeable,topright,shadow');
     smartdown.hideDisclosure('tour2','','');
   }
 
@@ -202,7 +198,7 @@ this.depend = function() {
 
   if (env.show4 == true) {
     smartdown.setVariable('show4',false);
-    smartdown.showDisclosure('tour4','','draggable,closeable,topright,shadow');
+    smartdown.showDisclosure('tour4','','transparent,outline,draggable,closeable,topright,shadow');
     smartdown.hideDisclosure('tour3','','');
     smartdown.showDisclosure('toolbar','','transparent');
   }

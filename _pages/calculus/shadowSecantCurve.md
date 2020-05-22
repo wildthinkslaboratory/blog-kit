@@ -7,24 +7,29 @@ ogimage: /assets/images/calculus/ftc1.jpg
 ---
 
 # :::: tour2
+# --partialborder 
 This time we start with a speed curve for a moving object. The **distance** is equal to the **rate** times the **time**, $d = r \times t$ and again we know two different geometric ways of showing this relationship.  [show relationship](:=showSR=true)  The height of the rectangle matches the speed of the object in the middle of the time period and the area of the rectangle estimates the distance traveled during the interval.  The matching secant floats up and down in the same interval.  We can't figure out where to place the secant vertically from just the speed graph alone.
-[N](:=show3=true) 
+[next](:=show3=true) 
+# --partialborder 
 # ::::
 
 # :::: tour3
+# --partialborder 
 We can make more secants and rectangles over more intervals. [more intervals](:=showArray=true). Notice that each secant starts where the previous secant finishes, but the array of secants still floats up and down over the entire interval.  What happens when these time intervals get smaller?
 number of intervals [](:-segments/1/100/1) [](:!segments) 
-[N](:=show4=true)
+[next](:=show4=true)
+# --partialborder 
 # ::::
 
 # :::: tour4
+# --partialborder 
 The secants define a new function that relates to our speed curve.  Each tiny secant cumulatively adds up the distance traveled during a small interval.  As these secants get smaller, this new curve becomes our position curve.  We still don't know where this curve lives vertically. Only when we add the information that the object is at position 12 at time $t=0$ can we determine where to anchor the shadow secant curver vertically. [actual position curve](:=showD=true)
 number of intervals [](:-segments/1/100/1) [](:!segments)
-[Continue](/pages/secantRectangle1)
+# --partialborder 
 # ::::
 
 ### The Shadow Secant Curve 
-[N](:=show2=true)[see object move](:=play=true) Here is an object moving in space. 
+[notes](:=show2=true)[see object move](:=play=true) Here is an object moving in space. 
 ```javascript /autoplay
 
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
@@ -174,7 +179,7 @@ this.depend = function() {
 
   if (env.show2 == true) {
     smartdown.setVariable('show2',false);
-    smartdown.showDisclosure('tour2','','draggable,closeable,topright,shadow');
+    smartdown.showDisclosure('tour2','','transparent,outline,draggable,closeable,topright,shadow');
   }
 
   if (env.showSR == true) {
@@ -184,7 +189,7 @@ this.depend = function() {
 
   if (env.show3 == true) {
     smartdown.setVariable('show3',false);
-    smartdown.showDisclosure('tour3','','draggable,closeable,topright,shadow');
+    smartdown.showDisclosure('tour3','','transparent,outline,draggable,closeable,topright,shadow');
     smartdown.hideDisclosure('tour2','','');
   }
 
@@ -197,7 +202,7 @@ this.depend = function() {
 
   if (env.show4 == true) {
     smartdown.setVariable('show4',false);
-    smartdown.showDisclosure('tour4','','draggable,closeable,topright,shadow');
+    smartdown.showDisclosure('tour4','','transparent,outline,draggable,closeable,topright,shadow');
     smartdown.hideDisclosure('tour3','','');
     smartdown.showDisclosure('toolbar','','transparent');
   }

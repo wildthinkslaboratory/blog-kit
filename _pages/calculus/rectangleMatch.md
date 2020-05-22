@@ -95,12 +95,12 @@ this.depend = function() {
 
 ```
 # :::: success
-# --outlinebox
+# --partialborder
 You've created a Secant Rectangle!  
 The **secant** and the **rectangle** are two different geometric ways of showing the same relationship.
 $$ \text{distance} = \text{rate} \times \text{time} $$
-Play with it a little and then you can [continue](/pages/secantMatch).
-# --outlinebox
+So every secant has a matching rectangle. Play with it a little and then you can [continue](/pages/secantMatch).
+# --partialborder
 # ::::
 
 # :::: keeptrying
@@ -246,7 +246,7 @@ this.depend = function() {
       if (solved || checkSolution()) {
 
         // solved or solution correct 
-        smartdown.showDisclosure('success','','center,draggable,closeable,transparent,shadow,lightbox');
+        smartdown.showDisclosure('success','','center,draggable,closeable,transparent,shadow,outline');
         smartdown.hideDisclosure('keeptrying','','');
 
         // not solved and solution correct

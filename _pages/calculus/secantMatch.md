@@ -95,19 +95,22 @@ this.depend = function() {
 
 ```
 # :::: success
+# --partialborder pb1
 You've created a Secant Rectangle!  Take a moment to play with it.  
-# --outlinebox why
+
 **Question:**
 Why does the secant move up and down?
-[show explanation](::explanation/button,transparent)
-# --outlinebox
+[show explanation](::explanation/button)
+
 # :::: explanation
 **Explanation:**
 If we start with a secant, then we know the position of our object at the two time points at the endpoints of the secant.  We can compute the rate and distance that we need to draw the matching rectangle.
 
 If instead, we start with the rectangle, we know the rate over a given time period.  We can compute the distance traveled, but we don't have enough information to figure out the exact position of the object at the time interval endpoints.  The vertical position of the secant is unknown.
-[Continue](/pages/shadowRectCurve)
+[Continue](/pages/secantRectangle1)
 # ::::
+
+# --partialborder
 # ::::
 
 # :::: keeptrying
@@ -252,7 +255,7 @@ this.depend = function() {
       if (solved || checkSolution()) {
 
         // solved or solution correct 
-        smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+        smartdown.showDisclosure('success','','transparent,draggable,closeable,center,shadow,outline');
         smartdown.hideDisclosure('keeptrying','','');
 
         // not solved and solution correct
@@ -291,7 +294,7 @@ this.depend = function() {
 
       }
       else { // unsolved and solution not correct
-        smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+        smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow,lightbox');
         smartdown.hideDisclosure('success','','');
       }
     }
@@ -302,18 +305,3 @@ this.depend = function() {
 
 ```
 
-```javascript /autoplay
-
-// const note = document.getElementById('note');
-// note.classList.remove('decoration-aliceblue');
-// note.classList.add('note');
-
-// const alert = document.getElementById('alert');
-// alert.classList.remove('decoration-aliceblue');
-// alert.classList.add('alert');
-
-// const task = document.getElementById('question');
-// task.classList.remove('decoration-aliceblue');
-// task.classList.add('task');
-
-```

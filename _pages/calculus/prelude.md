@@ -51,7 +51,7 @@ What is the average velocity of the car between $t=5$ and $t=10$? [](:?a2)m/s
 What is the position of the car at times $t=12$ and $t=24$?
 at $t=12$ [](:?a4)m
 at $t=24$ [](:?a5)m
-[Hint](::hint/button,closeable,draggable,lightbox,center)
+[Hint](::hint/button,closeable,transparent,outline,draggable,lightbox,center)
 # ::::
 # --outlinebox
 
@@ -74,15 +74,16 @@ A car is driving in a straight line and has an average velocity of 15 m/s betwee
 # --outlinebox
 
 # :::: hint
+# --partialborder pb1
 OK, its a trick question. We don't have enough information to compute the position of the car at those times. There's a weird and unexpected phenomenom that happens in calculus and this example will help explain it.  It's going to come up very soon. 
 
-# --outlinebox remember
 **Remember:**
 If you know the position at two time points, you can figure out the rate of travel during that time interval.
 
 If you know the rate of travel during a time interval, you can figure out the distance traveled during that interval, but you can't figure out the exact position at the time interval endpoints.
-# --outlinebox
+
 [Continue](/pages/rectangleMatch) 
+# --partialborder 
 # ::::
 
 ```javascript /autoplay
@@ -183,7 +184,7 @@ smartdown.setVariable('a5', '');
 this.dependOn = ['a4', 'a5'];
 this.depend = function() {
 	if (env.a4 !== '' || env.a5 !== '') {
-    smartdown.showDisclosure('hint','','closeable,draggable,lightbox,center'); 
+    smartdown.showDisclosure('hint','','transparent,outline,closeable,draggable,lightbox,center'); 
 	}
 	
    
