@@ -243,8 +243,16 @@ smartdown.setVariable('reset', false);
 smartdown.setVariable('s1', '');
 smartdown.setVariable('compute', false);
 
-this.dependOn = ['play','reset', 'compute'];
+this.dependOn = ['play','reset', 'compute', 'active'];
 this.depend = function() {
+
+  if (env.active == true) {
+    myDiv.style.cursor = "url('/assets/images/calculus/sectCursor.svg'), auto";
+  }
+  else {
+    myDiv.style.cursor = "default";
+  }
+
 
   if (env.play == true) {
     smartdown.setVariable('play', false);

@@ -236,8 +236,16 @@ smartdown.setVariable('show1', false);
 smartdown.setVariable('show2', false);
 smartdown.setVariable('show3', false);
 smartdown.setVariable('show4', false);
-this.dependOn = ['show1', 'show2', 'show3', 'show4'];
+this.dependOn = ['show1', 'show2', 'show3', 'show4','active'];
 this.depend = function() {
+
+  if (env.active == true) {
+    myDiv.style.cursor = "url('/assets/images/calculus/sectCursor.svg'), auto";
+  }
+  else {
+    myDiv.style.cursor = "default";
+  }
+
   if (env.show1 == true) {
     smartdown.setVariable('show1', false);
     smartdown.hideDisclosure('secant','','');
