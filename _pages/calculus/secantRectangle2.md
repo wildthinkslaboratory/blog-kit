@@ -111,6 +111,9 @@ this.depend = function() {
   }
 };
 
+
+
+
 ```
 # ::::
 
@@ -267,7 +270,7 @@ let useButton = function(mouseX, buttonType) {
     workspace.addElement(srarray);
   }
   
- 
+  smartdown.setVariable('active', false);
   //smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
 
@@ -302,8 +305,16 @@ smartdown.setVariable('error', 100);
 smartdown.setVariable('undo', false);
 smartdown.setVariable('s1', '');
 
-this.dependOn = ['compute', 'undo'];
+this.dependOn = ['compute', 'undo', 'active'];
 this.depend = function() {
+
+  if (env.active == true) {
+    myDiv.style.cursor = "url('/assets/images/calculus/SRCursor.svg'), auto";
+  }
+  else {
+    myDiv.style.cursor = "default";
+  }
+
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {

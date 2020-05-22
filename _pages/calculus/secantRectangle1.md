@@ -265,8 +265,16 @@ smartdown.setVariable('compute', false);
 smartdown.setVariable('error', 100);
 smartdown.setVariable('undo', false);
 
-this.dependOn = ['compute', 'undo'];
+this.dependOn = ['compute', 'undo', 'active'];
 this.depend = function() {
+
+  if (env.active == true) {
+    myDiv.style.cursor = "url('/assets/images/calculus/SRCursor.svg'), auto";
+  }
+  else {
+    myDiv.style.cursor = "default";
+  }
+
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (checkAnswer()) {

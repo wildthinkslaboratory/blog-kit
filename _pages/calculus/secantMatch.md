@@ -234,8 +234,16 @@ let checkSolution = function() {
 
 smartdown.setVariable('compute', false);
 
-this.dependOn = ['compute'];
+this.dependOn = ['compute', 'active'];
 this.depend = function() {
+
+  if (env.active == true) {
+    myDiv.style.cursor = "url('/assets/images/calculus/sectCursor.svg'), auto";
+  }
+  else {
+    myDiv.style.cursor = "default";
+  }
+
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
 
