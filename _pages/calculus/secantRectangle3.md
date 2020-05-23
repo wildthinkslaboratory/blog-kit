@@ -1,7 +1,7 @@
 ---
 title: Secant
 header: 'none'
-lesson: 'secant'
+lesson: 'secant_rectangle'
 smartdown: true
 ogimage: /assets/images/calculus/secant.jpg
 ---
@@ -109,7 +109,7 @@ this.depend = function() {
 
 # :::: success
 Success! 
-[Continue](/pages/secant5)
+[Continue](/pages/shadowRectCurve)
 # ::::
 
 # :::: keeptrying
@@ -151,17 +151,20 @@ let p = workspace.board.create('point', [
   function() { return t.X(); }, 
   function() { return F.f(t.X()); }], {color:'green', name:''});
 
-let p1 = workspace.board.create('point', [2,4], {name:'', color:'#88CC22', visible:false});
-let p2 = workspace.board.create('point', [4,8], {name:'', color:'#88CC22', visible:false});
-let p3 = workspace.board.create('point', [6,12], {name:'', color:'#88CC22', visible:false});
-let line = workspace.board.create('line', [p1,p2], {strokeColor:'#88CC22', visible:false});
+let p1 = workspace.board.create('point', [4,8], {name:'', color:'#88CC22', visible:false});
+let p2 = workspace.board.create('point', [6,9], {name:'', color:'#88CC22', visible:false});
+let p3 = workspace.board.create('point', [8,0], {name:'', color:'#88CC22', visible:false});
+let derivative = workspace.board.create('functiongraph', [
+  function(x) {  return -Math.pow(x,3)/8 + Math.pow(x,2); },
+  xlow,
+  xhigh], {strokeColor:'#88CC22', visible:false});
 let stext = workspace.board.create('text', [6.4,12, 'speed of car'], {strokeColor:'#88CC22', visible:false});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board
 
 
-let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-20,5,100,-2], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
+let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-20,5,110,-2], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
 
 workspace.board.addChild(board1);
 
@@ -265,14 +268,14 @@ this.depend = function() {
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
     if (env.s1 == 8 && env.s2 == 9 && env.s3 == 0) {
-      smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
+      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
       p1.setAttribute({visible:true});
       p2.setAttribute({visible:true});
       p3.setAttribute({visible:true});
-      line.setAttribute({visible:true});
+      derivative.setAttribute({visible:true});
       stext.setAttribute({visible:true});
-      workspace.undo();
+      //workspace.undo();
     }
     else {
       smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');

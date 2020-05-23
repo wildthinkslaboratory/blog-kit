@@ -119,7 +119,7 @@ this.depend = function() {
 
 # :::: success
 Success! 
-[Continue](/pages/shadowRectCurve)
+[Continue](/pages/secantRectangle3)
 # ::::
 
 # :::: keeptrying

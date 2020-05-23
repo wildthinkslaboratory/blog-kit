@@ -71,10 +71,12 @@ lessons :
       name: four
     - url: /pages/secantRectangle2/
       name: five
-    - url: /pages/shadowRectCurve/
+    - url: /pages/secantRectangle3/
       name: six
-    - url: /pages/shadowSecantCurve/
+    - url: /pages/shadowRectCurve/
       name: seven
+    - url: /pages/shadowSecantCurve/
+      name: eight
   
   derivative: 
     - url: /pages/symbols1/
