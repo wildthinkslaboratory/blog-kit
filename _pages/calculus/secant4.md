@@ -9,7 +9,7 @@ ogimage: /assets/images/calculus/secant.jpg
 # :::: clue
 # --outlinebox question
 ###### Car Ride
-The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the speed the car is traveling at these exact times $t=2$, $t=4$ and $t=6$. 
+The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the speed the car is traveling at these exact times $t=3$, $t=4$ and $t=6$. 
 # --outlinebox
 # ::::
 
@@ -17,7 +17,7 @@ The graph shows the position of the car through time.  Use the **secant** to giv
 
 [?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
-$t=2$ [](:?s1)  $t=4$ [](:?s2) $t=6$ [](:?s3) 
+$t=3$ [](:?s1)  $t=4$ [](:?s2) $t=6$ [](:?s3) 
 # ::::
 # :::: toolbar
 ```javascript /autoplay/p5js
@@ -140,7 +140,7 @@ let yhigh = 50;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
   { xlabel:'time (s)', ylabel:'distance (m)'});
-let F = new ProblemFunction(function(x) { return x * x; }, 'position of car', 3.5, [xlow,xhigh], [2,4,6]);
+let F = new ProblemFunction(function(x) { return x * x; }, 'position of car', 3.5, [xlow,xhigh], [3,4,6]);
 let F_id = workspace.addFunction(F);
 
 
@@ -260,7 +260,7 @@ this.depend = function() {
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (env.s1 == 4 && env.s2 == 8 && env.s3 == 12) {
+    if (env.s1 == 6 && env.s2 == 8 && env.s3 == 12) {
       smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
       p1.setAttribute({visible:true});
