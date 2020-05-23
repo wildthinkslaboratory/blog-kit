@@ -339,9 +339,9 @@ header.masthead  {
   padding-right: 30px !important;
   padding-bottom: 30px !important;
 
-  border-radius: none !important;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 0px !important;
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -356,7 +356,7 @@ header.masthead  {
   padding-right: 30px !important;
   padding-bottom: 30px !important;
 
-  border-radius: none !important;
+  border-radius: 0px !important;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -390,7 +390,7 @@ header.masthead  {
   padding-right: 30px !important;
   padding-bottom: 30px !important;
 
-  border-radius: none !important; 
+  border-radius: 0px !important; 
 
 }
 
@@ -486,6 +486,8 @@ header.masthead  {
 
     .disclosable-header {
       cursor: move;
+      border-radius: 0px !important; 
+      border: none !important;
       background: #EEE !important;
       border-top: 1px solid #DDD !important;
       border-left: 1px solid #DDD !important;

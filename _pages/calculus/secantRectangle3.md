@@ -1,28 +1,25 @@
 ---
-title: Rectangle 
+title: Secant
 header: 'none'
-lesson: 'rectangle'
+lesson: 'secant'
 smartdown: true
-ogimage: /assets/images/calculus/rectangle.jpg
+ogimage: /assets/images/calculus/secant.jpg
 ---
 
 # :::: clue
-# --outlinebox
-##### Car Ride
-Here is a graph showing the speed of a car.  The car begins from a stationary position and gradually increases it's speed.  How far has the car traveled after 4 seconds?  
+# --outlinebox question
+###### Car Ride
+The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the speed the car is traveling at these exact times $t=4$, $t=6$ and $t=8$. 
 # --outlinebox
 # ::::
 
-# :::: notes
-# --partialborder note
-What should the dimensions of this rectangle be?  The time interval is 4 seconds, but what is the rate?  It may help to figure out the average speed that the car travels during that time period.
-# --partialborder
+
+
+[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+# :::: answerbar
+$t=4$ [](:?s1)  $t=6$ [](:?s2) $t=8$ [](:?s3) 
 # ::::
-
-
 # :::: toolbar
-[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Submit Solution](:=compute=true) Here's another rectangle. 
-
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
 // this is a script for a RESOURCE PANEL toolbar
@@ -44,7 +41,7 @@ let B = new ResourcePanel(p5);
 // Add the buttons you want on your resource panel
 // NOTE:  The value of page variable env.numButtons should match the number of buttons you add here
 
-B.addButton('rectangle'); 
+B.addButton('secant rectangle'); 
 
 smartdown.setVariable('numButtons', 1);  // keep track of number of buttons
 
@@ -72,17 +69,17 @@ p5.mousePressed = function()     // this function is called everytime the user c
     smartdown.setVariable('active', true);     // alert page we have an active button
   }
   
-  // p5.loop();    // EnergyHack to enable looping for duration of drag.
+  p5.loop();    // EnergyHack to enable looping for duration of drag.
 };
 
 
 p5.mouseReleased = function() {     // this function is called when the user releases the mouse
                                     // button after a click.
 
-  // EnergyHack to stop looping 5 sec after release.
-//  window.setTimeout(function() {
-//    p5.noLoop();
-//  }, 5000);
+ // EnergyHack to stop looping 5 sec after release.
+ window.setTimeout(function() {
+   p5.noLoop();
+ }, 5000);
 };
 
 
@@ -96,9 +93,14 @@ this.dependOn = ['numButtons'];  // if we're removing buttons the numButtons wil
 this.depend = function() {
   
   if (env.numButtons < B.size()) {  // If we have more buttons than the page has elements, delete the active button
-    B.removeActiveButton();  // we've used this resource
-    smartdown.setVariable('active', false);
-    if (B.size() == 0) { p5.noLoop(); }
+     B.removeActiveButton();  // we've used this resource
+     smartdown.setVariable('active', false);
+     if (B.size() == 0) { p5.noLoop(); }
+  }
+
+  if (B.size() == 0) {
+    smartdown.hideDisclosure('toolbar','','');
+    smartdown.showDisclosure('answerbar','','transparent');
   }
 };
 
@@ -107,7 +109,7 @@ this.depend = function() {
 
 # :::: success
 Success! 
-[Continue](/pages/rectangle4)
+[Continue](/pages/secant5)
 # ::::
 
 # :::: keeptrying
@@ -131,28 +133,29 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='top' style='height:100px; width:100%; border:1px solid gray;background:#EEFFCC;border-radius:8px;'></div><div id='bottom' style='height:600px; width:100%; border: 1px solid gray;background:#FFFFFF;border-radius:8px;';></div>`;
 
-let xlow = -1;
-let xhigh = 5;
-let ylow = -3;
-let yhigh = 25;
+let xlow = -2;
+let xhigh = 11;
+let ylow = -10;
+let yhigh = 50;
+
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
-  { xlabel:'time (s)', ylabel:'speed (m/s)'});
-
-let F = new ProblemFunction(function(x) { return 2*x; }, 'speed of car', 3.5, [0,xhigh], [0,4]);
+  { xlabel:'time (s)', ylabel:'distance (m)'});
+let F = new ProblemFunction(function(x) { return - Math.pow(x,4) / 32 + Math.pow(x,3) / 3; }, 'position of car', 3.5, [xlow,xhigh], [4,6,8]);
 let F_id = workspace.addFunction(F);
 
 
-////////////////////////////////////////////////////////////////////////////////////
+let t = workspace.board.create('glider', [0,0, workspace.xaxis], {name:'', face:'^', size:12, color:'green'});
 
-let Atext = workspace.board.create('text', [
-  xlow + 0.25 * (xhigh - xlow), 
-  ylow + 0.8 * (yhigh - ylow),
-  function() { return 'Total Area = ' + workspace.area().toFixed(2); }], {
-  fontSize:20,
-  visible:true
-});
+let p = workspace.board.create('point', [
+  function() { return t.X(); }, 
+  function() { return F.f(t.X()); }], {color:'green', name:''});
 
+let p1 = workspace.board.create('point', [2,4], {name:'', color:'#88CC22', visible:false});
+let p2 = workspace.board.create('point', [4,8], {name:'', color:'#88CC22', visible:false});
+let p3 = workspace.board.create('point', [6,12], {name:'', color:'#88CC22', visible:false});
+let line = workspace.board.create('line', [p1,p2], {strokeColor:'#88CC22', visible:false});
+let stext = workspace.board.create('text', [6.4,12, 'speed of car'], {strokeColor:'#88CC22', visible:false});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board
@@ -185,49 +188,39 @@ let yaxis1 = board1.create('axis', [[0, 0], [0, 1]],
 
 
 let carurl = 'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/9e01e8197b3bf685747ae134de3d75feb64ea6f4/car.png';
-let car = board1.create('image',[carurl, [function() { return workspace.area() -4 ; },-0.2], [4,2]]);
-
-let p2 = board1.create('point',[0, 2.2],{visible:false});
-let p3 = board1.create('point',[function() { return workspace.area(); }, 2.2],{visible:false});
-
-let dimensionLine = board1.create('segment', [p2,p3], {
-  strokeColor:'#999999', 
-  strokeWidth:2, 
-  firstArrow:true, 
-  lastArrow:true, 
-  visible:true});
-
-let dimensionText = board1.create('text', [
-  function() { return workspace.area() / 2; },
-  2.9,
-  function() { return workspace.area().toFixed(2); }
-],{ strokeColor:'#999999', fontSize: 15, visible:true});
+let car = board1.create('image',[carurl, [function() { return F.f(t.X()) -4 ; },-0.2], [4,2]]);
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Event handling
-let checkAnswer = function() {
-  return workspace.area() == 16;
-};
-
 
 let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
   let percent = (mouseX - margin) / width;
-  
-  workspace.addElementByID(6, percent, F_id, {change:'distance', rate:'rate', units:'time'});
-  workspace.elements[workspace.elements.length - 1].setHeight(2);
+
+  workspace.addElementByID(buttonType, percent, F_id, {
+    change:'m', 
+    rate:'m/s', 
+    units:'s',
+    annotationPosition:'after',
+    annotations:'rectangle',
+    showUnits:true,
+    attachButtonVisible:false,
+  });  
 
   smartdown.setVariable('numButtons', env.numButtons - 1);  // keep track of resources
 };
-
 
 this.div.onmousedown = function(e) { 
   if (env.numButtons > 0 && env.active) {
     useButton(e.clientX, env.buttonType);
   }
 };
+
+let move = function() { 
+  t.moveTo([xhigh - 0.2,0],5000, {effect: '--'} ); 
+}
 
 
 let widthPercent = 0.8;
@@ -246,36 +239,46 @@ workspace.board.on('update', function() {
   workspace.onUpdate();              // hook up workspace update functions
 });
 
-smartdown.setVariable('compute', false);
-smartdown.setVariable('error', 100);
-smartdown.setVariable('undo', false);
 
-this.dependOn = ['compute', 'undo', 'active'];
+smartdown.setVariable('play', false);
+smartdown.setVariable('s1', '');
+smartdown.setVariable('s2', '');
+smartdown.setVariable('s3', '');
+smartdown.setVariable('compute', false);
+
+this.dependOn = ['play','compute','active'];
 this.depend = function() {
 
   if (env.active == true) {
-    myDiv.style.cursor = "url('/assets/images/calculus/rectCursor.svg'), auto";
+    myDiv.style.cursor = "url('/assets/images/calculus/SRCursor.svg'), auto";
   }
   else {
     myDiv.style.cursor = "default";
   }
 
+
+  if (env.play == true) {
+    smartdown.setVariable('play', false);
+    move();
+  }
+
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (checkAnswer()) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow,lightbox');
+    if (env.s1 == 8 && env.s2 == 9 && env.s3 == 0) {
+      smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
+      p1.setAttribute({visible:true});
+      p2.setAttribute({visible:true});
+      p3.setAttribute({visible:true});
+      line.setAttribute({visible:true});
+      stext.setAttribute({visible:true});
+      workspace.undo();
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow,lightbox');
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('success','','');
     }
   }
-
-  // if (env.undo == true) {                // uncomment if you want an undo button
-  //   workspace.undo();
-  //   smartdown.setVariable('undo', false);
-  // }
 };
 
 

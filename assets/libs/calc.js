@@ -1299,6 +1299,10 @@ class SecantRectangle {
       this.secant.segment.on('over', this.secant.turnOnAnnotations);
       this.secant.segment.on('out', this.secant.turnOffAnnotations);
     } 
+    else if (this.attr['annotations'] == 'rectangle') {
+      this.secant.segment.on('over', this.rectangle.turnOnAnnotations);
+      this.secant.segment.on('out', this.rectangle.turnOffAnnotations);
+    }
 
     if ('attachButtonVisible' in this.attr && this.attr['attachButtonVisible'] == false) {
       this.attachButton.hide();
