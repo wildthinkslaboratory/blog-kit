@@ -75,7 +75,7 @@ A car is driving in a straight line and has an average velocity of 15 m/s betwee
 
 # :::: hint
 # --partialborder pb1
-OK, its a trick question. We don't have enough information to compute the position of the car at those times. There's a weird and unexpected phenomenom that happens in calculus and this example will help explain it.  It's going to come up very soon. 
+OK, its a trick question. We don't have enough information to compute the position of the car at those times.  
 
 **Remember:**
 If you know the position at two time points, you can figure out the rate of travel during that time interval.

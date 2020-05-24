@@ -7,7 +7,7 @@ ogimage: /assets/images/calculus/derivative.jpg
 ---
 
 # :::: intro
-We've been answering lots of interesting questions by making our secants really small. But it's not a very precise method and it wouldn't be fun if you didn't have an app to compute the tiny secant slopes.  The **derivative** is way to formalize this idea. We'll begin with an example and then give a general definition of the derivative.
+We've been answering lots of interesting questions by making our secants really small. But it's not a very precise method and it wouldn't be fun if you didn't have an app to compute the tiny secant slopes.  The **derivative** is a way to formalize this idea. We'll begin with an example and then give a general definition of the derivative.
 # ::::
 
 ##### The Derivative When $t=2$
@@ -25,7 +25,7 @@ The velocity of the car at $t=2$ is [](:?s2).
 #### --outlinebox middle1
 On the left is a secant on the interval between $2$ and $2+h$. The slope of this secant line is 
 $$\frac{(2 + h)^2 - 2^2}{h}$$
-The value $h$ is the width of our secant interval.  To find the speed at point $t=2$, we want the slope of the secant line when $h=0$.  Unfortunately, the slope is undefined when $h=0$.  So instead, we'll take the limit as $h$ goes to $0$.   
+On the right is a graph of this slope value. The value $h$ is the width of our secant interval.  To find the speed at point $t=2$, we want the slope of the secant line when $h=0$.  Unfortunately, the slope is undefined when $h=0$.  So instead, we'll take the limit as $h$ goes to $0$.   
 1. Go [closer](:=reduce=true) to $h=0$.
 2. Go [all the way](:=all=true) to $h=0$.
 
@@ -80,7 +80,11 @@ let yhigh1 = 8;
 
 let th = new BlueTheme();
 
-let workspace1 = new Workspace('box', [xlow1,yhigh1,xhigh1,ylow1], {xlabel:'h', ylabel:''});
+let workspace1 = new Workspace('box', [xlow1,yhigh1,xhigh1,ylow1], {
+  xlabel:'h (s)', 
+  ylabel:'secant slope (m/s)',
+  offsetX: [-30,20]
+});
 let F1 = new ProblemFunction(
 	function(h) { return 4 + h; }, 
 	'', 3.5, [xlow1,xhigh1], []);
@@ -116,7 +120,13 @@ let xhigh2 = 6;
 let ylow2 = -3;
 let yhigh2 = 30;
 
-let workspace2 = new Workspace('bottom', [xlow2,yhigh2,xhigh2,ylow2],{ xlabel:'time (s)', ylabel:'distance(m)', colorTheme:'steel' });
+let workspace2 = new Workspace('bottom', [xlow2,yhigh2,xhigh2,ylow2],{ 
+  xlabel:'time (s)', 
+  ylabel:'distance(m)', 
+  colorTheme:'steel',
+  offsetX: [-50,20],
+  offsetY: [20, 0]
+});
 let F2 = new ProblemFunction(function(x) { return x * x; }, '', 4, [0,xhigh2], []);
 let F_id2 = workspace2.addFunction(F2);
 
@@ -125,6 +135,7 @@ workspace2.xaxis.removeAllTicks();
 workspace1.board.addChild(workspace2.board);
 
 let xint = new XInterval(workspace2.board, 2,3);
+xint.turnOffSnapToGrid();
 xint.x1.setAttribute({fixed:true});
 let secant = new Secant(xint, F2.f, {showUnits:true, 
   annotations:'on',  
@@ -175,9 +186,9 @@ let xaxis1 = board1.create('axis', [[0, 0], [1,0]],
   {name:'meters', 
     withLabel: true,
     label: {
-      fontSize: 20,
+      fontSize: 16,
       position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
-      offset: [-80, 20]   // (in pixels)
+      offset: [-50, 20]   // (in pixels)
     }
   });
 
@@ -213,13 +224,8 @@ workspace1.board.on('update', function() {
 });
 
 workspace2.board.on('update', function() {
+  secant.precision = limit.precision;
 	xint.x2.moveTo([limit.glider.X() + 2,0]);
-	let delta = Math.abs(4 - secant.slope());
-	let pr = 2;
-	while (Math.floor(delta * Math.pow(10,pr)) == 0) {
-	  pr += 1;
-	}
-	secant.precision = pr;
 	workspace2.onUpdate();
 });
 

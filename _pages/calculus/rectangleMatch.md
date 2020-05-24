@@ -246,7 +246,7 @@ this.depend = function() {
       if (solved || checkSolution()) {
 
         // solved or solution correct 
-        smartdown.showDisclosure('success','','center,draggable,closeable,transparent,shadow,outline');
+        smartdown.showDisclosure('success','','topright,draggable,closeable,transparent,shadow,outline');
         smartdown.hideDisclosure('keeptrying','','');
 
         // not solved and solution correct

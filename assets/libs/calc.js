@@ -1302,6 +1302,8 @@ class SecantRectangle {
     else if (this.attr['annotations'] == 'rectangle') {
       this.secant.segment.on('over', this.rectangle.turnOnAnnotations);
       this.secant.segment.on('out', this.rectangle.turnOffAnnotations);
+      this.rectangle.rect.on('over', this.rectangle.turnOnAnnotations);
+      this.rectangle.rect.on('out', this.rectangle.turnOffAnnotations);
     }
 
     if ('attachButtonVisible' in this.attr && this.attr['attachButtonVisible'] == false) {
@@ -2326,6 +2328,8 @@ class StandardBoard {
     // some fabulous hackery to figure out the placement of the text
     let fakeY = this.board.create('text', [0,Box[3] - 2,this.atb.ylabel],{visible:true, fontSize:16});
     fakeY.updateSize();
+    if (!('offsetX' in this.atb)) { this.atb['offsetX'] = [-80, 20]; }
+    if (!('offsetY' in this.atb)) { this.atb['offsetY'] = [-fakeY.getSize()[0] - 20, 0]; }
 
     this.xaxis = this.board.create('axis', [[0, 0], [1,0]], { 
       name:this.atb.xlabel, 
@@ -2333,7 +2337,7 @@ class StandardBoard {
       label: {
         fontSize: 16,
         position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
-        offset: [-80, 20]   // (in pixels)
+        offset: this.atb.offsetX   // (in pixels)
       }
     });
     this.yaxis = this.board.create('axis', [[0, 0], [0, 1]], {
@@ -2342,7 +2346,7 @@ class StandardBoard {
       label: {
         fontSize: 16,
         position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
-        offset: [-fakeY.getSize()[0] - 20, 0]   // (in pixels)
+        offset: this.atb.offsetY   // (in pixels)
       }
     });
 

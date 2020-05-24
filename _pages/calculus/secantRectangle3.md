@@ -9,15 +9,15 @@ ogimage: /assets/images/calculus/secant.jpg
 # :::: clue
 # --outlinebox question
 ###### Car Ride
-The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the speed the car is traveling at these exact times $t=4$, $t=6$ and $t=8$. 
+The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the speed the car is traveling at these exact times $t=4$, $t=6$ and $t=7$. 
 # --outlinebox
 # ::::
 
 
 
-[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here are three secant rectangles. 
 # :::: answerbar
-$t=4$ [](:?s1)  $t=6$ [](:?s2) $t=8$ [](:?s3) 
+$t=4$ [](:?s1)  $t=6$ [](:?s2) $t=7$ [](:?s3) 
 # ::::
 # :::: toolbar
 ```javascript /autoplay/p5js
@@ -41,9 +41,11 @@ let B = new ResourcePanel(p5);
 // Add the buttons you want on your resource panel
 // NOTE:  The value of page variable env.numButtons should match the number of buttons you add here
 
+B.addButton('secant rectangle');
+B.addButton('secant rectangle');
 B.addButton('secant rectangle'); 
 
-smartdown.setVariable('numButtons', 1);  // keep track of number of buttons
+smartdown.setVariable('numButtons', 3);  // keep track of number of buttons
 
 ///////////////////////////////////////////////////////////////////
 
@@ -141,7 +143,7 @@ let yhigh = 50;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
   { xlabel:'time (s)', ylabel:'distance (m)'});
-let F = new ProblemFunction(function(x) { return - Math.pow(x,4) / 32 + Math.pow(x,3) / 3; }, 'position of car', 3.5, [xlow,xhigh], [4,6,8]);
+let F = new ProblemFunction(function(x) { return - Math.pow(x,4) / 32 + Math.pow(x,3) / 3; }, 'position of car', 3.5, [xlow,xhigh], [4,6,7]);
 let F_id = workspace.addFunction(F);
 
 
@@ -267,7 +269,7 @@ this.depend = function() {
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (env.s1 == 8 && env.s2 == 9 && env.s3 == 0) {
+    if (env.s1 == 8 && env.s2 == 9 && env.s3 == 6) {
       smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
       p1.setAttribute({visible:true});

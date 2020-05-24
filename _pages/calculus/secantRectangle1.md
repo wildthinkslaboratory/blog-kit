@@ -16,13 +16,13 @@ The car is at position 5 meters at time $t=0$ and follows the speed curve given.
 # :::: notes
 # --partialborder
 ##### Note
-We know that the are of each rectangle estimates the distance traveled during the rectangle's time period.  If we add up all the rectangle areas, we can get the total distance traveled.  What if you didn't have any way to add up the areas of the rectangles?  How else can we get the distance traveled? 
+We know that the are of each rectangle estimates the distance traveled during the rectangle's time period.  If we add up all the rectangle areas, we can estimate the total distance traveled.  What if you didn't have any way to add up the areas of the rectangles?  How else can we get the distance traveled? 
 # --partialborder
 # ::::
 
 [?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,outline,closeable,center,shadow) [Submit Solution](:=compute=true) Here. You have a weird secant rectangle array. 
 # :::: answerbar
-distance traveled at $t=8$ [](:?s1)m  position at $t=8$ [](:?s2)m 
+distance traveled between $t=0$ and $t=8$ [](:?s1)m  position at $t=8$ [](:?s2)m 
 # ::::
 # :::: toolbar
 ```javascript /autoplay/p5js
