@@ -4,8 +4,7 @@ smartdown: true
 header: 'none'
 ogimage: /assets/images/calculus/fractal.jpg
 ---
-### Julia Set Generator
-We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction).  It inspired us to make this Julia Set Generator. These fractals are generated from a list of seeds we've been curating, but you can enter your own seed or tweak one of the given seeds. Let us know if you find any great seeds so we can add them to our list. Enjoy!
+
 
 # :::: intro
 # --outlinebox int
@@ -409,6 +408,18 @@ this.depend = function() {
 }
 
 ```
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
 .
 .
 .
