@@ -8,11 +8,8 @@ ogimage: /assets/images/calculus/limits.jpg
 
 
 # :::: success
-# --partialborder
 Success!
-For well behaved functions like this one, the limit at a point is the same as the function value.  In the next few examples, we'll focus on badly behaved functions.
-[Continue](/pages/limit2)
-# --partialborder
+[Continue](/pages/limit2-1)
 # ::::
 
 # :::: note1 
@@ -150,7 +147,7 @@ this.dependOn = ['s1', 's2'];
 this.depend = function() {
   
 	if (env.s1 == '9' && env.s2 == '9') {
-		smartdown.showDisclosure('success','','center,transparent,closeable,outline,draggable,shadow');
+		smartdown.showDisclosure('success','','draggable,closeable,center,lightbox,shadow');
 	}
 
 };
