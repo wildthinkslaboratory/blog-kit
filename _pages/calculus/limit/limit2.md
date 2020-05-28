@@ -10,12 +10,10 @@ ogimage: /assets/images/calculus/limits.jpg
 # :::: success
 # --partialborder
 Success!
-
-The limit of $f(x)$ as $x$ goes to $2$ is $3$.
-$$\lim_{x \to 2} f(x) = 3$$
-and the value of $f(x)$ at $x=2$ is 4.
-$$f(2) = 4$$
-[Continue](/pages/limit4)
+$$ 
+\lim_{x \to 3} \frac{x^2 + x -12}{x-3} = 7
+$$
+[Continue](/pages/limit3-1)
 # --partialborder
 # ::::
 
@@ -35,20 +33,17 @@ You can drag the blue slider to get close to $x=1$, but you can get super close 
 
 
 #### --outlinebox right1
-Take a look at the following function.  Something is happening at $x=2$.
+Here's another limit.
 $$ 
-f(x) = \begin{cases} 
-      	x + 1 & \text{$x < 2$ or $x > 2$} \newline
-      	4 & x = 2 
-   \end{cases}
+\lim_{x \to 3} \frac{x^2 + x -12}{x-3}
 $$
 
-1. Go [closer](:=reduce=true) to $x=2$.  
-2. Go [all the way](:=all=true) to $x=2$.
+1. Go [closer](:=reduce=true) to $x=3$.  
+2. Go [all the way](:=all=true) to $x=3$.
 [NOTE:](::note1/tooltip,transparent)
 
-The limit as $x$ gets close to $2$ is [](:?s1). 
-The value at $x=2$ is [](:?s2)
+The expression is undefined
+The limit as $x$ gets close to $3$ is [](:?s1). 
 
 #### --outlinebox
 #### --outlinebox
@@ -81,20 +76,20 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 left.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 
 let xlow = -2;
-let xhigh = 5;
+let xhigh = 6;
 let ylow = -2;
-let yhigh = 5;
+let yhigh = 10;
 
 let th = new BlueTheme();
 
-JXG.Options.layer['functiongraph'] = 5;
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow], {xlabel:'', ylabel:''});
 let F = new ProblemFunction(
-	function(x) { return x + 1; }, 
+	function(x) { return x + 4; }, 
 	'', 3.5, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 
-let limit = new ApproachLimit(workspace.board, F.f, 2, 4);
+let limit = new ApproachLimit(workspace.board, F.f, 3, undefined);
+limit.glider.moveTo([2,0]);
 
 
 
@@ -153,11 +148,10 @@ right.classList.add('text-2-col');
 ```javascript /autoplay
 
 smartdown.setVariable('s1','');
-smartdown.setVariable('s2','');
-this.dependOn = ['s1', 's2'];  
+this.dependOn = ['s1'];  
 this.depend = function() {
   
-	if (env.s1 == '3' && env.s2 == '4') {
+	if (env.s1 == '7') {
 		smartdown.showDisclosure('success','','center,transparent,draggable,outline,closeable,shadow');
 	}
 

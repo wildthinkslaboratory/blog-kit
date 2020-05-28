@@ -86,7 +86,6 @@ let F_id = workspace.addFunction(F);
 let limit = new ApproachLimit(workspace.board, F.f, 3, 9);
 
 
-
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Event handling

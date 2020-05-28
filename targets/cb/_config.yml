@@ -115,12 +115,14 @@ lessons :
       name: three
     - url: /pages/limit2/
       name: four
-    - url: /pages/limit4/
+    - url: /pages/limit3-1/
       name: five
-    - url: /pages/limit5/
+    - url: /pages/limit4/
       name: six
-    - url: /pages/limitSummary1/
+    - url: /pages/limit5/
       name: seven
+    - url: /pages/limitSummary1/
+      name: eight
 
   more_limits:
     - url: /pages/limitDEIntro/
