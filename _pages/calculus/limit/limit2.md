@@ -42,7 +42,7 @@ $$
 2. Go [all the way](:=all=true) to $x=3$.
 [NOTE:](::note1/tooltip,transparent)
 
-The expression is undefined
+The expression is undefined when $x=3$.
 The limit as $x$ gets close to $3$ is [](:?s1). 
 
 #### --outlinebox

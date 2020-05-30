@@ -83,16 +83,18 @@ lessons :
       name: one
     - url: /pages/derivative0/
       name: two
-    - url: /pages/derivative1/
+    - url: /pages/derivative0-1/
       name: three
-    - url: /pages/derivative2/
+    - url: /pages/derivative1/
       name: four
+    - url: /pages/derivative2/
+      name: five
     - url: /pages/derivative3/
-      name: five 
-    - url: /pages/derivative4/
       name: six 
+    - url: /pages/derivative4/
+      name: seven 
     - url: /pages/derivative5/
-      name: seven
+      name: eight
       
   negative_binary:
     - url: /pages/NegaBinary1/

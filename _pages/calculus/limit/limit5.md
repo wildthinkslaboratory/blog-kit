@@ -14,8 +14,9 @@ This function is undefined at $x=1$ and also the limit at $x=1$ doesn't exist.
 # ::::
 
 # :::: formatting
-# --partialborder
-You can represent infinity $\infty$ as `inf` and negative infinity $-\infty$ as `-inf`.
+# --partialborder format
+- You can represent $\sqrt{x}$ as `sqrt(x)`.
+- You can represent infinity $\infty$ as `inf` and negative infinity $-\infty$ as `-inf`.
 # --partialborder
 # ::::
 
