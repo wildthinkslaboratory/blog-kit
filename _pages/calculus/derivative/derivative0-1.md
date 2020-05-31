@@ -359,10 +359,10 @@ The position of the car is defined by the function $f(t) = t^2$.  Find the veloc
 # :::: notes
 # --partialborder note
 ###### Note 1
-There's a lot of stuff on this page.  Take your time and try to process all of it.
+There's a lot of stuff on this page.  Take your time and don't rush.
 
 ###### Note 2
-The speed of the car at $t=\sqrt{2}$ is not a whole number.  This makes impossible to get the exact speed from looking at the graphs.  Instead, we can look at an expression for the slope of the secant line and take the limit as the secant gets very small.
+The speed of the car at $t=\sqrt{2}$ is not a whole number.  This makes it impossible to get the exact speed from looking at the graphs.  Instead, we can look at an expression for the slope of the secant line and take the limit as the secant gets very small.
 $$\lim_{h \to 0}\frac{(\sqrt{2} + h)^2 - 2}{h}$$ 
 With a little algebra, we can solve this limit and get an exact answer.
 # --partialborder
@@ -382,7 +382,7 @@ smartdown.setVariable('s1','');
 this.dependOn = ['s1'];  
 this.depend = function() {
   
-  if (env.s1 == '2sqrt(2)') {
+  if (env.s1 == '2sqrt(2)' || env.s1 == '2*sqrt(2)' || env.s1 == '2 sqrt(2)' || env.s1 == '2 * sqrt(2)') {
     smartdown.showDisclosure('success','','center,transparent,draggable,closeable,outline,shadow');
   }
 

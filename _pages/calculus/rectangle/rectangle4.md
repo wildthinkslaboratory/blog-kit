@@ -28,7 +28,7 @@ As the intervals get smaller, the height of the rectangle more accurately repres
 # --partialborder
 # ::::
 
-# :::: toolbar
+
 [?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,closeable,outline,center,shadow) [Submit Solution](:=compute=true) You have [](:!numButtons) rectangle(s). 
 
 ```javascript /autoplay/p5js
@@ -113,7 +113,7 @@ this.depend = function() {
 };
 
 ```
-# ::::
+
 
 # :::: success
 Success! 
@@ -138,8 +138,6 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
-
-smartdown.showDisclosure('toolbar','','transparent');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';

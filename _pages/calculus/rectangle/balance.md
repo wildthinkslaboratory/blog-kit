@@ -34,7 +34,6 @@ Typically the balance point of a sword is a small distance past the hilt.  At fi
 # ::::
 
 
-# :::: toolbar
 [?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,outline,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
@@ -116,7 +115,6 @@ this.depend = function() {
 };
 
 ```
-# ::::
 
 # :::: success
 Success! 
@@ -135,8 +133,6 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
-
-smartdown.showDisclosure('toolbar','','transparent');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';

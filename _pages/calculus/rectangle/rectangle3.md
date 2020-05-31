@@ -20,7 +20,7 @@ What should the dimensions of this rectangle be?  The time interval is 4 seconds
 # ::::
 
 
-# :::: toolbar
+
 [?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Submit Solution](:=compute=true) Here's another rectangle. 
 
 ```javascript /autoplay/p5js
@@ -103,7 +103,6 @@ this.depend = function() {
 };
 
 ```
-# ::::
 
 # :::: success
 Success! 
@@ -123,7 +122,6 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
 
-smartdown.showDisclosure('toolbar','','transparent');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';

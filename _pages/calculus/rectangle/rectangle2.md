@@ -14,8 +14,6 @@ The car travels at a constant speed of 10 meters per second.  How far has the ca
 # ::::
 
 
-
-# :::: toolbar
 [?](::clue/button,transparent,draggable,closeable,outline,center,shadow,lightbox) [Submit Solution](:=compute=true) Here's another rectangle. 
 
 ```javascript /autoplay/p5js
@@ -98,7 +96,7 @@ this.depend = function() {
 };
 
 ```
-# ::::
+
 
 # :::: success
 Success! 
@@ -118,8 +116,6 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
 
-smartdown.showDisclosure('toolbar','','transparent');
-//smartdown.showDisclosure('clue','','transparent,draggable,closeable,outline,center,shadow,lightbox');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';

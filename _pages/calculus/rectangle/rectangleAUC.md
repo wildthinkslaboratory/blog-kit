@@ -13,7 +13,7 @@ What is the area underneath the curve $f(x) = - \frac{x^3}{8} + x^2$ between $x=
 # --outlinebox
 # ::::
 
-# :::: toolbar
+
 [?](::clue/button,transparent,draggable,closeable,outline,lightbox,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
@@ -80,7 +80,6 @@ this.depend = function() {
 };
 
 ```
-# ::::
 
 # :::: success
 Success! 
@@ -100,8 +99,6 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
-
-smartdown.showDisclosure('toolbar', '', 'transparent');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';
