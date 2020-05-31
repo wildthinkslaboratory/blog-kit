@@ -9,7 +9,7 @@ ogimage: /assets/images/calculus/secant.jpg
 # :::: clue
 # --outlinebox question
 ###### Car Ride
-The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the speed the car is traveling at these exact times $t=4$, $t=6$ and $t=7$. 
+The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the velocity the car is traveling at these exact times $t=4$, $t=6$ and $t=7$. 
 # --outlinebox
 # ::::
 
@@ -160,7 +160,7 @@ let derivative = workspace.board.create('functiongraph', [
   function(x) {  return -Math.pow(x,3)/8 + Math.pow(x,2); },
   xlow,
   xhigh], {strokeColor:'#88CC22', visible:false});
-let stext = workspace.board.create('text', [6.4,12, 'speed of car'], {strokeColor:'#88CC22', visible:false});
+let stext = workspace.board.create('text', [6.4,12, 'velocity of car'], {strokeColor:'#88CC22', visible:false});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board

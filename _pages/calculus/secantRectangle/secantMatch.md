@@ -142,9 +142,9 @@ let x1 = 2;  // our main interval endpoints
 let x2 = 4;
 let solved = false;
 
-// make the board and add the speed function
+// make the board and add the velocity function
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow], {xlabel:'x', ylabel:'y'});
-let F = new ProblemFunction(function(x) { return x; }, 'speed curve', 7, [xlow,xhigh], []);
+let F = new ProblemFunction(function(x) { return x; }, 'velocity curve', 7, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
 let G = function(x) { return x*x/2; };  // the distance function
 

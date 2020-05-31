@@ -10,7 +10,7 @@ ogimage: /assets/images/calculus/secant.jpg
 # :::: clue
 # --outlinebox question
 ###### Rocket Launch
-Here is a graph showing the speed of a rocket during it's first launch phase. Estimate the acceleration of the rocket at 60 seconds and 120 seconds after lift off. 
+Here is a graph showing the velocity of a rocket during it's first launch phase. Estimate the acceleration of the rocket at 60 seconds and 120 seconds after lift off. 
 # --outlinebox
 # ::::
 
@@ -148,9 +148,9 @@ let yhigh = 2000;
 
 let c = 1 / 360;
 let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
-  { xlabel:'time (s)', ylabel:'speed (m/s)'});
+  { xlabel:'time (s)', ylabel:'velocity (m/s)'});
 let F = new ProblemFunction(function(x) { return c * Math.pow(x,3) / 3; }, 
-  'speed of rocket', 100, [0,xhigh], [60,120]);
+  'velocity of rocket', 100, [0,xhigh], [60,120]);
 let F_id = workspace.addFunction(F);
 
 let t = workspace.board.create('glider', [0,0, workspace.xaxis], {name:'', face:'^', size:12, color:'green'});

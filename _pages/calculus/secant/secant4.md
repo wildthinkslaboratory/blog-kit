@@ -9,7 +9,7 @@ ogimage: /assets/images/calculus/secant.jpg
 # :::: clue
 # --outlinebox question
 ###### Car Ride
-The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the speed the car is traveling at these exact times $t=3$, $t=4$ and $t=6$. 
+The graph shows the position of the car through time.  Use the **secant** to give your best estimate of the velocity the car is traveling at these exact times $t=3$, $t=4$ and $t=6$. 
 # --outlinebox
 # ::::
 
@@ -154,7 +154,7 @@ let p1 = workspace.board.create('point', [2,4], {name:'', color:'#88CC22', visib
 let p2 = workspace.board.create('point', [4,8], {name:'', color:'#88CC22', visible:false});
 let p3 = workspace.board.create('point', [6,12], {name:'', color:'#88CC22', visible:false});
 let line = workspace.board.create('line', [p1,p2], {strokeColor:'#88CC22', visible:false});
-let stext = workspace.board.create('text', [6.4,12, 'speed of car'], {strokeColor:'#88CC22', visible:false});
+let stext = workspace.board.create('text', [6.4,12, 'velocity of car'], {strokeColor:'#88CC22', visible:false});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board

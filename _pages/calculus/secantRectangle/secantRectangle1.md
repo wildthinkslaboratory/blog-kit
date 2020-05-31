@@ -9,7 +9,7 @@ ogimage: /assets/images/calculus/ftc1.jpg
 # :::: clue
 # --outlinebox
 ##### Car Ride
-The car is at position 5 meters at time $t=0$ and follows the speed curve given.  Estimate how far has the car travels between time $t=0$ and time $t=8$.  What is the car's position at time $t=8$?  Round your answers to the nearest whole number.
+The car is at position 5 meters at time $t=0$ and follows the velocity curve given.  Estimate how far has the car travels between time $t=0$ and time $t=8$.  What is the car's position at time $t=8$?  Round your answers to the nearest whole number.
 # --outlinebox
 # ::::
 
@@ -144,10 +144,10 @@ let ylow = -5;
 let yhigh = 60;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
-  { xlabel:'time (s)', ylabel:'speed (m/s)'});
+  { xlabel:'time (s)', ylabel:'velocity (m/s)'});
 
 let F = new ProblemFunction(function(x) {  return -Math.pow(x,3)/8 + Math.pow(x,2); }, 
-  'speed of car', 3.5, [0,xhigh], [0,8]);
+  'velocity of car', 3.5, [0,xhigh], [0,8]);
 let F_id = workspace.addFunction(F);
 
 

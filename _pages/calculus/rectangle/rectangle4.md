@@ -9,22 +9,22 @@ ogimage: /assets/images/calculus/rectangle.jpg
 # :::: clue
 # --outlinebox
 ##### Rocket Launch
-Here is a graph showing the speed of a rocket during it's first launch phase. Estimate the height of the rocket 120 seconds after lift off? 
+Here is a graph showing the velocity of a rocket during it's first launch phase. Estimate the height of the rocket 120 seconds after lift off? 
 # --outlinebox
 # ::::
 
 # :::: notes
 # --partialborder
 ##### Note 
-What should the dimensions of this rectangle be?  The time will be 120 seconds, but what is the rate?  It's not clear what the average speed of the rocket is.  But we now have four rectangles!
+What should the dimensions of this rectangle be?  The time will be 120 seconds, but what is the rate?  It's not clear what the average velocity of the rocket is.  But we now have four rectangles!
 # --partialborder
 # ::::
 
 # :::: exitnotes
 # --partialborder
-Each rectangle in our solution estimates the distance traveled during a time interval.  By breaking the problem down into smaller pieces we can make better use of the information from the speed graph.  
+Each rectangle in our solution estimates the distance traveled during a time interval.  By breaking the problem down into smaller pieces we can make better use of the information from the velocity graph.  
 
-As the intervals get smaller, the height of the rectangle more accurately represents the average speed for that interval.  This makes the overall estimate better.  Of course why should we stop at four intervals?  How far can we push this idea?
+As the intervals get smaller, the height of the rectangle more accurately represents the average velocity for that interval.  This makes the overall estimate better.  Of course why should we stop at four intervals?  How far can we push this idea?
 # --partialborder
 # ::::
 
@@ -152,9 +152,9 @@ let yhigh = 2000;
 
 let c = 19 / 7200;
 let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
-  { xlabel:'time (s)', ylabel:'speed (m/s)'});
+  { xlabel:'time (s)', ylabel:'velocity (m/s)'});
 let F = new ProblemFunction(function(x) { return c * Math.pow(x,3) / 3; }, 
-  'speed of rocket', 100, [0,xhigh], [0,120]);
+  'velocity of rocket', 100, [0,xhigh], [0,120]);
 let F_id = workspace.addFunction(F);
 
 

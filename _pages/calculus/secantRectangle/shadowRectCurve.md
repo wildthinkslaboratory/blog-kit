@@ -8,7 +8,7 @@ ogimage: /assets/images/calculus/ftc1.jpg
 
 # :::: tour2
 # --partialborder 
-The **distance** traveled by the object is equal to the **rate** times the **time**, $d = r \times t.$ We know two different geometric ways of showing this relationship.  [show relationship](:=showSR=true) The slope of the secant tells us the average speed between two time points.  The corresponding rectangle expresses the distance traveled as the product of the rate and the time.
+The **distance** traveled by the object is equal to the **rate** times the **time**, $d = r \times t.$ We know two different geometric ways of showing this relationship.  [show relationship](:=showSR=true) The slope of the secant tells us the average velocity between two time points.  The corresponding rectangle expresses the distance traveled as the product of the rate and the time.
 [next](:=show3=true) 
 # --partialborder 
 # ::::
@@ -23,7 +23,7 @@ number of intervals [](:-segments/1/100/1) [](:!segments)
 
 # :::: tour4
 # --partialborder 
-The rectangles define a new function that relates to our original curve. [show shadow curve](:=showD=true)  Remember that the height of each skinny rectangle is the average speed the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our speed curve.
+The rectangles define a new function that relates to our original curve. [show shadow curve](:=showD=true)  Remember that the height of each skinny rectangle is the average velocity the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our velocity curve.
 number of intervals [](:-segments/1/100/1) [](:!segments)
 [Continue](/pages/shadowSecantCurve)
 # --partialborder 

@@ -8,7 +8,7 @@ ogimage: /assets/images/calculus/ftc1.jpg
 
 # :::: tour2
 # --partialborder 
-This time we start with a speed curve for a moving object. The **distance** is equal to the **rate** times the **time**, $d = r \times t$ and again we know two different geometric ways of showing this relationship.  [show relationship](:=showSR=true)  The height of the rectangle matches the speed of the object in the middle of the time period and the area of the rectangle estimates the distance traveled during the interval.  The matching secant floats up and down in the same interval.  We can't figure out where to place the secant vertically from just the speed graph alone.
+This time we start with a velocity curve for a moving object. The **distance** is equal to the **rate** times the **time**, $d = r \times t$ and again we know two different geometric ways of showing this relationship.  [show relationship](:=showSR=true)  The height of the rectangle matches the velocity of the object in the middle of the time period and the area of the rectangle estimates the distance traveled during the interval.  The matching secant floats up and down in the same interval.  We can't figure out where to place the secant vertically from just the velocity graph alone.
 [next](:=show3=true) 
 # --partialborder 
 # ::::
@@ -23,7 +23,7 @@ number of intervals [](:-segments/1/100/1) [](:!segments)
 
 # :::: tour4
 # --partialborder 
-The secants define a new function that relates to our speed curve.  Each tiny secant cumulatively adds up the distance traveled during a small interval.  As these secants get smaller, this new curve becomes our position curve.  We still don't know where this curve lives vertically. Only when we add the information that the object is at position 12 at time $t=0$ can we determine where to anchor the shadow secant curver vertically. [actual position curve](:=showD=true)
+The secants define a new function that relates to our velocity curve.  Each tiny secant cumulatively adds up the distance traveled during a small interval.  As these secants get smaller, this new curve becomes our position curve.  We still don't know where this curve lives vertically. Only when we add the information that the object is at position 12 at time $t=0$ can we determine where to anchor the shadow secant curver vertically. [actual position curve](:=showD=true)
 number of intervals [](:-segments/1/100/1) [](:!segments)
 
 [Continue](::feedback/center,draggable,closeable,outline,shadow,transparent)
@@ -66,9 +66,9 @@ let yhigh = 30;
 
 
 let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
-  { xlabel:'time (s)', ylabel:'speed (m/s)', colorTheme:'steel'});
+  { xlabel:'time (s)', ylabel:'velocity (m/s)', colorTheme:'steel'});
 let F = new ProblemFunction(function(t) { return 4 * Math.pow(t-4,3)/8 - 4 * (t-4); }, 
-  'speed of object', 5, [0,xhigh], []);
+  'velocity of object', 5, [0,xhigh], []);
 let F_id = workspace.addFunction(F);
 
 

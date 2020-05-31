@@ -9,7 +9,7 @@ ogimage: /assets/images/calculus/rectangle.jpg
 # :::: clue
 # --outlinebox
 ##### Car Ride
-The car travels at a constant speed of 10 meters per second.  How far has the car traveled after 4 seconds?
+The car travels at a constant velocity of 10 meters per second.  How far has the car traveled after 4 seconds?
 # --outlinebox
 # ::::
 
@@ -130,8 +130,8 @@ let ylow = -3;
 let yhigh = 25;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
-  { xlabel:'time (s)', ylabel:'speed (m/s)'});
-let F = new ProblemFunction(function(x) { return 10; }, 'speed of car', 3.5, [0,xhigh], [0,4]);
+  { xlabel:'time (s)', ylabel:'velocity (m/s)'});
+let F = new ProblemFunction(function(x) { return 10; }, 'velocity of car', 3.5, [0,xhigh], [0,4]);
 let F_id = workspace.addFunction(F);
 
 

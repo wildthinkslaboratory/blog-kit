@@ -154,7 +154,7 @@ let p1 = workspace.board.create('point', [1,10], {name:'', color:'#88CC22', visi
 let p2 = workspace.board.create('point', [2,10], {name:'', color:'#88CC22', visible:false});
 let p3 = workspace.board.create('point', [3,10], {name:'', color:'#88CC22', visible:false});
 let line = workspace.board.create('line', [p1,p2], {strokeColor:'#88CC22', visible:false});
-let stext = workspace.board.create('text', [3.2,12, 'speed of car'], {strokeColor:'#88CC22', visible:false});
+let stext = workspace.board.create('text', [3.2,12, 'velocity of car'], {strokeColor:'#88CC22', visible:false});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // second board

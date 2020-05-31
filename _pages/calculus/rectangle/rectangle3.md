@@ -9,13 +9,13 @@ ogimage: /assets/images/calculus/rectangle.jpg
 # :::: clue
 # --outlinebox
 ##### Car Ride
-Here is a graph showing the speed of a car.  The car begins from a stationary position and gradually increases it's speed.  How far has the car traveled after 4 seconds?  
+Here is a graph showing the velocity of a car.  The car begins from a stationary position and gradually increases it's velocity.  How far has the car traveled after 4 seconds?  
 # --outlinebox
 # ::::
 
 # :::: notes
 # --partialborder note
-What should the dimensions of this rectangle be?  The time interval is 4 seconds, but what is the rate?  It may help to figure out the average speed that the car travels during that time period.
+What should the dimensions of this rectangle be?  The time interval is 4 seconds, but what is the rate?  It may help to figure out the average velocity that the car travels during that time period.
 # --partialborder
 # ::::
 
@@ -135,9 +135,9 @@ let ylow = -3;
 let yhigh = 25;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow], 
-  { xlabel:'time (s)', ylabel:'speed (m/s)'});
+  { xlabel:'time (s)', ylabel:'velocity (m/s)'});
 
-let F = new ProblemFunction(function(x) { return 2*x; }, 'speed of car', 3.5, [0,xhigh], [0,4]);
+let F = new ProblemFunction(function(x) { return 2*x; }, 'velocity of car', 3.5, [0,xhigh], [0,4]);
 let F_id = workspace.addFunction(F);
 
 

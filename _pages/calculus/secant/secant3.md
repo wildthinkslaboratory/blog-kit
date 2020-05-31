@@ -9,7 +9,7 @@ ogimage: /assets/images/calculus/secant.jpg
 # :::: clue
 # --outlinebox question
 ###### Car Ride
-The graph shows the position of the car through time.  Use the **secant** find the average speed the car is traveling during these time periods: $3 \leq t \leq 4$, $3 \leq t \leq 3.5$ and $3 \leq t \leq 3.25$. 
+The graph shows the position of the car through time.  Use the **secant** find the average velocity the car is traveling during these time periods: $3 \leq t \leq 4$, $3 \leq t \leq 3.5$ and $3 \leq t \leq 3.25$. 
 # --outlinebox
 # ::::
 
