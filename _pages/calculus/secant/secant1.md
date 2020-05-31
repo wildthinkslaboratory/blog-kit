@@ -6,7 +6,6 @@ smartdown: true
 ogimage: /assets/images/calculus/secant.jpg
 ---
 
-# :::: toolbar
 # :::: withClue
 [note](::secant/button,transparent,closeable,draggable,topright,outline,shadow) Here.  Have a secant.
 # ::::
@@ -89,7 +88,6 @@ this.depend = function() {
 };
 
 ```
-# ::::
 
 
 # :::: secant
@@ -140,7 +138,6 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
 
-smartdown.showDisclosure('toolbar', '', 'transparent');
 smartdown.showDisclosure('noClue', '', 'transparent');
 
 const myDiv = this.div;
