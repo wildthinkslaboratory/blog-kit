@@ -62,6 +62,35 @@ class Alert {
 }
 let dummy = 5;
 
+hintChecker = {
+  'equals' : function(answer, value) { return answer == value; },
+  'contains' : function(answer, value) { return answer.includes(value); },
+}
+
+class ProblemAnswer{
+  constructor(answers, hints) {
+    this.answers = answers;
+    this.hints = hints;
+
+
+  }
+
+  checkAnswer(answer) {
+    return this.answers.includes(answer);
+  }
+
+  checkHints(answer) {
+    for (let i=0; i < this.hints.length; i++) {
+      let [constraint, value, hint] = this.hints[i];
+
+      if (hintChecker[constraint](answer,value)) {
+        return 'Hint: ' + hint;
+      }
+    }
+    return 'Keep trying.';
+  }
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -87,6 +116,7 @@ let dummy = 5;
   exports.Task = Task;
   exports.Note = Note;
   exports.Alert = Alert;
+  exports.ProblemAnswer = ProblemAnswer;
   exports.dummy = dummy;
 
 

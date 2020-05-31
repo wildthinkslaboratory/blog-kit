@@ -114,7 +114,9 @@ Note that -31 ft/s is equivalent to -21 mph.  Maybe reconsider dropping the ball
 # ::::
 
 # :::: keeptrying
-Keep trying. 
+# --colorbox
+[](:!hint) 
+# --colorbox
 # ::::
 
 
@@ -125,6 +127,7 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
+//smartdown.import=/assets/libs/mapping.js
 
 smartdown.showDisclosure('toolbar','','transparent');
 
@@ -242,6 +245,13 @@ smartdown.setVariable('play', false);
 smartdown.setVariable('reset', false);
 smartdown.setVariable('s1', '');
 smartdown.setVariable('compute', false);
+smartdown.setVariable('hint', 'Keep trying');
+
+let answer = new ProblemAnswer(['-31'], [
+  ['equals','31','Is the balloon moving in the positive direction or the negative direction?'],
+  ['contains','.','Your answer should not contain a decimal point']
+  ]);
+
 
 this.dependOn = ['play','reset', 'compute', 'active'];
 this.depend = function() {
@@ -266,13 +276,17 @@ this.depend = function() {
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (env.s1 == -31) {
+    if (answer.checkAnswer(env.s1)) {
       smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
+      smartdown.setVariable('hint', answer.checkHints(env.s1));
+      smartdown.showDisclosure('keeptrying','','transparent,bottomright,shadow');
       smartdown.hideDisclosure('success','','');
+      setTimeout(function () {
+        smartdown.hideDisclosure('keeptrying','','');
+      }, 5000);
     }
   }
 };
