@@ -12,6 +12,13 @@ When you adjust the right hand side of the secant it will plot an $(x,y)$ point.
 # --partialborder
 # ::::
 
+# :::: feedback
+# --aliceblue
+Please take a moment to fill out a short feedback form to help us improve this lesson!
+[Leave Feedback](https://docs.google.com/forms/d/e/1FAIpQLScHS0uj7Kc-UmhGBbEFMO1N48VLXRXkv9qtdZ_mFXApDH_-GA/viewform?usp=sf_link)
+# --aliceblue
+# ::::
+
 [note](::notes/transparent,draggable,closeable,outline,center,shadow) [clear](:=clear=true) [new color](:=incColor=true) [](:!pointColor)
 
 ```javascript /autoplay
@@ -21,6 +28,8 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
+
+smartdown.showDisclosure('feedback','','topright,draggable,closeable,outline,shadow,transparent');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';

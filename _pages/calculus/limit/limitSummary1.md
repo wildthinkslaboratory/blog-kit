@@ -29,6 +29,7 @@ We learned that:
 
 An informal understanding of limits sufficed in the study of calculus for 150 years.  Read this fabulous [quote from mathematician James Tanton](::tantonOnLimits/center,transparent,draggable,outline,shadow,closeable,scrollable) on this topic.
 
+[How was this lesson?](::feedback/center,draggable,closeable,outline,shadow,transparent)
 #### --outlinebox
 #### --outlinebox
 
@@ -147,3 +148,9 @@ From James Tanton's *Thinking Mathematics: Volume 6, Some Calculus*
 # --partialborder
 # ::::
 
+# :::: feedback
+# --aliceblue
+Please take a moment to fill out a short feedback form to help us improve this lesson!
+[Leave Feedback](https://docs.google.com/forms/d/e/1FAIpQLScHS0uj7Kc-UmhGBbEFMO1N48VLXRXkv9qtdZ_mFXApDH_-GA/viewform?usp=sf_link)
+# --aliceblue
+# ::::

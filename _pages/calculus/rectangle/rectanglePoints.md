@@ -9,11 +9,14 @@ ogimage: /assets/images/calculus/rectangle.jpg
 # :::: notes
 # --partialborder
 When you adjust the right hand side of the rectangle array it will plot an $(x,y)$ point.  The value of $x$ matches the $x$ value of the right hand side of the rectangle array.  The $y$ value is the area of the rectangle array.
-
-Thank you for testing my prototype!  
-
-It would be so helpful to me if you could fill out this short [feedback form](https://docs.google.com/forms/d/e/1FAIpQLSdVNvzSXPHYqIrtb_ftMRhK9qAg1I1Up2qdvV2Mmzk79LAnTQ/viewform) to help me make this lesson better.
 # --partialborder
+# ::::
+
+# :::: feedback
+# --aliceblue
+Please take a moment to fill out a short feedback form to help us improve this lesson!
+[Leave Feedback](https://docs.google.com/forms/d/e/1FAIpQLScHS0uj7Kc-UmhGBbEFMO1N48VLXRXkv9qtdZ_mFXApDH_-GA/viewform?usp=sf_link)
+# --aliceblue
 # ::::
 
 [note](::notes/button,transparent,draggable,closeable,center,outline,shadow) [clear](:=clear=true) [new color](:=incColor=true) [](:!pointColor)
@@ -25,6 +28,8 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
+
+smartdown.showDisclosure('feedback','','topright,draggable,closeable,outline,shadow,transparent');
 
 const myDiv = this.div;
 myDiv.style.width = '100%';

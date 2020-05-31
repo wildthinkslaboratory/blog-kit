@@ -25,7 +25,16 @@ number of intervals [](:-segments/1/100/1) [](:!segments)
 # --partialborder 
 The secants define a new function that relates to our speed curve.  Each tiny secant cumulatively adds up the distance traveled during a small interval.  As these secants get smaller, this new curve becomes our position curve.  We still don't know where this curve lives vertically. Only when we add the information that the object is at position 12 at time $t=0$ can we determine where to anchor the shadow secant curver vertically. [actual position curve](:=showD=true)
 number of intervals [](:-segments/1/100/1) [](:!segments)
+
+[Continue](::feedback/center,draggable,closeable,outline,shadow,transparent)
 # --partialborder 
+# ::::
+
+# :::: feedback
+# --aliceblue
+Please take a moment to fill out a short feedback form to help us improve this lesson!
+[Leave Feedback](https://docs.google.com/forms/d/e/1FAIpQLScHS0uj7Kc-UmhGBbEFMO1N48VLXRXkv9qtdZ_mFXApDH_-GA/viewform?usp=sf_link)
+# --aliceblue
 # ::::
 
 ### The Shadow Secant Curve 
@@ -204,7 +213,7 @@ this.depend = function() {
     smartdown.setVariable('show4',false);
     smartdown.showDisclosure('tour4','','transparent,outline,draggable,closeable,topright,shadow');
     smartdown.hideDisclosure('tour3','','');
-    smartdown.showDisclosure('toolbar','','transparent');
+    // smartdown.showDisclosure('toolbar','','transparent');
   }
 
   if (env.showD == true) {
