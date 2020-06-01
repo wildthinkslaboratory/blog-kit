@@ -7,7 +7,7 @@ ogimage: /assets/images/calculus/derivative.jpg
 ---
 
 
-[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Drive!](:=play=true) 
+[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Drive!](:=play=true) [Submit Solution](:=compute=true)
 velocity at $t=\sqrt{2}$ [](:?s1)  [Formatting Hints](::formatting/tooltip,transparent)
 
 #### --outlinebox outer1
@@ -375,17 +375,40 @@ With a little algebra, we can solve this limit and get an exact answer.
 # --partialborder
 # ::::
 
+# :::: keeptrying
+# --colorbox
+[](:!hint) 
+# --colorbox
+# ::::
+
 ```javascript /autoplay
+//smartdown.import=/assets/libs/mapping.js
 
 smartdown.setVariable('s1','');
+smartdown.setVariable('hint', 'Keep trying');
+smartdown.setVariable('compute', false);
 
-this.dependOn = ['s1'];  
+let answer = new ProblemAnswer(['2sqrt(2)', '2*sqrt(2)', '2 sqrt(2)', '2 * sqrt(2)', '2* sqrt(2)', '2 *sqrt(2)'], 
+  [['contains','.','Your answer should not contain a decimal point']]
+  );
+
+
+this.dependOn = ['compute'];  
 this.depend = function() {
-  
-  if (env.s1 == '2sqrt(2)' || env.s1 == '2*sqrt(2)' || env.s1 == '2 sqrt(2)' || env.s1 == '2 * sqrt(2)') {
-    smartdown.showDisclosure('success','','center,transparent,draggable,closeable,outline,shadow');
-  }
 
+  if (env.compute == true) {
+    smartdown.setVariable('compute', false);
+    if (answer.checkAnswer(env.s1)) {
+      smartdown.showDisclosure('success','','center,transparent,draggable,closeable,outline,shadow');
+    }
+    else {
+    smartdown.setVariable('hint', answer.checkHints(env.s1));
+      smartdown.showDisclosure('keeptrying','','transparent,bottomright,shadow');
+      setTimeout(function () {
+        smartdown.hideDisclosure('keeptrying','','');
+      }, 5000);
+    }
+  }
 };
 ```
 

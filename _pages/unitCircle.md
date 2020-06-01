@@ -12,9 +12,9 @@ smartdown: true
 smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
 
 const myDiv = this.div;
-myDiv.style.width = '100%';
-myDiv.style.height = '100%';
-myDiv.style.margin = 'auto';
+// myDiv.style.width = '100%';
+// myDiv.style.height = '100%';
+// myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='left' style='height:600px; width:60%; float:left; border:1px solid gray;background:#FFFFFF;border-radius:8px;'></div><div id='right' style='height:600px; width:39%; float:left; border: 1px solid gray;background:#FFFFFF;border-radius:8px;';></div>`;
 
 let color1 = '#FF5500';
@@ -22,7 +22,12 @@ let color2 = '#22EEEE';
 
 // create the board
 JXG.Options.axis.ticks.majorHeight = 40;
-let board0 = JXG.JSXGraph.initBoard('right', {boundingbox:[-Math.PI * 2,2,Math.PI * 2,-2], keepaspectratio:false, axis:false, showCopyright:false});
+let board0 = JXG.JSXGraph.initBoard('right', {
+  boundingbox:[-Math.PI * 2,2,Math.PI * 2,-2], 
+  keepaspectratio:false, 
+  axis:false, 
+  showCopyright:false
+});
 let xaxis2 = board0.create('axis', 
   [[0, 0], [1,0]], {
   needsRegularUpdate: false, 
@@ -66,7 +71,7 @@ let board1 = JXG.JSXGraph.initBoard('left', {
 	showCopyright:false});
 
 
-let circle = board1.create('circle', [[0,0], [1,0]], { strokeColor:'#CCCCCC', strokeWidth:2 });
+let circle = board1.create('circle', [[0,0], [1,0]], { strokeColor:'#CCCCCC', strokeWidth:2, fixed:true});
 
 let p2 = board1.create('point', [
 	function() { return Math.cos(x.X()); },
@@ -84,13 +89,12 @@ let run = board1.create('segment', [[0,0], inv1], {strokeColor:'#555555',  strok
 
 board0.addChild(board1);
 
-let widthPercent = 0.8;
-let heightPercent = 0.7;
-let widthRatio = 1/2;
+let pagePercent = 0.8;
+let width = window.innerWidth * pagePercent * 0.49;
 
 this.sizeChanged = function() {
-  board0.resizeContainer(window.innerWidth * widthPercent * (1 - widthRatio - 0.01), window.innerHeight * heightPercent);      
-  board1.resizeContainer(window.innerWidth * widthPercent * widthRatio, window.innerHeight * heightPercent);
+  board0.resizeContainer(width,width);      
+  board1.resizeContainer(width,width);
 };
 
 this.sizeChanged();
@@ -165,7 +169,7 @@ let board1 = JXG.JSXGraph.initBoard('left2', {
 	showCopyright:false});
 
 
-let circle = board1.create('circle', [[0,0], [1,0]], { strokeColor:'#CCCCCC', strokeWidth:2 });
+let circle = board1.create('circle', [[0,0], [1,0]], { strokeColor:'#CCCCCC', strokeWidth:2, fixed:true });
 
 let p2 = board1.create('point', [
 	function() { return Math.cos(x.X()); },
@@ -183,13 +187,12 @@ let run = board1.create('segment', [[0,0], inv1], {strokeColor:color2,  strokeWi
 
 board0.addChild(board1);
 
-let widthPercent = 0.8;
-let heightPercent = 0.7;
-let widthRatio = 1/2;
+let pagePercent = 0.8;
+let width = window.innerWidth * pagePercent * 0.49;
 
 this.sizeChanged = function() {
-  board0.resizeContainer(window.innerWidth * widthPercent * (1 - widthRatio - 0.01), window.innerHeight * heightPercent);      
-  board1.resizeContainer(window.innerWidth * widthPercent * widthRatio, window.innerHeight * heightPercent);
+  board0.resizeContainer(width,width);      
+  board1.resizeContainer(width,width);
 };
 
 this.sizeChanged();
