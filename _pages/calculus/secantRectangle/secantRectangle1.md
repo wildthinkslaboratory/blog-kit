@@ -113,12 +113,10 @@ this.depend = function() {
 # ::::
 
 # :::: success
+# --outlinebox
 Success! 
 [Continue](/pages/secantRectangle2)
-# ::::
-
-# :::: keeptrying
-Keep trying. 
+# --outlinebox
 # ::::
 
 
@@ -207,11 +205,6 @@ let dimensionLine = board1.create('segment', [p2,p3], {
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-// Event handling
-let checkAnswer = function() {
-  return env.s1 == '44' && env.s2 == '49';
-};
-
 
 let useButton = function(mouseX, buttonType) {
   let pixelwidth = window.innerWidth * widthPercent;
@@ -261,11 +254,10 @@ workspace.board.on('update', function() {
   workspace.onUpdate();              // hook up workspace update functions
 });
 
-smartdown.setVariable('compute', false);
 smartdown.setVariable('error', 100);
 smartdown.setVariable('undo', false);
 
-this.dependOn = ['compute', 'undo', 'active'];
+this.dependOn = ['undo', 'active'];
 this.depend = function() {
 
   if (env.active == true) {
@@ -274,26 +266,49 @@ this.depend = function() {
   else {
     myDiv.style.cursor = "default";
   }
-
-  if (env.compute == true) {
-    smartdown.setVariable('compute', false);
-    if (checkAnswer()) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow,lightbox');
-      smartdown.hideDisclosure('keeptrying','','');
-    }
-    else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow,lightbox');
-      smartdown.hideDisclosure('success','','');
-    }
-  }
-
-  // if (env.undo == true) {                // uncomment if you want an undo button
-  //   workspace.undo();
-  //   smartdown.setVariable('undo', false);
-  // }
 };
 
 
 
+```
+
+# :::: keeptrying
+# --colorbox
+[](:!hint) 
+# --colorbox
+# ::::
+
+```javascript /autoplay
+//smartdown.import=/assets/libs/mapping.js
+
+smartdown.setVariable('s1','');
+smartdown.setVariable('s2','');
+smartdown.setVariable('hint', 'Keep trying');
+smartdown.setVariable('compute', false);
+
+let answer1 = new ProblemAnswer(['44'], []);
+
+let answer2 = new ProblemAnswer(['49'], 
+  [['equals','44','Close, but think about the initial conditions of the problem.']]
+  );
+
+
+this.dependOn = ['compute'];  
+this.depend = function() {
+
+  if (env.compute == true) {
+    smartdown.setVariable('compute', false);
+    if (answer1.checkAnswer(env.s1) && answer2.checkAnswer(env.s2)) {
+      smartdown.showDisclosure('success','','center,transparent,draggable,closeable,outline,shadow');
+    }
+    else {
+    smartdown.setVariable('hint', answer2.checkHints(env.s2));
+      smartdown.showDisclosure('keeptrying','','transparent,bottomright,shadow');
+      setTimeout(function () {
+        smartdown.hideDisclosure('keeptrying','','');
+      }, 5000);
+    }
+  }
+};
 ```
 
