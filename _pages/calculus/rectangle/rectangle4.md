@@ -153,6 +153,18 @@ let yhigh = 2000;
 let c = 19 / 7200;
 let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
   { xlabel:'time (s)', ylabel:'velocity (m/s)'});
+
+workspace.xaxis.removeAllTicks();
+
+workspace.board.create('ticks', [workspace.xaxis, 30], { // The number here is the distance between Major ticks
+  strokeColor:'#999',
+  majorHeight:20, // Need this because the JXG.Options one doesn't apply
+  drawLabels:true, // Needed, and only works for equidistant ticks
+  minorTicks:2, // The NUMBER of small ticks between each Major tick
+  drawZero:true
+ }
+);
+
 let F = new ProblemFunction(function(x) { return c * Math.pow(x,3) / 3; }, 
   'velocity of rocket', 100, [0,xhigh], [0,120]);
 let F_id = workspace.addFunction(F);
