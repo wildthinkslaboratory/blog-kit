@@ -77,6 +77,8 @@ lessons :
       name: seven
     - url: /pages/shadowSecantCurve/
       name: eight
+    - url: /pages/secantRectangle2-1/
+      name: nine
   
   derivative: 
     - url: /pages/symbols1/

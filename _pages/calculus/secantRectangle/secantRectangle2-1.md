@@ -20,7 +20,7 @@ The function $f(x) = -t^2 + 2t + 4$ shows the velocity of an object in meters pe
 
 
 
-[?](::clue/button,transparent,draggable,closeable,center,outline,lightbox,shadow) [note](::notes/button,transparent,draggable,closeable,center,outline,shadow) [see object move](:=play=true) [reset](:=reset=true)[Submit Solution](:=compute=true)  
+[?](::clue/button,transparent,draggable,closeable,center,outline,lightbox,shadow) [see object move](:=play=true) [reset](:=reset=true)[Submit Solution](:=compute=true)  
 
 # :::: answerbar
 Estimate the average velocity during time interval $0 \leq t \leq 6$ [](:?s1) m/s
@@ -129,8 +129,11 @@ Success!
 # ::::
 
 # :::: keeptrying
-Keep trying. 
+# --colorbox
+[](:!hint) 
+# --colorbox
 # ::::
+
 
 ```javascript /autoplay
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
@@ -139,6 +142,7 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
+//smartdown.import=/assets/libs/mapping.js
 
 smartdown.showDisclosure('toolbar','','transparent');
 
@@ -155,7 +159,7 @@ let xhigh = 7;
 let ylow = -31;
 let yhigh = 30;
 
-let answer = 40;
+
 let workspace = new Workspace('left', [xlow,yhigh,xhigh,ylow],  
   { xlabel:'time(s)', ylabel:'velocity (m/s)'});
 
@@ -207,10 +211,7 @@ let p2 = board2.create('point', [
 ////////////////////////////////////////////////////////////////////////////////////
 
 
-// Event handling
-let checkAnswer = function() {
-  return env.s1 == '-2';
-};
+
 
 
 let useButton = function(mouseX, buttonType) {
@@ -270,6 +271,13 @@ smartdown.setVariable('error', 100);
 smartdown.setVariable('s1', '');
 smartdown.setVariable('play', false);
 smartdown.setVariable('reset', false);
+smartdown.setVariable('hint', 'Keep trying');
+
+let answer = new ProblemAnswer(['-2'], [
+  ['equals','-12','-12 is the distance traveled during the time interval. Try to compute the average velocity using the distance.'],
+  ['contains','.','Round your answer to the nearest integer']
+  ]);
+
 
 this.dependOn = ['compute', 'active', 'play','reset'];
 this.depend = function() {
@@ -293,16 +301,19 @@ this.depend = function() {
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);
-    if (checkAnswer()) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow');
+    if (answer.checkAnswer(env.s1)) {
+      smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
       smartdown.hideDisclosure('keeptrying','','');
     }
     else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow');
+      smartdown.setVariable('hint', answer.checkHints(env.s1));
+      smartdown.showDisclosure('keeptrying','','transparent,bottomright,shadow');
       smartdown.hideDisclosure('success','','');
+      setTimeout(function () {
+        smartdown.hideDisclosure('keeptrying','','');
+      }, 5000);
     }
   }
-
 };
 
 
