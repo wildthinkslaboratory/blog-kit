@@ -8,7 +8,7 @@ ogimage: /assets/images/calculus/ftc1.jpg
 
 # :::: clue
 # --outlinebox
-The function $f(x) = -t^2 + 2t + 4$ shows the velocity of an object in meters per second.  Estimate the objects average speed during the time interval $0 \leq t \leq 6$?  You can round your estimate to the nearest integer.
+The function $f(t) = -t^2 + 2t + 4$ shows the velocity of an object in meters per second.  Estimate the objects average speed during the time interval $0 \leq t \leq 6$?  You can round your estimate to the nearest integer.
 # --outlinebox
 # ::::
 
@@ -156,7 +156,7 @@ myDiv.innerHTML = `<div id='left' style='height:500px; width:80%; float:left; bo
 
 let xlow = -2;
 let xhigh = 7;
-let ylow = -31;
+let ylow = -40;
 let yhigh = 30;
 
 
@@ -174,7 +174,7 @@ var p = workspace.board.create('point', [
   function() { return F.f(t.X()); }], {color:'#EE9900', name:''});
 
 
-let board2 = JXG.JSXGraph.initBoard('right', {boundingbox:[-1,30,2,-31], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
+let board2 = JXG.JSXGraph.initBoard('right', {boundingbox:[-1,30,2,-40], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
 
 let board2Yaxis = board2.create('axis', [[0, 0], [0, 1]], 
       {name:'m', 
