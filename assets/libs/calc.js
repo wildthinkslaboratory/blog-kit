@@ -1887,15 +1887,14 @@ class SecantRectArray {
 
   updateSecantData() {
     let x1 = this.xint.X1();
-    let x2 = this.xint.X2();
     let deltaP = this.deltaPX();
     let x = [x1];
-    let y = [0 + this.constant()];
-    let lastPoint = x2;
+    let y = [this.constant()];
     let cum = 0;
-    for (let i=x1; i < lastPoint; i += deltaP) {
-      x.push(i + deltaP);
-      cum += this.f(i + deltaP/2) * deltaP;  // first get the area of current rectangle
+    for (let i=1; i <= this.slider.value(); i += 1) {
+      let newX = x1 + i * deltaP;
+      x.push(newX);
+      cum += this.f(newX - deltaP/2) * deltaP;  // first get the area of current rectangle
       y.push(cum + this.constant());                      // sum of all rectangles so far.
     }
     this.secants.secants.dataX = x;
