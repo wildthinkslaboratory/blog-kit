@@ -19,7 +19,7 @@ ogimage: /assets/images/calculus/derivative.jpg
 #### --outlinebox right1
 The derivative of a function $f(x)$ begins with an expression for the slope of the secant line
 $$\frac{f(x+h) - f(x)}{h}.$$
-We want the value of the slope as the secant gets small, but not so small that $h=0$.  The slope of the secant is undefined when $h=0$.
+We want the value of the slope as the secant gets small, but not so small that $h=0$.  
 [*h* close to 0](:=close=true) [*h* all the way to 0](:=gotozero=true)  [Reset](:=reset=true) 
 
 The **derivative** of the function $f(x)$ is the function
@@ -196,7 +196,7 @@ formula1.onmouseout = offWideAFFactory(formula1, hideAFFactory([triangle]));
 formula1.classList.add('highlightOffWide');
 
 
-const formula2 = document.getElementById('MathJax-Element-6-Frame');
+const formula2 = document.getElementById('MathJax-Element-5-Frame');
 formula2.onmouseover = onWideAFFactory(formula2, showAFFactory([dfhighlight]));
 formula2.onmouseout = offWideAFFactory(formula2, hideAFFactory([dfhighlight]));
 formula2.classList.add('highlightOffWide');

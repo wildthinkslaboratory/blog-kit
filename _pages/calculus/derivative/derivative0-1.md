@@ -344,7 +344,7 @@ formula5.classList.add('highlightOffWide');
 Success!
 The instantaneous speed of the car at time $t=\sqrt{2}$ is defined as the limit of the slope of the secant line as the secant interval gets really small
 $$\lim_{h \to 0}\frac{(\sqrt{2} + h)^2 - 2}{h}=2\sqrt{2}$$ 
-The idea of a **limit** got us out of a jam here.  This limit of the slope of the secant line is called the **derivative** and we've evaluated it at $t=\sqrt{2}$.  
+The slope of the secant is undefined at $h=0$, but the limit at $h=0$ exists.  The idea of a **limit** got us out of a jam here.  This limit of the slope of the secant line is called the **derivative** and we've evaluated it at $t=\sqrt{2}$.  
 [Continue](/pages/derivative1)
 # --partialborder
 # ::::
