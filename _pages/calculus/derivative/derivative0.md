@@ -19,7 +19,7 @@ ogimage: /assets/images/calculus/derivative.jpg
 
 #### --outlinebox right1
 [Drive!](:=play=true)
-Remember when we found the velocity of the car at a specific time from the car's position graph?  We used a secant to estimate it.   A very small secant that over a very small time interval that included the time point gave a good estimate of the speed at that time.  The smaller we made the time interval, the better the estimate. 
+Remember when we found the velocity of the car at a specific time from the car's position graph?  We used a secant to estimate it.   A very small secant over a very small time interval that included the time point gave a good estimate of the speed at that time.  The smaller we made the time interval, the better the estimate. 
 
 At time $t=5$, the car's velocity is [](:?s1) m/s.
 # :::: success
