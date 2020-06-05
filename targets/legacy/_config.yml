@@ -3,6 +3,10 @@ ga: true
 safe: false
 title: BlogKit Example
 
+# Set theme
+# theme: stylish-portfolio-jekyll-theme # blog-kit-theme
+remote_theme: vidhyav656/startbootstrap-stylish-portfolio-jekyll # blog-kit-remote_theme
+
 markdown_ext: 'markdown'
 excerpt_separator: <!--more-->
 
@@ -46,20 +50,10 @@ defaults:
     values:
       layout: "default_posts"
   - scope:
-      path: "rawposts"
-      type: "posts"
-    values:
-      layout: "raw"
-  - scope:
       path: ""
       type: "pages"
     values:
       layout: "default_pages"
-  - scope:
-      path: "rawpages"
-      type: "pages"
-    values:
-      layout: "raw"
 
 keep_files:
   - assets

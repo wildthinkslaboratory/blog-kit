@@ -1,8 +1,5 @@
 # disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account
 port:               4007
-# Set theme
-# remote_theme: daviddarnes/alembic
-theme: alembic-jekyll-theme
 
 # markdown:           kramdown
 markdown_ext:       markdown
@@ -102,14 +99,7 @@ defaults:
       type: pages
     values:
       layout: page
-  - scope:
-      path: "rawposts"
-      type: "posts"
-    values:
-      layout: "raw"
-  - scope:
-      path: "rawpages"
-      type: "pages"
-    values:
-      layout: "raw"
 
+# Set theme
+theme: alembic-jekyll-theme # blog-kit-theme
+remote_theme: daviddarnes/alembic # blog-kit-remote_theme

@@ -14,137 +14,7 @@ linkedin_username:
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
 
-# Disqus Comments
-disqus:
-    # Leave shortname blank to disable comments site-wide.
-    # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
-    shortname: wildthinkslaboratory-github-io
 
-
-lessons :
-  rectangle: 
-    - url: /pages/rectangle1/
-      name: one
-    - url: /pages/rectangle2/
-      name: two
-    - url: /pages/rectangle3/
-      name: three
-    - url: /pages/rectangle4/
-      name: four
-    - url: /pages/rectangle5/
-      name: five
-    - url: /pages/rectangleAUC/
-      name: six
-    - url: /pages/work/
-      name: seven
-    - url: /pages/balance/
-      name: eight
-    - url: /pages/rectanglePoints/
-      name: nine
-
-  secant:
-    - url: /pages/secant1/
-      name: one
-    - url: /pages/secant2/
-      name: two
-    - url: /pages/secant3/
-      name: three
-    - url: /pages/secant4/
-      name: four
-    - url: /pages/secant5/
-      name: five
-    - url: /pages/secant6/
-      name: six
-    - url: /pages/secant7/
-      name: seven
-    - url: /pages/secantPoints/
-      name: eight
-
-  secant_rectangle: 
-    - url: /pages/prelude/
-      name: one
-    - url: /pages/rectangleMatch/
-      name: two
-    - url: /pages/secantMatch/
-      name: three
-    - url: /pages/secantRectangle1/
-      name: four
-    - url: /pages/secantRectangle2/
-      name: five
-    - url: /pages/secantRectangle3/
-      name: six
-    - url: /pages/shadowRectCurve/
-      name: seven
-    - url: /pages/shadowSecantCurve/
-      name: eight
-    - url: /pages/secantRectangle2-1/
-      name: nine
-  
-  derivative: 
-    - url: /pages/symbols1/
-      name: one
-    - url: /pages/derivative0/
-      name: two
-    - url: /pages/derivative0-1/
-      name: three
-    - url: /pages/derivative1/
-      name: four
-    - url: /pages/derivative2/
-      name: five
-    - url: /pages/derivative3/
-      name: six 
-    - url: /pages/derivative3-1/
-      name: seven 
-    - url: /pages/derivative4/
-      name: eight 
-    - url: /pages/derivative5/
-      name: nine
-      
-  negative_binary:
-    - url: /pages/NegaBinary1/
-      name: one
-    - url: /pages/NegaBinary2/
-      name: two
-    - url: /pages/NegaBinary3/
-      name: three
-    - url: /pages/NegaBinary4/
-      name: four
-    - url: /pages/NegaBinary5/
-      name: five
-
-  limit:
-    - url: /pages/limit1/
-      name: one
-    - url: /pages/limit3/
-      name: two
-    - url: /pages/limit2-1/
-      name: three
-    - url: /pages/limit2/
-      name: four
-    - url: /pages/limit3-1/
-      name: five
-    - url: /pages/limit4/
-      name: six
-    - url: /pages/limit5/
-      name: seven
-    - url: /pages/limitSummary1/
-      name: eight
-
-  more_limits:
-    - url: /pages/limitDEIntro/
-      name: one
-    - url: /pages/limitDE1/
-      name: two
-    - url: /pages/limitDE2/
-      name: three
-    - url: /pages/limitDE3/
-      name: four
-    - url: /pages/limitDE4/
-      name: five
-            
-# Build settings
-# remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes
-theme: jekyll-theme-clean-blog
 markdown:           kramdown
 markdown_ext:       markdown
 paginate:           5
@@ -159,6 +29,8 @@ excerpt_separator: <!--more-->
 include:
   - posts
   - pages
+  - pages/foo
+  - pages/foo/PermalinkTest
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -201,19 +73,22 @@ defaults:
       type: posts
     values:
       layout: post
+      background: '/img/bg-post.jpg'
   # _pages
   - scope:
       path: "_pages"
       type: pages
     values:
       layout: page
+      background: '/img/bg-about.jpg'
   - scope:
-      path: "rawposts"
-      type: "posts"
+      path: "_pages/about-blog-kit"
+      type: pages
     values:
-      layout: "raw"
-  - scope:
-      path: "rawpages"
-      type: "pages"
-    values:
-      layout: "raw"
+      layout: page
+      abk: true
+      background: '/img/bg-abk.jpg'
+
+# Build settings
+theme: jekyll-theme-clean-blog # blog-kit-theme
+remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # blog-kit-remote_theme

@@ -13,6 +13,7 @@ My name is Heidi Dixon and I have a passionate interest in mathematics education
 - [Ph.D. Dissertation](http://www.cirl.uoregon.edu/dixon/papers/dixonDissertation.pdf)
 
 
+
 ##### Publications
 
 - Apple, J.; Chang, P.; Clauson, A.; Dixon, H.; Fakhoury, H.; Ginsberg, M.; Keenan, E.; Leighton, A.; Scavezze, K.; Smith, B.. [Green Driver: AI in a Microcosm](https://www.aaai.org/ocs/index.php/AAAI/AAAI11/paper/view/3648). AAAI Conference on Artificial Intelligence, North America, aug. 2011. 
@@ -36,5 +37,16 @@ My name is Heidi Dixon and I have a passionate interest in mathematics education
 
 - US Patent 7440942B2: [Database Manipulations Using Group Theory](https://patents.google.com/patent/US7440942B2/en) Heidi E. Dixon, Matthew L. Ginsberg, David Hofer and Eugene M. Luks
 
+#### About this Site
+
+This is a [GitHub Pages](https://pages.github.com)-based blog that utilizes the Jekyll services provided by GitHub, and optionally enables some posts and pages to utilize Smartdown, an in-browser renderer of enhanced Markdown and a reactive runtime.
+
+The GitHub source for this example blog is at: [smartdown/blog-kit](https://github.com/smartdown/blog-kit/), version 0.0.8.
+
+- [About smartdown/blog-kit](/pages/AboutBlogKit)
+- [Graphviz Example](/pages/Graphviz)
+- [P5JS Ellipse Example](/pages/Ellipse)
+- [P5JS Mobius Strip Example](/pages/Mobius)
+- [P5JS Dungeon Example](/pages/Dungeon)
 
 

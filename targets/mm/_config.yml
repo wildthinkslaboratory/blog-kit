@@ -31,8 +31,10 @@ excerpt_separator: <!--more-->
 
 search: true
 
-# remote_theme: mmistakes/minimal-mistakes
-theme: minimal-mistakes-jekyll
+# Build settings
+theme: minimal-mistakes-jekyll # blog-kit-theme
+remote_theme: mmistakes/minimal-mistakes # blog-kit-remote_theme
+
 # Outputting
 permalink: /:categories/:title/
 # paginate: 5 # amount of posts to show
@@ -72,7 +74,7 @@ author:
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://"
+      url: "./"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/"
@@ -133,15 +135,21 @@ defaults:
       layout: single
       author_profile: true
   - scope:
-      path: "rawposts"
-      type: "posts"
+      path: "_pages/about-blog-kit"
+      type: pages
     values:
-      layout: "raw"
-  - scope:
-      path: "rawpages"
-      type: "pages"
-    values:
-      layout: "raw"
+      layout: single
+      abk: true
+      background: '/assets/images/Photo by David Clode on Unsplash.jpg'
+      tagline: This is my tagline
+      header:
+        # overlay_color: #5e616c
+        # overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
+        show_overlay_excerpt: false
+        overlay_image: '/assets/images/Photo by David Clode on Unsplash.jpg'
+        # actions:
+        #   - label: "<i class='fas fa-download'></i> Visit the Gallery"
+        #     url: "https://smartdown.site"
 
 category_archive:
   type: liquid
