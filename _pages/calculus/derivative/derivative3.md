@@ -6,11 +6,6 @@ lesson: 'derivative'
 ogimage: /assets/images/calculus/derivative.jpg
 ---
 
-# :::: tangent
-# --partialborder
-If a line intersects a function at the point $p$ and the slope of the line matches the **derivative** of the function at that same point $p$, then it is a **tangent** line to the function.  
-# --partialborder
-# ::::
 
 ### Turning the Secant Into a Tangent
 
@@ -25,12 +20,11 @@ If a line intersects a function at the point $p$ and the slope of the line match
 #### --outlinebox right1
 Now we know that the limit as our secant gets very small for any time $t$ is described by the function $$f'(t) = 2t.$$
 Let's watch again as the secant line gets very small.  [secant to tangent](:=toTangent=true) [Reset](:=reset=true)
-As the value of $h$ gets arbitrarily small but never reaches $0$, our secant is getting closer and closer to a [tangent line](::tangent/tooltip,transparent).
+As the value of $h$ gets arbitrarily small but never reaches $0$, our secant is getting closer and closer to a [tangent line.](::tangent/tooltip,transparent)
 
-The slope of the tangent line at any point is defined by the derivative function $f'(t) = 2t$ and gives us the velocity of the car. [show derivative](:=derivative=true)
-Notice that the slope of the tangent line matches the value of the derivative function for all values of $t$.
+The slope of the tangent line at any point is defined by the derivative function $f'(t) = 2t$ and gives us the velocity of the car. 
 
-[Continue](/pages/derivative4)
+[Continue](/pages/derivative3-1)
 
 
 
@@ -63,16 +57,16 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 left.innerHTML = `<div id='top' style='height:100px; width:100%; border:1px solid gray;background:#EEFFCC;border-radius:8px;'></div><div id='bottom' style='height:600px; width:100%; border: 1px solid gray;background:#FFFFFF;border-radius:8px;';></div>`;
 
-let xlow = -0.5;
-let xhigh = 3;
-let ylow = -3;
-let yhigh = 8;
+let xlow = -1.5;
+let xhigh = 9;
+let ylow = -10;
+let yhigh = 81;
 
 let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
 let F = new ProblemFunction(function(x) { return x * x; }, '', 4, [0,xhigh], []);
 let F_id = workspace.addFunction(F);
 
-let xint = new XInterval(workspace.board, 1,2);
+let xint = new XInterval(workspace.board, 5,7);
 let secant = new Secant(xint, F.f, {showUnits:true, 
   annotations:'on',  
   noChangeNumber:true,
@@ -100,7 +94,7 @@ let d = function(x) { return 2*x; }
 let df = workspace.board.create('functiongraph', [d, xlow, xhigh], {
   strokeColor:colors.verylightAnnote,
   highlightStrokeColor:colors.verylightAnnote,
-  visible:false
+  visible:true
 });
 
 let dfhighlight = workspace.board.create('functiongraph', [d, xlow, xhigh], 
@@ -116,6 +110,10 @@ let t2 = workspace.board.create('glider', [1,0, workspace.xaxis],
 let p2 = workspace.board.create('point', [
   function() { return t2.X(); }, 
   function() { return d(t2.X()); }], {color:colors.fill, name:'', visible:false});
+let p2text = workspace.board.create('text', [
+  function() { return p2.X() + 0.2; }, 
+  function() { return p2.Y() + 0.2; },
+  function() { return '(' + p2.X().toFixed(2) + ',' + p2.Y().toFixed(2) + ')'}], {visible:false});
 let p3 = workspace.board.create('point', [
   function() { return t2.X(); }, 
   function() { return F.f(t2.X()); }], {color:colors.fill, name:'', visible:false});
@@ -142,10 +140,12 @@ let tangentSlopeText = workspace.board.create('text',[
 
 
 // animation secant into tangent
-let animationTime = 2000;
+let animationTime = 500;
 let animationCallBack = function() {
   secant.hide();
   t2.setAttribute({visible:true});
+  p2.setAttribute({visible:true});
+  p2text.setAttribute({visible:true});
   p3.setAttribute({visible:true});
   tangent.setAttribute({visible:true});
   tangentSlopeText.setAttribute({visible:true});
@@ -178,7 +178,7 @@ let resetSecant = function() {
 // second board
 
 
-let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-6,5,36,-2], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
+let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-13.5,5,81,-2], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
 
 workspace.board.addChild(board1);
 
@@ -233,22 +233,22 @@ let derivativeOn = false;
 
 this.dependOn = ['derivative', 'toTangent', 'reset'];
 this.depend = function() {
-  if (env.derivative == true) {
-    smartdown.setVariable('derivative',false);
-    if (derivativeOn){
-      df.setAttribute({visible:false});
-      p2.setAttribute({visible:false});
-      t2.setAttribute({visible:false});
-      derivativeOn = false;
-    }
-    else {
-      df.setAttribute({visible:true});
-      p2.setAttribute({visible:true});
-      t2.setAttribute({visible:true});
-      derivativeOn = true;
-    }
+  // if (env.derivative == true) {
+  //   smartdown.setVariable('derivative',false);
+  //   if (derivativeOn){
+  //     df.setAttribute({visible:false});
+  //     p2.setAttribute({visible:false});
+  //     t2.setAttribute({visible:false});
+  //     derivativeOn = false;
+  //   }
+  //   else {
+  //     df.setAttribute({visible:true});
+  //     p2.setAttribute({visible:true});
+  //     t2.setAttribute({visible:true});
+  //     derivativeOn = true;
+  //   }
 
-  }
+  // }
   if (env.toTangent == true) {
     smartdown.setVariable('toTangent', false);
     goClose();
@@ -258,6 +258,8 @@ this.depend = function() {
     resetSecant();
     secant.show();
     t2.setAttribute({visible:false});
+    p2.setAttribute({visible:false});
+    p2text.setAttribute({visible:false});
     p3.setAttribute({visible:false});
     tangent.setAttribute({visible:false});
     tangentSlopeText.setAttribute({visible:false});
@@ -273,7 +275,7 @@ right.classList.add('text-2-col');
 
 // set up highlight mapping for formulas.  connect them with their
 // model highlight
-const formula1 = document.getElementById('MathJax-Element-7-Frame');
+const formula1 = document.getElementById('MathJax-Element-2-Frame');
 formula1.onmouseover = onWideAFFactory(formula1, showAFFactory([dfhighlight]));
 formula1.onmouseout = offWideAFFactory(formula1, hideAFFactory([dfhighlight]));
 formula1.classList.add('highlightOffNarrow');
@@ -281,3 +283,9 @@ formula1.classList.add('highlightOffNarrow');
 
 
 ```
+
+# :::: tangent
+# --partialborder
+If a line intersects a function at the point $p$ and the slope of the line matches the **derivative** of the function at that same point $p$, then it is a **tangent** line to the function.  
+# --partialborder
+# ::::

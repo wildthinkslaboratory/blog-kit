@@ -32,7 +32,7 @@ slope:   $$\frac{(\sqrt{2} + h)^2 - 2}{h}$$
 1. Go [closer](:=reduce=true) to $h=0$.
 2. Go [all the way](:=all=true) to $h=0$.
 
-The secant getting smaller is represented by the limit
+The secant slope as the secant gets smaller is represented by the limit
 $$\lim_{h \to 0}\frac{(\sqrt{2} + h)^2 - 2}{h}$$ 
 
 
@@ -343,7 +343,7 @@ formula5.classList.add('highlightOffWide');
 # --partialborder
 Success!
 The instantaneous speed of the car at time $t=\sqrt{2}$ is defined as the limit of the slope of the secant line as the secant interval gets really small
-$$\lim_{h \to 0}\frac{(\sqrt{2} + h)^2 - 2}{h}$$ 
+$$\lim_{h \to 0}\frac{(\sqrt{2} + h)^2 - 2}{h}=2\sqrt{2}$$ 
 The idea of a **limit** got us out of a jam here.  This limit of the slope of the secant line is called the **derivative** and we've evaluated it at $t=\sqrt{2}$.  
 [Continue](/pages/derivative1)
 # --partialborder

@@ -6,11 +6,8 @@ lesson: 'derivative'
 ogimage: /assets/images/calculus/derivative.jpg
 ---
 
-# :::: intro
-We've been answering lots of interesting questions by making our secants really small. But it's not a very precise method and it wouldn't be fun if you didn't have an app to compute the tiny secant slopes.  The **derivative** is way to formalize this idea. We'll begin with an example and then give a general definition of the derivative.
-# ::::
 
-### Introduction to the Derivative
+### Every Secant Has A Rectangle
 
 #### --outlinebox outer1
 
@@ -21,15 +18,14 @@ We've been answering lots of interesting questions by making our secants really 
 
 
 #### --outlinebox right1
-We found the velocity of the car at $t=\sqrt{2}$.  Now we'll find a function that will tell us the speed of the car at anytime we want.  We can estimate the velocity of the car at any time $t$ with the slope of a secant line, which can be expressed as
-$$\frac{(t + h)^2 - t^2}{h}$$
-[*h* close to 0](:=close=true) [*h* all the way to 0](:=gotozero=true)  [Reset](:=reset=true)  
+The position of the car is described by the function $f(t) = t^2$.  We've learned that the **derivative** of the position function is $f'(t) = 2t$ and it is the car's velocity function.
 
-The velocity of the car is the limit as $h$ goes to $0$ of the slope of the secant line
-$$\lim_{h \to 0} \frac{(t + h)^2 - t^2}{h}$$
+Remember that every secant has a matching rectangle.  Notice that when the secant gets very small, the matching rectangle fits snuggly under the velocity function.  The derivative function is our shadow rectangle curve. 
 
-If we use a little algebra, we can solve this limit and get the function.
-[Continue](/pages/derivative2)
+
+[Continue](/pages/derivative4)
+
+
 
 #### --outlinebox
 #### --outlinebox
@@ -69,45 +65,105 @@ let workspace = new Workspace('bottom', [xlow,yhigh,xhigh,ylow],{ xlabel:'', yla
 let F = new ProblemFunction(function(x) { return x * x; }, '', 4, [0,xhigh], []);
 let F_id = workspace.addFunction(F);
 
-
 let xint = new XInterval(workspace.board, 5,7);
-let secant = new Secant(xint, F.f, {showUnits:true, 
-  annotations:'on',  
-  noChangeNumber:true,
-  noUnitsNumber:true,
-  change:'(t+h)^2 - t^2',
-  units:'h',
-  snapMargin:0.008
+let secant = new SecantRectangle(xint, F.f, {   
+  rate:'m/s',
+  change:'m',
+  units:'s',
+  annotationPosition:'after',
+  snapMargin:0.008,
+  attachButtonVisible:false
 });
 workspace.addElement(secant);
 
-secant.xint.x1.setAttribute({name:'t'});
-secant.xint.x2.setAttribute({name:'t + h'});
-
-let triangle = workspace.board.create('polygon', [secant.f1, secant.f2, secant.p1], {
-  fillColor:'#55DDFF', 
-  fillOpacity: 50,
-  strokeWidth:3, visible:false});
-
+// a glider that moves the car
 let t = workspace.board.create('glider', [0,0, workspace.xaxis], {name:'', face:'^', size:12, color:'green'});
-
 let p = workspace.board.create('point', [
   function() { return t.X(); }, 
   function() { return F.f(t.X()); }], {color:'green', name:''});
 
+// get the color scheme for our extra workspace objects
+let colors = new SteelTheme();
+
+// tangent stuff 
+let d = function(x) { return 2*x; }
+let df = workspace.board.create('functiongraph', [d, xlow, xhigh], {
+  strokeColor:colors.verylightAnnote,
+  highlightStrokeColor:colors.verylightAnnote,
+  visible:true
+});
+
+let fofX = workspace.board.create('functiongraph',[F.f,xlow,xhigh], { 
+  strokeColor:'#55DDFF',
+  strokeWidth:5,
+  visible:false
+})
+
+let dfhighlight = workspace.board.create('functiongraph', [d, xlow, xhigh], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:5, 
+      visible:false
+    });
+
+
+// let t2 = workspace.board.create('glider', [1,0, workspace.xaxis], 
+//   {name:'', face:'^', size:12, color:colors.fill, visible:false});
+// let p2 = workspace.board.create('point', [
+//   function() { return t2.X(); }, 
+//   function() { return d(t2.X()); }], {color:colors.fill, name:'', visible:false});
+// let p3 = workspace.board.create('point', [
+//   function() { return t2.X(); }, 
+//   function() { return F.f(t2.X()); }], {color:colors.fill, name:'', visible:false});
+
+// let tangent = workspace.board.create('line', [
+//   function() { return F.f(t2.X());},
+//   function() { return - d(t2.X());},1], {color:colors.stroke, visible:false});
+
+
+// // some fabulous hackery to figure out the placement of the text
+// let fakeText = workspace.board.create('text', [0,ylow - 2,'slope = 2.02'],{visible:true});
+// let tWidth = textWidth(fakeText, workspace.board);
+// let Xerror = (xhigh - xlow)/50;
+
+// let tangentSlopeText = workspace.board.create('text',[
+//   function() { return t2.X() - tWidth - 3 * Xerror; },
+//   function() { return F.f(t2.X());},
+//   function(){ return 'slope = '+ d(t2.X()).toFixed(2); }], {
+//     color:colors.lightAnnote,
+//     fontSize:colors.fontSizeAnnote, 
+//     visible:false
+//   });
+
+
+
+// animation secant into tangent
+let animationTime = 2000;
+let animationCallBack = function() {
+  secant.hide();
+  t2.setAttribute({visible:true});
+  p3.setAttribute({visible:true});
+  tangent.setAttribute({visible:true});
+  tangentSlopeText.setAttribute({visible:true});
+
+};
 
 let goClose = function() {
+  t2.moveTo([secant.xint.x1.X(),0]);
   if (secant.xint.X2() < secant.xint.X1()) {
-    secant.xint.x2.moveTo([secant.xint.X1()-0.01, 0],2000);
+    secant.xint.x2.moveTo(
+      [secant.xint.X1()-0.01, 0],
+      animationTime, 
+      {effect: '--', callback: animationCallBack } );
   }
   else {
-    secant.xint.x2.moveTo([secant.xint.X1()+0.01, 0],2000);
+    secant.xint.x2.moveTo(
+      [secant.xint.X1()+0.01, 0],
+      animationTime, 
+      {effect: '--', callback: animationCallBack } );
   }
 }
 
-let goToZero = function() {
-  secant.xint.x2.moveTo([secant.xint.X1(), 0],500);
-}
 
 let resetSecant = function() {
   secant.xint.x1.moveTo([1,0]);
@@ -166,24 +222,10 @@ this.sizeChanged = function() {
 
 this.sizeChanged();
 
-smartdown.setVariable('close', false);
-smartdown.setVariable('gotozero', false);
-smartdown.setVariable('reset', false);
-
-this.dependOn = ['close', 'gotozero', 'reset'];
+this.dependOn = [];
 this.depend = function() {
-  if (env.close == true) {
-    smartdown.setVariable('close',false);
-    goClose();
-  }
-  if (env.gotozero == true) {
-    smartdown.setVariable('gotozero', false);
-    goToZero();
-  }
-  if (env.reset == true) {
-    smartdown.setVariable('reset', false);
-    resetSecant();
-  }
+
+
 };
 
 //////////////////////////////////////////////////////////////// NOTATION MAPPING
@@ -192,14 +234,17 @@ outer.classList.add('outer-multi-col');
 left.classList.add('playable-2-col');
 right.classList.add('text-2-col');
 
-
-
 // set up highlight mapping for formulas.  connect them with their
 // model highlight
-const formula1 = document.getElementById('MathJax-Element-3-Frame');
-formula1.onmouseover = onWideAFFactory(formula1, showAFFactory([triangle]));
-formula1.onmouseout = offWideAFFactory(formula1, hideAFFactory([triangle]));
-formula1.classList.add('highlightOffWide');
+const formula1 = document.getElementById('MathJax-Element-2-Frame');
+formula1.onmouseover = onWideAFFactory(formula1, showAFFactory([dfhighlight]));
+formula1.onmouseout = offWideAFFactory(formula1, hideAFFactory([dfhighlight]));
+formula1.classList.add('highlightOffNarrow');
+
+const formula2 = document.getElementById('MathJax-Element-1-Frame');
+formula2.onmouseover = onWideAFFactory(formula2, showAFFactory([fofX]));
+formula2.onmouseout = offWideAFFactory(formula2, hideAFFactory([fofX]));
+formula2.classList.add('highlightOffNarrow');
 
 
 ```

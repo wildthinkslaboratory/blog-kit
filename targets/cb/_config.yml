@@ -93,10 +93,12 @@ lessons :
       name: five
     - url: /pages/derivative3/
       name: six 
-    - url: /pages/derivative4/
+    - url: /pages/derivative3-1/
       name: seven 
+    - url: /pages/derivative4/
+      name: eight 
     - url: /pages/derivative5/
-      name: eight
+      name: nine
       
   negative_binary:
     - url: /pages/NegaBinary1/
