@@ -1,0 +1,91 @@
+---
+layout: default
+---
+<!-- Page Header -->
+{% if page.header == 'none' %}
+<header id="header-wrapper" class="masthead noheader">
+</header>  
+{% else %}
+
+{% if page.background %}
+<header id="header-wrapper" class="masthead home" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
+{% else %}
+<header id="header-wrapper" class="masthead home">
+{% endif %}
+
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <!-- test for a narrow header -->
+        {% if page.header == 'narrow' %}
+        <div class="post-heading narrow-heading">
+        {% else %}
+        <div class="post-heading">
+        {% endif %}
+
+          <center>
+            <img src="{{"/assets/images/wildthinksLogo.svg" | relative_url }}" height="150">
+            <span class="subheading">{{ page.subtitle }}</span>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if page.headerapp %}
+  <div id="header-app" class="app-wrapper">
+  </div>
+  <script src="{{ page.headerapp  | prepend: '/assets/libs/' }}"></script>
+  {% endif %}
+
+
+</header>
+{% endif %}
+
+{% if page.smartdown == true %}
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        {{ content | markdownify }}
+
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="credits">
+  <p> This site is built with </p>
+  <ul>
+      <li class="credit-item">
+            <a class="credit-link" href="https://smartdown.github.io">
+               <img src="{{"/assets/images/SmartdownLogo.png" | relative_url }}" height="80">
+            </a>
+      </li>
+      <li class="credit-item">
+            <a class="credit-link" href="https://jsxgraph.uni-bayreuth.de/wp/">
+              <img src="{{"/assets/images/jsxgraph_1_0.png" | relative_url }}" height="50">
+            </a>
+      </li>
+      <li class="credit-item">
+            <a class="credit-link" href="https://p5js.org">
+               <img src="{{"/assets/images/p5js.svg" | relative_url }}" height="50">
+            </a>
+      </li>
+      <li class="credit-item">
+            <a class="credit-link" href="https://jekyllrb.com">
+               <img src="{{"/assets/images/jekyll.svg" | relative_url }}" height="50">
+            </a>
+      </li>
+  </ul>
+</div>

@@ -1,0 +1,157 @@
+---
+layout: home
+smartdown: true
+jsxgraph: true
+header: 'narrow'
+subtitle: 'interactive math adventures'
+headerapp: 'reimannSum.js'
+ogimage: /assets/images/ogpic.png
+---
+
+
+# --outlinebox calculus
+
+```graphviz/autoplay
+digraph G {
+  
+	tooltip="wildthinks map";
+	fontsize="24";
+	fontname="Arial";
+	size="12,12";
+  rankdir=LR;
+  bgcolor=transparent;
+    subgraph cluster1 {
+      color="transparent";
+        rectangle [shape=none, URL="/pages/rectangle1", label="", image="/assets/images/calculus/rectangle.svg"];
+        secant[shape=none, URL="/pages/secant1", label="", image="/assets/images/calculus/secant.svg"];
+		    FTC1 [shape=none, tooltip="secant / rectangle", URL="/pages/prelude", label="", image="/assets/images/calculus/ftc1.svg"];
+        limit [shape=none, URL="/pages/limit1", tooltip="limit",label="", image="/assets/images/calculus/limits.svg"];
+        epsilonDelta [shape=none, URL="javascript:smartdown.setVariable('soon', true);", tooltip="epsilon delta proofs",label="", image="/assets/images/calculus/epsilonDelta.svg"];
+		    derivative [shape=none, tooltip="Definition of the Derivative" URL="/pages/symbols1", label="", image="/assets/images/calculus/derivative.svg"];
+		    chainRule [shape=none, tooltip="Chain Rule", URL="/pages/chainRule", label="", image="/assets/images/calculus/chainrule.svg"];
+        e [shape=none, tooltip="e",label="", image="/assets/images/calculus/eToTheX.svg"];
+        FTC2 [shape=none, tooltip="fundamental theorem of calculus",label="", image="/assets/images/calculus/ftc2.svg"];
+		  
+      rectangle -> FTC1;
+		  secant -> FTC1;
+      FTC1 -> limit;
+      limit -> derivative;
+      limit -> epsilonDelta;
+      epsilonDelta -> derivative;
+		  derivative -> chainRule;
+      derivative -> e;
+      e -> FTC2;
+      chainRule -> FTC2;
+      label="Calculus";
+      { rank=same; rectangle, secant }
+      { rank=same; limit, epsilonDelta }
+      { rank=same; e, chainRule }
+    }
+    
+}
+```
+
+# --outlinebox
+
+
+```javascript /autoplay
+
+console.log('fixing style');
+const calcDiv = document.getElementById('calculus');
+calcDiv.classList.remove('decoration-outlinebox');
+
+calcDiv.style.border = '2px solid #DDDDDD';
+calcDiv.style.borderRadius = '25px';
+calcDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
+#### What's in Calculus?
+The Calculus Lessons give a truly interactive introduction to the ideas of calculus.
+
+The first three chapters are entirely geometric.  They require only familiarity with functions in the $(x,y)$ plane and an understanding of ratios and rates.  They are a fantastic introduction to the ideas of calculus.
+
+The remaining chapters are intended to supplement a standard calculus class.  They give interactive explanations of the major results from first year calculus.
+
+
+# :::: coming_soon
+# --partialborder
+Coming soon!
+# --partialborder
+# ::::
+
+```javascript /autoplay
+smartdown.setVariable('soon', false);
+
+this.dependOn = ['soon'];
+
+this.depend = function() {
+  if (env.soon == true) {
+    smartdown.setVariable('soon', false);
+    smartdown.showDisclosure('coming_soon','','transparent,center,shadow'); 
+    setTimeout(function () {
+         smartdown.hideDisclosure('coming_soon','',''); 
+    }, 5000);
+  } 
+};
+```
+
+#### More Interactive Math Adventures
+
+# --outlinebox other
+```graphviz/autoplay
+digraph G {
+  tooltip="wildthinks map";
+  fontsize="24";
+  fontname="Arial";
+  size="12,12";
+  bgcolor=transparent;
+
+    subgraph cluster1 {
+        problem1 [shape=none, tooltip="fly problem", URL="/pages/usamts1", label="", image="/assets/images/calculus/usamts1.svg"];
+        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
+        label = "USAMTS Problems";
+        style=filled;
+        color=transparent;
+        rankdir=TB;
+    }
+
+    subgraph cluster2 {
+        negaBinary [shape=none, tooltip="Negative Binary", URL="/pages/NegaBinary1", label="", image="/assets/images/calculus/negaBinary.svg"];
+        strings [shape=none, tooltip="Godel meets Exploding Dots", URL="/pages/Strings", label="", image="/assets/images/calculus/strings.svg"];
+        label = "Exploding Dots";
+        style=filled;
+        color=transparent;
+    }
+
+    subgraph cluster3 {
+        fractal [shape=none, tooltip="Fractal Generator", URL="/pages/fractal", label="", image="/assets/images/calculus/fractal.svg"];
+        label = "Other"
+        style=filled;
+        color=transparent;
+  }
+    
+}
+```
+# --outlinebox
+
+
+```javascript /autoplay
+
+const otherDiv = document.getElementById('other');
+otherDiv.classList.remove('decoration-outlinebox');
+
+otherDiv.style.border = '2px solid #DDDDDD';
+otherDiv.style.borderRadius = '25px';
+otherDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
+
+
+
+# Featured Video
+Goldfish and Robin show how to solve a corn maze using topology.
+![fullwidth](https://www.youtube.com/watch?v=eQYLL7XnM-4)

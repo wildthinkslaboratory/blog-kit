@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+{% include masthead.html %}
+
+{% if page.smartdown == true %}
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        {{ content | markdownify }}
+
+      </div>
+    </div>
+  </div>
+{% endif %}

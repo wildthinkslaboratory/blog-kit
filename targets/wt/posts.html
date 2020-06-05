@@ -1,0 +1,53 @@
+---
+layout: page
+title: 'wildthinks blog'
+subtitle: 'thoughts and prototypes for interactive math explorations'
+header: 'narrow'
+background: '/assets/images/stuff.JPG'
+---
+
+<!--more-->
+
+{% for post in site.posts %}
+
+<article class="post-preview">
+  <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
+    <h4 class="post-title">{{ post.title }}</h4>
+    {% if post.subtitle %}
+    <p class="post-subtitle">{{ post.subtitle }}</p>
+    {% else %}
+    <p class="post-subtitle">{{ post.excerpt | markdownify | strip_html | truncatewords: 40 }}</p>
+    {% endif %}
+  </a>
+  <p class="post-meta">Posted by
+    {% if post.author %}
+    {{ post.author }}
+    {% else %}
+    {{ site.author }}
+    {% endif %}
+    on
+    {{ post.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=post.content %}
+  </p>
+</article>
+
+<hr>
+
+{% endfor %}
+
+<!-- Pager -->
+{% if paginator.total_pages > 1 %}
+
+<div class="clearfix">
+
+  {% if paginator.previous_page %}
+  <a class="btn btn-primary float-left" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr;
+    Newer<span class="d-none d-md-inline"> Posts</span></a>
+  {% endif %}
+
+  {% if paginator.next_page %}
+  <a class="btn btn-primary float-right" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older<span class="d-none d-md-inline"> Posts</span> &rarr;</a>
+  {% endif %}
+
+</div>
+
+{% endif %}
