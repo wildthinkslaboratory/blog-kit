@@ -141,6 +141,18 @@ lessons :
       name: four
     - url: /pages/limitDE4/
       name: five
+
+  expDotsGodel:
+    - url: /pages/expDotsGodel1/
+      name: one
+    - url: /pages/expDotsGodel2/
+      name: two
+    - url: /pages/expDotsGodel3/
+      name: three
+    - url: /pages/expDotsGodel4/
+      name: four
+    - url: /pages/expDotsGodel5/
+      name: five   
             
 # Build settings
 # remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes
