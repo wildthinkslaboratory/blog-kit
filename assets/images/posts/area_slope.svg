@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="1000" height="200" viewBox="0, 0, 1000, 200">
+  <g id="Layer_1">
+    <path d="M250.5,50.5 L250.5,50.5" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+    <path d="M250.5,50.5 L250.5,50.5" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+    <g>
+      <g>
+        <path d="M107.425,45.796 L361.819,45.796 L361.819,132.931 L107.425,132.931 L107.425,45.796 z" fill="#72A1D8" fill-opacity="0.19"/>
+        <path d="M107.425,45.796 L361.819,45.796 L361.819,132.931 L107.425,132.931 L107.425,45.796 z" fill-opacity="0" stroke="#020647" stroke-width="0.5"/>
+      </g>
+      <path d="M107.425,132.931 C107.425,132.931 361.819,132.931 361.819,132.931 C361.819,132.931 361.819,45.796 361.819,45.796" fill-opacity="0" stroke="#1B04F1" stroke-width="4" stroke-dasharray="8,8"/>
+      <path d="M618.021,132.931 C618.021,132.931 872.415,132.931 872.415,132.931 C872.415,132.931 872.415,45.796 872.415,45.796" fill-opacity="0" stroke="#1B04F1" stroke-width="4" stroke-dasharray="8,8"/>
+      <g>
+        <text transform="matrix(1, 0, 0, 1, 387.57, 88.864)">
+          <tspan x="-8.22" y="7" font-family="HelveticaNeue-Bold" font-size="24" fill="#000000">A</tspan>
+        </text>
+        <text transform="matrix(1, 0, 0, 1, 226.118, 160.976)">
+          <tspan x="-8.448" y="7" font-family="HelveticaNeue-Bold" font-size="24" fill="#000000">B</tspan>
+        </text>
+      </g>
+      <g>
+        <text transform="matrix(1, 0, 0, 1, 897.807, 88.864)">
+          <tspan x="-8.22" y="7" font-family="HelveticaNeue-Bold" font-size="24" fill="#000000">A</tspan>
+        </text>
+        <text transform="matrix(1, 0, 0, 1, 736.354, 160.976)">
+          <tspan x="-8.448" y="7" font-family="HelveticaNeue-Bold" font-size="24" fill="#000000">B</tspan>
+        </text>
+      </g>
+      <g>
+        <path d="M872.415,45.796 L872.415,132.931 L618.021,132.931 z" fill="#72A1D8" fill-opacity="0.19"/>
+        <path d="M872.415,45.796 L872.415,132.931 L618.021,132.931 z" fill-opacity="0" stroke="#020647" stroke-width="0.5"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 223.438, 88.864)">
+        <tspan x="-58.42" y="6" font-family="HelveticaNeue-Bold" font-size="20" fill="#000000">Area = A x B</tspan>
+      </text>
+      <text transform="matrix(1, 0, 0, 1, 709.859, 69.293)">
+        <tspan x="-61.75" y="3.014" font-family="HelveticaNeue-Bold" font-size="20" fill="#000000">Slope = A / B</tspan>
+      </text>
+      <path d="M694.17,106.864 C697.042,115.255 698.508,124.063 698.508,132.931" fill-opacity="0" stroke="#000000" stroke-width="2"/>
+      <text transform="matrix(1, 0, 0, 1, 682.802, 119.864)">
+        <tspan x="-5.132" y="5" font-family="Apple-Chancery" font-size="20" fill="#000000">a</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
