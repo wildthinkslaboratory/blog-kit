@@ -264,6 +264,9 @@ function buildTriangleArray(subs) {
 window.addEventListener('resize', function(event){
   canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
+  Xcenter = canvas.width/2;
+  Ycenter = canvas.height/2;
+
   drawTriangles();
 });
 
@@ -282,11 +285,11 @@ smartdown.setVariable('low1', 0);
 smartdown.setVariable('low2', 0);
 smartdown.setVariable('high1', 256);
 smartdown.setVariable('high2', 256);
-smartdown.setVariable('scale1', 20);
-smartdown.setVariable('scale2', 20);
-smartdown.setVariable('subs', 7);
+smartdown.setVariable('scale1', 40);
+smartdown.setVariable('scale2', 40);
+smartdown.setVariable('subs', 8);
 
-let oldSubs = 7;
+let oldSubs = 8;
 let oldSort = 1;
 
 // We have two different color schemes.  One for 36,72,72 triangles and one for 108,36,36
