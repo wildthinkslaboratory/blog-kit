@@ -6,7 +6,8 @@ fi
 
 export targetName="${1}"
 export target="${here}/${targetName}"
-export targetBaseUrl="/${targetName}"
+#export targetBaseUrl="/${targetName}"
+export targetBaseUrl=""
 
 if [[ ! -d ${target} ]]; then
 	echo "The target ${target} does not exist!"

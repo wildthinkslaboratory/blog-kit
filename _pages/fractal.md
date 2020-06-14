@@ -15,7 +15,7 @@ We had a great time learning about fractals at [Mathigon's](https://mathigon.org
 
 # :::: panel
 # --aliceblue
-[random redraw](:=randomRedraw=true) [new colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) 
+[random fractal](:=randomFractal=true) [random seed](:=) [random colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) 
 **seed:** **A** [](:?A)  **B** [](:?B) [draw seed](:=redraw=true)
 [prepare a download](:=download=true) 
 
@@ -125,7 +125,9 @@ let juliaSeeds = [
 [-0.49, 0.6],
 [-0.4907, 0.6],
 [0.301, 0.48788],
-[-0.749, 0.042]
+[-0.749, 0.042],
+[-0.7511, 0.022],
+[-0.552, -0.478]
 ];
 
 
@@ -220,7 +222,7 @@ let pany = 0;
 
 
 // all the random elements in a function so we can reseed when
-// we randomRedraw
+// we randomFractal
 function randomFractal() {
   panx = 0;
   pany = 0;
@@ -323,7 +325,7 @@ window.addEventListener('resize', function(event){
 randomFractal();
 draw();
 
-smartdown.setVariable('randomRedraw', false);
+smartdown.setVariable('randomFractal', false);
 smartdown.setVariable('color', false);
 smartdown.setVariable('zoomin', false);
 smartdown.setVariable('zoomout', false);
@@ -338,7 +340,7 @@ smartdown.setVariable('B', seedB);
 smartdown.setVariable('redraw', false);
 smartdown.setVariable('imageForDownload', '');
 
-this.dependOn = ['randomRedraw','color','zoomin', 'zoomout','up', 'down','left','right','download', 'randomSeed', 'redraw'];
+this.dependOn = ['randomFractal','color','zoomin', 'zoomout','up', 'down','left','right','download', 'randomSeed', 'redraw'];
 this.depend = function() {
 
   if (env.download == true) {
@@ -364,8 +366,8 @@ this.depend = function() {
     }
     else { useRandomSeed = false; }
 
-    if (env.randomRedraw == true) {
-      smartdown.setVariable('randomRedraw', false);
+    if (env.randomFractal == true) {
+      smartdown.setVariable('randomFractal', false);
       randomFractal();
       draw();
     }
