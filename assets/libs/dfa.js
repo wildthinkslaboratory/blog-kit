@@ -65,8 +65,8 @@ class DFAAppColors {
 
 let acceptSound = null;
 let rejectSound = null;
-const acceptSoundFile =  'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/f68a0fa7a0cfcf6b72c42986db991bde94bbc90d/SmallGlockA.wav';
-const rejectSoundFile = 'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/26bde39ba9f27eecdf5ea85533b411a8e378f1a1/cartoon004.wav';
+const acceptSoundFile =  '../../assets/sounds/SmallGlockA.wav';
+const rejectSoundFile =  '../../assets/sounds/cartoon004.wav';
 
 
 
@@ -422,7 +422,12 @@ function DFA(p5playable, m)  {
     
     if (presses === input.length) {  // check if we've processed the whole input
       if (nodes[state].accept) {     // and play the appropriate sound if we have
-        acceptSound.play();
+        if (acceptSound.isLoaded()) {
+          acceptSound.play();
+        }
+        else {
+          console.log('accept sound not loaded');
+        }
       }
       else {
         rejectSound.play();
