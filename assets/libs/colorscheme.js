@@ -1,3 +1,6 @@
+
+
+
 // our favorite julia seeds
 let juliaSeeds = [ 
 [-0.391,-0.587], 

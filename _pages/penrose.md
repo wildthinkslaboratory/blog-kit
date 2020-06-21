@@ -57,6 +57,17 @@ class Triangle {
   }
 };
 
+// general function for shallow copying of object. Keeps the associated methods.
+function copyInstance (original) {
+  let copied = Object.assign(
+    Object.create(
+      Object.getPrototypeOf(original)
+    ),
+    original
+  );
+  return copied;
+}
+
 let b1 = false;
 let b2 = false;
 let b3 = false;
@@ -207,6 +218,7 @@ function drawTriangles() {
 }
 
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 // since the smooth color scheme is applied linearly to the triangles, we can sort the triangles
@@ -234,6 +246,35 @@ function compareRadial(t1, t2) {
 
   return 0;
 }
+
+
+function samepoint(p1, p2) {
+  return Math.floor(p1[0]) == Math.floor(p2[0]) && Math.floor(p1[1]) == Math.floor(p2[1]);
+}
+
+// two triangles are connected if they share two vertices and have the same flag
+function connected(t1, t2) { 
+
+  if (t1.flag !== t2.flag) {
+    return false;
+  }
+  // there's six possible combinations to check
+  let matches = 0;
+  matches += samepoint(t1.p1, t2.p1);
+  matches += samepoint(t1.p1, t2.p2);
+  matches += samepoint(t1.p1, t2.p3);
+
+  matches += samepoint(t1.p2, t2.p1);
+  matches += samepoint(t1.p2, t2.p2);
+  matches += samepoint(t1.p2, t2.p3);
+
+  matches += samepoint(t1.p3, t2.p1);
+  matches += samepoint(t1.p3, t2.p2);
+  matches += samepoint(t1.p3, t2.p3);
+
+  return matches == 2;
+}
+
 
 let sortFunction = {
   0 : function() { },
@@ -328,6 +369,7 @@ this.depend = function() {
 
       buildTriangleArray(oldSubs);
       drawTriangles();
+      
     }
 
     if (env.newColors == true) {
