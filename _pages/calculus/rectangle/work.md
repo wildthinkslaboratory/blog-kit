@@ -27,7 +27,7 @@ It's hard to **see** the amount of work done in the picture of the spring.  A si
 
 
 
-[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,outline,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
+[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,outline,center,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////

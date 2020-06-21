@@ -14,7 +14,7 @@ The car travels at a constant velocity of 10 meters per second.  How far has the
 # ::::
 
 
-[?](::clue/button,transparent,draggable,closeable,outline,center,shadow,lightbox) [Submit Solution](:=compute=true) Here's another rectangle. 
+[Problem](::clue/button,transparent,draggable,closeable,outline,center,shadow,lightbox) [Submit Solution](:=compute=true) Here's another rectangle. 
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////

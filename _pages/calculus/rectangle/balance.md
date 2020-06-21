@@ -34,7 +34,7 @@ Typically the balance point of a sword is a small distance past the hilt.  At fi
 # ::::
 
 
-[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,outline,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
+[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,outline,shadow) [Submit Solution](:=compute=true) [Undo](:=undo=true)
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////

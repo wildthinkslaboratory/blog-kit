@@ -21,7 +21,7 @@ What should the dimensions of this rectangle be?  The time interval is 4 seconds
 
 
 
-[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Submit Solution](:=compute=true) Here's another rectangle. 
+[Problem](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Submit Solution](:=compute=true) Here's another rectangle. 
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////

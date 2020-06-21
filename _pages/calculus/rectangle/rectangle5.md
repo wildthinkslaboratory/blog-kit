@@ -21,7 +21,7 @@ Here is a graph showing the velocity of a rocket during it's first launch phase.
 # ::::
 
 
-[?](::clue/button,transparent,draggable,closeable,outline,lightbox,center,shadow) [Submit Solution](:=compute=true) You have a rectangle array!
+[Problem](::clue/button,transparent,draggable,closeable,outline,lightbox,center,shadow) [Submit Solution](:=compute=true) You have a rectangle array!
 
 ```javascript /autoplay/p5js
 ///////////////////////////////////////////////////////////////////
