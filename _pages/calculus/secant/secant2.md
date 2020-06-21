@@ -15,7 +15,7 @@ The graph shows the position of the car through time.  Figure out how fast the c
 
 
 
-[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[Problem](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 $t=1$ [](:?s1)  $t=2$ [](:?s2) $t=3$ [](:?s3) 
 # ::::
@@ -237,12 +237,8 @@ workspace.board.on('update', function() {
 
 
 smartdown.setVariable('play', false);
-smartdown.setVariable('s1', '');
-smartdown.setVariable('s2', '');
-smartdown.setVariable('s3', '');
-smartdown.setVariable('compute', false);
 
-this.dependOn = ['play','compute', 'active'];
+this.dependOn = ['play', 'active'];
 this.depend = function() {
 
   if (env.active == true) {
@@ -252,28 +248,9 @@ this.depend = function() {
     myDiv.style.cursor = "default";
   }
 
-
   if (env.play == true) {
     smartdown.setVariable('play', false);
     move();
-  }
-
-  if (env.compute == true) {
-    smartdown.setVariable('compute', false);
-    if (env.s1 == 10 && env.s2 == 10 && env.s3 == 10) {
-      smartdown.showDisclosure('success','','draggable,closeable,center,shadow,lightbox');
-      smartdown.hideDisclosure('keeptrying','','');
-      p1.setAttribute({visible:true});
-      p2.setAttribute({visible:true});
-      p3.setAttribute({visible:true});
-      line.setAttribute({visible:true});
-      stext.setAttribute({visible:true});
-      workspace.undo();
-    }
-    else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow,lightbox');
-      smartdown.hideDisclosure('success','','');
-    }
   }
 };
 
@@ -281,3 +258,40 @@ this.depend = function() {
 
 ```
 
+```javascript /autoplay
+
+console.log('testing');
+smartdown.setVariable('s1', '');
+smartdown.setVariable('s2', '');
+smartdown.setVariable('s3', '');
+smartdown.setVariable('compute', false);
+
+this.dependOn = ['s1', 's2', 's3', 'compute'];
+this.depend = function() {
+  if (env.s1[env.s1.length - 1] === '\n') {                  
+    smartdown.setVariable('s1', env.s1.replace(/\s/g, ''));
+  }
+
+  if (env.s2[env.s2.length - 1] === '\n') {                  
+    smartdown.setVariable('s2', env.s2.replace(/\s/g, ''));
+  }
+
+  if (env.s3[env.s3.length - 1] === '\n') {                  
+    smartdown.setVariable('s3', env.s3.replace(/\s/g, ''));
+  }
+
+  if (env.compute == true) {
+    smartdown.setVariable('compute', false);
+    if (env.s1 == 10 && env.s2 == 10 && env.s3 == 10) {
+      smartdown.showDisclosure('success','','draggable,closeable,center,shadow,lightbox');
+      smartdown.hideDisclosure('keeptrying','','');
+    }
+    else {
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow,lightbox');
+      smartdown.hideDisclosure('success','','');
+    }
+  }
+
+}
+
+```
