@@ -260,25 +260,25 @@ this.depend = function() {
 
 ```javascript /autoplay
 
-console.log('testing');
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
+
 smartdown.setVariable('s1', '');
 smartdown.setVariable('s2', '');
 smartdown.setVariable('s3', '');
 smartdown.setVariable('compute', false);
 
+
 this.dependOn = ['s1', 's2', 's3', 'compute'];
 this.depend = function() {
-  if (env.s1[env.s1.length - 1] === '\n') {                  
-    smartdown.setVariable('s1', env.s1.replace(/\s/g, ''));
-  }
 
-  if (env.s2[env.s2.length - 1] === '\n') {                  
-    smartdown.setVariable('s2', env.s2.replace(/\s/g, ''));
-  }
-
-  if (env.s3[env.s3.length - 1] === '\n') {                  
-    smartdown.setVariable('s3', env.s3.replace(/\s/g, ''));
-  }
+  removeEnterFromSmartdownString('s1', env.s1);
+  removeEnterFromSmartdownString('s2', env.s2);
+  removeEnterFromSmartdownString('s3', env.s3);
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);

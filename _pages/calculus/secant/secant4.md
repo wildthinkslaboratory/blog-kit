@@ -237,10 +237,6 @@ workspace.board.on('update', function() {
 
 
 smartdown.setVariable('play', false);
-smartdown.setVariable('s1', '');
-smartdown.setVariable('s2', '');
-smartdown.setVariable('s3', '');
-smartdown.setVariable('compute', false);
 
 this.dependOn = ['play','compute','active'];
 this.depend = function() {
@@ -257,27 +253,45 @@ this.depend = function() {
     smartdown.setVariable('play', false);
     move();
   }
-
-  if (env.compute == true) {
-    smartdown.setVariable('compute', false);
-    if (env.s1 == 6 && env.s2 == 8 && env.s3 == 12) {
-      smartdown.showDisclosure('success','','draggable,closeable,lightbox,center,shadow');
-      smartdown.hideDisclosure('keeptrying','','');
-      p1.setAttribute({visible:true});
-      p2.setAttribute({visible:true});
-      p3.setAttribute({visible:true});
-      line.setAttribute({visible:true});
-      stext.setAttribute({visible:true});
-      workspace.undo();
-    }
-    else {
-      smartdown.showDisclosure('keeptrying','','draggable,closeable,lightbox,center,shadow');
-      smartdown.hideDisclosure('success','','');
-    }
-  }
 };
 
 
 
 ```
 
+```javascript /autoplay
+
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
+smartdown.setVariable('s1', '');
+smartdown.setVariable('s2', '');
+smartdown.setVariable('s3', '');
+smartdown.setVariable('compute', false);
+
+
+this.dependOn = ['s1', 's2', 's3', 'compute'];
+this.depend = function() {
+
+  removeEnterFromSmartdownString('s1', env.s1);
+  removeEnterFromSmartdownString('s2', env.s2);
+  removeEnterFromSmartdownString('s3', env.s3);
+
+  if (env.compute == true) {
+    smartdown.setVariable('compute', false);
+    if (env.s1 == 6 && env.s2 == 8 && env.s3 == 12) {
+      smartdown.showDisclosure('success','','draggable,closeable,center,shadow,lightbox');
+      smartdown.hideDisclosure('keeptrying','','');
+    }
+    else {
+      smartdown.showDisclosure('keeptrying','','draggable,closeable,center,shadow,lightbox');
+      smartdown.hideDisclosure('success','','');
+    }
+  }
+
+}
+
+```

@@ -247,14 +247,23 @@ smartdown.setVariable('s1', '');
 smartdown.setVariable('compute', false);
 smartdown.setVariable('hint', 'Keep trying');
 
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
+
 let answer = new ProblemAnswer(['-31'], [
   ['equals','31','Is the balloon moving in the positive direction or the negative direction?'],
   ['contains','.','Your answer should not contain a decimal point']
   ]);
 
 
-this.dependOn = ['play','reset', 'compute', 'active'];
+this.dependOn = ['play','reset', 'compute', 'active', 's1'];
 this.depend = function() {
+
+  removeEnterFromSmartdownString('s1', env.s1);
 
   if (env.active == true) {
     myDiv.style.cursor = "url('/assets/images/calculus/sectCursor.svg'), auto";

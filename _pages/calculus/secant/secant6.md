@@ -269,12 +269,22 @@ workspace.board.on('update', function() {
   checkSnap();
 });
 
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
 smartdown.setVariable('s1', '');
 smartdown.setVariable('s2', '');
 smartdown.setVariable('compute', false);
 
-this.dependOn = ['compute', 'active'];
+this.dependOn = ['compute', 'active', 's1', 's2'];
 this.depend = function() {
+
+
+  removeEnterFromSmartdownString('s1', env.s1);
+  removeEnterFromSmartdownString('s2', env.s2);
 
   if (env.active == true) {
     myDiv.style.cursor = "url('/assets/images/calculus/sectCursor.svg'), auto";
