@@ -20,7 +20,7 @@ We know that the are of each rectangle estimates the distance traveled during th
 # --partialborder
 # ::::
 
-[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,outline,closeable,center,shadow) [Submit Solution](:=compute=true) Here. You have a weird secant rectangle array. 
+[Problem](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [note](::notes/button,transparent,draggable,outline,closeable,center,shadow) [Submit Solution](:=compute=true) Here. You have a weird secant rectangle array. 
 # :::: answerbar
 distance traveled between $t=0$ and $t=8$ [](:?s1)m  position at $t=8$ [](:?s2)m 
 # ::::

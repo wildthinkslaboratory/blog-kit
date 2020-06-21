@@ -15,7 +15,7 @@ Here is a graph showing the velocity of a rocket during it's first launch phase.
 # ::::
 
 
-[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Launch!](:=play=true) [Submit Solution](:=compute=true) You have a secant.
+[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Launch!](:=play=true) [Submit Solution](:=compute=true) You have a secant.
 
 # :::: answerbar
 acceleration at $t=60$ [](:?s1) $m / s^2$  $t=120$ [](:?s2) $m / s^2$  

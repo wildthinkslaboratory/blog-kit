@@ -20,7 +20,7 @@ The function $f(t) = -t^2 + 2t + 4$ shows the velocity of an object in meters pe
 
 
 
-[?](::clue/button,transparent,draggable,closeable,center,outline,lightbox,shadow) [see object move](:=play=true) [reset](:=reset=true)[Submit Solution](:=compute=true)  
+[Problem](::clue/button,transparent,draggable,closeable,center,outline,lightbox,shadow) [see object move](:=play=true) [reset](:=reset=true)[Submit Solution](:=compute=true)  
 
 # :::: answerbar
 Estimate the average velocity during time interval $0 \leq t \leq 6$ [](:?s1) m/s

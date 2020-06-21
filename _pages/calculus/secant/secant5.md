@@ -15,7 +15,7 @@ You see your friend out of a window that is 30 feet above the ground.  You consi
 
 
 
-[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drop!](:=play=true) [Reset](:=reset=true) [Submit Solution](:=compute=true) Here's another secant. 
+[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drop!](:=play=true) [Reset](:=reset=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 velocity of balloon at 5 feet above the ground [](:?s1)
 # ::::

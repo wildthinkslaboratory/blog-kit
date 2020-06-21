@@ -14,7 +14,7 @@ The graph shows the position of the car through time.  Use the **secant** find t
 # ::::
 
 
-[?](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[Problem](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 $3 \leq t \leq 4$ [](:?s1)  $3 \leq t \leq 3.5$ [](:?s2) $3 \leq t \leq 3.25$ [](:?s3) 
 # ::::

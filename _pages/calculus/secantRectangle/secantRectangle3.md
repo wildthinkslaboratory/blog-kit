@@ -15,7 +15,7 @@ The graph shows the position of the car through time.  Use the **secant** to giv
 
 
 
-[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here are three secant rectangles. 
+[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here are three secant rectangles. 
 # :::: answerbar
 $t=4$ [](:?s1)  $t=6$ [](:?s2) $t=7$ [](:?s3) 
 # ::::

@@ -24,7 +24,7 @@ What width gives the minimal cost pen and what is the rate of change of the func
 # --aliceblue
 # ::::
 
-[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Submit Solution](:=compute=true) Here's another secant. 
+[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 minimal cost width [](:?s1) rate of change at minimum cost [](:?s2)
 # ::::

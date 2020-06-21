@@ -27,7 +27,7 @@ It's hard to **see** the amount of work done in the picture of the spring.  A si
 
 
 
-[?](::clue/button,transparent,draggable,closeable,center,outline,lightbox,shadow) [note](::notes/button,transparent,draggable,closeable,center,outline,shadow) [Submit Solution](:=compute=true)  [Undo](:=undo=true)
+[Problem](::clue/button,transparent,draggable,closeable,center,outline,lightbox,shadow) [note](::notes/button,transparent,draggable,closeable,center,outline,shadow) [Submit Solution](:=compute=true)  [Undo](:=undo=true)
 
 Work done at distance 8 cm [](:?s1) 
 # :::: toolbar

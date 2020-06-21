@@ -7,7 +7,7 @@ ogimage: /assets/images/calculus/derivative.jpg
 ---
 
 
-[?](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Drive!](:=play=true) [Submit Solution](:=compute=true)
+[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Drive!](:=play=true) [Submit Solution](:=compute=true)
 velocity at $t=\sqrt{2}$ [](:?s1)  [Formatting Hints](::formatting/tooltip,transparent)
 
 #### --outlinebox outer1
