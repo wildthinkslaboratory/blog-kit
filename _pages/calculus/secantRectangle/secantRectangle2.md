@@ -299,14 +299,21 @@ workspace.board.on('update', function() {
   myDiv.children[0].style.background = workColor(workspace.area());
 });
 
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
 
 smartdown.setVariable('compute', false);
 smartdown.setVariable('error', 100);
 smartdown.setVariable('undo', false);
 smartdown.setVariable('s1', '');
 
-this.dependOn = ['compute', 'undo', 'active'];
+this.dependOn = ['compute', 'undo', 'active', 's1'];
 this.depend = function() {
+
+  removeEnterFromSmartdownString('s1', env.s1);
 
   if (env.active == true) {
     myDiv.style.cursor = "url('/assets/images/calculus/SRCursor.svg'), auto";

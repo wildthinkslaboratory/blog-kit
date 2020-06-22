@@ -265,6 +265,11 @@ let move = function() {
   t.moveTo([xhigh - 0.1,0],1000, {effect: '--' } ); 
 };
 
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
 
 smartdown.setVariable('compute', false);
 smartdown.setVariable('error', 100);
@@ -275,12 +280,16 @@ smartdown.setVariable('hint', 'Keep trying');
 
 let answer = new ProblemAnswer(['-2'], [
   ['equals','-12','-12 is the distance traveled during the time interval. Try to compute the average velocity using the distance.'],
-  ['contains','.','Round your answer to the nearest integer']
+  ['contains','.','Round your answer to the nearest integer'],
+  ['equals', '2', 'Close.  Check your sign.'],
+  ['equals', '12', 'Getting warmer.  Check your sign.']
   ]);
 
 
-this.dependOn = ['compute', 'active', 'play','reset'];
+this.dependOn = ['compute', 'active', 'play','reset', 's1'];
 this.depend = function() {
+
+  removeEnterFromSmartdownString('s1', env.s1);
 
   if (env.play == true) {
     smartdown.setVariable('play', false);

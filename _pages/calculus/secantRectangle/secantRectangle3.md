@@ -244,6 +244,11 @@ workspace.board.on('update', function() {
   workspace.onUpdate();              // hook up workspace update functions
 });
 
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
 
 smartdown.setVariable('play', false);
 smartdown.setVariable('s1', '');
@@ -251,8 +256,12 @@ smartdown.setVariable('s2', '');
 smartdown.setVariable('s3', '');
 smartdown.setVariable('compute', false);
 
-this.dependOn = ['play','compute','active'];
+this.dependOn = ['play','compute','active', 's1', 's2', 's3'];
 this.depend = function() {
+
+  removeEnterFromSmartdownString('s1', env.s1);
+  removeEnterFromSmartdownString('s2', env.s2);
+  removeEnterFromSmartdownString('s3', env.s3);
 
   if (env.active == true) {
     myDiv.style.cursor = "url('/assets/images/calculus/SRCursor.svg'), auto";

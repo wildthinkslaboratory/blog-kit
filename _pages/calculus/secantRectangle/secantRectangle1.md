@@ -281,6 +281,12 @@ this.depend = function() {
 ```javascript /autoplay
 //smartdown.import=/assets/libs/mapping.js
 
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
 smartdown.setVariable('s1','');
 smartdown.setVariable('s2','');
 smartdown.setVariable('hint', 'Keep trying');
@@ -293,8 +299,12 @@ let answer2 = new ProblemAnswer(['49'],
   );
 
 
-this.dependOn = ['compute'];  
+this.dependOn = ['compute', 's1', 's2'];  
 this.depend = function() {
+
+  removeEnterFromSmartdownString('s1', env.s1);
+  removeEnterFromSmartdownString('s2', env.s2);
+
 
   if (env.compute == true) {
     smartdown.setVariable('compute', false);

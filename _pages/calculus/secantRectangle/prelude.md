@@ -128,10 +128,18 @@ right2.classList.add('text-3-col');
 ```
 
 ```javascript /autoplay
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
 smartdown.setVariable('a1', '');
 
 this.dependOn = ['a1'];
 this.depend = function() {
+  
+  removeEnterFromSmartdownString('a1', env.a1);
 
     if (env.a1 == '20') {
       smartdown.showDisclosure('r1','','transparent');
@@ -144,11 +152,17 @@ this.depend = function() {
 ```
 
 ```javascript /autoplay
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
 smartdown.setVariable('a2', '');
 
 this.dependOn = ['a2'];
 this.depend = function() {
-
+  removeEnterFromSmartdownString('a2', env.a2);
     if (env.a2 == '4') {
       smartdown.showDisclosure('r2','','transparent');
       smartdown.showDisclosure('leftarrow', '', 'transparent');
@@ -162,11 +176,18 @@ this.depend = function() {
 ```
 
 ```javascript /autoplay
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
 smartdown.setVariable('a3', '');
 
 this.dependOn = ['a3'];
 this.depend = function() {
 
+  removeEnterFromSmartdownString('a3', env.a3);
     if (env.a3 == '180') {
       smartdown.showDisclosure('l2','','transparent');
       smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
@@ -178,11 +199,21 @@ this.depend = function() {
 ```
 
 ```javascript /autoplay
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
 smartdown.setVariable('a4', '');
 smartdown.setVariable('a5', '');
 
 this.dependOn = ['a4', 'a5'];
 this.depend = function() {
+
+  removeEnterFromSmartdownString('a4', env.a4);
+  removeEnterFromSmartdownString('a5', env.a5);
+
 	if (env.a4 !== '' || env.a5 !== '') {
     smartdown.showDisclosure('hint','','transparent,outline,closeable,draggable,lightbox,center'); 
 	}
