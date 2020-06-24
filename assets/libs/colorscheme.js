@@ -164,7 +164,13 @@ class SmoothColorScheme {
     return 'rgb(' + this.current.r + ',' + this.current.g + ',' + this.current.b + ')';
   }
 
+  numberColors() { return 6 * this.sectionWidth; }
 
+  bigInc() { 
+    for (let i=0; i < this.mod; i++) {
+      this.inc();
+    }
+  }
 
   reset() {
     this.i = 0;

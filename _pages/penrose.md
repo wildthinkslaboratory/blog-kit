@@ -16,7 +16,7 @@ This is my first attempt at a Penrose Tiling generator.  I'm using the [Robinson
 # :::: panel
 # --outlinebox panelbox
 divisions [](:-subs/0/8/1) [](:!subs) B1[](:XB1) B2[](:XB2) B3[](:XB3) 
-triangle sort: [](:-sort/0/2/1) [](:!sortString) [redraw triangles](:=redraw=true)  
+triangle sort: [](:-sort/0/3/1) [](:!sortString) [redraw triangles](:=redraw=true)  
 ----
 low [](:-low1/8/256/8) high [](:-high1/8/256/8) scale [](:-scale1/1/40/1)
 low [](:-low2/8/256/8) high [](:-high2/8/256/8) scale [](:-scale2/1/20/1) [redraw colors](:=newColors=true)
@@ -49,11 +49,11 @@ this.depend = function() {
 // Triangles have three (x,y) points and a flag.  They are always isosceles, and are either
 // 36,72,72 degree triangles or 108,36,36
 class Triangle {
-  constructor(p1, p2, p3, flag) {
-    this.p1 = p1;
-    this.p2 = p2;
-    this.p3 = p3;
+  constructor(points, flag) {
+    this.points = points;
     this.flag = flag; // 0 is it's a 36,72,72 degree triangle and 1 if it's 108,36,36 degree
+    this.color = '';
+    this.visited = false;
   }
 };
 
@@ -80,9 +80,9 @@ function subdivide(t) {
 
   // a 36,72,72 is subdivided into one 36,72,72 and one 108,36,36
   if (t.flag == 0) {   
-    let A = t.p1;     
-    let B = t.p2;
-    let C = t.p3;
+    let A = t.points[0];     
+    let B = t.points[1];
+    let C = t.points[2];
 
     if (b1 == true) {
       const temp = B;
@@ -92,15 +92,15 @@ function subdivide(t) {
 
     let X = A[0] + (B[0] - A[0]) / goldenRatio;
     let Y = A[1] + (B[1] - A[1]) / goldenRatio;;
-    result.push(new Triangle([X,Y], C, A, 1));
-    result.push(new Triangle(C, [X,Y], B, 0));
+    result.push(new Triangle([[X,Y], C, A], 1));
+    result.push(new Triangle([C, [X,Y], B], 0));
   }
 
   // a 108,36,36 is subdivided into one 36,72,72 and two 108,36,36
   else {
-    let A = t.p1;     
-    let B = t.p2;
-    let C = t.p3;
+    let A = t.points[0];     
+    let B = t.points[1];
+    let C = t.points[2];
 
     if (b2 == true) {
       const temp = B;
@@ -112,9 +112,9 @@ function subdivide(t) {
     let Y1 = B[1] + (A[1] - B[1]) / goldenRatio;
     let X2 = B[0] + (C[0] - B[0]) / goldenRatio;
     let Y2 = B[1] + (C[1] - B[1]) / goldenRatio;
-    result.push(new Triangle([X2,Y2], C, A, 1));
-    result.push(new Triangle([X1,Y1], [X2,Y2], B, 1));
-    result.push(new Triangle([X2,Y2], [X1,Y1], A, 0));
+    result.push(new Triangle([[X2,Y2], C, A], 1));
+    result.push(new Triangle([[X1,Y1], [X2,Y2], B], 1));
+    result.push(new Triangle([[X2,Y2], [X1,Y1], A], 0));
   }
   return result;
 }
@@ -135,10 +135,10 @@ function startingTriangles(Xcenter, Ycenter) {
       last = i * step + shift;
     }
 
-    triangles.push(new Triangle(
+    triangles.push(new Triangle([
       [Xcenter,Ycenter],
       [Xcenter + size * Math.cos(first), Ycenter + size * Math.sin(first)],
-      [Xcenter + size * Math.cos(last), Ycenter + size * Math.sin(last)],
+      [Xcenter + size * Math.cos(last), Ycenter + size * Math.sin(last)]],
       0));
   } 
 }
@@ -188,8 +188,11 @@ let cs1;
 
 // this colors are iterate through a smooth range of colors
 // this returns the next available color for each scheme
-function getColor(flag) {
-  if (flag == 0) {
+function getColor(tri) {
+  if (tri.color !== '') {
+    return tri.color;
+  }
+  if (tri.flag == 0) {
     cs0.inc();
     return cs0.getColor();
   }
@@ -199,11 +202,11 @@ function getColor(flag) {
 
 
 function drawTriangle(tri) {
-  context.fillStyle = getColor(tri.flag);
+  context.fillStyle = getColor(tri);
   context.beginPath();
-  context.moveTo(...tri.p1);
-  context.lineTo(...tri.p2);
-  context.lineTo(...tri.p3);
+  context.moveTo(...tri.points[0]);
+  context.lineTo(...tri.points[1]);
+  context.lineTo(...tri.points[2]);
   context.fill();
 }
 
@@ -217,6 +220,26 @@ function drawTriangles() {
   }
 }
 
+function randomColor() {
+  let r = Math.floor(Math.random() * 255);
+  let g = Math.floor(Math.random() * 255);
+  let b = Math.floor(Math.random() * 255);
+
+  return 'rgb(' + r + ',' + g + ',' + b + ')'; 
+}
+
+let palette1 = [];
+let palette0 = [];
+
+function generatePalette(cs) {
+  let palette = [];
+  for (let i=0; i < cs.numberColors(); i++) {
+    palette.push(cs.getColor());
+    cs.bigInc();
+  }
+  return palette;
+
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -224,22 +247,22 @@ function drawTriangles() {
 // since the smooth color scheme is applied linearly to the triangles, we can sort the triangles
 // in different ways to get different effects.  So here we have a variety of sorting criteria
 
-let sortStrings = ['none', 'radial', 'vertical'];
+let sortStrings = ['none', 'radial', 'vertical', 'graph'];
 
 // compare the triangle X values.  This gives a vertical gradient
 function compareXValues(t1, t2) {
-  if (t1.p1[0] < t2.p1[0]) return 1;
-  if (t1.p1[0] > t2.p1[0]) return -1;
+  if (t1.points[0][0] < t2.points[0][0]) return 1;
+  if (t1.points[0][0] > t2.points[0][0]) return -1;
 
   return 0;
 }
 
 // this sorts on distance from the center of screen creating a radial gradient
 function compareRadial(t1, t2) {
-  let x1 = t1.p1[0] - Xcenter;
-  let y1 = t1.p1[1] - Ycenter;
-  let x2 = t2.p1[0] - Xcenter;
-  let y2 = t2.p1[1] - Ycenter;
+  let x1 = t1.points[0][0] - Xcenter;
+  let y1 = t1.points[0][1] - Ycenter;
+  let x2 = t2.points[0][0] - Xcenter;
+  let y2 = t2.points[0][1] - Ycenter;
 
   if ((x1*x1 + y1*y1) > (x2*x2 + y2*y2)) return 1;
   if ((x1*x1 + y1*y1) < (x2*x2 + y2*y2)) return -1;
@@ -247,6 +270,9 @@ function compareRadial(t1, t2) {
   return 0;
 }
 
+function pfloor(p) {
+  return [Math.floor(p[0]), Math.floor(p[1])];
+}
 
 function samepoint(p1, p2) {
   return Math.floor(p1[0]) == Math.floor(p2[0]) && Math.floor(p1[1]) == Math.floor(p2[1]);
@@ -260,17 +286,17 @@ function connected(t1, t2) {
   }
   // there's six possible combinations to check
   let matches = 0;
-  matches += samepoint(t1.p1, t2.p1);
-  matches += samepoint(t1.p1, t2.p2);
-  matches += samepoint(t1.p1, t2.p3);
+  matches += samepoint(t1.points[0], t2.points[0]);
+  matches += samepoint(t1.points[0], t2.points[1]);
+  matches += samepoint(t1.points[0], t2.points[2]);
 
-  matches += samepoint(t1.p2, t2.p1);
-  matches += samepoint(t1.p2, t2.p2);
-  matches += samepoint(t1.p2, t2.p3);
+  matches += samepoint(t1.points[1], t2.points[0]);
+  matches += samepoint(t1.points[1], t2.points[1]);
+  matches += samepoint(t1.points[1], t2.points[2]);
 
-  matches += samepoint(t1.p3, t2.p1);
-  matches += samepoint(t1.p3, t2.p2);
-  matches += samepoint(t1.p3, t2.p3);
+  matches += samepoint(t1.points[2], t2.points[0]);
+  matches += samepoint(t1.points[2], t2.points[1]);
+  matches += samepoint(t1.points[2], t2.points[2]);
 
   return matches == 2;
 }
@@ -279,8 +305,98 @@ function connected(t1, t2) {
 let sortFunction = {
   0 : function() { },
   1 : function() { triangles.sort(compareRadial); },
-  2 : function() { triangles.sort(compareXValues); }
+  2 : function() { triangles.sort(compareXValues); },
+  3 : function() { 
+    indexTriangles(); 
+    findComponents();
+    colorComponents();
+  }
 }
+
+let index = {};
+
+function indexTriangles() {
+  for (let i=0; i < triangles.length; i++) {
+    for (let j=0; j < triangles[i].points.length; j++) {
+
+      let point = pfloor(triangles[i].points[j]);
+      //let point = triangles[i].points[j];
+
+      if (point in index) {
+        index[point].push(i);
+      }
+      else {
+        index[point] = [i];
+      }
+    }
+  }
+}
+
+function getNeighbors(tri) {
+
+  let n = [];
+  let c = [].concat(index[pfloor(tri.points[0])], index[pfloor(tri.points[1])], index[pfloor(tri.points[2])]);
+  c = [...new Set(c)];  // remove duplicates
+
+  for (let i=0; i < c.length; i++) {
+    if (triangles[c[i]].flag == tri.flag) {
+      if (connected(triangles[c[i]], tri) && !triangles[c[i]].visited) {
+        n.push(c[i]);
+      }
+    }
+  }
+
+  return n;
+}
+
+
+let components = [];
+
+function findComponents() {
+  let ti = [...Array(triangles.length).keys()];
+  components = [];
+
+  while (ti.length > 0) {    // start exploring a component
+    while (ti.length > 0 && triangles[ti[ti.length - 1]].visited == true) { ti.pop(); }  // pop any visited tris
+    if (ti.length == 0) { break; }
+
+    let open = [ti.pop()];
+    let closed = [];
+
+    while (open.length > 0) {
+      let t = open.pop();
+      closed.push(t);
+      triangles[t].visited = true;
+      open.push(...getNeighbors(triangles[t]));
+    }
+    components.push(closed);
+  }
+}
+
+
+function colorComponents() {
+
+  console.log(palette1.length, palette0.length);
+  let colors = {};
+
+  for (let i=0; i < components.length; i++) {
+    let flag = triangles[components[i][0]].flag;
+
+    if (!(components[i].length in colors)) {
+      let color = palette1[Math.floor(Math.random() * palette1.length)];
+      if (flag == 0) {
+        color = palette0[Math.floor(Math.random() * palette0.length)];
+      }
+      colors[components[i].length] = color;
+    }
+
+    let color = colors[components[i].length];
+    for (let j=0; j < components[i].length; j++) {
+      triangles[components[i][j]].color = color; 
+    }
+  }
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -338,6 +454,11 @@ let oldSort = 1;
 cs1 = new SmoothColorScheme(env.low1,env.high1,env.scale1);
 cs0 = new SmoothColorScheme(env.low2,env.high2,env.scale2);
 
+palette1 = generatePalette(cs1);
+cs1.reset();
+palette0 = generatePalette(cs0);
+cs0.reset();
+
 buildTriangleArray(oldSubs);
 drawTriangles();                      // draw the triangles
 
@@ -382,6 +503,14 @@ this.depend = function() {
       }
       cs1 = new SmoothColorScheme(env.low1,env.high1,env.scale1);
       cs0 = new SmoothColorScheme(env.low2,env.high2,env.scale2);
+      palette1 = generatePalette(cs1);
+      cs1.reset();
+      palette0 = generatePalette(cs0);
+      cs0.reset();
+
+      if (env.sort == 3) {
+        colorComponents();
+      }
       drawTriangles();
     }
 
