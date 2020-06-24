@@ -85,7 +85,6 @@ function generatePalette() {
 function newColors() {
   cs = new SmoothColorScheme(0,255,scaleFactor);
   generatePalette();
-  console.log('new palette');
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,7 +101,6 @@ let suspendDepend = false;
 
 // set up to generate a random fractal
 function generateFractalSeed() {
-  console.log('generatseed 1');
   panx = 0;   // center fractal at (0,0)
   pany = 0;
   let k = juliaSeeds[Math.floor(Math.random() * juliaSeeds.length)];
@@ -115,7 +113,6 @@ function generateFractalSeed() {
   suspendDepend = false;
 
   zoom = 1000 + Math.floor(Math.random() * 1000);  // random zoom level
-  console.log('generatseed 2');
 }
 
 
@@ -162,7 +159,6 @@ function julia(x, y, maxiterations, imagedata, offsetx, offsety, panx, pany, zoo
 
 
 function draw() {
-  console.log('draw 1');
   // Pan and zoom parameters
   let offsetx = -canvas.width/2;
   let offsety = -canvas.height/2;
@@ -176,7 +172,6 @@ function draw() {
       }
   }
   context.putImageData(imagedata,0,0);
-  console.log('draw 2');
 }
 
 
