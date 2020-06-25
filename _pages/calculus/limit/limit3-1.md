@@ -166,29 +166,65 @@ this.depend = function() {
 };
 ```
 ```javascript /autoplay
+//smartdown.import=/assets/libs/mapping.js
+
 smartdown.setVariable('s4', '');
+smartdown.setVariable('hint', '');
+
+let answer = new ProblemAnswer(['2x','x2'], [
+  ['contains', '', 'The answer is a variable expression.']
+  ]);
 
 this.dependOn = ['s4'];
-this.depend = function() {
 
-    if (env.s4 == '2x') {
-      smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
+let tries = 0;
+this.depend = function() {
+  tries += 1;
+
+  if (answer.checkAnswer(env.s4)) {
+    smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
+    setTimeout(function () {
+      smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');
+    }, 3000);
+  }
+  else {
+    if (env.s4 !== '' && tries >= 3) {
+      smartdown.setVariable('hint', answer.checkHints(env.s4));
+      smartdown.showDisclosure('keeptrying','','transparent,bottomright,shadow');
       setTimeout(function () {
-        smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');
-      }, 3000);
+        smartdown.hideDisclosure('keeptrying','','');
+      }, 5000);       
     }
+  }
+
 };
 ```
 
 ```javascript /autoplay
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
 this.dependOn = ['s1','s2','s3','s4'];
 this.depend = function() {
+    removeEnterFromSmartdownString('s1', env.s1);
+    removeEnterFromSmartdownString('s2', env.s2);  
+    removeEnterFromSmartdownString('s3', env.s3);
+    removeEnterFromSmartdownString('s4', env.s4);  
 
-    if (env.s1 == '-10' && env.s2 == '6' && env.s3 == '1' && env.s4 == '2x') {
+    if (env.s1 == '-10' && env.s2 == '6' && env.s3 == '1') {
       smartdown.showDisclosure('continue','','transparent');
     }
 };
 ```
+# :::: keeptrying
+# --colorbox
+[](:!hint) 
+# --colorbox
+# ::::
+
 
 # :::: correct
 # --colorbox

@@ -116,12 +116,16 @@ this.depend = function() {
 };
 ```
 ```javascript /autoplay
+//smartdown.import=/assets/libs/mapping.js
+
 smartdown.setVariable('s4', '');
+
+let answer = new ProblemAnswer(['1/2', '0.5'], [  ]);
 
 this.dependOn = ['s4'];
 this.depend = function() {
 
-    if (env.s4 == '1/2') {
+    if (answer.checkAnswer(env.s4)) {
       smartdown.showDisclosure('correct','','bottomright,transparent,colorbox,shadow');
       setTimeout(function () {
         smartdown.hideDisclosure('correct','','bottomright,colorbox,shadow');
@@ -131,10 +135,21 @@ this.depend = function() {
 ```
 
 ```javascript /autoplay
+
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
+
 this.dependOn = ['s1','s2','s3','s4'];
 this.depend = function() {
+    removeEnterFromSmartdownString('s1', env.s1);
+    removeEnterFromSmartdownString('s2', env.s2);  
+    removeEnterFromSmartdownString('s3', env.s3);
+    removeEnterFromSmartdownString('s4', env.s4);  
 
-    if (env.s1 == '2' && env.s2 == '10' && env.s3 == '1' && env.s4 == '1/2') {
+    if (env.s1 == '2' && env.s2 == '10' && env.s3 == '1' && (env.s4 == '1/2' || env.s4 == '0.5')) {
       smartdown.showDisclosure('continue','','transparent');
     }
 };

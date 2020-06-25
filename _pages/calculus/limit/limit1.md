@@ -144,11 +144,17 @@ right.classList.add('text-2-col');
 
 
 ```javascript /autoplay
+function removeEnterFromSmartdownString(name, smartdownVar) {
+  if (smartdownVar[smartdownVar.length - 1] === '\n') {           
+    smartdown.setVariable(name, smartdownVar.replace(/\s/g, ''));
+  }
+}
 
 smartdown.setVariable('s1','');
 this.dependOn = ['s1'];  
 this.depend = function() {
-  
+	removeEnterFromSmartdownString('s1', env.s1);
+	
 	if (env.s1 == '2') {
 		smartdown.showDisclosure('conclusion','','center,transparent,closeable,draggable,outline,shadow');
 	}
