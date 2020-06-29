@@ -15,7 +15,7 @@ This is my first attempt at a Penrose Tiling generator.  I'm using the [Robinson
 
 # :::: panel
 # --outlinebox panelbox
-divisions [](:-subs/0/8/1) [](:!subs) B1[](:XB1) B2[](:XB2) B3[](:XB3) 
+divisions [](:-subs/0/8/1) [](:!subs) decomp[](:Xdecomp) B1[](:XB1) B2[](:XB2)
 triangle sort: [](:-sort/0/3/1) [](:!sortString) [redraw triangles](:=redraw=true)  
 ----
 low [](:-low1/8/256/8) high [](:-high1/8/256/8) scale [](:-scale1/1/40/1)
@@ -68,6 +68,7 @@ function copyInstance (original) {
   return copied;
 }
 
+let decomposition = false;
 let b1 = false;
 let b2 = false;
 let b3 = false;
@@ -119,6 +120,56 @@ function subdivide(t) {
   return result;
 }
 
+// take a triangle and subdivide it into more triangles
+function subdivide2(t) {
+  let result = [];
+
+  // a 36,72,72 is subdivided into one 36,72,72 and one 108,36,36
+  if (t.flag == 0) {   
+    let A = t.points[0];     
+    let B = t.points[1];
+    let C = t.points[2];
+
+    if (b1 == true) {
+      const temp = B;
+      B = C;
+      C = temp;
+    }
+
+    let X = A[0] + (B[0] - A[0]) / goldenRatio;
+    let Y = A[1] + (B[1] - A[1]) / goldenRatio;
+    let X2 = C[0] + (A[0] - C[0]) / goldenRatio;
+    let Y2 = C[1] + (A[1] - C[1]) / goldenRatio;
+
+    result.push(new Triangle([[X2,Y2], [X,Y], A], 1));
+    result.push(new Triangle([C,[X,Y], [X2,Y2]], 0));
+    result.push(new Triangle([C, [X,Y], B], 0));
+  }
+
+  // a 108,36,36 is subdivided into one 36,72,72 and two 108,36,36
+  else {
+    let A = t.points[0];     
+    let B = t.points[1];
+    let C = t.points[2];
+
+    if (b2 == true) {
+      const temp = B;
+      B = C;
+      C = temp;
+    }
+
+    // let X1 = B[0] + (A[0] - B[0]) / goldenRatio;
+    // let Y1 = B[1] + (A[1] - B[1]) / goldenRatio;
+    let X2 = B[0] + (C[0] - B[0]) / goldenRatio;
+    let Y2 = B[1] + (C[1] - B[1]) / goldenRatio;
+    result.push(new Triangle([[X2,Y2], C, A], 1));
+
+    // result.push(new Triangle([[X1,Y1], [X2,Y2], B], 1));
+    // result.push(new Triangle([[X2,Y2], [X1,Y1], A], 0));
+    result.push(new Triangle([B, [X2,Y2], A], 0));
+  }
+  return result;
+}
 
 // We start out with 10 large 36,72,72 triangles 
 function startingTriangles(Xcenter, Ycenter) {
@@ -147,7 +198,13 @@ function startingTriangles(Xcenter, Ycenter) {
 function subdivideTriangles() {
   let newTriangles = [];
   for (let i=0; i < triangles.length; i++) {
-    newTriangles.push(...subdivide(triangles[i]));
+    if (decomposition == false) {
+      newTriangles.push(...subdivide(triangles[i]));
+    }
+    else {
+      newTriangles.push(...subdivide2(triangles[i]));
+    }
+
   }
   triangles = newTriangles;
 }
@@ -433,6 +490,7 @@ smartdown.setVariable('download', false);
 smartdown.setVariable('imageForDownload', '');
 smartdown.setVariable('redraw', false);
 smartdown.setVariable('newColors', false);
+smartdown.setVariable('decomp', false);
 smartdown.setVariable('B1', false);
 smartdown.setVariable('B2', false);
 smartdown.setVariable('B3', false);
@@ -483,6 +541,7 @@ this.depend = function() {
     if (env.redraw == true) {
       smartdown.setVariable('redraw', false);
 
+      decomposition = env.decomp;
       b1 = env.B1;
       b2 = env.B2;
       b3 = env.B3;
