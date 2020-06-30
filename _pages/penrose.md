@@ -138,11 +138,13 @@ function subdivide2(t) {
 
     let X = A[0] + (B[0] - A[0]) / goldenRatio;
     let Y = A[1] + (B[1] - A[1]) / goldenRatio;
-    let X2 = C[0] + (A[0] - C[0]) / goldenRatio;
-    let Y2 = C[1] + (A[1] - C[1]) / goldenRatio;
+    let X2 = A[0] + (C[0] - A[0])*(goldenRatio-1)/goldenRatio;
+    let Y2 = A[1] + (C[1] - A[1])*(goldenRatio-1)/goldenRatio;
 
-    result.push(new Triangle([[X2,Y2], [X,Y], A], 1));
-    result.push(new Triangle([C,[X,Y], [X2,Y2]], 0));
+
+
+    result.push(new Triangle([[X2,Y2], A, [X,Y]], 1));
+    result.push(new Triangle([C, [X,Y], [X2,Y2]], 0));
     result.push(new Triangle([C, [X,Y], B], 0));
   }
 
@@ -160,13 +162,13 @@ function subdivide2(t) {
 
     // let X1 = B[0] + (A[0] - B[0]) / goldenRatio;
     // let Y1 = B[1] + (A[1] - B[1]) / goldenRatio;
-    let X2 = B[0] + (C[0] - B[0]) / goldenRatio;
-    let Y2 = B[1] + (C[1] - B[1]) / goldenRatio;
+    let X2 = B[0] + (C[0] - B[0])/goldenRatio;
+    let Y2 = B[1] + (C[1] - B[1])/goldenRatio;
     result.push(new Triangle([[X2,Y2], C, A], 1));
 
     // result.push(new Triangle([[X1,Y1], [X2,Y2], B], 1));
     // result.push(new Triangle([[X2,Y2], [X1,Y1], A], 0));
-    result.push(new Triangle([B, [X2,Y2], A], 0));
+    result.push(new Triangle([B, A, [X2,Y2]], 0));
   }
   return result;
 }
