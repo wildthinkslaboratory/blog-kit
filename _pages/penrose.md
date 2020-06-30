@@ -375,6 +375,7 @@ let sortFunction = {
 let index = {};
 
 function indexTriangles() {
+  index = {};
   for (let i=0; i < triangles.length; i++) {
     for (let j=0; j < triangles[i].points.length; j++) {
 
@@ -435,7 +436,6 @@ function findComponents() {
 
 function colorComponents() {
 
-  console.log(palette1.length, palette0.length);
   let colors = {};
 
   for (let i=0; i < components.length; i++) {
@@ -462,6 +462,7 @@ function colorComponents() {
 
 function buildTriangleArray(subs) {
   triangles = [];
+  components = [];
   startingTriangles(Xcenter,Ycenter);   // create the starting triangles
   for (i=0; i < subs; i++) {               // recursively subdivide into more triangles
     subdivideTriangles();
