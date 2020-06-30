@@ -197,7 +197,7 @@ let checkAnswer = function() {
 let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
-  let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.02));
+  let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
   workspace.addElementByID(1, percent, F_id, {
     snapMargin:0.5,
     annotations:'on',
@@ -221,7 +221,7 @@ let heightPercent = 0.7;
 let widthRatio = 1/4;
 
 this.sizeChanged = function() {
-  workspace.board.resizeContainer(window.innerWidth * widthPercent * (1 - widthRatio - 0.01), window.innerHeight * heightPercent);      
+  workspace.board.resizeContainer(window.innerWidth * widthPercent * (1 - widthRatio - 0.02), window.innerHeight * heightPercent);      
   board1.resizeContainer(window.innerWidth * widthPercent * widthRatio, window.innerHeight * heightPercent);
 };
 
