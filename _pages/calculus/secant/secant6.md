@@ -258,7 +258,7 @@ let heightPercent = 0.7;
 let widthRatio = 1/2;
 
 this.sizeChanged = function() {
-  workspace.board.resizeContainer(window.innerWidth * widthPercent * (1 - widthRatio - 0.01), window.innerHeight * heightPercent);      
+  workspace.board.resizeContainer(window.innerWidth * widthPercent * (1 - widthRatio - 0.02), window.innerHeight * heightPercent);      
   board1.resizeContainer(window.innerWidth * widthPercent * widthRatio, window.innerHeight * heightPercent);
 };
 

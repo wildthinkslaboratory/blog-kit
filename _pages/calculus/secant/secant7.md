@@ -197,7 +197,7 @@ let checkAnswer = function() {
 let useButton = function(mouseX, buttonType) {
   let width = window.innerWidth * widthPercent;
   let margin = (window.innerWidth - width)/2;
-  let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.01));
+  let percent = (mouseX - margin) / (width * (1 - widthRatio - 0.02));
   workspace.addElementByID(1, percent, F_id, {
     snapMargin:0.5,
     annotations:'on',
