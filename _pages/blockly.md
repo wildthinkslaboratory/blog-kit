@@ -26,6 +26,7 @@ myDiv.innerHTML =
   <block type="math_arithmetic"></block>
   <block type="text"></block>
   <block type="text_print"></block>
+  <block type="proof_proposition"></block>
 </xml>
 
   <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
@@ -77,6 +78,14 @@ myDiv.innerHTML =
     </block>
   </xml>
   `
+
+Blockly.JavaScript['proof_proposition'] = function(block) {
+  var text_name = block.getFieldValue('name');
+  var text_proposition = block.getFieldValue('proposition');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...;\n';
+  return code;
+};
 
 let blocklyDiv = document.getElementById('blocklyDiv');
 // let demoWorkspace = Blockly.inject(blocklyDiv,

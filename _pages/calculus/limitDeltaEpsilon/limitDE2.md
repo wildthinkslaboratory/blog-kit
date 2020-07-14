@@ -35,7 +35,7 @@ To prove your limit is correct, you have to counter every move made by Epsilon. 
 
 
 
-What is the limit as $x$ goes to $2$? [](:?suggestedLimit) [closer](:=reduce=true) [all the way](:=all=true)
+What is the limit as $x$ goes to $2$? [](:?suggestedLimit) [enter limit](:=enter=truez)[closer](:=reduce=true) [all the way](:=all=true)
 # :::: epsilon_turn
 **Epsilon's Turn**
 # ::::
