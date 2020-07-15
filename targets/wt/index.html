@@ -113,7 +113,6 @@ digraph G {
         label = "USAMTS Problems";
         style=filled;
         color=transparent;
-        rankdir=TB;
     }
 
     subgraph cluster2 {
@@ -127,9 +126,13 @@ digraph G {
     subgraph cluster3 {
         fractal [shape=none, tooltip="Fractal Generator", URL="/pages/fractal", label="", image="/assets/images/calculus/fractal.svg"];
         penrose [shape=none, tooltip="Penrose Tiling Generator", URL="/pages/penrose", label="", image="/assets/images/calculus/penrose.svg"];
+        circles [shape=none, tooltip="Modular Multiplication Circles", URL="/pages/modularCircles", label="", image="/assets/images/calculus/circles.svg"];
+        
+        rankdir=TB;
         label = "Other"
         style=filled;
         color=transparent;
+        { rank=same; penrose, fractal }
   }
     
 }

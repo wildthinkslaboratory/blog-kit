@@ -1,6 +1,7 @@
 ---
 title: 'Times Tables Circles'
 smartdown: true
+ogimage: /assets/images/calculus/circles.jpg
 header: 'none'
 ---
 
