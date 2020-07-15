@@ -15,7 +15,7 @@ This is a companion interactive for one of my favorite [Mathologer](https://www.
 
 # :::: panel
 # --aliceblue panelbox
-[draw](:=redraw=true) [clear](:=clear=true)
+[draw](:=redraw=true) show numbers [](:XshowNumbers) 
 number of points: [](:?points|number)  
 multiply by: [](:?factor|number) 
 [prepare a download](:=download=true) 
@@ -65,23 +65,20 @@ canvas.height = window.innerHeight;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-let pts = 200;
+let pts = 20;
 let multiplier = 2;
 let nodeRadius = 4;
 let radius = canvas.height * 0.45;
 let centerX = canvas.width/2;
 let centerY = canvas.height/2;
+let delta = canvas.height/50;
+let showNums = true;
 
 let nodes = [];
 
-function generateCirclePoints() {
-  nodes = [];
-  for (let i=0; i < pts; i++) {
-    let angle = (i / (pts/2)) * Math.PI;
-    let x = (radius * Math.cos(angle)) + centerX; 
-    let y = (radius * Math.sin(angle)) + centerY; 
-    nodes.push({'id': i, 'x': x, 'y': y});
-  }
+function fontsizeFromPoints(pts) {
+  // 1 - 300 mapped to 16 to 6
+  return Math.floor(8 + (10 - (pts/300 * 10)));
 }
 
 function modFloat(n,divisor) {
@@ -107,22 +104,41 @@ function draw() {
   let color = strokeColor[Math.floor(Math.random() * strokeColor.length)];
   context.lineWidth = 1;
   context.strokeStyle = color;
-  for (let i=0; i < nodes.length; i++) { // draw the lines
-    let j = modFloat(i * multiplier, nodes.length);
-    let angle = (j / (pts/2)) * Math.PI;
-    let x = (radius * Math.cos(angle)) + centerX; 
-    let y = (radius * Math.sin(angle)) + centerY; 
 
-    context.moveTo(nodes[i]['x'],nodes[i]['y']);
-    context.lineTo(x,y);
+  for (let i=0; i < pts; i++) { // draw the lines
+    let angle1 = (i / (pts/2)) * Math.PI;
+    let x1 = (radius * Math.cos(angle1)) + centerX; 
+    let y1 = (radius * Math.sin(angle1)) + centerY; 
+    let j = modFloat(i * multiplier, pts);
+    let angle2 = (j / (pts/2)) * Math.PI;
+    let x2 = (radius * Math.cos(angle2)) + centerX; 
+    let y2 = (radius * Math.sin(angle2)) + centerY; 
+
+    context.moveTo(x1,y1);
+    context.lineTo(x2,y2);
     context.stroke();
   }
 
   context.fillStyle = nodeColor;
-  for (let i=0; i < nodes.length; i++ ) {   // draw the nodes
+  let fontsize = fontsizeFromPoints(pts);
+  context.font = fontsize + "px Arial";
+
+  for (let i=0; i < pts; i++) { // draw the nodes
+    let angle = (i / (pts/2)) * Math.PI;
+    let x1 = (radius * Math.cos(angle)) + centerX; 
+    let y1 = (radius * Math.sin(angle)) + centerY; 
     context.beginPath();
-    context.arc(nodes[i]['x'], nodes[i]['y'], nodeRadius, 0, 2 * Math.PI);
-    context.fill();
+    context.arc(x1, y1, nodeRadius, 0, 2 * Math.PI);
+    context.fill();   
+
+    if ( showNums) {
+      let x2 = ((radius + delta + fontsize/2) * Math.cos(angle)) + centerX; 
+      let y2 = ((radius + delta + fontsize/2) * Math.sin(angle)) + centerY; 
+      let text = i.toString();
+      context.fillText(i, 
+        x2 - context.measureText(text).width/2, 
+        y2 + fontsize/2);      
+    }
   }
 }
 
@@ -143,7 +159,7 @@ window.addEventListener('resize', function(event){
   radius = canvas.height * 0.45;
   centerX = canvas.width/2;
   centerY = canvas.height/2;
-  generateCirclePoints();
+  delta = canvas.height/50;
   clear();
   draw();
 });
@@ -155,10 +171,10 @@ smartdown.setVariable('points', pts);
 smartdown.setVariable('factor', multiplier);
 smartdown.setVariable('download', false);
 smartdown.setVariable('redraw', false);
-smartdown.setVariable('clear', false);
+smartdown.setVariable('showNumbers', showNums);
 smartdown.setVariable('imageForDownload', '');
 
-this.dependOn = ['download', 'redraw', 'clear'];
+this.dependOn = ['download', 'redraw'];
 this.depend = function() {
 
   if (env.download == true) {
@@ -181,12 +197,9 @@ this.depend = function() {
       }
       pts = env.points;
       multiplier = env.factor;
-      generateCirclePoints();
-      draw();
-    }
-    if (env.clear == true) {
-      smartdown.setVariable('clear', false);
+      showNums = env.showNumbers;
       clear();
+      draw();
     }
   }
 }
@@ -194,7 +207,6 @@ this.depend = function() {
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 // draw the starting fractal
-generateCirclePoints();
 clear();
 draw();
 
