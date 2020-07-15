@@ -65,8 +65,8 @@ canvas.height = window.innerHeight;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-let pts = 20;
-let multiplier = 2;
+let pts = 200;
+let multiplier = 2.4;
 let nodeRadius = 4;
 let radius = canvas.height * 0.45;
 let centerX = canvas.width/2;
