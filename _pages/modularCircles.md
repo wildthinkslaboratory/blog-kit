@@ -140,7 +140,11 @@ window.addEventListener('resize', function(event){
 
   canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
-
+  radius = canvas.height * 0.45;
+  centerX = canvas.width/2;
+  centerY = canvas.height/2;
+  generateCirclePoints();
+  clear();
   draw();
 });
 
