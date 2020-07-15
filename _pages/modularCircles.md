@@ -120,6 +120,8 @@ function draw() {
   }
 
   context.fillStyle = nodeColor;
+  context.strokeStyle = nodeColor;
+
   let fontsize = fontsizeFromPoints(pts);
   context.font = fontsize + "px Arial";
 
@@ -129,7 +131,9 @@ function draw() {
     let y1 = (radius * Math.sin(angle)) + centerY; 
     context.beginPath();
     context.arc(x1, y1, nodeRadius, 0, 2 * Math.PI);
-    context.fill();   
+    context.fill();
+
+
 
     if ( showNums) {
       let x2 = ((radius + delta + fontsize/2) * Math.cos(angle)) + centerX; 

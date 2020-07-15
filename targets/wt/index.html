@@ -129,10 +129,13 @@ digraph G {
         circles [shape=none, tooltip="Modular Multiplication Circles", URL="/pages/modularCircles", label="", image="/assets/images/calculus/circles.svg"];
         
         rankdir=TB;
-        label = "Other"
+        label = "Visualizations"
         style=filled;
         color=transparent;
+        edge[style=invis];
         { rank=same; penrose, fractal }
+        fractal -> circles;
+        penrose -> circles;
   }
     
 }
