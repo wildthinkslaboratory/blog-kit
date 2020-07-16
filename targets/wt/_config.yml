@@ -139,8 +139,7 @@ lessons :
       name: three
     - url: /pages/limitDE3/
       name: four
-    - url: /pages/limitDE4/
-      name: five
+
 
   expDotsGodel:
     - url: /pages/expDotsGodel1/

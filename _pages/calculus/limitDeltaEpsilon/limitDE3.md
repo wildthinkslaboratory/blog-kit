@@ -6,13 +6,17 @@ header: 'none'
 ogimage: /assets/images/calculus/epsilonDelta.jpg
 ---
 
+# :::: intro_note
+# --partialborder
+Playing an infinite game of Epsilon/Delta is not a practical way to prove a limit.  We're now adding the option of using a strategy instead of adjusting the Delta interval yourself.  For this limit we'll use the strategy of making the Delta interval $1/3$ the size of the Epsilon interval.
+# --partialborder
+# ::::
+
+
 # :::: success
 # --partialborder
 Success!  
-
-To fully prove that $$\lim_{x \to 2} 3x = 6,$$ we would need to show that Delta can counter any move that Epsison makes, no matter how close Epsilon's interval gets to $6$.
-
-
+We'll be adding more pages soon to the Delta/Epsilon lesson.  We'll work on how to come up with a winning strategies.
 [Continue](/pages/limitDE1)
 # --partialborder
 # ::::
@@ -39,6 +43,8 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 
 // import the calc library
 //smartdown.import=/assets/libs/calc.js
+
+smartdown.showDisclosure('intro_note','','transparent,draggable,closeable,center,outline,shadow,lightbox');
 
 smartdown.showDisclosure('delta_turn', '', 'transparent');
 
@@ -107,7 +113,7 @@ this.depend = function() {
 		smartdown.setVariable('compute', false);
 		if (limit.checkDelta()) {
 			if (limit.epsilon() <= 0.2) {
-				smartdown.showDisclosure('success', '', 'center,transparent,draggable,closeable,shadow');
+				smartdown.showDisclosure('success', '','center,transparent,draggable,closeable,outline,shadow');
 			}
 			smartdown.hideDisclosure('delta_turn', '', '');
 			smartdown.showDisclosure('epsilon_turn', '', 'transparent');
