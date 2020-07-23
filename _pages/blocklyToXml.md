@@ -5,14 +5,39 @@ smartdown: true
 ---
 ### Blockly Demo
 
+#### --outlinebox outer1
+
+#### --outlinebox left1
+
+
+#### --outlinebox
+
+
+#### --outlinebox right1
+##### Javascript
+[](:!javascriptCode|markdown)
+#### --outlinebox
+#### --outlinebox
+
+ 
+
 ```javascript /autoplay
+const outer = document.getElementById('outer1');
+const left = document.getElementById('left1');
+const right = document.getElementById('right1');
+
+outer.classList.remove('decoration-outlinebox');
+left.classList.remove('decoration-outlinebox');
+right.classList.remove('decoration-outlinebox');
+
+outer.classList.add('outer-multi-col');
+left.classList.add('playable-2-col');
+right.classList.add('text-2-col');
+
+
 //smartdown.import=https://unpkg.com/blockly@3.20200625.2/blockly.min.js
 
-const myDiv = this.div;
-myDiv.style.width = '100%';
-myDiv.style.height = '100%';
-myDiv.style.margin = 'auto';
-myDiv.innerHTML = 
+left.innerHTML = 
 `<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
 <xml id="toolbox" style="display: none">
   <block type="controls_if"></block>
@@ -74,13 +99,6 @@ myDiv.innerHTML =
   </xml>
   `
 
-Blockly.JavaScript['proof_proposition'] = function(block) {
-  let text_name = block.getFieldValue('name');
-  let text_proposition = block.getFieldValue('proposition');
-  // TODO: Assemble JavaScript into code letiable.
-  let code = '...;\n';
-  return code;
-};
 
 let blocklyDiv = document.getElementById('blocklyDiv');
 // let demoWorkspace = Blockly.inject(blocklyDiv,
@@ -90,6 +108,32 @@ let demoWorkspace = Blockly.inject('blocklyDiv',
     {toolbox: document.getElementById('toolbox')});
 Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
                            demoWorkspace);
+
+function blocksToXml() {
+  let xmlDom = Blockly.Xml.workspaceToDom(demoWorkspace);
+  let xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+  smartdown.setVariable('xmlCode', xmlText);
+}
+
+function xmlToBlocks() {
+
+  let xmlDom = null;
+  try {
+    xmlDom = Blockly.Xml.textToDom(env.xmlCode);
+  } catch (e) {
+    let q =
+        window.confirm(e);
+    if (!q) {
+      // Leave the user on the XML tab.
+      return;
+    }
+  }
+  if (xmlDom) {
+    demoWorkspace.clear();
+    Blockly.Xml.domToWorkspace(xmlDom, demoWorkspace);
+  }
+
+}
 
 
 function showJavascriptCode() {
@@ -116,18 +160,40 @@ function runJavascriptCode() {
 
 
 this.sizeChanged = function() {
-  blocklyDiv.style.width = window.innerWidth * 0.8 + 'px';
+  blocklyDiv.style.width = left.offsetWidth + 'px';
   blocklyDiv.style.height = window.innerHeight * 0.6 + 'px';
   Blockly.svgResize(demoWorkspace);
 };
 
 this.sizeChanged();
+
+outer.classList.add('outer-multi-col');
+left.classList.add('playable-2-col');
+right.classList.add('text-2-col');
+
+
+function updateCode(event) {
+  let blocks = demoWorkspace.getTopBlocks(true);
+  for (let i = 0, block; (block = blocks[i]); i++) {
+    console.log(block.type);
+  }
+  showJavascriptCode();
+}
+demoWorkspace.addChangeListener(updateCode);
+
 smartdown.setVariable('show', false);
 smartdown.setVariable('run', false);
 smartdown.setVariable('javascriptCode', '');
 smartdown.setVariable('xmlCode', '');
+smartdown.setVariable('toXml', false);
+smartdown.setVariable('toBlocks', false);
 
-this.dependOn = ['show', 'run'];
+let oldXml = '';
+
+
+showJavascriptCode();
+
+this.dependOn = ['show', 'run', 'toXml', 'toBlocks', 'xmlCode'];
 this.depend = function() {
 	if (env.show == true) {
 		smartdown.setVariable('show', false);
@@ -138,8 +204,20 @@ this.depend = function() {
 		smartdown.setVariable('run', false);
 		runJavascriptCode();
 	}
+
+  if (env.toXml == true) {
+    smartdown.setVariable('toXml', false);
+    blocksToXml();
+  }
+
+  if (env.xmlCode !== oldXml) {
+    oldXml = env.xmlCode;
+    xmlToBlocks();
+  }
 }
 
 ```
-[Show Javascript](:=show=true) [Run Javascript](:=run=true)
-[](:!javascriptCode|markdown)
+[Show Javascript](:=show=true) [Run Javascript](:=run=true) [to xml](:=toXml=true) 
+[xml](:?xmlCode)
+
+

@@ -1,0 +1,33 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+  <category name="Proposition">
+    <block type="proof_proposition">
+      <field name="symbol">A</field>
+      <field name="statement_t"></field>
+      <field name="statement_f"></field>
+    </block>
+    <block type="proof_statement"></block>
+  </category>
+  <category name="Connectives">
+    <block type="proof_not"></block>
+    <block type="proof_or"></block>
+    <block type="proof_and"></block>
+    <block type="proof_if_then"></block>
+    <block type="proof_contradiction"></block>
+  </category>
+  <category name="Not">
+    <block type="proof_not_intro"></block>
+    <block type="proof_contradiction_intro"></block>
+  </category>
+  <category name="Or">
+    <block type="proof_or_intro"></block>
+    <block type="proof_or_elim"></block>
+  </category>
+  <category name="And">
+    <block type="proof_and_intro"></block>
+    <block type="proof_and_elim"></block>
+  </category>
+  <category name="If Then">
+    <block type="proof_if_then_intro"></block>
+    <block type="proof_if_then_elim"></block>
+  </category>
+</xml>
