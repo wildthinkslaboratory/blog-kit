@@ -1,3 +1,28 @@
+
+Blockly.Blocks['proof_icon_prop'] = {
+  init: function() {
+    this.appendDummyInput().appendField(new Blockly.FieldImage('/assets/images/icons/sun.svg', 50, 50), 'ICON');
+    this.appendDummyInput().appendField(new Blockly.FieldDropdown(
+      [
+        ['sun', '/assets/images/icons/sun.svg'], 
+        ['rain', '/assets/images/icons/rain.svg'], 
+        ['snow', '/assets/images/icons/snow.svg']
+      ]), 
+      'DROPDOWN');
+
+    this.setOutput(true, 'Boolean');
+    this.setColour('#EE7722');
+    this.setInputsInline(true);
+    this.setOnChange(function(changeEvent) {
+      let dropdown_value = this.getFieldValue('DROPDOWN');
+      this.getField('ICON').doValueUpdate_(dropdown_value);
+
+    });
+
+  }
+};
+
+
 Blockly.defineBlocksWithJsonArray([{
   "type": "proof_proposition",
   "message0": "%1 %2 %3",
@@ -378,6 +403,21 @@ Blockly.English['proof_proposition'] = function(block) {
   }
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.English.ORDER_NONE];
+};
+
+Blockly.English['proof_icon_prop'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript['proof_icon_prop2'] = function(block) {
+  var dropdown_name = block.getFieldValue('NAME');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 Blockly.English['proof_statement'] = function(block) {

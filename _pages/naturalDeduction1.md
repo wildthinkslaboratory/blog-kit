@@ -10,20 +10,19 @@ smartdown: true
 //smartdown.import=/assets/libs/blockly/english.js
 //smartdown.import=/assets/libs/blockly/proof.js
 
-smartdown.showDisclosure('proof','','transparent,topleft,draggable,shadow,outline');
+
+
+//smartdown.showDisclosure('proof','','transparent,topleft,draggable,shadow,outline');
 
 
 this.div.innerHTML = 
 `<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
   <category name="Proposition">
-    <block type="proof_proposition">
-      <field name="symbol">A</field>
-      <field name="statement_t"></field>
-      <field name="statement_f"></field>
-    </block>
+    <block type="proof_proposition"></block>
     <block type="proof_statement"></block>
     <block type="proof_given"></block>
+    <block type="proof_icon_prop"></block>
   </category>
   <category name="Connectives">
     <block type="proof_not"></block>
@@ -49,7 +48,72 @@ this.div.innerHTML =
     <block type="proof_if_then_elim"></block>
   </category>
 </xml>
+`
 
+
+let blocklyDiv = document.getElementById('blocklyDiv');
+let demoWorkspace = Blockly.inject('blocklyDiv',
+    {toolbox: document.getElementById('toolbox')});
+// Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
+//                            demoWorkspace);
+                         
+
+function showProof() {
+  // Generate JavaScript code and display it.
+  Blockly.English.INFINITE_LOOP_TRAP = null;
+  let code = Blockly.English.workspaceToCode(demoWorkspace);
+  code = '\`\`\`\n' + code + '\n\`\`\`';
+  smartdown.setVariable('javascriptCode', code);
+}
+
+
+
+
+this.sizeChanged = function() {
+  blocklyDiv.style.width = window.innerWidth * 0.8 + 'px';
+  blocklyDiv.style.height = window.innerHeight * 0.7 + 'px';
+  Blockly.svgResize(demoWorkspace);
+};
+
+this.sizeChanged();
+
+function updateCode(event) {
+  let blocks = demoWorkspace.getTopBlocks(true);
+  showProof();
+}
+demoWorkspace.addChangeListener(updateCode);
+
+
+smartdown.setVariable('show', false);
+smartdown.setVariable('run', false);
+smartdown.setVariable('javascriptCode', '');
+
+
+this.dependOn = ['show', 'run'];
+this.depend = function() {
+	if (env.show == true) {
+		smartdown.setVariable('show', false);
+		showCode();
+	}
+
+	if (env.run == true) {
+		smartdown.setVariable('run', false);
+		runCode();
+	}
+}
+
+```
+
+# :::: proof
+# --outlinebox olb
+
+##### Proof
+[](:!javascriptCode|markdown)
+
+# --outlinebox 
+# ::::
+ 
+# :::: proof
 <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
   <block type="proof_given" x="20" y="20">
     <value name="bool_statement">
@@ -170,69 +234,4 @@ this.div.innerHTML =
     </next>
   </block>
 </xml>
-
-`
-
-
-let blocklyDiv = document.getElementById('blocklyDiv');
-let demoWorkspace = Blockly.inject('blocklyDiv',
-    {toolbox: document.getElementById('toolbox')});
-Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-                           demoWorkspace);
-                         
-
-function showProof() {
-  // Generate JavaScript code and display it.
-  Blockly.English.INFINITE_LOOP_TRAP = null;
-  let code = Blockly.English.workspaceToCode(demoWorkspace);
-  code = '\`\`\`\n' + code + '\n\`\`\`';
-  smartdown.setVariable('javascriptCode', code);
-}
-
-
-
-
-this.sizeChanged = function() {
-  blocklyDiv.style.width = window.innerWidth * 0.8 + 'px';
-  blocklyDiv.style.height = window.innerHeight * 0.7 + 'px';
-  Blockly.svgResize(demoWorkspace);
-};
-
-this.sizeChanged();
-
-function updateCode(event) {
-  let blocks = demoWorkspace.getTopBlocks(true);
-  showProof();
-}
-demoWorkspace.addChangeListener(updateCode);
-
-
-smartdown.setVariable('show', false);
-smartdown.setVariable('run', false);
-smartdown.setVariable('javascriptCode', '');
-
-
-this.dependOn = ['show', 'run'];
-this.depend = function() {
-	if (env.show == true) {
-		smartdown.setVariable('show', false);
-		showCode();
-	}
-
-	if (env.run == true) {
-		smartdown.setVariable('run', false);
-		runCode();
-	}
-}
-
-```
-
-# :::: proof
-# --outlinebox olb
-
-##### Proof
-[](:!javascriptCode|markdown)
-
-# --outlinebox 
 # ::::
- 
