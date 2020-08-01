@@ -1,17 +1,19 @@
 
 Blockly.Blocks['proof_icon_prop'] = {
   init: function() {
-    this.appendDummyInput().appendField(new Blockly.FieldImage('/assets/images/icons/sun.svg', 50, 50), 'ICON');
+    this.appendDummyInput().appendField(new Blockly.FieldImage('/assets/images/icons/sun.svg', 30, 30), 'ICON');
     this.appendDummyInput().appendField(new Blockly.FieldDropdown(
       [
         ['sun', '/assets/images/icons/sun.svg'], 
         ['rain', '/assets/images/icons/rain.svg'], 
-        ['snow', '/assets/images/icons/snow.svg']
+        ['snow', '/assets/images/icons/snow.svg'],
+        ['school', '/assets/images/icons/school.svg'],
+        ['homework', '/assets/images/icons/homework.svg']
       ]), 
       'DROPDOWN');
 
     this.setOutput(true, 'Boolean');
-    this.setColour('#EE7722');
+    this.setColour('#CCCCFF');
     this.setInputsInline(true);
     this.setOnChange(function(changeEvent) {
       let dropdown_value = this.getFieldValue('DROPDOWN');
@@ -21,6 +23,23 @@ Blockly.Blocks['proof_icon_prop'] = {
 
   }
 };
+
+let propToEnglish = {
+  'sun': "it's sunny",
+  'rain': "it's raining",
+  'snow': "it's snowing",
+  'school': "there's school",
+  'homework': "I must do my homework"
+};
+
+let propToEnglishNegation = {
+  'sun': "it's not sunny",
+  'rain': "it's not raining",
+  'snow': "it's not snowing",
+  'school': "there's no school",
+  'homework': "I don't have to do my homework"
+};
+
 
 
 Blockly.defineBlocksWithJsonArray([{
@@ -59,7 +78,7 @@ Blockly.defineBlocksWithJsonArray([{
     }
   ],
   "output": "Boolean",
-  "colour": 65,
+  "colour": '#BB77BB',
   "tooltip": "not statement",
   "helpUrl": ""
 },
@@ -80,7 +99,7 @@ Blockly.defineBlocksWithJsonArray([{
   ],
   "inputsInline": true,
   "output": "Boolean",
-  "colour": 65,
+  "colour": '#BB77BB',
   "tooltip": "and statement",
   "helpUrl": ""
 },
@@ -101,7 +120,7 @@ Blockly.defineBlocksWithJsonArray([{
   ],
   "inputsInline": true,
   "output": "Boolean",
-  "colour": 65,
+  "colour": '#BB77BB',
   "tooltip": "or statement",
   "helpUrl": ""
 },
@@ -122,7 +141,7 @@ Blockly.defineBlocksWithJsonArray([{
   ],
   "inputsInline": true,
   "output": "Boolean",
-  "colour": 65,
+  "colour": '#BB77BB',
   "tooltip": "if then statement",
   "helpUrl": ""
 },
@@ -130,7 +149,7 @@ Blockly.defineBlocksWithJsonArray([{
   "type": "proof_contradiction",
   "message0": "contradiction",
   "output": null,
-  "colour": 65,
+  "colour": '#BB77BB',
   "tooltip": "contradiction",
   "helpUrl": ""
 },
@@ -147,7 +166,7 @@ Blockly.defineBlocksWithJsonArray([{
   "inputsInline": true,
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 230,
+  "colour": '#AAAADD',
   "tooltip": "statement",
   "helpUrl": ""
 },
@@ -164,7 +183,7 @@ Blockly.defineBlocksWithJsonArray([{
   "inputsInline": true,
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 200,
+  "colour": '#AAAADD',
   "tooltip": "statement",
   "helpUrl": ""
 },
@@ -189,7 +208,7 @@ Blockly.defineBlocksWithJsonArray([{
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 20,
+  "colour": '#999999',
   "tooltip": "if then introduction",
   "helpUrl": ""
 },
@@ -218,7 +237,7 @@ Blockly.defineBlocksWithJsonArray([{
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 20,
+  "colour": '#999999',
   "tooltip": "if then elimination",
   "helpUrl": ""
 },
@@ -406,19 +425,12 @@ Blockly.English['proof_proposition'] = function(block) {
 };
 
 Blockly.English['proof_icon_prop'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
+  
+  var code = propToEnglish[this.getField('DROPDOWN').getDisplayText_()];
+
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript['proof_icon_prop2'] = function(block) {
-  var dropdown_name = block.getFieldValue('NAME');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
 
 Blockly.English['proof_statement'] = function(block) {
   let value_name = Blockly.English.valueToCode(block, 'bool_statement', Blockly.English.ORDER_ATOMIC);
@@ -464,11 +476,8 @@ Blockly.English['proof_not'] = function(block) {
   let code = 'not ' + value_prop;
 
   let targetBlock = block.getInputTargetBlock('prop');
-  if (targetBlock && targetBlock.type == 'proof_proposition') {
-    let negation = targetBlock.getFieldValue('negation');
-    if (negation !== '') {
-      code = negation;
-    }
+  if (targetBlock && targetBlock.type == 'proof_icon_prop') {
+    code = propToEnglishNegation[targetBlock.getField('DROPDOWN').getDisplayText_()];
   }
 
   code = clearOuterParentheses(block,'prop',code);
@@ -534,7 +543,9 @@ Blockly.English['proof_if_then_elim'] = function(block) {
   let value_premise = Blockly.English.valueToCode(block, 'premise', Blockly.English.ORDER_ATOMIC);
   let value_conclusion = Blockly.English.valueToCode(block, 'conclusion', Blockly.English.ORDER_ATOMIC);
   // TODO: Assemble English into code letiable.
-  let code = '...;\n';
+  let code = 'We know that ' + value_if_then + '\n';
+  code += 'We also know that ' + value_premise + '\n';
+  code += 'We can conclude that ' + value_conclusion + '\n';
   return code;
 };
 
