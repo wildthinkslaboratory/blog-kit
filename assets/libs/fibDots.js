@@ -992,11 +992,14 @@ function Dots(p5playable, outsideDiv) {
 
     let newDot = copyInstance(dots[currentId[0]].dots[currentId[1]][currentId[2]]);
     newDot.box = recievingBox;
-
+    newDot.oldx = newDot.rx;
+    newDot.oldy = newDot.ry;
 
     let dotArrayID = currentId[0];
 
     dots[dotArrayID].pushDot(recievingBox,newDot);   // add this dot to new box
+
+
     deleteDot(currentId);                            // remove this dot from it's old box
 
     if (sendingBox !== 0) {

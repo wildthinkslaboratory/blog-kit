@@ -557,6 +557,8 @@ function Dots(p5playable) {
 
     let newDot = copyInstance(dots[currentId[0]].dots[currentId[1]][currentId[2]]);
     newDot.box = recievingBox;
+    newDot.oldx = newDot.rx;
+    newDot.oldy = newDot.ry;
 
 
     let dotArrayID = currentId[0];
