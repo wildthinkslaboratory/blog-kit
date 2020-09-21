@@ -8,6 +8,64 @@ headerapp: 'reimannSum.js'
 ogimage: /assets/images/ogpic.png
 ---
 
+## Global Math Week 2020
+
+In honor of [Global Math Week 2020](https://globalmathproject.org), here is all of our [Exploding Dots](https://gdaymath.com/courses/exploding-dots/) content.  
+
+# --outlinebox gmw2020
+```graphviz/autoplay
+digraph G {
+  tooltip="wildthinks map";
+  fontsize="24";
+  fontname="Arial";
+  size="12,12";
+  bgcolor=transparent;
+
+    subgraph cluster1 {
+
+        strings [shape=none, tooltip="Godel meets Exploding Dots", URL="/pages/expDotsGodel1", label="", image="/assets/images/calculus/strings.svg"];
+
+        negaBinary [shape=none, tooltip="Negative Binary", URL="/pages/NegaBinary1", label="", image="/assets/images/calculus/negaBinary.svg"];
+
+        TwoDdots [shape=none, tooltip="2D dots", URL="javascript:smartdown.setVariable('soon', true);", label="", image="/assets/images/calculus/2Ddots.svg"];
+
+        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
+
+        FibDots [shape=none, tooltip="Fibonacci dots", URL="javascript:smartdown.setVariable('soon', true);", label="", image="/assets/images/calculus/FibDots.svg"];
+
+        GR [shape=none, tooltip="Goldfish and Robin", URL="/pages/GR", label="", image="/assets/images/calculus/GR.svg"];
+
+        label = "Exploding Dots";
+        style=filled;
+        color=transparent;
+    }
+    
+}
+```
+# --outlinebox
+
+
+```javascript /autoplay
+
+const otherDiv = document.getElementById('gmw2020');
+otherDiv.classList.remove('decoration-outlinebox');
+
+otherDiv.style.border = '2px solid #DDDDDD';
+otherDiv.style.borderRadius = '25px';
+otherDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
+## Visual Calculus
+
+The Calculus Lessons give a truly interactive introduction to the ideas of calculus.
+
+The first three chapters are entirely geometric.  They require only familiarity with functions in the $(x,y)$ plane and an understanding of ratios and rates.  They are a fantastic introduction to the ideas of calculus.
+
+The remaining chapters are intended to supplement a standard calculus class.  They give interactive explanations of the major results from first year calculus.
+
+
 # --outlinebox calculus
 
 ```graphviz/autoplay
@@ -54,7 +112,6 @@ digraph G {
 
 
 ```javascript /autoplay
-
 console.log('fixing style');
 const calcDiv = document.getElementById('calculus');
 calcDiv.classList.remove('decoration-outlinebox');
@@ -62,16 +119,8 @@ calcDiv.classList.remove('decoration-outlinebox');
 calcDiv.style.border = '2px solid #DDDDDD';
 calcDiv.style.borderRadius = '25px';
 calcDiv.style.backgroundColor = '#EEEEEE';
-
-
 ```
 
-#### What's in Calculus?
-The Calculus Lessons give a truly interactive introduction to the ideas of calculus.
-
-The first three chapters are entirely geometric.  They require only familiarity with functions in the $(x,y)$ plane and an understanding of ratios and rates.  They are a fantastic introduction to the ideas of calculus.
-
-The remaining chapters are intended to supplement a standard calculus class.  They give interactive explanations of the major results from first year calculus.
 
 
 # :::: coming_soon
@@ -115,13 +164,7 @@ digraph G {
         color=transparent;
     }
 
-    subgraph cluster2 {
-        negaBinary [shape=none, tooltip="Negative Binary", URL="/pages/NegaBinary1", label="", image="/assets/images/calculus/negaBinary.svg"];
-        strings [shape=none, tooltip="Godel meets Exploding Dots", URL="/pages/expDotsGodel1", label="", image="/assets/images/calculus/strings.svg"];
-        label = "Exploding Dots";
-        style=filled;
-        color=transparent;
-    }
+
 
     subgraph cluster3 {
         fractal [shape=none, tooltip="Fractal Generator", URL="/pages/fractal", label="", image="/assets/images/calculus/fractal.svg"];
@@ -133,9 +176,6 @@ digraph G {
         style=filled;
         color=transparent;
         edge[style=invis];
-        { rank=same; penrose, fractal }
-        fractal -> circles;
-        penrose -> circles;
   }
     
 }
@@ -154,7 +194,6 @@ otherDiv.style.backgroundColor = '#EEEEEE';
 
 
 ```
-
 
 
 
