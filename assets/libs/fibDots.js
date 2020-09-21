@@ -520,6 +520,11 @@ class Boxes {
       p5.rect(this.x + i*this.width + decimalBump, this.y , this.width - this.xSpacer, this.height, 20);
     }
 
+    p5.stroke([0,   200, 200]);
+    p5.strokeWeight(4);
+    p5.line(this.x + this.width * this.numberBoxes/2 + this.dotDiameter - this.xSpacer/2, this.y, 
+      this.x + this.width * this.numberBoxes/2 + this.dotDiameter - this.xSpacer/2, this.y + this.height);
+
     p5.noStroke();
     p5.fill(this.stroke);
     p5.textSize(this.boxTextSize);
@@ -741,6 +746,10 @@ function Dots(p5playable, outsideDiv) {
       const [textX,textY] = centerTextInRect(p5, x + (numBoxes - i - 1)*width + decimalBump, y , width - xSpacer, height,t);
       p5.text(t, textX, textY);
     }
+
+    p5.fill(...colors.writingFill);
+    p5.ellipse(x + boxesW/2 + dotD - xSpacer/2, y + endcapH/2 + xSpacer, xSpacer, xSpacer);
+
 
     p5.pop();
   }

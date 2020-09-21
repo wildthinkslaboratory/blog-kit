@@ -8,7 +8,11 @@ ogimage: /assets/images/calculus/fibDots.jpg
 
 # :::: intro
 # --outlinebox int
-This is where the intro to the Fibonacci dots will be.
+
+[G'daymath](https://gdaymath.com/lessons/explodingdots/9-5-going-really-wild/)
+[explodingdots.org](https://www.explodingdots.org/station/I9S9D)
+$$\fbox{\phantom{\rule{.7ex}{.7ex}}}$$
+$\fbox{$\bullet$} \framebox(30,30){} \leftarrow \fbox{${\bullet \bullet}$} $
 # --outlinebox
 # ::::
 

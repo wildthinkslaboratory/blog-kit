@@ -39,8 +39,8 @@
   </g>
   <g id="Layer_1">
     <path d="M43.5,235.5 L43.5,235.5" fill-opacity="0" stroke="#383838" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-    <text transform="matrix(1, 0, 0, 1, 250, 443.713)">
-      <tspan x="-172.02" y="-12" font-family="Arial-BoldMT" font-size="48" fill="#000000">Fibonacci Dots</tspan>
+    <text transform="matrix(1, 0, 0, 1, 250, 445)">
+      <tspan x="-101.379" y="-12" font-family="Arial-BoldMT" font-size="48" fill="#000000">Base Phi</tspan>
     </text>
   </g>
 </svg>
