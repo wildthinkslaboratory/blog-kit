@@ -6,7 +6,7 @@ ogimage: /assets/images/calculus/GR.jpg
 ---
 
 # Goldfish and Robin Videos on Exploding Dots
-Here are all 23 of Goldfish and Robin's exploding dots videos. 
+Here are all 23 of Goldfish and Robin's exploding dots videos.  You can see all their Spanish language videos [here](/pages/SpanishGR).
 
 ## Introducing the 1 $\leftarrow$ 2 Machine
 The Goldfish and Robin crew introduce the base 2 machine.  Checkout the giant machine with people dots!
@@ -79,38 +79,44 @@ Goldfish and Robin show how multiplication and division are inverses, exploding 
 
 
 ## Polynomial Division Part 1
+Polynomial division is sort of a drag when you learn it in Algebra 2 class.  Exploding dots makes polynomial division much more fun.  Levi and Robin show us how it's done.  Plus I love the original music composition by [Eric Merchant](https://math.uoregon.edu/profile/ericm).  
 ![fullwidth](https://www.youtube.com/watch?v=9Xy-Bbzvlls&list=PLa19IsX3kXsI2NWKElm6pKdaLalOGpitA&index=14)
 
 ## Polynomial Division Part 1
-
+More polynomial division with Levi.
 
 ![fullwidth](https://www.youtube.com/watch?v=Kwdf-GeKJ_4&list=PLa19IsX3kXsI2NWKElm6pKdaLalOGpitA&index=16)
 
 ## Polynomial Multiplication
+Goldfish shows us how to do polynomial multiplication, exploding dots style.
 
 ![fullwidth](https://www.youtube.com/watch?v=XeCxmaIv588&list=PLa19IsX3kXsI2NWKElm6pKdaLalOGpitA&index=15)
 
 ## Base $2 \leftarrow 3$ Machine
-
+You've seen all kinds of base machines now, but have you seen a base $\frac{3}{2}$ machine?  Check out this weird machine.  What does it mean?
 ![fullwidth](https://www.youtube.com/watch?v=L02RYFevH-Q&list=PLa19IsX3kXsI2NWKElm6pKdaLalOGpitA&index=17)
 
 ## Inifinite Sums
-
+Dani explains why the expression $\frac{1}{1-x}$ generates the infinite 
+sum $$1 + x + x^2 + x^3 \cdots$$
 ![fullwidth](https://www.youtube.com/watch?v=CD7YMsRSwHY&list=PLa19IsX3kXsI2NWKElm6pKdaLalOGpitA&index=18)
 
 ## Negative Binary (or Base -2)
-
+Imagine a number system with only two symbols `0` and `1` that could express both negative and positive numbers.  No negative signs required.
 ![fullwidth](https://www.youtube.com/watch?v=ZN1iXkyuIi8)
 
 ## Make Your Own Number System
-
+There are so many different ways to count and do arithmetic.  Why not make your own!  A double decker peanutbutter and jelly sandwich might represent the number $97$.
 ![fullwidth](https://www.youtube.com/watch?v=RGTwlTvE8x0)
 
 ## Make a 2D Machine
+Who says a number system has to be a linear series of symbols?  How about a two dimensional number system for arithmetic.  
 ![fullwidth](https://www.youtube.com/watch?v=0CTjkoFvGw0)
 
 ## Dividing in Base $\frac{3}{2}$: A Question from James Propp
+Goldfish and Robin's two dimensional number system turns out to be helpful when doing division in base $\frac32$.  Goldfish made this video in response to a question from mathematician [James Propp](https://www.uml.edu/sciences/mathematics/faculty/propp-james.aspx).
 ![fullwidth](https://www.youtube.com/watch?v=6xJRfXnWWDI)
 
 ## Another Question from James Propp
+More on division in base $\frac32$.
 ![fullwidth](https://www.youtube.com/watch?v=X4VHtScgJZs)
