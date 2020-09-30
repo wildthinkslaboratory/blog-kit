@@ -3,7 +3,7 @@ title: Fibonacci Dots
 smartdown: true
 header: 'none'
 lesson: 'fibonacci_dots'
-ogimage: /assets/images/calculus/fibDots.jpg
+ogimage: /assets/images/calculus/FibDots.jpg
 ---
 
 # :::: intro
