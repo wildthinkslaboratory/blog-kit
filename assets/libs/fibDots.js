@@ -932,6 +932,30 @@ function Dots(p5playable, outsideDiv) {
   }
 
 
+  function drawClearButton() {
+    const y = topBoxesY;
+    const height = endcapH;
+    const x = boxesX;
+    const boxW = boxesW / numBoxes;
+
+    p5.push();
+
+    p5.stroke(...colors.dotButtonStroke);
+    p5.strokeWeight(1);
+    p5.fill(...colors.dotButtonFill);
+    p5.rect(x, y, boxW - xSpacer, height, 10);
+
+    p5.textSize(valueTextSize);
+    p5.fill(darkGray);
+
+    const t = 'Clear';
+    const [textX,textY] = centerTextInRect(p5, x, y, boxW - xSpacer, height, t);
+    p5.text('Clear', textX, textY);
+
+    p5.pop();
+  }
+
+
 
   ////
   // Main functions affecting model
@@ -999,6 +1023,8 @@ function Dots(p5playable, outsideDiv) {
       return false;
     }
 
+
+
     let newDot = copyInstance(dots[currentId[0]].dots[currentId[1]][currentId[2]]);
     newDot.box = recievingBox;
     newDot.oldx = newDot.rx;
@@ -1054,8 +1080,15 @@ function Dots(p5playable, outsideDiv) {
       return false;
     }
 
+    if (recievingBox == 0) {
+      alert('unexplosion not allowed because we\'ve run out of boxes');
+      return false;
+    }
+
     let newDot = copyInstance(dots[currentId[0]].dots[currentId[1]][currentId[2]]);
     newDot.box = recievingBox;
+    newDot.oldx = newDot.rx;
+    newDot.oldy = newDot.ry;
 
     let dotArrayID = currentId[0];
 
@@ -1149,6 +1182,13 @@ function Dots(p5playable, outsideDiv) {
     if (p5.mouseY < topBoxesY || p5.mouseY > topBoxesY + endcapH) return false;
     return true;
   }
+
+  function mouseOnClearButton() {
+    if (!dotButtonOn) return;
+    if (p5.mouseX < boxesX || p5.mouseX > boxesX + boxesW/numBoxes) return false;
+    if (p5.mouseY < topBoxesY || p5.mouseY > topBoxesY + endcapH) return false;
+    return true;
+  }  
 
   function mouseOnRuleButton() {
     if (!ruleButtonOn) return;
@@ -1251,10 +1291,13 @@ function Dots(p5playable, outsideDiv) {
 
   this.mousePressed = function()
   {
-    if (mouseOnDotButton()) {  
-      addDots = !addDots; 
-      let event = new CustomEvent('CLICK_ADD', { detail : 'CLICK_ADD'});  // trigger add dot event
-      div.dispatchEvent(event); 
+    if (mouseOnClearButton()) {  
+      for (let i=0; i < dots[0].dots.length; i++) {
+        while (dots[0].dots[i].length > 0) {
+          dots[0].dots[i].pop();
+        }
+      }
+      currentSum = 0;
     }
     if (mouseOnRuleButton()) {  
       standardRule = !standardRule;  
@@ -1268,6 +1311,7 @@ function Dots(p5playable, outsideDiv) {
       }
       else {
         addAntidot();
+        console.log('adding antidot');
       }
     }
   };
@@ -1292,6 +1336,7 @@ function Dots(p5playable, outsideDiv) {
     //drawValueBoxes();
     drawCodeBoxes();
     drawSummaryBox();
+    drawClearButton();
     //drawDotButton();
     //drawRuleButton();
     for (let i=0; i < popups.length; i++) {
