@@ -54,8 +54,8 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-smartdown.showDisclosure('intro','','transparent,topleft,closeable,draggable,shadow,outline');
-smartdown.showDisclosure('panel','','bottomright,draggable,shadow');
+smartdown.showDisclosure('intro','','transparent,topright,closeable,draggable,shadow,outline');
+smartdown.showDisclosure('panel','','bottomleft,draggable,shadow');
 
 // set up the div and the page
 const myDiv = this.div;
@@ -83,7 +83,10 @@ function draw() {
   curves = [];
   let colorJump = cs.numberColors() / (2 * numCurves);
 
-  for (let i= -numCurves; i <= numCurves; i++) {
+  const start = - Math.floor(numCurves/2);
+  const end = Math.ceil(numCurves/2);
+  console.log(numCurves, start, end);
+  for (let i=start; i < end; i++) {
     let ftemp = function(t) { return Math.sin(t) + i; }
     let f = new Function('x', 'return ' + fstring + ' + ' + i + ';');
     let xt = function(t) { return (2 * t * f(t) * f(t)) / (t * t + f(t) * f(t)); }
@@ -149,10 +152,10 @@ this.depend = function() {
       smartdown.setVariable('redraw', false);
       t1 = env.tLow;
       t2 = env.tHigh;
-      numCurves = Math.floor(env.numberCurves / 2);
+      numCurves = Math.floor(env.numberCurves);
       numCurves = Math.min(numCurves, 50);
       numCurves = Math.max(numCurves, 1);
-      smartdown.setVariable('numberCurves', 2 * numCurves);
+      smartdown.setVariable('numberCurves', numCurves);
       fstring = env.curveFunction;
       clear();
       cs.reset();
