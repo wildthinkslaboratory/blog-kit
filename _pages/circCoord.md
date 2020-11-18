@@ -36,7 +36,7 @@ You can find a list of javascript **Math** functions [here](https://www.w3school
 
 # :::: panel
 # --aliceblue panelbox
-[new colors](:=newColors=true) [redraw curves](:=redraw=true) [prepare a download](:=download=true) 
+[new colors](:=newColors=true) [redraw curves](:=redraw=true) [export image](:=download=true) 
 function $f$: [](:?curveFunction) [formatting tips](:=showTips=true)
 number of curves (max 50): [](:?numberCurves|number)
 [](:?tLow|number) $ < t < $ [](:?tHigh|number)
