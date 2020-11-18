@@ -75,6 +75,7 @@ let juliaSeeds = [
 ];
 
 
+
 class RGBColor {
   constructor(r,g,b) {
     this.r = r;
