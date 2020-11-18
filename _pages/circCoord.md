@@ -22,7 +22,7 @@ Play around and see what you can make.
 # :::: formatting
 # --outlinebox tips
 ##### Formatting Tips for Functions
-Enter a single variable function using variable `x`.  Functions need to be written in javascript.  You can use the standard arithmetic operators `+`, `-`, `*`, and `\` and also javascript `Math` functions.
+Enter a single variable function using variable `x`.  Functions need to be written in javascript.  You can use parentheses `()`, the standard arithmetic operators `+`, `-`, `*`, and `\` and also javascript `Math` functions.
 
 | Expression  | Javascript |
 | ----------- | ----------- |
@@ -31,33 +31,15 @@ Enter a single variable function using variable `x`.  Functions need to be writt
 | $\frac{\sin(x)}{x}$  | `Math.sin(x) / x`    |
 
 You can find a list of javascript **Math** functions [here](https://www.w3schools.com/jsref/jsref_obj_math.asp).
-
 # --outlinebox
 # ::::
 
 # :::: panel
 # --aliceblue panelbox
-[new colors](:=newColors=true) 
+[new colors](:=newColors=true) [redraw curves](:=redraw=true) [prepare a download](:=download=true) 
 function $f$: [](:?curveFunction) [formatting tips](:=showTips=true)
 number of curves (max 50): [](:?numberCurves|number)
 [](:?tLow|number) $ < t < $ [](:?tHigh|number)
-[redraw curves](:=redraw=true) 
-[prepare a download](:=download=true) 
-```javascript /autoplay/inline
-this.div.innerHTML = `<a></a>`;
-
-this.dependOn = ['imageForDownload'];
-this.depend = function() {
-  if (env.imageForDownload == '') {
-    this.div.innerHTML = `<a></a>`;
-  }
-  else {
-      this.div.innerHTML = `<a target="_blank" rel="noopener noreferrer" href=${env.imageForDownload}>download link</a>`;
-  }
-
-}
-
-```
 # --aliceblue
 # ::::
 
