@@ -54,7 +54,7 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-smartdown.showDisclosure('intro','','transparent,center,closeable,draggable,shadow,outline');
+smartdown.showDisclosure('intro','','transparent,topleft,closeable,draggable,shadow,outline');
 smartdown.showDisclosure('panel','','bottomright,draggable,shadow');
 
 // set up the div and the page
@@ -64,9 +64,9 @@ myDiv.style.height = '100%';
 myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 
-let numCurves = 5;
-let t1 = -20;
-let t2 = 20;
+let numCurves = 10;
+let t1 = -10;
+let t2 = 10;
 let curves = [];
 let fstring = 'Math.tan(x)';
 
@@ -112,10 +112,10 @@ smartdown.setVariable('redraw', false);
 smartdown.setVariable('newColors', false);
 smartdown.setVariable('showTips', false);
 smartdown.setVariable('imageForDownload', '');
-smartdown.setVariable('tLow', -20);
-smartdown.setVariable('tHigh', 20);
-smartdown.setVariable('numberCurves', 10);
-smartdown.setVariable('curveFunction', 'Math.tan(x)');
+smartdown.setVariable('tLow', t1);
+smartdown.setVariable('tHigh', t2);
+smartdown.setVariable('numberCurves', numCurves);
+smartdown.setVariable('curveFunction', fstring);
 
 this.dependOn = ['download', 'redraw', 'newColors', 'showTips'];
 this.depend = function() {
@@ -151,6 +151,7 @@ this.depend = function() {
       t2 = env.tHigh;
       numCurves = Math.floor(env.numberCurves / 2);
       numCurves = Math.min(numCurves, 50);
+      numCurves = Math.max(numCurves, 1);
       smartdown.setVariable('numberCurves', 2 * numCurves);
       fstring = env.curveFunction;
       clear();
