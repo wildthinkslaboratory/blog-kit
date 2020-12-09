@@ -65,8 +65,8 @@ myDiv.style.margin = 'auto';
 myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
 
 let numCurves = 10;
-let t1 = -10;
-let t2 = 10;
+let t1 = -20;
+let t2 = 20;
 let curves = [];
 let fstring = 'Math.tan(x)';
 
@@ -122,7 +122,7 @@ smartdown.setVariable('tLow', t1);
 smartdown.setVariable('tHigh', t2);
 smartdown.setVariable('numberCurves', numCurves);
 smartdown.setVariable('curveFunction', fstring);
-smartdown.setVariable('showAxes', false);
+smartdown.setVariable('showAxes', true);
 
 this.dependOn = ['download', 'redraw', 'newColors', 'showTips', 'showAxes'];
 this.depend = function() {
