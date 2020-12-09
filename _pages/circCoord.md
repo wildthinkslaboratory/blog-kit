@@ -36,10 +36,10 @@ You can find a list of javascript **Math** functions [here](https://www.w3school
 
 # :::: panel
 # --aliceblue panelbox
-[new colors](:=newColors=true) [redraw curves](:=redraw=true) [export image](:=download=true) 
+[new colors](:=newColors=true) [redraw curves](:=redraw=true) [export image](:=download=true) show axes[](:XshowAxes)
 function $f$: [](:?curveFunction) [formatting tips](:=showTips=true)
 number of curves (max 50): [](:?numberCurves|number)
-[](:?tLow|number) $ < t < $ [](:?tHigh|number)
+[](:?tLow|number) $ < t < $ [](:?tHigh|number) 
 # --aliceblue
 # ::::
 
@@ -76,6 +76,9 @@ board = JXG.JSXGraph.initBoard('box', {
   boundingbox:[-20,10,20,-10],
   showCopyright:false
 });
+
+let xaxis = board.create('axis', [[0, 0], [1,0]], {visible:false});
+let yaxis = board.create('axis', [[0, 0], [0, 1]], {visible:false});
 
 let cs = new SmoothColorScheme(0,255,1);
 
@@ -119,8 +122,9 @@ smartdown.setVariable('tLow', t1);
 smartdown.setVariable('tHigh', t2);
 smartdown.setVariable('numberCurves', numCurves);
 smartdown.setVariable('curveFunction', fstring);
+smartdown.setVariable('showAxes', false);
 
-this.dependOn = ['download', 'redraw', 'newColors', 'showTips'];
+this.dependOn = ['download', 'redraw', 'newColors', 'showTips', 'showAxes'];
 this.depend = function() {
 
   if (env.download == true) {
@@ -138,6 +142,15 @@ this.depend = function() {
 
   }
   else {
+
+    if (env.showAxes == true) {
+      xaxis.setAttribute({'visible':true});
+      yaxis.setAttribute({'visible':true});
+    }
+    else {
+      xaxis.setAttribute({'visible':false});
+      yaxis.setAttribute({'visible':false});
+    }
     if (env.showTips == true) {
       smartdown.setVariable('showTips', false);
       smartdown.showDisclosure('formatting','','transparent,center,closeable,draggable,shadow,outline');
