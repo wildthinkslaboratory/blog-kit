@@ -21,22 +21,7 @@ triangle sort: [](:-sort/0/3/1) [](:!sortString) [redraw triangles](:=redraw=tru
 low [](:-low1/8/256/8) high [](:-high1/8/256/8) scale [](:-scale1/1/40/1)
 low [](:-low2/8/256/8) high [](:-high2/8/256/8) scale [](:-scale2/1/20/1) [redraw colors](:=newColors=true)
 ----
-[prepare a download](:=download=true) 
-```javascript /autoplay/inline
-this.div.innerHTML = `<a></a>`;
-
-this.dependOn = ['imageForDownload'];
-this.depend = function() {
-  if (env.imageForDownload == '') {
-    this.div.innerHTML = `<a></a>`;
-  }
-  else {
-      this.div.innerHTML = `<a target="_blank" rel="noopener noreferrer" href=${env.imageForDownload}>download link</a>`;
-  }
-
-}
-
-```
+[open image in new tab](:=download=true) 
 # --outlinebox 
 # ::::
 
@@ -490,7 +475,6 @@ window.addEventListener('resize', function(event){
 
 
 smartdown.setVariable('download', false);
-smartdown.setVariable('imageForDownload', '');
 smartdown.setVariable('redraw', false);
 smartdown.setVariable('newColors', false);
 smartdown.setVariable('decomp', false);
@@ -531,7 +515,12 @@ this.depend = function() {
     smartdown.setVariable('download', false);
 
     const imgData = canvas.toDataURL("image/jpg");
-    smartdown.setVariable('imageForDownload', imgData);
+    let iframe = "<iframe width='100%' height='100%' src='" + imgData + "'></iframe>"
+    let x = window.open();
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
+
   }
   else {
     smartdown.setVariable('imageForDownload', '');

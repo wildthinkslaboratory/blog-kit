@@ -17,23 +17,7 @@ We had a great time learning about fractals at [Mathigon's](https://mathigon.org
 # --aliceblue
 [random fractal](:=randomFractal=true) [random seed](:=randomSeed=true) [random colors](:=color=true) [zoom in](:=zoomin=true) [zoom out](:=zoomout=true) [up](:=up=true) [down](:=down=true) [left](:=left=true) [right](:=right=true) 
 **seed:** **A** [](:?A)  **B** [](:?B) [draw seed](:=redraw=true)
-[prepare a download](:=download=true) 
-
-```javascript /autoplay/inline
-this.div.innerHTML = `<a></a>`;
-
-this.dependOn = ['imageForDownload'];
-this.depend = function() {
-  if (env.imageForDownload == '') {
-    this.div.innerHTML = `<a></a>`;
-  }
-  else {
-      this.div.innerHTML = `<a target="_blank" rel="noopener noreferrer" href=${env.imageForDownload}>download link</a>`;
-  }
-
-}
-
-```
+[open image in new tab](:=download=true) 
 # --aliceblue
 # ::::
 
@@ -203,7 +187,6 @@ smartdown.setVariable('randomSeed', false);
 smartdown.setVariable('A', seedA);
 smartdown.setVariable('B', seedB);
 smartdown.setVariable('redraw', false);
-smartdown.setVariable('imageForDownload', '');
 
 this.dependOn = ['randomFractal','color','zoomin', 'zoomout','up', 'down','left','right','download', 'randomSeed', 'redraw'];
 this.depend = function() {
@@ -212,7 +195,11 @@ this.depend = function() {
     smartdown.setVariable('download', false);
 
     const imgData = canvas.toDataURL("image/jpg");
-    smartdown.setVariable('imageForDownload', imgData);
+    let iframe = "<iframe width='100%' height='100%' src='" + imgData + "'></iframe>"
+    let x = window.open();
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
   }
   else {
     smartdown.setVariable('imageForDownload', '');

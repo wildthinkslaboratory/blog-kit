@@ -18,22 +18,7 @@ This is a companion interactive for one of my favorite [Mathologer](https://www.
 [draw](:=redraw=true) show numbers [](:XshowNumbers) 
 number of points: [](:?points|number)  
 multiply by: [](:?factor|number) 
-[prepare a download](:=download=true) 
-```javascript /autoplay/inline
-this.div.innerHTML = `<a></a>`;
-
-this.dependOn = ['imageForDownload'];
-this.depend = function() {
-  if (env.imageForDownload == '') {
-    this.div.innerHTML = `<a></a>`;
-  }
-  else {
-      this.div.innerHTML = `<a target="_blank" rel="noopener noreferrer" href=${env.imageForDownload}>download link</a>`;
-  }
-
-}
-
-```
+[open image in new tab](:=download=true) 
 # --aliceblue
 # ::::
 
@@ -176,7 +161,6 @@ smartdown.setVariable('factor', multiplier);
 smartdown.setVariable('download', false);
 smartdown.setVariable('redraw', false);
 smartdown.setVariable('showNumbers', showNums);
-smartdown.setVariable('imageForDownload', '');
 
 this.dependOn = ['download', 'redraw'];
 this.depend = function() {
@@ -185,7 +169,11 @@ this.depend = function() {
     smartdown.setVariable('download', false);
 
     const imgData = canvas.toDataURL("image/jpg");
-    smartdown.setVariable('imageForDownload', imgData);
+    let iframe = "<iframe width='100%' height='100%' src='" + imgData + "'></iframe>"
+    let x = window.open();
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
   }
   else {
     if (env.redraw == true) {
