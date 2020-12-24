@@ -140,7 +140,6 @@ lessons :
     - url: /pages/limitDE3/
       name: four
 
-
   expDotsGodel:
     - url: /pages/expDotsGodel1/
       name: one
@@ -153,6 +152,17 @@ lessons :
     - url: /pages/expDotsGodel5/
       name: five   
             
+  ftc:
+   - url: /pages/ftcArea/
+      name: one 
+   - url: /pages/ftcArea2/
+      name: two 
+   - url: /pages/ftcLeftVsRightSums/
+      name: three 
+   - url: /pages/ftcSecRect/
+      name: four 
+
+
 # Build settings
 # remote_theme: BlackrockDigital/startbootstrap-clean-blog-jekyll # mmistakes/minimal-mistakes
 theme: jekyll-theme-clean-blog
