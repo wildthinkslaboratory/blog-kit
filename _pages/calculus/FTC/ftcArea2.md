@@ -56,8 +56,8 @@ JXG.Options.text.useMathJax = true;
 
 let xlow = -1;
 let xhigh = 5;
-let ylow = -10;
-let yhigh = 20;
+let ylow = -8;
+let yhigh = 45;
 
 let a = 1;
 let b = 4;
@@ -69,8 +69,11 @@ let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel
 
 let df = function(x) { return Math.pow(x-2,4)/8 + Math.pow(x-2,3)/12 - 3 * (x-2) * (x-2) + 12;};
 let f =  function(x) { return Math.pow(x-2,5)/40 + Math.pow(x-2,4)/48 - Math.pow(x-2,3) + 12* (x - 2) + 25;  };
-let F = new ProblemFunction(df, '', 4, [xlow,xhigh], []);
+let F = new ProblemFunction(f, '', 4, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
+
+let DF = new ProblemFunction(df, '', 4, [xlow,xhigh], []);
+let DF_id = workspace.addFunction(DF);
 
 let fHighlight = workspace.board.create('functiongraph', [df, xlow, xhigh], 
 {
@@ -79,26 +82,8 @@ let fHighlight = workspace.board.create('functiongraph', [df, xlow, xhigh],
   strokeWidth:4,
 });
 
-// let ftemp = workspace.board.create('functiongraph', [f, xlow, xhigh], 
-// {
-//   visible:true,
-//   strokeColor:'#55DDFF', 
-//   strokeWidth:4,
-// });
-
-// let integral = workspace.board.create('integral', [[a, b], workspace.functions[F_id].graph],
-//   {
-//     visible:false, 
-//     fillColor:cs.highlightFill, 
-//     label: {visible:false}, 
-//     curveLeft: {visible:false},
-//     curveRight: {visible:false}
-//   });
-
-// let avert = workspace.board.create('segment',[[a,0], [a,df(a)]],{strokeColor:cs.darkAnnote, strokeWidth:1, visible:false});
-// let bvert = workspace.board.create('segment',[[b,0], [b,df(b)]],{strokeColor:cs.darkAnnote, strokeWidth:1, visible:false});
-let aText = workspace.board.create('text',[a, -2, 'a'], {fontSize:12, color:cs.darkAnnote, fixed:true});
-let bText = workspace.board.create('text',[b, -2, 'b'], {fontSize:12, color:cs.darkAnnote, fixed:true});
+let aText = workspace.board.create('text',[a, -3, 'a'], {fontSize:12, color:cs.darkAnnote, fixed:true});
+let bText = workspace.board.create('text',[b, -3, 'b'], {fontSize:12, color:cs.darkAnnote, fixed:true});
 
 let s = workspace.board.create('slider',[[2,-5],[4,-5],[1,6,50]],
   {

@@ -1,0 +1,189 @@
+---
+title: Secant Rectangle
+smartdown: true
+header: 'none'
+lesson: 'ftc'
+ogimage: /assets/images/calculus/ftc1.jpg
+---
+
+
+# :::: panel
+# --partialborder panelbox
+##### Fundamental Theorem of Calculus
+Returning to our area under the curve problem.  Let's use our new way of drawing the rectangles.  First we find the [antiderivative](:=showAntiDer=true) of our function which we will call $F$. We divide it up into [secants](:=showSecants=true).  We attach each [rectangle](:=showRect=true) so the height of the rectangle matches the slope of it's corresponding secant. 
+
+Instead of adding up the areas of the rectangles, we can add up the rises of the secants. Notice that as the number of rectangles gets large, this sum goes to $$F(b) - F(a).$$
+
+
+Number of rectangles: [](:-segments/1/50/1) [](:!segments) 
+# --partialborder
+# ::::
+
+
+```javascript /autoplay
+
+const panelBox = document.getElementById('panel');
+panelBox.classList.add('text-3-col');
+
+
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
+smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
+// import the calc library
+//smartdown.import=/assets/libs/calc.js
+//smartdown.import=/assets/libs/mapping.js
+
+smartdown.showDisclosure('panel','','topleft,draggable,shadow');
+
+const myDiv = this.div;
+myDiv.style.width = '100%';
+myDiv.style.height = '100%';
+myDiv.style.margin = 'auto';
+
+myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
+
+JXG.Options.text.useMathJax = true;
+
+let xlow = -1;
+let xhigh = 8;
+let ylow = -8;
+let yhigh = 60;
+
+let a = 1;
+let b = 6;
+let n = 4;
+
+let cs = new SteelTheme();
+
+let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
+
+let df = function(x) { return Math.pow(x/2,4)/8 + Math.pow(x/2,3)/12 - 3 * Math.pow(x/2,2) + 12;};
+let f =  function(x) { return Math.pow(x,5)/(40*16) + Math.pow(x,4)/(48*8) - Math.pow(x,3)/4 + 12* (x) + 15;  };
+let F = new ProblemFunction(f, '', 4, [xlow,xhigh], []);
+let F_id = workspace.addFunction(F);
+
+workspace.functions[F_id].graph.setAttribute({visible:false});
+
+let DF = new ProblemFunction(df, '', 4, [xlow,xhigh], []);
+let DF_id = workspace.addFunction(DF);
+
+let xintSR = new XInterval(workspace.board, a, b);
+
+let avert = workspace.board.create('segment',[[a,0], [a,df(a)]],
+  {strokeColor:cs.darkAnnote, strokeWidth:1, visible: true});
+let bvert = workspace.board.create('segment',[[b,0], [b,df(b)]],
+  {strokeColor:cs.darkAnnote, strokeWidth:1, visible: true});
+let aText = workspace.board.create('text',[a, -2, 'a'], 
+  {fontSize:12, color:cs.darkAnnote, fixed:true, visible: true});
+let bText = workspace.board.create('text',[b, 2, 'b'], 
+  {fontSize:12, color:cs.darkAnnote, fixed:true, visible: true});
+
+let integral = workspace.board.create('integral', [[a, b], workspace.functions[DF_id].graph],
+  {
+    visible:true, 
+    fillColor:cs.highlightFill, 
+    label: {visible:false}, 
+    curveLeft: {visible:false},
+    curveRight: {visible:false}
+  });
+
+
+
+
+
+let slider = new IntSlider(xintSR.board, [xintSR.attachRightX, xintSR.attachY], [1, 50], 'N');
+slider.setValue(n);
+
+
+let sra = new SecantRectArray(xintSR, F.f, slider, {
+  annotations:'off',
+  attachButtonVisible:false
+});
+
+
+
+sra.secants.secants.setAttribute({
+	strokecolor:cs.lightannote, 
+    strokeWidth:1
+});
+
+// sra.rectangles.rectangles.setAttribute({
+// 	fillOpacity: 0.02
+// });
+
+
+rises = [];
+function updateRises() {
+  workspace.board.suspendUpdate();
+  for (let i=0; i < rises.length; i++) {
+    workspace.board.removeObject(rises[i]);
+  }
+  workspace.board.unsuspendUpdate(); 
+  rises = [];
+
+  let a = sra.xint.X1();
+  let deltaX = sra.deltaPX();
+  // make new rises
+  for (let i=0; i < n; i += 1) {
+    let x1 = a + i * deltaX;
+    let x2 = a + (i+1) * deltaX;
+    rises.push(workspace.board.create('segment',[[x2,f(x1)], [x2,f(x2)]],
+    { strokeColor:'#55DDFF', strokeWidth:3, visible:true}));
+  } 
+}
+
+workspace.board.on('update', function() {
+  workspace.onUpdate();
+  sra.onUpdate();
+});
+
+sra.hide();
+
+let widthPercent = 0.8;
+let heightPercent = 0.8;
+
+this.sizeChanged = function() {
+  workspace.board.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);       
+};
+
+
+this.sizeChanged();
+
+smartdown.setVariable('showSecants', false);
+smartdown.setVariable('showRect', false);
+smartdown.setVariable('showAntiDer', false);
+smartdown.setVariable('segments', n);
+
+this.dependOn = ['showSecants', 'showRect', 'showAntiDer', 'segments'];
+this.depend = function() {
+  if (env.segments !== n) {
+    n = env.segments;
+    sra.slider.setValue(n);
+    updateRises();
+    workspace.board.update();
+  }
+
+  if (env.showAntiDer == true) {
+    smartdown.setVariable('showAntiDer', false);
+    workspace.functions[F_id].graph.setAttribute({visible:true});
+  }
+
+  if (env.showSecants == true) {
+    smartdown.setVariable('showSecants', false);
+    integral.setAttribute({visible:false});
+    aText.setAttribute({visible:false});
+    bText.setAttribute({visible:false});
+    avert.setAttribute({visible:false});
+    bvert.setAttribute({visible:false});
+    sra.secants.show();
+    updateRises();
+  }
+  if (env.showRect == true) {
+    smartdown.setVariable('showRect', false);
+    sra.rectangles.show();
+  }
+}
+
+
+
+```
+

@@ -483,7 +483,13 @@ class BaseWidget {
     return n;
   }
 
-  unitsTextX() { return this.xint.midX(); }
+  unitsTextX() { 
+    let x = this.xint.midX(); 
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      x += 2 * this.xint.Xerror;
+    }
+    return x;
+  }
 
   changeTextWidth() {
     if (this.changeText == undefined ) return 0;
@@ -670,7 +676,14 @@ class Segment extends BaseWidget {
     }
     return this.midX() + 2 * this.Xerror; 
   }
-  rateTextY() { return this.f1.Y() + this.change() / 2; }
+  rateTextY() { 
+    let y = this.f1.Y() + this.change() / 2; 
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      y += 2 * this.Yerror;
+    }
+    return y;
+  }
+
   slopeString() { 
     let s = 'slope = ';
     if ('rate' in this.attr && 
@@ -878,7 +891,14 @@ class Secant extends BaseWidget {
     }
     return this.xint.midX() + 2 * this.xint.Xerror; 
   }
-  rateTextY() { return this.fx1() + this.rise() / 2; }
+  rateTextY() { 
+    let y = this.fx1() + this.rise() / 2; 
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      y += 4 * this.xint.Yerror;
+    }
+    return y;
+  }
+
   slopeString() { 
     if (this.units() == 0) {
       return 'slope = UNDEFINED';
@@ -898,15 +918,25 @@ class Secant extends BaseWidget {
     }
     return this.xint.X2() -this.changeTextWidth() - this.xint.Xerror;
   }
-  changeTextY() { return this.fx1() + this.rise() / 2; }
+  changeTextY() { 
+    let y = this.fx1() + this.rise() / 2; 
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      y += 4 * this.xint.Yerror;
+    }
+    return y;
+  }
   
 
   // this is all for the units string annotation
   unitsTextY() { 
+    let y = this.f1.Y() + 3 * this.xint.Yerror; 
     if (this.f1.Y() <= this.f2.Y())  {
-      return this.f1.Y() - 3 * this.xint.Yerror; 
+      y = this.f1.Y() - 3 * this.xint.Yerror; 
     }
-    return this.f1.Y() + 3 * this.xint.Yerror;     
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      y += 4 * this.xint.Yerror;
+    }
+    return y;       
   }
 
   // call back functions for annotations
@@ -1136,24 +1166,54 @@ class Rectangle extends BaseWidget {
 
 
   // this mangages the area text annotation
-  changeTextX() { return this.xint.midX(); }
-  changeTextY() { return this.height() / 2; }
+  changeTextX() { 
+    let x = this.xint.midX(); 
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      x += 2 * this.xint.Xerror;
+    }
+    return x;
+  }
+  changeTextY() { 
+    let y = this.height() / 2; 
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      y += 4 * this.xint.Yerror;
+    }
+    return y;  
+  }
 
 
   // this mangages the height text annotation
   rateTextX() { 
+    let x = this.hdX() - this.rateTextWidth() - this.xint.Xerror; 
+
     if (this.xint.X1() < this.xint.X2()) {
-      return this.hdX() + this.xint.Xerror;
+      x = this.hdX() + this.xint.Xerror;
     }
-    return this.hdX() - this.rateTextWidth() - this.xint.Xerror; 
+
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      x += 0 * this.xint.Xerror;
+    }
+    return x;
   }
-  rateTextY() { return this.height() / 2 }
+
+  rateTextY() { 
+    let y = this.height() / 2;
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      y += 4 * this.xint.Yerror;
+    }
+    return y;  
+  }
 
 
   // this mangages the width text annotation
   unitsTextY() { 
-    if (this.rate() >= 0) { return this.height() + 4 * this.xint.Yerror; }
-    return this.height() - 6 * this.xint.Yerror; 
+    let y = this.height() - 6 * this.xint.Yerror;
+    if (this.rate() >= 0) { y = this.height() + 4 * this.xint.Yerror; } 
+
+    if ('latexAdjustment' in this.attr && this.attr['latexAdjustment'] == true) {
+      y += 4 * this.xint.Yerror;
+    }
+    return y;  
   }
 
   // call back functions for annotations
@@ -1954,6 +2014,9 @@ class SecantRectArray {
     this.rectangles.hide();
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 

@@ -17,13 +17,13 @@ ogimage: /assets/images/calculus/ftc1.jpg
 
 
 #### --outlinebox right1
-Derivatives tell us the slope of tiny, tiny secants and integrals sum up tiny, tiny rectangles. In our earlier section on [secants and rectangles](/pages/prelude) we saw that every secant has a matching rectangle.  They are two different ways of expressing the same information.  For example, the slope of the secant may tell us the rate of change as a ratio of distance over time $r = \frac{d}{t}$.  The area of the corresponding rectangle tells us the distance as a product of the rate and the time $d = r \cdot t$.  Slopes and areas are inverses of each other.    
+Derivatives tell us the slope of [tiny](:=animate=true), tiny secants and integrals sum up [tiny](:=animate=true), tiny rectangles. In our earlier section on [secants and rectangles](/pages/prelude) we saw that every secant has a matching rectangle.  They are two different ways of expressing the same information.  For example, the slope of the secant may tell us the rate of change as a ratio of distance over time $r = \frac{d}{t}$.  The area of the corresponding rectangle tells us the distance as a product of the rate and the time $d = r \cdot t$.  Slopes and areas are inverses of each other.    
 
-If for some reason I [didn't know](:=hideArea=true) the area of the rectangle, I could infer the area from the height of the secant.
+If for some reason I [didn't know](:=hideArea=true) the area of the rectangle, I could infer the area from the height of the $secant$.
 
 [show area](:=showArea=true)
 
-[Continue](/pages/ftc5)
+[Continue](/pages/ftcArea)
 
 #### --outlinebox
 #### --outlinebox
@@ -57,8 +57,8 @@ JXG.Options.text.useMathJax = true;
 
 let xlow = -1;
 let xhigh = 5;
-let ylow = -10;
-let yhigh = 50;
+let ylow = -8;
+let yhigh = 45;
 
 let a = 1;
 let b = 3;
@@ -88,6 +88,18 @@ let secantRect = new SecantRectangle(xint,  F.f, {
 	attachButtonVisible:false,
 });
 
+let shx = function() { return secantRect.xint.X2(); };
+let sh1 = function() { return secantRect.secant.fx1(); }
+let sh2 = function() { return secantRect.secant.fx2(); }
+
+let secant_height = workspace.board.create('segment',[[shx,sh1], [shx,sh2]],
+  {
+    strokeColor:'#55DDFF', 
+    strokeWidth:4,
+    firstArrow:true, 
+    lastArrow:true, 
+    visible:false
+  });
 
 workspace.board.on('update', function() {
   workspace.onUpdate();
@@ -123,20 +135,11 @@ right.classList.add('text-2-col');
 
 // set up highlight mapping for formulas.  connect them with their
 // model highlight
-const formula1 = document.getElementById('MathJax-Element-4-Frame');
-formula1.onmouseover = onAFFactory(formula1, showAFFactory([height]));
-formula1.onmouseout = offAFFactory(formula1, hideAFFactory([height]));
+const formula1 = document.getElementById('MathJax-Element-3-Frame');
+formula1.onmouseover = onAFFactory(formula1, showAFFactory([secant_height]));
+formula1.onmouseout = offAFFactory(formula1, hideAFFactory([secant_height]));
 formula1.classList.add('highlightOffNarrow');
 
 
-const formula2 = document.getElementById('MathJax-Element-5-Frame');
-formula2.onmouseover = onAFFactory(formula2, showAFFactory([width]));
-formula2.onmouseout = offAFFactory(formula2, hideAFFactory([width]));
-formula2.classList.add('highlightOffNarrow');
-
-const formula3 = document.getElementById('MathJax-Element-1-Frame');
-formula3.onmouseover = onAFFactory(formula3, showAFFactory([fHighlight]));
-formula3.onmouseout = offAFFactory(formula3, hideAFFactory([fHighlight]));
-formula3.classList.add('highlightOffNarrow');
 
 ```

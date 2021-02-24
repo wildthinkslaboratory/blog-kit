@@ -17,13 +17,13 @@ ogimage: /assets/images/calculus/ftc1.jpg
 
 
 #### --outlinebox right1
-We want to find the area underneath the curve $f(x)$ between the values $a$ and $b$ on the x-axis.  We can estimate the area by [dividing](:=divide=true) it up into small rectangles and then adding up the area of the rectangles. The area of any single rectangle is just it's height $f(x_{i-1})$ times it's width $(x_i - x_{i-1})$.  The sum of all areas is written like this.  
-$$\sum_{i=1}^{5} f(x_{i-1})(x_i - x_{i-1})$$
-The sigma $\sum$ notation is shorthand for the sum of 
+We want to find the area underneath the curve $f(x)$ between the values $a$ and $b$ on the x-axis.  We can estimate the area by [dividing](:=divide=true) it up into small rectangles and then adding up the area of the rectangles. The area of any single rectangle is just it's height $f(x_{i-1})$ times it's width $(x_i - x_{i-1})$.  The area of the first rectangle is $f(x_0)(x_1 - x_0)$ and the sum of all the rectangles is
 $$
-f(x_0)(x_1 - x_0) + f(x_1)(x_2 - x_1) + \cdots + f(x_4)(x_5 - x_4)
+f(x_0)(x_1 - x_0) + f(x_1)(x_2 - x_1) + \cdots + f(x_5)(x_6 - x_5)
 $$ 
-Each of these terms is the area of one of the rectangles.
+The sigma $\sum$ notation gives us a shorthand way to write this sum.  
+$$\sum_{i=1}^{6} f(x_{i-1})(x_i - x_{i-1})$$
+
 [Continue](/pages/ftcArea2)
 
 #### --outlinebox
@@ -58,8 +58,8 @@ JXG.Options.text.useMathJax = true;
 
 let xlow = -1;
 let xhigh = 5;
-let ylow = -10;
-let yhigh = 20;
+let ylow = -8;
+let yhigh = 45;
 
 let a = 1;
 let b = 4;
@@ -71,8 +71,11 @@ let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel
 
 let df = function(x) { return Math.pow(x-2,4)/8 + Math.pow(x-2,3)/12 - 3 * (x-2) * (x-2) + 12;};
 let f =  function(x) { return Math.pow(x-2,5)/40 + Math.pow(x-2,4)/48 - Math.pow(x-2,3) + 12* (x - 2) + 25;  };
-let F = new ProblemFunction(df, '', 4, [xlow,xhigh], []);
+let F = new ProblemFunction(f, '', 4, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
+
+let DF = new ProblemFunction(df, '', 4, [xlow,xhigh], []);
+let DF_id = workspace.addFunction(DF);
 
 let fHighlight = workspace.board.create('functiongraph', [df, xlow, xhigh], 
 {
@@ -88,7 +91,7 @@ let fHighlight = workspace.board.create('functiongraph', [df, xlow, xhigh],
 //   strokeWidth:4,
 // });
 
-let integral = workspace.board.create('integral', [[a, b], workspace.functions[F_id].graph],
+let integral = workspace.board.create('integral', [[a, b], workspace.functions[DF_id].graph],
   {
     visible:true, 
     fillColor:cs.highlightFill, 
@@ -99,8 +102,8 @@ let integral = workspace.board.create('integral', [[a, b], workspace.functions[F
 
 let avert = workspace.board.create('segment',[[a,0], [a,df(a)]],{strokeColor:cs.darkAnnote, strokeWidth:1});
 let bvert = workspace.board.create('segment',[[b,0], [b,df(b)]],{strokeColor:cs.darkAnnote, strokeWidth:1});
-let aText = workspace.board.create('text',[a, -2, 'a'], {fontSize:12, color:cs.darkAnnote, fixed:true});
-let bText = workspace.board.create('text',[b, -2, 'b'], {fontSize:12, color:cs.darkAnnote, fixed:true});
+let aText = workspace.board.create('text',[a, -3, 'a'], {fontSize:12, color:cs.darkAnnote, fixed:true});
+let bText = workspace.board.create('text',[b, -3, 'b'], {fontSize:12, color:cs.darkAnnote, fixed:true});
 
 let riemannsum = workspace.board.create('riemannsum',
               [df, function(){return n;}, 'left', a, b],
@@ -129,7 +132,7 @@ let height = workspace.board.create('segment',[[a - 0.1,0], [a - 0.1,df(a)]],
     visible:false
   });
 
-let width = workspace.board.create('segment',[[a, df(a)+0.4], [a+deltaX,df(a)+0.4]],
+let width = workspace.board.create('segment',[[a, df(a)+1], [a+deltaX,df(a)+1]],
   {
     strokeColor:'#55DDFF', 
     strokeWidth:4,
@@ -138,6 +141,17 @@ let width = workspace.board.create('segment',[[a, df(a)+0.4], [a+deltaX,df(a)+0.
     visible:false
   });
 
+let rect1 = workspace.board.create('polygon', [[a,0], [a,df(a)], [a+0.5,df(a)], [a+0.5,0]], 
+    {
+      borders: { strokeColor: '#55DDFF', highlightStrokeColor: '#55DDFF'},
+      fillColor:'#55DDFF', 
+      highlightFillColor:'#55DDFF', 
+      fillOpacity:1,
+      highlightFillOpacity:1,
+      hasInnerPoints:true,
+      visible:false,
+      vertices: {visible:false}
+    });
 
 workspace.board.on('update', function() {
   workspace.onUpdate();
@@ -192,5 +206,10 @@ const formula3 = document.getElementById('MathJax-Element-1-Frame');
 formula3.onmouseover = onAFFactory(formula3, showAFFactory([fHighlight]));
 formula3.onmouseout = offAFFactory(formula3, hideAFFactory([fHighlight]));
 formula3.classList.add('highlightOffNarrow');
+
+const formula4 = document.getElementById('MathJax-Element-6-Frame');
+formula4.onmouseover = onAFFactory(formula4, showAFFactory([rect1]));
+formula4.onmouseout = offAFFactory(formula4, hideAFFactory([rect1]));
+formula4.classList.add('highlightOffNarrow');
 
 ```

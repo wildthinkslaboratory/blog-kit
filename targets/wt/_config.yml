@@ -153,13 +153,13 @@ lessons :
       name: five   
             
   ftc:
-   - url: /pages/ftcArea/
+    - url: /pages/ftc1/
       name: one 
-   - url: /pages/ftcArea2/
+    - url: /pages/ftc2/
       name: two 
-   - url: /pages/ftcLeftVsRightSums/
+    - url: /pages/ftc3/
       name: three 
-   - url: /pages/ftcSecRect/
+    - url: /pages/ftc4/
       name: four 
 
 

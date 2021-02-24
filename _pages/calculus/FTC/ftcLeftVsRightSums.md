@@ -17,10 +17,11 @@ ogimage: /assets/images/calculus/ftc1.jpg
 
 
 #### --outlinebox right1
-Notice that these rectangles attach to the curve on the left side.  We could attach the rectangles on the [right](:=right=true) and then take the limit as $n$ goes to infinity. 
-$$ \lim_{n \to \infty} \sum_{i=1}^{n} f(x_{i})(x_i - x_{i-1})$$ Notice that the limit still converges to the area under the curve.  When we [pick](:=pick=true) the height of a rectangle, we can use the left most value $f(x_{i-1})$, the right most value $f(x_i)$ or any value $f(c)$ where $c$ is inbetween $x_{i-1}$ and $x_i$.  All of these rectangle sums will approach the same limit as the number of rectangles goes to infinity.
+Notice that these rectangles attach to the curve on the left side.  We could attach the rectangles on the right. [right](:=right=true) [left](:=left=true)
+If we attach the rectangles on the right and let the number of rectangles go to infinity we write the limit like this
+$$ \lim_{n \to \infty} \sum_{i=1}^{n} f(x_{i})(x_i - x_{i-1})$$ 
 
-Attach rectangles on the [left](:=left=true)
+Try increasing the number of rectangles.  You'll see that in both approaches the limit approaches the area under the curve. There are multiple ways we can define our rectangles to create a limit that gives us the area under the curve.
 [Continue](/pages/ftc3)
 
 #### --outlinebox
@@ -55,8 +56,8 @@ JXG.Options.text.useMathJax = true;
 
 let xlow = -1;
 let xhigh = 5;
-let ylow = -10;
-let yhigh = 20;
+let ylow = -8;
+let yhigh = 45;
 
 let a = 1;
 let b = 4;
@@ -68,12 +69,16 @@ let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel
 
 let df = function(x) { return Math.pow(x-2,4)/8 + Math.pow(x-2,3)/12 - 3 * (x-2) * (x-2) + 12;};
 let f =  function(x) { return Math.pow(x-2,5)/40 + Math.pow(x-2,4)/48 - Math.pow(x-2,3) + 12* (x - 2) + 25;  };
-let F = new ProblemFunction(df, '', 4, [xlow,xhigh], []);
+let F = new ProblemFunction(f, '', 4, [xlow,xhigh], []);
 let F_id = workspace.addFunction(F);
-workspace.functions[F_id].graph.setAttribute({strokeColor:cs.darkAnnote, strokeWidth:2});
 
-let aText = workspace.board.create('text',[a, -2, 'a'], {fontSize:12, color:cs.darkAnnote, fixed:true});
-let bText = workspace.board.create('text',[b, -2, 'b'], {fontSize:12, color:cs.darkAnnote, fixed:true});
+let DF = new ProblemFunction(df, '', 4, [xlow,xhigh], []);
+let DF_id = workspace.addFunction(DF);
+
+//workspace.functions[DF_id].graph.setAttribute({strokeColor:cs.darkAnnote, strokeWidth:2});
+
+let aText = workspace.board.create('text',[a, -3, 'a'], {fontSize:12, color:cs.darkAnnote, fixed:true});
+let bText = workspace.board.create('text',[b, -3, 'b'], {fontSize:12, color:cs.darkAnnote, fixed:true});
 
 let s = workspace.board.create('slider',[[2,-5],[4,-5],[1,6,50]],
   {
@@ -96,54 +101,37 @@ let riemannsumR = workspace.board.create('riemannsum',
               );
 
 
-let rect1 = workspace.board.create('polygon', [[a+1,0], [a+1,df(a+1)], [a+2,df(a+1)], [a+2,0]], 
+let xTexts = [];
+let deltaX = (b-a)/n;
+for (let i=0; i < n+1; i++) {
+  xTexts.push(workspace.board.create('text', [a + i * deltaX, 0, 
+    function() { return '\\[x_' + i.toString() + '\\]';} ], 
     {
-      borders: { strokeColor: '#55DDFF', highlightStrokeColor: '#55DDFF'},
-      fillColor:'#55DDFF', 
-      highlightFillColor:'#55DDFF', 
-      fillOpacity:1,
-      highlightFillOpacity:1,
-      hasInnerPoints:true,
-      visible:false,
-      vertices: {visible:false}
-    });
+      fontSize:12,
+      visible:true
+    }));
+}
 
-let rect2 = workspace.board.create('polygon', [[a+1,0], [a+1,df(a+2)], [a+2,df(a+2)], [a+2,0]], 
-    {
-      borders: { strokeColor: '#55DDFF', highlightStrokeColor: '#55DDFF'},
-      fillColor:'#55DDFF', 
-      highlightFillColor:'#55DDFF', 
-      fillOpacity:1,
-      highlightFillOpacity:1,
-      hasInnerPoints:true,
-      visible:false,
-      vertices: {visible:false}
-    });
+let xsOn = function() {
+    for (let i=0; i < n+1; i++) {
+      xTexts[i].setAttribute({visible:true});
+    }
+};
 
-let rectC = workspace.board.create('polygon', [[a+1,0], [a+1,df(a+1.6)], [a+2,df(a+1.6)], [a+2,0]], 
-    {
-      borders: { strokeColor: '#55DDFF', highlightStrokeColor: '#55DDFF'},
-      fillColor:'#55DDFF', 
-      highlightFillColor:'#55DDFF', 
-      fillOpacity:1,
-      highlightFillOpacity:1,
-      hasInnerPoints:true,
-      visible:false,
-      vertices: {visible:false}
-    });
+let xsOff = function() {
+    for (let i=0; i < n+1; i++) {
+      xTexts[i].setAttribute({visible:false});
+    }
+};
 
+let sliderUpdate = function() {
+  if (s.Value() == 6) { xsOn(); }
+  else {
+    xsOff();
+  }
+}
 
-let height = workspace.board.create('segment',[[a + 1.6,0], [a + 1.6,df(a+1.6)]],
-  {
-    strokeColor: cs.darkAnnote, 
-    strokeWidth:1,
-    firstArrow:true, 
-    lastArrow:true, 
-    visible:false
-  });
-
-let cText = workspace.board.create('text',[a+1.6, -1, 'c'], {fontSize:12, color:cs.darkAnnote, fixed:true, visible:false});
-
+s.on('drag', sliderUpdate);
 
 workspace.board.on('update', function() {
   workspace.onUpdate();
@@ -158,9 +146,8 @@ this.sizeChanged();
 
 smartdown.setVariable('right', false);
 smartdown.setVariable('left', false);
-smartdown.setVariable('pick', false);
 
-this.dependOn = ['right', 'left', 'pick'];
+this.dependOn = ['right', 'left'];
 this.depend = function() {
   if (env.right == true) {
     smartdown.setVariable('right', false);
@@ -172,34 +159,12 @@ this.depend = function() {
     riemannsumL.setAttribute({visible:true});
     riemannsumR.setAttribute({visible:false});
   }
-  if (env.pick == true) {
-    smartdown.setVariable('pick', false);
-    s.setValue(3);
-    workspace.board.update();
-  }  
 }
 outer.classList.add('outer-multi-col');
 left.classList.add('playable-2-col');
 right.classList.add('text-2-col');
 
 
-// set up highlight mapping for formulas.  connect them with their
-// model highlight
-const formula1 = document.getElementById('MathJax-Element-3-Frame');
-formula1.onmouseover = onAFFactory(formula1, showAFFactory([rect1]));
-formula1.onmouseout = offAFFactory(formula1, hideAFFactory([rect1]));
-formula1.classList.add('highlightOffNarrow');
-
-
-const formula2 = document.getElementById('MathJax-Element-4-Frame');
-formula2.onmouseover = onAFFactory(formula2, showAFFactory([rect2]));
-formula2.onmouseout = offAFFactory(formula2, hideAFFactory([rect2]));
-formula2.classList.add('highlightOffNarrow');
-
-const formula3 = document.getElementById('MathJax-Element-5-Frame');
-formula3.onmouseover = onAFFactory(formula3, showAFFactory([rectC, height, cText]));
-formula3.onmouseout = offAFFactory(formula3, hideAFFactory([rectC, height, cText]));
-formula3.classList.add('highlightOffNarrow');
 
 
 ```
