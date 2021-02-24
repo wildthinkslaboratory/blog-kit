@@ -12,7 +12,7 @@ ogimage: /assets/images/calculus/ftc1.jpg
 ##### Mean Value Theorem
 We're going to use the mean value theorem to draw a rectangle.  We have a function $F(x)$. Let's add a [secant](:=showSecant=true) over interval $[a,b]$. The mean value theorem tells us there is at least one point $c$ on $[a,b]$ where the tangent to the graph is parallel to the secant. [show c](:=showMean=true)
 
-Here's the [derivative](:=showDerivative=true) of $F$. We'll attach a [rectangle](:=showRect=true) to the derivative graph at the point $c$. The height of our rectangle is equal to $slope$ of our secant and the $area$ is the same as the secant's vertical rise.  If we didn't know the area of this rectangle, we could figure it out from the rise of the secant.  Take some time and make sure you understand these relationships. You can find more exercises exploring this relationship [here](/pages/prelude).
+Here's the [derivative](:=showDerivative=true) of $F$, we'll call it $f$. We'll attach a [rectangle](:=showRect=true) to the derivative graph at the point $c$. The height of our rectangle is equal to $slope$ of our secant and the $area$ is the same as the secant's vertical rise.  If we didn't know the area of this rectangle, we could figure it out from the rise of the secant. More exercises exploring this relationship are [here](/pages/prelude).
 [Continue](/pages/ftc4)
 # --partialborder
 # ::::
@@ -217,12 +217,12 @@ formula1.onmouseover = onAFFactory(formula1, showAFFactory([fHighlight]));
 formula1.onmouseout = offAFFactory(formula1, hideAFFactory([fHighlight]));
 formula1.classList.add('highlightOffNarrow');
 
-const formula2 = document.getElementById('MathJax-Element-7-Frame');
+const formula2 = document.getElementById('MathJax-Element-8-Frame');
 formula2.onmouseover = onAFFactory(formula2, showAFFactory([height, slope]));
 formula2.onmouseout = offAFFactory(formula2, hideAFFactory([height, slope]));
 formula2.classList.add('highlightOffNarrow');
 
-const formula3 = document.getElementById('MathJax-Element-8-Frame');
+const formula3 = document.getElementById('MathJax-Element-9-Frame');
 formula3.onmouseover = onAFFactory(formula3, showAFFactory([rect1, secantRise]));
 formula3.onmouseout = offAFFactory(formula3, hideAFFactory([rect1, secantRise]));
 formula3.classList.add('highlightOffNarrow');

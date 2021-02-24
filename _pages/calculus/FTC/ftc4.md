@@ -10,15 +10,22 @@ ogimage: /assets/images/calculus/ftc1.jpg
 # :::: panel
 # --partialborder panelbox
 ##### Fundamental Theorem of Calculus
-Returning to our area under the curve problem.  Let's use our new way of drawing the rectangles.  First we find the [antiderivative](:=showAntiDer=true) of our function which we will call $F$. We divide it up into [secants](:=showSecants=true).  We attach each [rectangle](:=showRect=true) so the height of the rectangle matches the slope of it's corresponding secant. 
+Returning to our area under the curve problem.  Let's use our new way of drawing the rectangles.  First we find the [antiderivative](:=showAntiDer=true) of our function which we will call $F$. We divide it up into [secants](:=showSecants=true).  We attach each [rectangle](:=showRect=true) so the height of the rectangle matches the slope of it's corresponding secant and the area of the rectangle matches the rise of the secant.
 
 Instead of adding up the areas of the rectangles, we can add up the rises of the secants. Notice that as the number of rectangles gets large, this sum goes to $$F(b) - F(a).$$
 
-
 Number of rectangles: [](:-segments/1/50/1) [](:!segments) 
+
+[Finish](::finish/button,transparent,closeable,draggable,center,outline,shadow)
 # --partialborder
 # ::::
 
+# :::: finish
+# --partialborder finishbox
+To find the area under the curve $f$ between $a$ and $b$, we find the antiderivative of $f$, which we'll call $F$.  Then we find the change in $F$ between $a$ and $b$ which we write as $$F(b) - F(a).$$
+That's it.  That's the area under the curve $f$ between $a$ and $b$.
+# --partialborder 
+# ::::
 
 ```javascript /autoplay
 
@@ -106,9 +113,7 @@ sra.secants.secants.setAttribute({
     strokeWidth:1
 });
 
-// sra.rectangles.rectangles.setAttribute({
-// 	fillOpacity: 0.02
-// });
+sra.rectangles.rectangles.setAttribute({ fillColor: '#55DDFF'});
 
 
 rises = [];

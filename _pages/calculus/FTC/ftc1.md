@@ -10,7 +10,7 @@ ogimage: /assets/images/calculus/ftc1.jpg
 # :::: panel
 # --partialborder panelbox
 ##### Area Under the Curve
-We have a function $f(x)$ and we'd like to find the [area under the curve](:=showIntegral=true) between $a$ and $b$.  The Fundamental Theorem of Calculus gives us a way to accurately compute this area.
+We have a function $f(x)$ and we'd like to find the [area under the curve](:=showIntegral=true) between $a$ and $b$.  **The Fundamental Theorem of Calculus** gives us a way to accurately compute this area.
 [Continue](/pages/ftc2)
 # --partialborder
 # ::::

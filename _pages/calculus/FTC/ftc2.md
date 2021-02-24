@@ -14,7 +14,7 @@ We begin by estimating the area with a bunch of [rectangles](:=showReimann=true)
 Number of rectangles: [](:-segments/1/50/1) [](:!segments) 
 Notice that the rectangles attach to the curve on the [left](:=left=true).  We could also attach the rectangles on the [right](:=right=true).  Does this choice affect our estimate if we use a lot of rectangles?
 
-All we need to do is add up the areas of an infinite number of tiny rectangles.  Next we'll explore a new way of attaching the rectangles that allows us to do exactly that.
+All we need to do is add up the areas of an infinite number of tiny rectangles.  Let's explore a new way of attaching the rectangles that allows us to do just that.
 [Continue](/pages/ftc3)
 # --partialborder
 # ::::
