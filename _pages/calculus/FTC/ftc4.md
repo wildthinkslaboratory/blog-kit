@@ -9,19 +9,17 @@ ogimage: /assets/images/calculus/ftc1.jpg
 
 # :::: panel
 # --partialborder panelbox
-##### Fundamental Theorem of Calculus
-Returning to our area under the curve problem.  Let's use our new way of drawing the rectangles.  First we find the [antiderivative](:=showAntiDer=true) of our function which we will call $F$. We divide it up into [secants](:=showSecants=true).  We attach each [rectangle](:=showRect=true) so the height of the rectangle matches the slope of it's corresponding secant and the area of the rectangle matches the rise of the secant.
-
-Instead of adding up the areas of the rectangles, we can add up the rises of the secants. Notice that as the number of rectangles gets large, this sum goes to $$F(b) - F(a).$$
-
-Number of rectangles: [](:-segments/1/50/1) [](:!segments) 
-
-[Finish](::finish/button,transparent,closeable,draggable,center,outline,shadow)
+##### The Fundamental Theorem of Calculus
+Returning to our area under the curve problem.  Let's use our new way of drawing the rectangles.  First we find the [antiderivative](:=showAntiDer=true) of our function which we will call $F$. We divide it up into [secants](:=showSecants=true).  We attach each [rectangle](:=showRect=true) so the height of the rectangle matches the slope of it's corresponding secant and the area of the rectangle matches the [rise](:=showRises=true) of the secant.
+Instead of adding up the areas of the rectangles, we can add up the rises of the secants. What happens as the number of rectangles gets large?
+Rectangles: [](:-segments/1/50/1) [](:!segments) 
+The area under the curve is equal to the [change](:=showTotal=true) in $F$ between $a$ and $b$.  
 # --partialborder
 # ::::
 
 # :::: finish
 # --partialborder finishbox
+[Finish](::finish/button,transparent,closeable,draggable,center,outline,shadow)
 To find the area under the curve $f$ between $a$ and $b$, we find the antiderivative of $f$, which we'll call $F$.  Then we find the change in $F$ between $a$ and $b$ which we write as $$F(b) - F(a).$$
 That's it.  That's the area under the curve $f$ between $a$ and $b$.
 # --partialborder 
@@ -30,7 +28,7 @@ That's it.  That's the area under the curve $f$ between $a$ and $b$.
 ```javascript /autoplay
 
 const panelBox = document.getElementById('panel');
-panelBox.classList.add('text-3-col');
+panelBox.classList.add('text-3-col-small-font');
 
 
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
@@ -94,7 +92,17 @@ let integral = workspace.board.create('integral', [[a, b], workspace.functions[D
   });
 
 
+let totalRise = workspace.board.create('segment',[[b,f(a)], [b,f(b)]],
+  {
+    strokeColor:'#55DDFF', 
+    strokeWidth:4,
+    firstArrow:true, 
+    lastArrow:true, 
+    visible:false
+  });
 
+let riseText = workspace.board.create('text',[b + 0.2, f(a) + (f(b)- f(a))/2, 'F(b) - F(a)'], 
+  {fontSize:18, color:cs.darkAnnote, fixed:true, visible: false});
 
 
 let slider = new IntSlider(xintSR.board, [xintSR.attachRightX, xintSR.attachY], [1, 50], 'N');
@@ -110,7 +118,7 @@ let sra = new SecantRectArray(xintSR, F.f, slider, {
 
 sra.secants.secants.setAttribute({
 	strokecolor:cs.lightannote, 
-    strokeWidth:1
+    strokeWidth:3
 });
 
 sra.rectangles.rectangles.setAttribute({ fillColor: '#55DDFF'});
@@ -156,9 +164,11 @@ this.sizeChanged();
 smartdown.setVariable('showSecants', false);
 smartdown.setVariable('showRect', false);
 smartdown.setVariable('showAntiDer', false);
+smartdown.setVariable('showRises', false);
+smartdown.setVariable('showTotal', false);
 smartdown.setVariable('segments', n);
 
-this.dependOn = ['showSecants', 'showRect', 'showAntiDer', 'segments'];
+this.dependOn = ['showSecants', 'showRect', 'showAntiDer', 'segments', 'showRises', 'showTotal'];
 this.depend = function() {
   if (env.segments !== n) {
     n = env.segments;
@@ -172,15 +182,24 @@ this.depend = function() {
     workspace.functions[F_id].graph.setAttribute({visible:true});
   }
 
+  if (env.showRises == true) {
+    smartdown.setVariable('showRises', false);
+    updateRises();
+  }
+
+  if (env.showTotal == true) {
+    smartdown.setVariable('showTotal', false);
+    riseText.setAttribute({visible:true});
+    totalRise.setAttribute({visible:true});
+  }
+
   if (env.showSecants == true) {
     smartdown.setVariable('showSecants', false);
     integral.setAttribute({visible:false});
-    aText.setAttribute({visible:false});
-    bText.setAttribute({visible:false});
     avert.setAttribute({visible:false});
     bvert.setAttribute({visible:false});
     sra.secants.show();
-    updateRises();
+    //updateRises();
   }
   if (env.showRect == true) {
     smartdown.setVariable('showRect', false);

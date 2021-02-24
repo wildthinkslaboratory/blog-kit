@@ -9,14 +9,14 @@ ogimage: /assets/images/calculus/ftc1.jpg
 # :::: clue
 # --outlinebox
 ##### Car Ride
-The car is at position 5 meters at time $t=0$ and follows the velocity curve given.  Estimate how far has the car travels between time $t=0$ and time $t=8$.  What is the car's position at time $t=8$?  Round your answers to the nearest whole number.
+The car is at position 5 meters at time $t=0$ and follows the velocity curve given.  Estimate how far the car travels between time $t=0$ and time $t=8$.  What is the car's position at time $t=8$?  Round your answers to the nearest whole number.
 # --outlinebox
 # ::::
 
 # :::: notes
 # --partialborder
 ##### Note
-We know that the are of each rectangle estimates the distance traveled during the rectangle's time period.  If we add up all the rectangle areas, we can estimate the total distance traveled.  What if you didn't have any way to add up the areas of the rectangles?  How else can we get the distance traveled? 
+We know that the area of each rectangle estimates the distance traveled during the rectangle's time period.  If we add up all the rectangle areas, we can estimate the total distance traveled.  What if you didn't have any way to add up the areas of the rectangles?  How else can we get the distance traveled? 
 # --partialborder
 # ::::
 

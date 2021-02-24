@@ -11,7 +11,7 @@ ogimage: /assets/images/calculus/ftc1.jpg
 # --partialborder panelbox
 ##### Area Under the Curve
 We begin by estimating the area with a bunch of [rectangles](:=showReimann=true).  Summing up these areas gives an estimate of the area under the curve.  We can make our estimate better by using more rectangles.
-Number of rectangles: [](:-segments/1/50/1) [](:!segments) 
+Rectangles: [](:-segments/1/50/1) [](:!segments) 
 Notice that the rectangles attach to the curve on the [left](:=left=true).  We could also attach the rectangles on the [right](:=right=true).  Does this choice affect our estimate if we use a lot of rectangles?
 
 All we need to do is add up the areas of an infinite number of tiny rectangles.  Let's explore a new way of attaching the rectangles that allows us to do just that.
@@ -23,7 +23,7 @@ All we need to do is add up the areas of an infinite number of tiny rectangles. 
 ```javascript /autoplay
 
 const panelBox = document.getElementById('panel');
-panelBox.classList.add('text-3-col');
+panelBox.classList.add('text-3-col-small-font');
 
 
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js

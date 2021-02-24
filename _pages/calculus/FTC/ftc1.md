@@ -6,6 +6,11 @@ lesson: 'ftc'
 ogimage: /assets/images/calculus/ftc1.jpg
 ---
 
+# :::: todo
+  - on ftc4 should rises appear later?
+  - on ftc4 make secants bolder?
+  - Final Rise line with annotation
+# ::::
 
 # :::: panel
 # --partialborder panelbox
@@ -15,11 +20,25 @@ We have a function $f(x)$ and we'd like to find the [area under the curve](:=sho
 # --partialborder
 # ::::
 
+# :::: notes
+# --outlinebox notebox
+##### Notes Before You Begin
+- This explanation currently may not display well on a small screen or mobile device.  I'm still working on the `css`.
+- Some pages are taking a little while to display. Not sure why. They will eventually show up.
+- There are lots of $mouseovers$ and [buttons](::something/button,transparent,draggable,closeable,outline,center,shadow,lightbox) in the text.  They all do something so don't miss any.
+# --outlinebox
+# ::::
+
+# :::: something
+# --colorbox somethingbox
+Something happens when you push a button.
+# --colorbox
+# ::::
 
 ```javascript /autoplay
 
 const panelBox = document.getElementById('panel');
-panelBox.classList.add('text-3-col');
+panelBox.classList.add('text-3-col-small-font');
 
 
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
@@ -28,6 +47,7 @@ smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/j
 //smartdown.import=/assets/libs/calc.js
 //smartdown.import=/assets/libs/mapping.js
 
+smartdown.showDisclosure('notes','','transparent,draggable,closeable,outline,center,shadow');
 smartdown.showDisclosure('panel','','topright,draggable,shadow');
 
 const myDiv = this.div;
@@ -65,6 +85,14 @@ let dfHighlight = workspace.board.create('functiongraph', [df, xlow, xhigh],
   visible:false,
   strokeColor:'#55DDFF', 
   strokeWidth:4,
+});
+
+let textHighlight = workspace.board.create('text', [1,50,'mouseovers show you something in the drawing'], 
+{
+  fontSize:24,
+  visible:false,
+  color:'#55DDFF', 
+  fixed:true,
 });
 
 
@@ -181,6 +209,12 @@ this.depend = function() {
   }
 
 }
+
+const formula0 = document.getElementById('MathJax-Element-4-Frame');
+formula0.onmouseover = onAFFactory(formula0, showAFFactory([textHighlight]));
+formula0.onmouseout = offAFFactory(formula0, hideAFFactory([textHighlight]));
+formula0.classList.add('highlightOffNarrow');
+
 
 const formula1 = document.getElementById('MathJax-Element-1-Frame');
 formula1.onmouseover = onAFFactory(formula1, showAFFactory([dfHighlight]));

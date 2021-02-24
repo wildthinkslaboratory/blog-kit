@@ -113,6 +113,12 @@ header.masthead  {
   font-size: 18px;
 }
 
+.text-3-col-small-font {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 14px;
+}
+
 @media (min-width: 800px) {
   .outer-multi-col {
    
@@ -140,6 +146,13 @@ header.masthead  {
     width: 32%;
     display: inline-block;
     vertical-align: top;
+  }
+
+  .text-3-col-small-font {
+    width: 28%;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 16px;
   }
 }
 

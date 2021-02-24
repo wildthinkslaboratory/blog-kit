@@ -9,8 +9,8 @@ ogimage: /assets/images/calculus/ftc1.jpg
 
 # :::: panel
 # --partialborder panelbox
-##### Mean Value Theorem
-We're going to use the mean value theorem to draw a rectangle.  We have a function $F(x)$. Let's add a [secant](:=showSecant=true) over interval $[a,b]$. The mean value theorem tells us there is at least one point $c$ on $[a,b]$ where the tangent to the graph is parallel to the secant. [show c](:=showMean=true)
+##### The Mean Value Theorem
+We're going to use the mean value theorem to draw a rectangle.  We have a function $F$. Let's add a [secant](:=showSecant=true) over interval $[a,b]$. The mean value theorem tells us there is at least one point $c$ on $[a,b]$ where the tangent to the graph is parallel to the secant. [show c](:=showMean=true)
 
 Here's the [derivative](:=showDerivative=true) of $F$, we'll call it $f$. We'll attach a [rectangle](:=showRect=true) to the derivative graph at the point $c$. The height of our rectangle is equal to $slope$ of our secant and the $area$ is the same as the secant's vertical rise.  If we didn't know the area of this rectangle, we could figure it out from the rise of the secant. More exercises exploring this relationship are [here](/pages/prelude).
 [Continue](/pages/ftc4)
@@ -21,7 +21,7 @@ Here's the [derivative](:=showDerivative=true) of $F$, we'll call it $f$. We'll 
 ```javascript /autoplay
 
 const panelBox = document.getElementById('panel');
-panelBox.classList.add('text-3-col');
+panelBox.classList.add('text-3-col-small-font');
 
 //smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
 smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
