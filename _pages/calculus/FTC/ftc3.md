@@ -101,6 +101,12 @@ let xint = new XInterval(workspace.board, sa, sb);
 let secantRect = new SecantRectangle(xint,  F.f, { 
 	annotations: 'on',
 	snapMargin:0.5,
+  change:'F(b) - F(a)',
+  units:'b - a',
+  rate:'\\[\\frac{F(b) - F(a)}{b-a}\\]',
+  noChangeNumber: true,
+  noUnitsNumber: true,
+  noRateNumber: true,
 	attachButtonVisible:false,
 });
 
@@ -180,8 +186,10 @@ smartdown.setVariable('showSecant', false);
 smartdown.setVariable('showMean', false);
 smartdown.setVariable('showDerivative', false);
 smartdown.setVariable('showRect', false);
+smartdown.setVariable('showNumbers', false);
+smartdown.setVariable('showNotation', false);
 
-this.dependOn = ['showSecant', 'showMean', 'showDerivative', 'showRect'];
+this.dependOn = ['showSecant', 'showMean', 'showDerivative', 'showRect', 'showNumbers', 'showNotation'];
 this.depend = function() {
   if (env.showSecant == true) {
     smartdown.setVariable('showSecant', false);
@@ -208,6 +216,19 @@ this.depend = function() {
   if (env.showRect == true) {
     smartdown.setVariable('showRect', false);
     secantRect.rectangle.show();
+  }
+
+  if (env.showNumbers == true) {
+    smartdown.setVariable('showNumbers', false);
+    secantRect.attr = { 
+      annotations: 'on',
+      snapMargin:0.5,
+      attachButtonVisible:false,
+    };
+  }
+  if (env.showNotation == true) {
+    smartdown.setVariable('showNotation', false);
+    
   }
 
 }
