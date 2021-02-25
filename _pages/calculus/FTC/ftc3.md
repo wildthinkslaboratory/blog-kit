@@ -12,8 +12,7 @@ ogimage: /assets/images/calculus/ftc2.jpg
 ##### The Mean Value Theorem
 We're going to use the mean value theorem to draw a rectangle.  We have a function $F$. Let's add a [secant](:=showSecant=true) over interval $[a,b]$. The mean value theorem tells us there is at least one point $c$ on $[a,b]$ where the tangent to the graph is parallel to the secant. [show c](:=showMean=true)
 
-Here's the [derivative](:=showDerivative=true) of $F$, we'll call it $f$. We'll attach a [rectangle](:=showRect=true) to the derivative graph at the point $c$. The height of our rectangle is equal to $slope$ of our secant and the $area$ is the same as the secant's vertical rise.  
-[show notation](:=showNumbers=true)
+Here's the [derivative](:=showDerivative=true) of $F$, we'll call it $f$. We'll attach a [rectangle](:=showRect=true) to the derivative graph at the point $c$. The height of our rectangle is equal to $slope$ of our secant and the $area$ is the same as the secant's vertical rise.  [show notation](:=showNumbers=true)
 If we didn't know the area of this rectangle, we could figure it out from the rise of the secant. More exercises exploring this relationship are [here](/pages/prelude).
 [Continue](/pages/ftc4)
 # --partialborder
