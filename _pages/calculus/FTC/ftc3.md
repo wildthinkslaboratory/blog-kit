@@ -12,7 +12,9 @@ ogimage: /assets/images/calculus/ftc2.jpg
 ##### The Mean Value Theorem
 We're going to use the mean value theorem to draw a rectangle.  We have a function $F$. Let's add a [secant](:=showSecant=true) over interval $[a,b]$. The mean value theorem tells us there is at least one point $c$ on $[a,b]$ where the tangent to the graph is parallel to the secant. [show c](:=showMean=true)
 
-Here's the [derivative](:=showDerivative=true) of $F$, we'll call it $f$. We'll attach a [rectangle](:=showRect=true) to the derivative graph at the point $c$. The height of our rectangle is equal to $slope$ of our secant and the $area$ is the same as the secant's vertical rise.  If we didn't know the area of this rectangle, we could figure it out from the rise of the secant. More exercises exploring this relationship are [here](/pages/prelude).
+Here's the [derivative](:=showDerivative=true) of $F$, we'll call it $f$. We'll attach a [rectangle](:=showRect=true) to the derivative graph at the point $c$. The height of our rectangle is equal to $slope$ of our secant and the $area$ is the same as the secant's vertical rise.  
+[show notation](:=showNumbers=true)
+If we didn't know the area of this rectangle, we could figure it out from the rise of the secant. More exercises exploring this relationship are [here](/pages/prelude).
 [Continue](/pages/ftc4)
 # --partialborder
 # ::::
@@ -99,16 +101,10 @@ let cText = workspace.board.create('text',[c, -2, 'c'],
 let xint = new XInterval(workspace.board, sa, sb);
 
 let secantRect = new SecantRectangle(xint,  F.f, { 
-	annotations: 'on',
-	snapMargin:0.5,
-  change:'F(b) - F(a)',
-  units:'b - a',
-  rate:'\\[\\frac{F(b) - F(a)}{b-a}\\]',
-  noChangeNumber: true,
-  noUnitsNumber: true,
-  noRateNumber: true,
-	attachButtonVisible:false,
-});
+      annotations: 'on',
+      snapMargin:0.5,
+      attachButtonVisible:false,
+    });
 
 
 secantRect.hide();
@@ -220,11 +216,32 @@ this.depend = function() {
 
   if (env.showNumbers == true) {
     smartdown.setVariable('showNumbers', false);
-    secantRect.attr = { 
+    secantRect.rectangle.attr = { 
       annotations: 'on',
       snapMargin:0.5,
+      change:'F(b) - F(a)',
+      units:'b - a',
+      rate:'\\[\\frac{F(b) - F(a)}{b-a}\\]',
+      noChangeNumber: true,
+      noUnitsNumber: true,
+      noRateNumber: true,
       attachButtonVisible:false,
     };
+
+    secantRect.secant.attr = { 
+      annotations: 'on',
+      snapMargin:0.5,
+      change:'F(b) - F(a)',
+      units:'b - a',
+      rate:'\\[\\frac{F(b) - F(a)}{b-a}\\]',
+      noChangeNumber: true,
+      noUnitsNumber: true,
+      noRateNumber: true,
+      attachButtonVisible:false,
+    };
+    workspace.board.update();
+    setTimeout(() => {  workspace.board.update(); }, 2000);
+    
   }
   if (env.showNotation == true) {
     smartdown.setVariable('showNotation', false);
