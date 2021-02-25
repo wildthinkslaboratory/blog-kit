@@ -1,5 +1,5 @@
 ---
-title: Secant Rectangle
+title: Fundamental Theorem of Calculus
 smartdown: true
 header: 'none'
 lesson: 'ftc'
