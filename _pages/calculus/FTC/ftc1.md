@@ -3,14 +3,9 @@ title: Secant Rectangle
 smartdown: true
 header: 'none'
 lesson: 'ftc'
-ogimage: /assets/images/calculus/ftc1.jpg
+ogimage: /assets/images/calculus/ftc2.jpg
 ---
 
-# :::: todo
-  - on ftc4 should rises appear later?
-  - on ftc4 make secants bolder?
-  - Final Rise line with annotation
-# ::::
 
 # :::: panel
 # --partialborder panelbox
@@ -23,7 +18,7 @@ We have a function $f(x)$ and we'd like to find the [area under the curve](:=sho
 # :::: notes
 # --outlinebox notebox
 ##### Notes Before You Begin
-- This explanation currently may not display well on a small screen or mobile device.  I'm still working on the `css`.
+- This explanation currently may not display well on a small screen or mobile devices.  I'm still working on the `css`.
 - Some pages are taking a little while to display. Not sure why. They will eventually show up.
 - There are lots of $mouseovers$ and [buttons](::something/button,transparent,draggable,closeable,outline,center,shadow,lightbox) in the text.  They all do something so don't miss any.
 # --outlinebox

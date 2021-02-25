@@ -3,13 +3,13 @@ title: Secant Rectangle
 smartdown: true
 header: 'none'
 lesson: 'ftc'
-ogimage: /assets/images/calculus/ftc1.jpg
+ogimage: /assets/images/calculus/ftc2.jpg
 ---
 
 
 # :::: panel
 # --partialborder panelbox
-##### The Fundamental Theorem of Calculus
+##### Fundamental Theorem of Calculus
 Returning to our area under the curve problem.  Let's use our new way of drawing the rectangles.  First we find the [antiderivative](:=showAntiDer=true) of our function which we will call $F$. We divide it up into [secants](:=showSecants=true).  We attach each [rectangle](:=showRect=true) so the height of the rectangle matches the slope of it's corresponding secant and the area of the rectangle matches the [rise](:=showRises=true) of the secant.
 Instead of adding up the areas of the rectangles, we can add up the rises of the secants. What happens as the number of rectangles gets large?
 Rectangles: [](:-segments/1/50/1) [](:!segments) 

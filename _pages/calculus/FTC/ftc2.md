@@ -3,7 +3,7 @@ title: Secant Rectangle
 smartdown: true
 header: 'none'
 lesson: 'ftc'
-ogimage: /assets/images/calculus/ftc1.jpg
+ogimage: /assets/images/calculus/ftc2.jpg
 ---
 
 
