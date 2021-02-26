@@ -21,6 +21,7 @@ We have a function $f(x)$ and we'd like to find the [area under the curve](:=sho
 - This explanation currently may not display well on a small screen or mobile devices.  I'm still working on the `css`.
 - Some pages are taking a little while to display. Not sure why. They will eventually show up.
 - There are lots of $mouseovers$ and [buttons](::something/button,transparent,draggable,closeable,outline,center,shadow,lightbox) in the text.  They all do something so don't miss any.
+- the intervals on the final two pages are draggable.  That means you can change the size of the $[a,b]$ interval by dragging the dots on the $x$ axis (when they show up).
 # --outlinebox
 # ::::
 

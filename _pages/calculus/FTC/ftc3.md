@@ -48,6 +48,7 @@ let yhigh = 60;
 
 
 
+
 let cs = new SteelTheme();
 
 let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
@@ -74,29 +75,6 @@ let fHighlight = workspace.board.create('functiongraph', [f, xlow, xhigh],
 let sa = 2;
 let sb = 4;
 
-
-let avert = workspace.board.create('segment',[[sa,0], [sa,f(sa)]],
-	{strokeColor:cs.lightAnnote, strokeWidth:1, visible: false});
-let bvert = workspace.board.create('segment',[[sb,0], [sb,f(sb)]],
-	{strokeColor:cs.lightAnnote, strokeWidth:1, visible: false});
-let aText = workspace.board.create('text',[sa, -2, 'a'], 
-	{fontSize:12, color:cs.darkAnnote, fixed:true, visible: false});
-let bText = workspace.board.create('text',[sb, -2, 'b'], 
-	{fontSize:12, color:cs.darkAnnote, fixed:true, visible: false});
-
-let c = 3.02;
-let slopeAtC = (f(sb) - f(sa))/ (sb-sa);
-let point2 = workspace.board.create('point', [c+1, slopeAtC + f(c)], {name:'', fixed:true, visible:false});
-let cpoint = workspace.board.create('point', [c,f(c)], {name:'', color:cs.lightAnnote, fixed:true, visible:false});
-let cline = workspace.board.create('line', [cpoint, point2], 
-	{ strokeColor:cs.lightAnnote, strokeWidth:1, visible: false });
-
-let cvert = workspace.board.create('segment',[[c,0], [c,f(c)]],
-	{strokeColor:cs.lightAnnote, strokeWidth:1, visible: false});
-let cText = workspace.board.create('text',[c, -2, 'c'], 
-	{fontSize:12, color:cs.darkAnnote, fixed:true, visible: false});
-
-
 let xint = new XInterval(workspace.board, sa, sb);
 
 let secantRect = new SecantRectangle(xint,  F.f, { 
@@ -108,7 +86,51 @@ let secantRect = new SecantRectangle(xint,  F.f, {
 
 secantRect.hide();
 
-let rect1 = workspace.board.create('polygon', [[sa,0], [sa,df(c)], [sb,df(c)], [sb,0]], 
+
+function computeC() {
+  let secantSlope = (f(xint.X2()) - f(xint.X1())) / xint.units();
+  let rootF = function(x) { return df(x) - secantSlope; }
+  let midpoint = xint.X1() + xint.units() / 2;
+  return JXG.Math.Numerics.root(rootF, midpoint);
+}
+
+let c = computeC(); //3.02;
+let slopeAtCplus1 = function() { 
+  return (f(xint.X2()) - f(xint.X1())) / xint.units() + f(c); };
+
+
+let aGet = function() { return xint.X1(); };
+let bGet = function() { return xint.X2(); };
+let cGet = function() { return c; };
+let faGet = function() { return f(xint.X1()); };
+let fbGet = function() { return f(xint.X2()); };
+let fcGet = function() { return f(c); };
+let dfcGet = function() { return df(c); };
+
+
+let point2 = workspace.board.create('point', [
+  function() { return c+1; }, 
+  slopeAtCplus1], 
+  {name:'', fixed:true, visible:false});
+let cpoint = workspace.board.create('point', [cGet,fcGet], {name:'', color:cs.lightAnnote, fixed:true, visible:false});
+let cline = workspace.board.create('line', [cpoint, point2], 
+  { strokeColor:cs.lightAnnote, strokeWidth:1, visible: false });
+
+let avert = workspace.board.create('segment',[[aGet,0], [aGet,faGet]],
+  {strokeColor:cs.lightAnnote, strokeWidth:1, visible: false});
+let bvert = workspace.board.create('segment',[[bGet,0], [bGet,fbGet]],
+  {strokeColor:cs.lightAnnote, strokeWidth:1, visible: false});
+let aText = workspace.board.create('text',[aGet, -2, 'a'], 
+  {fontSize:12, color:cs.darkAnnote, fixed:true, visible: false});
+let bText = workspace.board.create('text',[bGet, -2, 'b'], 
+  {fontSize:12, color:cs.darkAnnote, fixed:true, visible: false});
+let cvert = workspace.board.create('segment',[[cGet,0], [cGet,fcGet]],
+  {strokeColor:cs.lightAnnote, strokeWidth:1, visible: false});
+let cText = workspace.board.create('text',[cGet, -2, 'c'], 
+  {fontSize:12, color:cs.darkAnnote, fixed:true, visible: false});
+
+
+let rect1 = workspace.board.create('polygon', [[aGet,0], [aGet, dfcGet], [bGet, dfcGet], [bGet,0]], 
     {
       borders: { strokeColor: '#55DDFF', highlightStrokeColor: '#55DDFF'},
       fillColor:'#55DDFF', 
@@ -120,7 +142,7 @@ let rect1 = workspace.board.create('polygon', [[sa,0], [sa,df(c)], [sb,df(c)], [
       vertices: {visible:false}
     });
 
-let secantRise = workspace.board.create('segment',[[sb,f(sa)], [sb,f(sb)]],
+let secantRise = workspace.board.create('segment',[[bGet, faGet], [bGet, fbGet]],
   {
     strokeColor:'#55DDFF', 
     strokeWidth:4,
@@ -129,14 +151,16 @@ let secantRise = workspace.board.create('segment',[[sb,f(sa)], [sb,f(sb)]],
     visible:false
   });
 
-let slope = workspace.board.create('segment',[[sa,f(sa)], [sb,f(sb)]],
+let slope = workspace.board.create('segment',[[aGet,faGet], [bGet,fbGet]],
   {
     strokeColor:'#55DDFF', 
     strokeWidth:4,
     visible:false
   });
 
-let height = workspace.board.create('segment',[[sb + xint.Xerror,0], [sb + xint.Xerror,df(c)]],
+let height = workspace.board.create('segment',[[
+  function() { return xint.X2() + xint.Xerror; },0], [
+  function() { return xint.X2() + xint.Xerror; }, dfcGet]],
   {
     strokeColor:'#55DDFF', 
     strokeWidth:4,
@@ -164,6 +188,7 @@ let height = workspace.board.create('segment',[[sb + xint.Xerror,0], [sb + xint.
 
 workspace.board.on('update', function() {
   workspace.onUpdate();
+  c = computeC();
 });
 
 

@@ -92,22 +92,10 @@ let integral = workspace.board.create('integral', [[a, b], workspace.functions[D
   });
 
 
-let totalRise = workspace.board.create('segment',[[b,f(a)], [b,f(b)]],
-  {
-    strokeColor:'#55DDFF', 
-    strokeWidth:4,
-    firstArrow:true, 
-    lastArrow:true, 
-    visible:false
-  });
-
-let riseText = workspace.board.create('text',[b + 0.2, f(a) + (f(b)- f(a))/2, 'F(b) - F(a)'], 
-  {fontSize:18, color:cs.darkAnnote, fixed:true, visible: false});
 
 
 let slider = new IntSlider(xintSR.board, [xintSR.attachRightX, xintSR.attachY], [1, 50], 'N');
 slider.setValue(n);
-
 
 let sra = new SecantRectArray(xintSR, F.f, slider, {
   annotations:'off',
@@ -121,7 +109,28 @@ sra.secants.secants.setAttribute({
     strokeWidth:3
 });
 
+
 sra.rectangles.rectangles.setAttribute({ fillColor: '#55DDFF'});
+
+let totalRise = workspace.board.create('segment',[[
+  function() { return xintSR.X2(); },
+  function() { return f(xintSR.X1()); }], [
+  function() { return xintSR.X2(); },
+  function() { return f(xintSR.X2()); }]],
+  {
+    strokeColor:'#55DDFF', 
+    strokeWidth:4,
+    firstArrow:true, 
+    lastArrow:true, 
+    visible:false
+  });
+
+let riseText = workspace.board.create('text',[
+  function() { return xintSR.X2() + 0.2; }, 
+  function() { return f(xintSR.X1()) + (f(xintSR.X2())- f(xintSR.X1()))/2; }, 
+  'F(b) - F(a)'], 
+  {fontSize:18, color:cs.darkAnnote, fixed:true, visible: false});
+
 
 
 rises = [];
@@ -199,11 +208,12 @@ this.depend = function() {
     avert.setAttribute({visible:false});
     bvert.setAttribute({visible:false});
     sra.secants.show();
-    //updateRises();
+    sra.slider.hide();
   }
   if (env.showRect == true) {
     smartdown.setVariable('showRect', false);
     sra.rectangles.show();
+    sra.slider.hide();
   }
 }
 
