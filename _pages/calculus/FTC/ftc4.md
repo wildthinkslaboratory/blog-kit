@@ -73,14 +73,6 @@ let DF_id = workspace.addFunction(DF);
 
 let xintSR = new XInterval(workspace.board, a, b);
 
-let avert = workspace.board.create('segment',[[a,0], [a,df(a)]],
-  {strokeColor:cs.darkAnnote, strokeWidth:1, visible: true});
-let bvert = workspace.board.create('segment',[[b,0], [b,df(b)]],
-  {strokeColor:cs.darkAnnote, strokeWidth:1, visible: true});
-let aText = workspace.board.create('text',[a, -2, 'a'], 
-  {fontSize:12, color:cs.darkAnnote, fixed:true, visible: true});
-let bText = workspace.board.create('text',[b, 2, 'b'], 
-  {fontSize:12, color:cs.darkAnnote, fixed:true, visible: true});
 
 let integral = workspace.board.create('integral', [[a, b], workspace.functions[DF_id].graph],
   {
@@ -111,6 +103,25 @@ sra.secants.secants.setAttribute({
 
 
 sra.rectangles.rectangles.setAttribute({ fillColor: '#55DDFF'});
+
+let aGet = function() { return xintSR.X1(); };
+let bGet = function() { return xintSR.X2(); };
+let faGet = function() { return f(xintSR.X1()); };
+let fbGet = function() { return f(xintSR.X2()); };
+
+let avert = workspace.board.create('segment',[[a,0], [a,df(a)]],
+  {strokeColor:cs.darkAnnote, strokeWidth:1, visible: true});
+let bvert = workspace.board.create('segment',[[b,0], [b,df(b)]],
+  {strokeColor:cs.darkAnnote, strokeWidth:1, visible: true});
+let aText = workspace.board.create('text',[aGet, -2, 'a'], 
+  {fontSize:12, color:cs.darkAnnote, fixed:true, visible: true});
+let bText = workspace.board.create('text',[bGet, 
+  function() { 
+    if (xintSR.X2() > 4.8) { return 2; }
+    return -2; 
+  }, 
+    'b'], 
+  {fontSize:12, color:cs.darkAnnote, fixed:true, visible: true});
 
 let totalRise = workspace.board.create('segment',[[
   function() { return xintSR.X2(); },
