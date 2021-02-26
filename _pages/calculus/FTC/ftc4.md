@@ -132,8 +132,8 @@ let riseText = workspace.board.create('text',[
   {fontSize:18, color:cs.darkAnnote, fixed:true, visible: false});
 
 
-
-rises = [];
+let risesOn = false;
+let rises = [];
 function updateRises() {
   workspace.board.suspendUpdate();
   for (let i=0; i < rises.length; i++) {
@@ -153,9 +153,16 @@ function updateRises() {
   } 
 }
 
+function waitThenUpdateRises() {
+  setTimeout(() => {  updateRises(); }, 2000);
+}
+
 workspace.board.on('update', function() {
   workspace.onUpdate();
   sra.onUpdate();
+  if (risesOn) {
+    waitThenUpdateRises();
+  }
 });
 
 sra.hide();
@@ -182,7 +189,6 @@ this.depend = function() {
   if (env.segments !== n) {
     n = env.segments;
     sra.slider.setValue(n);
-    updateRises();
     workspace.board.update();
   }
 
@@ -193,7 +199,8 @@ this.depend = function() {
 
   if (env.showRises == true) {
     smartdown.setVariable('showRises', false);
-    updateRises();
+    risesOn = true;
+    workspace.board.update();
   }
 
   if (env.showTotal == true) {
