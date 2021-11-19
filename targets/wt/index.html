@@ -8,11 +8,10 @@ headerapp: 'reimannSum.js'
 ogimage: /assets/images/ogpic.png
 ---
 
-## Global Math Week 
+#### Math and Art Adventures
+Explore shapes and patterns that are mathematically generated.  Create your own work of art. 
 
-In honor of[Global Math Week](https://globalmathproject.org), here is all of our [Exploding Dots](https://www.explodingdots.org/) content.  
-
-# --outlinebox gmw2020
+# --outlinebox other
 ```graphviz/autoplay
 digraph G {
   tooltip="wildthinks map";
@@ -21,22 +20,20 @@ digraph G {
   size="12,12";
   bgcolor=transparent;
 
-    subgraph cluster1 {
 
-        strings [shape=none, tooltip="Godel meets Exploding Dots", URL="/pages/expDotsGodel1", label="", image="/assets/images/calculus/strings.svg"];
+    subgraph cluster3 {
+        fractal [shape=none, tooltip="Fractal Generator", URL="/pages/fractal", label="", image="/assets/images/calculus/fractal.svg"];
+        penrose [shape=none, tooltip="Penrose Tiling Generator", URL="/pages/penrose", label="", image="/assets/images/calculus/penrose.svg"];
+        circles [shape=none, tooltip="Modular Multiplication Circles", URL="/pages/modularCircles", label="", image="/assets/images/calculus/circles.svg"];
+        circCoord [shape=none, tooltip="Circular Coordinates", URL="/pages/circCoord", label="", image="/assets/images/calculus/circCoord.svg"];
+        spirograph [shape=none, tooltip="Spirograph", URL="/pages/spirograph", label="", image="/assets/images/calculus/spiral1.svg"];
 
-        negaBinary [shape=none, tooltip="Negative Binary", URL="/pages/NegaBinary1", label="", image="/assets/images/calculus/negaBinary.svg"];
-
-        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
-
-        FibDots [shape=none, tooltip="Fibonacci dots", URL="/pages/fibDots", label="", image="/assets/images/calculus/FibDots.svg"];
-
-        GR [shape=none, tooltip="Goldfish and Robin", URL="/pages/GR", label="", image="/assets/images/calculus/GR.svg"];
-
-        label = "Exploding Dots";
+        rankdir=TB;
+        label = "Visualizations"
         style=filled;
         color=transparent;
-    }
+        edge[style=invis];
+  }
     
 }
 ```
@@ -45,7 +42,7 @@ digraph G {
 
 ```javascript /autoplay
 
-const otherDiv = document.getElementById('gmw2020');
+const otherDiv = document.getElementById('other');
 otherDiv.classList.remove('decoration-outlinebox');
 
 otherDiv.style.border = '2px solid #DDDDDD';
@@ -143,9 +140,64 @@ this.depend = function() {
 };
 ```
 
-#### More Interactive Math Adventures
 
-# --outlinebox other
+
+## Global Math Week 
+
+In honor of[Global Math Week](https://globalmathproject.org), here is all of our [Exploding Dots](https://www.explodingdots.org/) content.  
+
+# --outlinebox gmw2020
+```graphviz/autoplay
+digraph G {
+  tooltip="wildthinks map";
+  fontsize="24";
+  fontname="Arial";
+  size="12,12";
+  bgcolor=transparent;
+
+    subgraph cluster1 {
+
+        strings [shape=none, tooltip="Godel meets Exploding Dots", URL="/pages/expDotsGodel1", label="", image="/assets/images/calculus/strings.svg"];
+
+        negaBinary [shape=none, tooltip="Negative Binary", URL="/pages/NegaBinary1", label="", image="/assets/images/calculus/negaBinary.svg"];
+
+        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
+
+        FibDots [shape=none, tooltip="Fibonacci dots", URL="/pages/fibDots", label="", image="/assets/images/calculus/FibDots.svg"];
+
+        GR [shape=none, tooltip="Goldfish and Robin", URL="/pages/GR", label="", image="/assets/images/calculus/GR.svg"];
+
+        label = "Exploding Dots";
+        style=filled;
+        color=transparent;
+    }
+    
+}
+```
+# --outlinebox
+
+
+```javascript /autoplay
+
+const otherDiv = document.getElementById('gmw2020');
+otherDiv.classList.remove('decoration-outlinebox');
+
+otherDiv.style.border = '2px solid #DDDDDD';
+otherDiv.style.borderRadius = '25px';
+otherDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
+
+
+# Featured Video
+Goldfish and Robin show how to solve a corn maze using topology.
+![fullwidth](https://www.youtube.com/watch?v=eQYLL7XnM-4)
+
+## USA Mathematical Talent Search Problems
+
+# --outlinebox usamts
 ```graphviz/autoplay
 digraph G {
   tooltip="wildthinks map";
@@ -161,21 +213,6 @@ digraph G {
         style=filled;
         color=transparent;
     }
-
-
-
-    subgraph cluster3 {
-        fractal [shape=none, tooltip="Fractal Generator", URL="/pages/fractal", label="", image="/assets/images/calculus/fractal.svg"];
-        penrose [shape=none, tooltip="Penrose Tiling Generator", URL="/pages/penrose", label="", image="/assets/images/calculus/penrose.svg"];
-        circles [shape=none, tooltip="Modular Multiplication Circles", URL="/pages/modularCircles", label="", image="/assets/images/calculus/circles.svg"];
-        circCoord [shape=none, tooltip="Circular Coordinates", URL="/pages/circCoord", label="", image="/assets/images/calculus/circCoord.svg"];
-
-        rankdir=TB;
-        label = "Visualizations"
-        style=filled;
-        color=transparent;
-        edge[style=invis];
-  }
     
 }
 ```
@@ -184,7 +221,7 @@ digraph G {
 
 ```javascript /autoplay
 
-const otherDiv = document.getElementById('other');
+const otherDiv = document.getElementById('usamts');
 otherDiv.classList.remove('decoration-outlinebox');
 
 otherDiv.style.border = '2px solid #DDDDDD';
@@ -193,11 +230,5 @@ otherDiv.style.backgroundColor = '#EEEEEE';
 
 
 ```
-
-
-
-# Featured Video
-Goldfish and Robin show how to solve a corn maze using topology.
-![fullwidth](https://www.youtube.com/watch?v=eQYLL7XnM-4)
 
 

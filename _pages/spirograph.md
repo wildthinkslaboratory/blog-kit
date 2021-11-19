@@ -1,7 +1,7 @@
 ---
 title: 'Spirograph'
 smartdown: true
-ogimage: /assets/images/calculus/spirograph.jpg
+ogimage: /assets/images/calculus/spiral1.jpg
 header: 'none'
 ---
 
