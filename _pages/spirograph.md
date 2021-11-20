@@ -8,7 +8,11 @@ header: 'none'
 
 # :::: intro
 # --outlinebox int
-This is an intro box.
+#### Spirograph
+So I'm working on this spirograph page.  It will likely evolve over the next few days. I find it fascinating that such a simple system of moving circles can create such complex behaviour.  It creates intricate and complex patterns and also sometimes very chaotic paths with few discernable patterns.  Play around and see what you can create.  
+
+I'm fond of this video on spirographs. I will hopefully put up a companion page with the math of all this.  The circle model is simple trigonometry.  
+![thumbnail](https://www.youtube.com/watch?v=n-e9C8g5x68)
 # --outlinebox
 # ::::
 
@@ -18,7 +22,9 @@ run[](:Xrun) trace[](:Xtrace) [clear](:=clearPage=true)
 [](:-red/0/255/1) red
 [](:-green/0/255/1) green
 [](:-blue/0/255/1) blue
-[](:-df/1/10/1) **delta**
+[](:-df/1/10/1) delta
+[](:-pen/0/2/1) pen
+[](:-penR/0.1/2/0.1) pen R
 [](:?r1|number) **R1**
 [](:?r2|number) **R2**
 [](:?r3|number) **R3**
@@ -35,7 +41,7 @@ run[](:Xrun) trace[](:Xtrace) [clear](:=clearPage=true)
 // set up the div and the page
 
 smartdown.showDisclosure('panel','','bottomright,draggable,shadow');
-// smartdown.showDisclosure('intro','','transparent,center,closeable,draggable,shadow,outline');
+smartdown.showDisclosure('intro','','transparent,center,closeable,draggable,shadow,outline');
 
 
 // Adjust the surrounding DIV(s) a little
@@ -60,6 +66,8 @@ let X = new Array(num);
 let Y = new Array(num);
 let EX = new Array(num);
 let EY = new Array(num);
+let PX = new Array(num);
+let PY = new Array(num);
 let lastX = 0;
 let lastY = 0;
 let deltaFactor = 3;
@@ -67,7 +75,9 @@ let delta = Math.PI / 400;
 let startR = Math.floor(Math.random() * 150);
 let startG = Math.floor(Math.random() * 150);
 let startB = Math.floor(Math.random() * 150);
-let frameRate = 15;
+let frameRate = 30;
+let penCirle = 2; // must be 0, 1, or 2
+let penRadiusRatio = 1;
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -128,10 +138,12 @@ p5.draw = function() {                           // this function gets called re
     angle[i] = angle[i-1] - angle[i-1] * R[i-1] / R[i];
     EX[i] = (R[i] * Math.cos(angle[i])) + X[i]; 
     EY[i] = (R[i] * Math.sin(angle[i])) + Y[i]; 
+    PX[i] = (R[i] * penRadiusRatio * Math.cos(angle[i])) + X[i]; 
+    PY[i] = (R[i] * penRadiusRatio * Math.sin(angle[i])) + Y[i]; 
   }
 
-  let x = EX[EX.length - 1];   // the inner circle holds the pen
-  let y = EY[EY.length - 1];
+  let x = PX[penCirle];   // the inner circle holds the pen
+  let y = PY[penCirle];
 
   if (trace) {                 // show trace
     p5.stroke(red, green, blue);
@@ -143,6 +155,8 @@ p5.draw = function() {                           // this function gets called re
       p5.circle(X[i],Y[i],2*R[i]);
       p5.circle(EX[i],EY[i],10);
     }
+    p5.fill(red,green,blue);
+    p5.circle(x,y,10);
   }
 
   // move the outer circle forward one step
@@ -195,8 +209,10 @@ smartdown.setVariable('r2', radiusCoefficients[1]);
 smartdown.setVariable('r3', radiusCoefficients[2]);
 smartdown.setVariable('reset', false);
 smartdown.setVariable('df', deltaFactor);
+smartdown.setVariable('pen', 2);
+smartdown.setVariable('penR', 1);
 
-this.dependOn = ['run', 'reset', 'trace', 'clearPage', 'download', 'red', 'green', 'blue', 'df', 'download'];
+this.dependOn = ['run', 'reset', 'trace', 'clearPage', 'download', 'red', 'green', 'blue', 'df', 'download', 'pen', 'penR'];
 this.depend = function() {
 
   if (env.run == true) {
@@ -223,15 +239,55 @@ this.depend = function() {
 
   if (env.reset == true) {
     smartdown.setVariable('reset', false);
-    radiusCoefficients[0] = env.r1;
-    radiusCoefficients[1] = env.r2;
-    radiusCoefficients[2] = env.r3;
+    if (env.r1 <= 0) {
+      radiusCoefficients[0] = 0.11; 
+    }
+    else {
+      if (env.r1 > 1) {
+        radiusCoefficients[0] = 1;
+      }
+      else {
+        radiusCoefficients[0] = env.r1;          
+      }
+    
+    }
+
+    if (env.r2 <= 0) {
+      radiusCoefficients[1] = 0.11; 
+    }
+    else {
+      if (env.r2 > 1) {
+        radiusCoefficients[1] = 1;
+      }
+      else {
+        radiusCoefficients[1] = env.r2;          
+      }     
+    }
+
+    if (env.r3 <= 0) {
+      radiusCoefficients[2] = 0; 
+    }
+    else {
+      if (env.r3 > 1) {
+        radiusCoefficients[2] = 1;
+      }
+      else {
+        radiusCoefficients[2] = env.r3;          
+      }     
+    }
+
+    smartdown.setVariable('r1', radiusCoefficients[0]);
+    smartdown.setVariable('r2', radiusCoefficients[1]);
+    smartdown.setVariable('r3', radiusCoefficients[2]);
+
     initialize();
   }
   red = env.red;
   green = env.green;
   blue = env.blue;
   deltaFactor = env.df;
+  penCirle = env.pen;
+  penRadiusRatio = env.penR;
 
   if (env.download == true) {
     smartdown.setVariable('download', false);
