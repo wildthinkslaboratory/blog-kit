@@ -547,6 +547,7 @@ this.div.addEventListener('swiperight', function(event){
 
 let prev_scale = 1;
 this.div.addEventListener('pinchstart', function(event){
+  event.stopPropagation();
   pinchActive = true;
   prev_panx = 0;
   prev_pany = 0;
