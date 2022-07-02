@@ -11,8 +11,9 @@ header: 'none'
 #### Spirograph
 So I'm working on this spirograph page.  It will likely evolve over the next few days. I find it fascinating that such a simple system of moving circles can create such complex behaviour.  It creates intricate and complex patterns and also sometimes very chaotic paths with few discernable patterns.  Play around and see what you can create.  
 
-I'm fond of this video on spirographs. I will hopefully put up a companion page with the math of all this.  The circle model is simple trigonometry.  
+This is a fabulous video on spirographs.  It goes far deeper than what I've produced on this page. 
 ![thumbnail](https://www.youtube.com/watch?v=n-e9C8g5x68)
+Then I found this [spirograph page](https://mitchellwarr.github.io/spirographer/) which is also fantastic.  Anyway, hope you enjoy!
 # --outlinebox
 # ::::
 
