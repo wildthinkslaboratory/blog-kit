@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <meta property="og:image" content="https://wildthinks.org/assets/images/calculus/ftc1.jpg">
+  
+
+  <link rel="icon" href="http://wildthinks.org/assets/images/favicon.png">
+
+  <title>
+    Secant Rectangle - wildthinks
+    
+  </title>
+
+  <meta name="description" content="# :::: tour2 # --partialborder The **distance** traveled by the object is equal to the **rate** times the **time**, $d = r \times t.$ We know two different g...">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Asap:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/main.css">
+  <link rel="canonical" href="https://wildthinks.org/blog-kit/pages/temp/">
+  <link rel="alternate" type="application/rss+xml" title="wildthinks" href="/blog-kit/feed.xml">
+
+  
+  <link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/smartdown.css">
+<link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/fonts.css">
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/smartdown.js">
+</script>
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/calc_handlers.js"></script>
+<script type="text/x-smartdown" id="Home">
+# :::: tour2
+# --partialborder 
+The **distance** traveled by the object is equal to the **rate** times the **time**, $d = r \times t.$ We know two different geometric ways of showing this relationship.  [show relationship](:=showSR=true) The slope of the secant tells us the average velocity between two time points.  The corresponding rectangle expresses the distance traveled as the product of the rate and the time.
+[next](:=show3=true) 
+# --partialborder 
+# ::::
+
+# :::: tour3
+# --partialborder 
+We can make more secants and rectangles over more intervals. [more intervals](:=showArray=true). What happens when these time intervals get smaller?
+number of intervals [](:-segments/1/100/1) [](:!segments) 
+[next](:=show4=true)
+# --partialborder 
+# ::::
+
+# :::: tour4
+# --partialborder 
+The rectangles define a new function that relates to our original curve. [show shadow curve](:=showD=true)  Remember that the height of each skinny rectangle is the average velocity the object travels during a very short time period.  As these rectangles get skinnier, this new curve becomes our velocity curve.
+number of intervals [](:-segments/1/100/1) [](:!segments)
+[Continue](/pages/shadowSecantCurve)
+# --partialborder 
+# ::::
+
+### Another way to do the Rectangles
+number of intervals [](:-segments/1/100/1) [](:!segments) 
+```javascript /autoplay
+
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
+
+smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
+
+// import the calc library
+//smartdown.import=/assets/libs/calc.js
+
+
+const myDiv = this.div;
+myDiv.style.width = '100%';
+myDiv.style.height = '100%';
+myDiv.style.margin = 'auto';
+
+myDiv.innerHTML = `<div id='box1' class='jxgbox' style='height:800px; width:800px'>`;
+
+let purple = '#DD44DD';
+let orange = '#EE5500';
+
+let xlow = -1.5;
+let xhigh = 10;
+let ylow = -8;
+let yhigh = 16;
+
+
+let workspace = new Workspace('box1', [xlow,yhigh,xhigh,ylow],  
+  { xlabel:'time (s)', ylabel:'position (m)', colorTheme:'steel'});
+let F = new ProblemFunction(function(t) { return Math.pow(t-4,4)/8 - 2 * (t-4) * (t-4) + 12; }, 
+  'position of object', 5, [0,xhigh], []);
+
+let F_id = workspace.addFunction(F);
+
+// let t = workspace.board.create('point', [0,0], {visible:false});
+// var p = workspace.board.create('point', [
+//   function() { return t.X(); }, 
+//   function() { return F.f(t.X()); }], {color:orange, name:''});
+
+// the derivative graph
+var s = function(t) { return 4 * Math.pow(t-4,3)/8 - 4 * (t-4); }
+var s_graph = workspace.board.create('functiongraph', [s,0,8], {strokeColor:'#4499FF', strokeWidth:4, visible:true});
+
+
+
+let N = 4;
+let xintSR = new XInterval(workspace.board, 0, 8);
+
+let slider = new IntSlider(xintSR.board, [xintSR.attachRightX, xintSR.attachY], [1, 100], 'N');
+slider.setValue(N);
+
+let secRectArray = new FTCArray(xintSR, F.f, s, slider, {
+  annotations:'off',
+  attachButtonVisible:false
+});
+
+
+
+
+let widthPercent = 0.8;
+let heightPercent = 0.7;
+
+this.sizeChanged = function() {
+  workspace.board.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);       
+};
+
+
+this.sizeChanged();
+
+smartdown.setVariable('segments',4);
+
+// get the number of triangles from smartdown cell
+this.dependOn = ['segments'];
+this.depend = function() {
+
+  if (env.segments != N) {
+    N = env.segments;
+    secRectArray.slider.setValue(N);
+  }
+
+};
+
+
+```
+
+
+```javascript /autoplay
+
+
+
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
+smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
+// import the calc library
+//smartdown.import=/assets/libs/calc.js
+//smartdown.import=/assets/libs/mapping.js
+
+const myDiv = this.div;
+myDiv.style.width = '100%';
+myDiv.style.height = '100%';
+myDiv.style.margin = 'auto';
+
+myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
+
+JXG.Options.text.useMathJax = true;
+
+let xlow = -0.5;
+let xhigh = 4;
+let ylow = -8;
+let yhigh = 40;
+
+let a = 0;
+let b = 3;
+let n = 6;
+
+let cs = new SteelTheme();
+
+let workspace = new Workspace('box', [xlow,yhigh,xhigh,ylow],{ xlabel:'', ylabel:'', colorTheme:'steel' });
+
+let df = function(x) { return Math.pow(x,4)/8 + Math.pow(x,3)/12 - 3 * Math.pow(x,2) + 12;};
+let f =  function(x) { return Math.pow(x,5)/40 + Math.pow(x,4)/48 - Math.pow(x,3) + 12* (x) + 15;  };
+let F = new ProblemFunction(f, '', 4, [xlow,xhigh], []);
+let F_id = workspace.addFunction(F);
+
+let DF = new ProblemFunction(df, '', 4, [xlow,xhigh], []);
+let DF_id = workspace.addFunction(DF);
+
+let xintSR = new XInterval(workspace.board, a, b);
+
+let slider = new IntSlider(xintSR.board, [xintSR.attachRightX, xintSR.attachY], [1, 50], 'N');
+slider.setValue(n);
+
+let secRectArray = new SecantRectArray(xintSR, F.f, slider, {
+  annotations:'off',
+  attachButtonVisible:false
+});
+
+secRectArray.secants.secants.setAttribute({
+	strokecolor:cs.lightannote, 
+    strokeWidth:1
+});
+
+secRectArray.rectangles.rectangles.setAttribute({
+	fillOpacity: 0.01
+});
+
+//secRectArray.rectangles.hide();
+
+let xint = new XInterval(workspace.board, 0, 1.5);
+
+let secantRect = new SecantRectangle(xint,  F.f, { 
+	annotations: 'on',
+	snapMargin:0.5,
+	change:'\\[f(c_i)(x_i - x_{i-1})\\]',
+	units:'\\[(x_i - x_{i-1})\\]',
+	rate:'\\[f(c_i)\\]',
+	latexAdjustment: true,
+	noUnitsNumber:true,
+	noChangeNumber:true,
+	noRateNumber:true,
+	attachButtonVisible:false,
+});
+
+workspace.board.on('update', function() {
+  workspace.onUpdate();
+});
+
+
+let widthPercent = 0.8;
+let heightPercent = 0.7;
+
+this.sizeChanged = function() {
+  workspace.board.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);       
+};
+
+
+this.sizeChanged();
+
+this.dependOn = [];
+this.depend = function() {
+
+}
+
+
+
+```
+
+
+</script>
+
+  
+
+  
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/blog-kit/">  
+      <img src="/blog-kit/assets/images/wildthinksLogo.svg" height="30">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      
+      <ul class="noheadernav navbar-nav ml-auto">
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/pages/About/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/posts">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Page Header -->
+
+<header id="header-wrapper" class="masthead noheader">
+</header>  
+  
+    <ul class="tabrow">
+      
+        
+          <li><a href="/blog-kit/pages/ftc1/">one</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/ftc2/">two</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/ftc3/">three</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/ftc4/">four</a></li>
+        
+      
+    </ul>
+  
+
+
+
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:goldfishandrobin@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/wildthinksLab">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/wildthinkslaboratory">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Heidi Dixon 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/blog-kit/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/blog-kit/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/blog-kit/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/blog-kit/assets/scripts.js"></script>
+
+
+
+
+  
+  <script>
+  /* global smartdown */
+  var baseURL = '/blog-kit/';
+  var icons = {
+    'rectangle' : `/assets/images/calculus/rectangle.svg`,
+    'secant' : `/assets/images/calculus/secant.svg`,
+    'ftc1' : `/assets/images/calculus/ftc1.svg`,
+    'usamts2' : `/assets/images/calculus/usamts2.svg`,
+    'usamts1' : `/assets/images/calculus/usamts1.svg`,
+    'negaBinary' : `/assets/images/calculus/negaBinary.svg`,
+    'string' : `/assets/images/calculus/strings.svg`,
+    'derivative' : `/assets/images/calculus/derivative.svg`,
+    'chainrule' : `/assets/images/calculus/chainrule.svg`,
+    'fractal' : `/assets/images/calculus/fractal.svg`,
+    'limits'  : `/assets/images/calculus/limits.svg`,
+    'eToTheX' : `/assets/images/calculus/eToTheX.svg`,
+    'ftc2' : `/assets/images/calculus/ftc2.svg`,
+    'epsilonDelta': `/assets/images/calculus/epsilonDelta.svg`,
+    'penrose' : `/assets/images/calculus/penrose.svg`,
+    'circles' : `/assets/images/calculus/circles.svg`,
+    'GR' : `/assets/images/calculus/GR.svg`,
+    'Fib' : `/assets/images/calculus/FibDots.svg`,
+    '2Ddots' : `/assets/images/calculus/2Ddots.svg`,
+    'circCoord' : `/assets/images/calculus/circCoord.svg`,
+    'spiral1' : `/assets/images/calculus/spiral1.svg`
+  };
+
+  var multiparts = null;
+  var current = null;
+
+
+  function cardLoaded(url, cardKeySubhash, sourceText) {
+    /* eslint no-invalid-this: 0 */
+    sourceText = sourceText.trim();
+    multiparts = smartdown.partitionMultipart(sourceText);
+
+    if (url.endsWith('.md')) {
+      const newPath = url.replace(/\.md$/, '/');
+      current = newPath;
+      history.pushState(null, null, newPath);
+    }
+
+    var output = document.getElementById('blog-content');
+    smartdown.setHome(multiparts._default_, output, function() {
+      document.body.scrollTop = 0; // For Chrome, Safari and Opera
+      document.documentElement.scrollTop = 0; // For IE and Firefox
+
+      if (cardKeySubhash) {
+        const target = document.getElementById(cardKeySubhash);
+        if (target) {
+          target.scrollIntoView();
+        }
+      }
+
+      smartdown.startAutoplay(output);
+    });
+  }
+
+  function loadURL(url) {
+    var oReq = new XMLHttpRequest();
+    let cardKeySubhash = null;
+    const hashPos = url.indexOf('#');
+    if (hashPos >= 0) {
+      cardKeySubhash = url.slice(hashPos + 1);
+    }
+
+    oReq.addEventListener('load', function() {
+      cardLoaded(url, cardKeySubhash, this.responseText);
+    });
+    oReq.open('GET', url);
+    oReq.send();
+  }
+
+  function loadInline() {
+    smartdown.loadCardsFromDocumentScripts();
+    var s = smartdown.smartdownScripts[0];
+
+    cardLoaded(window.location.href, window.location.hash.slice(1), s.text);
+  }
+
+  function cardLoader(cardKey) {
+    // console.log('cardLoader', cardKey);
+    var part = multiparts[cardKey];
+    if (part) {
+      var output = document.getElementById('blog-content');
+      smartdown.setHome(part, output, function() {
+        smartdown.startAutoplay(output);
+      });
+    }
+    else {
+      var cardURL = cardKey;
+      if (cardKey.indexOf('http') === 0) {
+        cardURL = cardKey;
+      }
+      else {
+        const expanded = smartdown.expandHrefWithLinkRules(cardURL);
+        // console.log('cardloader', cardURL, expanded);
+        cardURL = expanded;
+      }
+      // else if (cardKey.indexOf('/posts') === 0) {
+      //   cardURL = `${baseURL}${cardKey}`;
+      //   console.log('cardLoader', cardKey, cardURL);
+      // }
+      loadURL(cardURL);
+    }
+  }
+
+  var calcHandlers = smartdown.defaultCalcHandlers;
+  const linkRules = [
+    {
+      prefix: '/posts/',
+      replace: baseURL + '/posts/',
+    },
+    {
+      prefix: '/pages/',
+      replace: baseURL + '/pages/',
+    },
+    {
+      prefix: '/assets/',
+      replace: baseURL + '/assets/',
+    },
+  ];
+
+
+
+  window.addEventListener(
+    'popstate',
+    function(event) {
+      const url = document.location.pathname;
+      if (url.endsWith('/')) {
+        const newPath = url.replace(/\/$/, '.md');
+        // console.log('popstatex: ', url, newPath, current, window.location.hash);
+        if (current && url !== current) {
+          loadURL(newPath);
+        }
+      }
+    },
+    false);
+  // window.addEventListener(
+  //   'hashchange',
+  //   function(event) {
+  //     console.log(
+  //       'hashchange document.location.pathname: ' + document.location.pathname,
+  //       JSON.stringify(event.state));
+  //   },
+  //   false);
+
+  smartdown.initialize(icons, `https://unpkg.com/smartdown/dist/`, loadInline, cardLoader, calcHandlers, linkRules);
+</script>
+
+  
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

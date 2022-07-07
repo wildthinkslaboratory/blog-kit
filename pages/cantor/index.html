@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  <link rel="icon" href="http://wildthinks.org/assets/images/favicon.png">
+
+  <title>
+    Cantor Diagonalization - wildthinks
+    
+  </title>
+
+  <meta name="description" content="# :::: intro # --outlinebox int App instructions # --outlinebox # :::: ```javascript /autoplay/p5js // add code to update function lines on resizing // clean...">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Asap:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/main.css">
+  <link rel="canonical" href="https://wildthinks.org/blog-kit/pages/cantor/">
+  <link rel="alternate" type="application/rss+xml" title="wildthinks" href="/blog-kit/feed.xml">
+
+  
+  <link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/smartdown.css">
+<link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/fonts.css">
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/smartdown.js">
+</script>
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/calc_handlers.js"></script>
+<script type="text/x-smartdown" id="Home">
+# :::: intro
+# --outlinebox int
+App instructions
+# --outlinebox
+# ::::
+
+```javascript /autoplay/p5js
+
+// add code to update function lines on resizing
+// clean and document code
+// work on visual design
+// add app instructions
+// add a variable to track true f function drag.
+
+smartdown.showDisclosure('intro','','transparent,topleft,closeable,draggable,shadow,outline');
+
+// Adjust the surrounding DIV(s) a little
+const myDiv = this.div;                                  // This chunk of code is some HTML/CSS stuff
+myDiv.style.position = 'relative';                       // to make the playable look pretty
+myDiv.style.height = '100%';
+myDiv.style.width = '100%';
+myDiv.style.padding = '0';
+myDiv.style.margin = '0';
+myDiv.style.overflow = 'hidden';
+//myDiv.style.border = '5px solid gray';
+myDiv.style.background = '#CCCCCC';
+this.div.style.margin = '10px auto'; // shorthand for '10px auto 10px auto'
+this.div.innerHTML = '';
+
+const heightScale = 0.8;
+const widthScale = 0.8;
+let canvasHeight = p5.windowHeight * heightScale;
+let canvasWidth = p5.windowWidth * widthScale;  // set the size of the playable
+let leftMargin = 0.02;
+let rightMargin = 0.02;
+
+// color pallette
+const purple =        [200, 0,  255];
+const darkpurple =    [50,  0,   50];
+const cyan =          [0,   200, 255];
+const darkbluegreen = [0,   100, 100];
+const lightLilac =    [220, 220, 255];
+const white =         [255, 255, 255];
+const lime =          [110, 235, 150];
+const darkGray =      [100, 100, 100];
+const bottleGreen =   [30,  160, 120];
+const wine =          [100,   0, 100];
+const paleWine =      [230, 200, 200];
+const tomato =        [255,  90,  90];
+const ltbluegreen =   [160, 230, 250];
+
+
+////////////////////////  Data structures   /////////////////////////////
+
+const setsize = 3;
+const emptyChar = '*';
+let dArray = [];       // diagonal table
+let subSets = [];      // powerset
+let f = [1,2,3];       // function from X to P(X)
+let D = [];            // the diagonal of table
+let Did = 0;
+
+
+// initialize the diagonal table array
+for (let i=0; i < setsize; i++) {
+  dArray.push([]);
+  for (let j=0; j < setsize; j++) {
+    dArray[i].push(emptyChar);
+  }
+}
+
+
+// generate the powerset of our set
+const n = Math.pow(2,setsize);
+for (let i=0; i < n; i++) {   // iterate through the powerset
+  subSets.push([]);
+  for (let j=0; j < setsize; j++) {
+    const p = Math.pow(2,j);
+    const bit = Math.floor((i & p) / p);
+    let ch = emptyChar;
+    if (bit === 1) {
+      ch = (j+1).toString();
+    }
+    subSets[i].push(ch);
+  }
+}
+
+
+// turn an array set into a string for display
+function subSetString(Astr) {
+  let s = "{ ";
+  for (let i=0; i < Astr.length; i++) {
+    if (Astr[i] !== emptyChar) {
+      s = s + Astr[i] + ', ';      
+    }
+  }
+  if (s.length > 3) {
+    s = s.substring(0, s.length - 2);    
+  }
+
+  s += " }";
+  return s;
+}
+
+
+// array equivalence
+function arrayEquals(a, b) {
+  return Array.isArray(a) &&
+    Array.isArray(b) &&
+    a.length === b.length &&
+    a.every((val, index) => val === b[index]);
+}
+
+
+function updateDataStructures() {
+
+  for (let i=0; i < f.length; i++) {    // update table from function f
+    dArray[i] = subSets[f[i]];
+  }
+
+  D = [];
+  for (let i=0; i < dArray.length; i++) {   // update the diagonal set from the table
+    if (dArray[i][i] === emptyChar) {
+      D.push((i+1).toString());      
+    }
+    else {
+      D.push(emptyChar);
+    }
+  }
+
+  for (let i=0; i < subSets.length; i++) {   // find the subset id of the new diagonal set
+    if (arrayEquals(subSets[i], D)) {
+      Did = i;
+      break;
+    }
+  }
+}
+
+updateDataStructures();
+
+
+////////////////////////  drawing functions   /////////////////////////////
+
+let margin;
+let spacer;
+let leftBoxWidth;
+let lbh1;            
+let numSubSets;
+let lbh2;
+let lbw;
+let rightBoxWidth;
+let rightX;
+let rbw;
+let rbh;
+let leftX;
+let height;
+let width;
+
+let lines = [];
+
+let currentLine = -1;
+
+let linesStartX = [];
+let linesStartY = [];
+for (let i=0; i < setsize; i++) {
+  linesStartX.push(0);
+  linesStartY.push(0);
+}
+let linesStopX = [];
+let linesStopY = [];
+for (let i=0; i < subSets; i++) {
+  linesStopX.push(0);
+  linesStopY.push(0);
+}
+
+
+// data structures for representing table columns and headers
+const num = setsize + 1;
+
+let dtoprow = [''];
+for (let i=0; i < setsize; i++) {
+  dtoprow.push((i+1).toString());
+}
+
+let dfirstcolumn = [''];
+for (let i=0; i < setsize; i++) {
+  dfirstcolumn.push('f(' + (i+1).toString() + ')');
+}
+
+function centerTextInRect(x,y,width,height,text) {
+  const textW = p5.textWidth(text);
+  const textH = p5.textAscent() * 0.8;
+  const xoffset = (width - textW) / 2;
+  const yoffset = (height - textH) / 2;
+  return [x + xoffset, y + height - yoffset];
+}
+
+function initializeLineCoordinates() {
+  for (let i=0; i < setsize; i++) {
+    lines.push([linesStartX[i],linesStartY[i],linesStartX[i],linesStartY[i]]);
+  }  
+}
+
+function updateLinePositions() {
+  for (let i=1; i < num; i++) {
+    linesStartX[i-1] = leftX + lbw - margin/2;
+    linesStartY[i-1] = (i+0.5) * lbh1;
+  }    
+
+  for (let i=0; i < numSubSets; i++) {
+    linesStopX[i] = leftX + 2*lbw + margin/4;
+    linesStopY[i] = (i+0.5) * lbh2;
+  }
+}
+
+function updateLineCoordinates() {
+  for (let i=0; i < setsize; i++) {
+    const ss = f[i];
+    lines[i] = [linesStartX[i],linesStartY[i],linesStopX[ss],linesStopY[ss]];
+  }   
+}
+
+function initializeWindowParameters(w, h) {
+
+  width = w;
+  height = h;
+  width = width - width * leftMargin - width * rightMargin;
+  margin = 0.05 * width;
+  spacer = 0.1 * margin;
+
+  leftBoxWidth = (width - margin) / 2;
+  lbh1 = height / (num + 1);
+  numSubSets = Math.pow(2,setsize);
+  lbh2 = height / numSubSets;
+  lbw = leftBoxWidth / 3;
+  
+  leftX = width * leftMargin;
+  rightBoxWidth = leftBoxWidth;
+  rightX = (width + margin)/2 + leftX;
+  rbw = (rightBoxWidth) / num;
+  rbh = height / (num + 1);
+}
+
+
+function drawElements() {
+
+  p5.push();
+  p5.noStroke();
+  p5.fill(255,255,255);
+  p5.rect(leftX, 0, leftBoxWidth, height, 10);
+  p5.rect(rightX, 0, leftBoxWidth, height, 10);
+  p5.pop();
+
+  p5.push();
+  p5.fill(ltbluegreen);
+  p5.noStroke();
+
+  for (let i=1; i < num; i++) {
+    if (dArray[i-1][i-1] === emptyChar) {
+      p5.rect(rightX + i * rbw, i * rbh, rbw, rbh, 10);      
+    }
+  }    
+
+  p5.fill(darkGray);
+  p5.textSize(height * 0.03);
+
+  for (let i=1; i < num; i++) {
+    const t = i.toString();
+    const [textX,textY] = centerTextInRect(leftX, i*lbh1, lbw, lbh1, t);
+    p5.text(t, textX, textY);
+  }    
+
+  for (let i=0; i < numSubSets; i++) {
+    p5.fill(ltbluegreen);
+    if (i === Did) {
+      p5.rect(2 * lbw + leftX, i * lbh2, lbw, lbh2, 10);
+    }
+    p5.fill(darkGray);    
+    const t = subSetString(subSets[i]);
+    const [textX,textY] = centerTextInRect(2 * lbw + leftX, i * lbh2, lbw, lbh2, t);
+    p5.text(t, textX, textY);
+  }
+
+  p5.stroke(darkGray);  
+  p5.line(rightX, rbh, width, rbh);
+  p5.line(rightX + rbw, 0, rightX + rbw, num * rbh);
+
+  for (let j=0; j < num; j++) {
+    for (let i=0; i < num; i++) {
+      if (j === 0) {
+        t = dtoprow[i];
+      }
+      else {
+        if (i === 0) {
+          t = dfirstcolumn[j];
+        }
+        else {
+          t = '8';
+          t = dArray[j-1][i-1];
+        }
+      }
+      const [textX,textY] = centerTextInRect(rightX + i * rbw, j * rbh, rbw - spacer, rbh,t);
+      p5.text(t, textX, textY);
+    }
+  }
+
+  let Dtext = "D = " + subSetString(D);
+  const [dX,dY] = centerTextInRect(rightX, rbh * num, rbw * num, rbh, Dtext);
+  p5.text(Dtext, dX, dY);
+
+  p5.pop();
+
+  p5.push();
+  p5.strokeWeight(4);
+  p5.stroke(tomato);
+  for (let i=0; i < lines.length; i++) {
+    p5.line(lines[i][0], lines[i][1], lines[i][2], lines[i][3]);
+  }
+  p5.pop()  
+}
+
+function inXboxes(x,y) {
+  if (y < lbh1 || y > lbh1 * num) return false;   // it's not in the boxes
+  if (x < 0 || x > lbw) return false;
+  return true;
+}
+
+function inSubsetBoxes(x,y) {
+  if (y < 0 || y > canvasWidth) return false;   // it's not in the boxes
+  if (x < lbw * 2 || x > lbw * 3) return false;
+  return true;
+}
+
+function getXvalue(x,y) {
+  return Math.floor((y - lbh1) / lbh1);
+}
+
+function getSubset(x,y) {
+  return Math.floor(y / lbh2);
+}
+
+////////////////////////  event handling   /////////////////////////////
+
+
+
+
+p5.setup = function() {                          // this function is called when you start the
+                                                 // playable.
+  canvasHeight = p5.windowHeight * heightScale;
+  canvasWidth = p5.windowWidth * widthScale;  // set the size of the playable
+  p5.createCanvas(canvasWidth,canvasHeight);     // create the canvas we will draw on
+  p5.windowResized();
+
+  initializeWindowParameters(canvasWidth * 0.99, canvasHeight);
+  initializeLineCoordinates();
+  drawElements();
+
+  // EnergyHack to inhibit looping after 1 sec, this allows for popups to
+  // fade in (which should really be a CSS function, and not involve P5JS.
+  window.setTimeout(function() {
+    p5.noLoop();
+  }, 10000);
+};
+
+
+p5.windowResized = function() {                  // this function is called when the user changes
+  canvasHeight = p5.windowHeight * heightScale;  // the size of the window.  It will rescale all the
+  canvasWidth = p5.windowWidth * widthScale;   // components to fit into the new window size.
+  p5.resizeCanvas(canvasWidth, canvasHeight);
+  initializeWindowParameters(canvasWidth * 0.99, canvasHeight);
+  updateLinePositions();
+  updateLineCoordinates();
+}
+
+
+p5.draw = function() {                           // this function gets called repeatedly in a loop.
+
+  p5.clear();
+  drawElements();
+}
+
+
+p5.mousePressed = function()                     // this function is called everytime the user clicks the mouse
+{
+  if (inXboxes(p5.mouseX, p5.mouseY)) {
+    const boxID = getXvalue(p5.mouseX, p5.mouseY);
+    currentLine = boxID;
+    //lineIDs[currentLine][0] = boxID;
+    lines[currentLine][0] = linesStartX[currentLine];
+    lines[currentLine][1] = linesStartY[currentLine];    
+  }
+
+  // EnergyHack to enable looping for duration of drag.
+  p5.loop();
+}
+
+
+p5.mouseDragged = function() {                   // this function is called everytime the user drags the mouse
+  if (currentLine != -1) {
+    lines[currentLine][2] = p5.mouseX;
+    lines[currentLine][3] = p5.mouseY;
+  }
+}
+
+
+p5.mouseReleased = function() {                  // this function is called when the user releases the mouse
+
+  if (inSubsetBoxes(p5.mouseX, p5.mouseY)) {
+    const boxID = getSubset(p5.mouseX, p5.mouseY);
+    lines[currentLine][2] = linesStopX[boxID];
+    lines[currentLine][3] = linesStopY[boxID];     
+    f[currentLine] = boxID;
+    currentLine = -1;
+    updateDataStructures();
+  }
+
+  // EnergyHack to stop looping 5 sec after release.
+  window.setTimeout(function() {
+    p5.noLoop();
+  }, 10000);
+}
+
+```
+
+
+### Georg Cantor
+
+What do I love about the Cantor proof?  
+
+1. It's so simple.  By simple I mean it relies on just a few straightforward definitions.
+  - A set
+  - A power set
+  - An **onto** functional mapping
+  and it's a short argument.  Highschool math education can understand. 
+
+2. So it's simple right?  Well simple doesn't mean that it's easy to understand.  
+  It's abstract.  It's about the **size** of infinite sets right?  What does that mean?  It's not something we have intuition about. What does infinity mean?  It's not something we can see and touch and smell.  Cantor shows that our basic intuition about what infinity means is incorrect. This may change for future generations.
+
+3. And, it has monumental reprecussions for mathematics and computer science.  I hope to discuss those reprecussions is future videos.  
+
+So that's the pull.  It's simple, but hard to wrap your head around and has enormous implications for mathematics, and computer science.  If this proof is new to you, I hope it will change the way you think about the world around you. Challenge our basic assumptions about what is finite and infinite shape our view of the universe.
+
+#### The basics
+
+1. A set:  Just a group of things.  What things?  (anything you want) How many? (as many as you want)
+2. power set: Formal definition, plain language definition, examples
+3. onto function: formal definition, plain language, examples with pictures.
+
+#### Proof sketch
+
+At the time when Cantor wrote his proof, people believed that infinite sets only came in one size: namely infinite.  It was the size of anything that went on forever.  Most people still view infinity this way.  
+
+Cantor was curious about the relative sizes of different infinite sets. How do you measure the size of something that goes on forever?  Cantor's idea was to create a function from one set **onto** the other.  This puts the sets into pairs.  If set A can cover every element of set B with a unique element, then A has to be at least as big as B.  If B can similarly cover all the elements of A, then the sets are in some sense the same size.  But what if A can cover B, but the reverse isn't true, there's no way for B to cover all the elements of A.  No matter what function you pick,  you always leave some elements of A uncovered.  It must be that the set A is bigger than set B.
+
+
+
+
+#### The proof
+
+The set P(X) is bigger than X.
+
+form 1:
+
+form 2:
+
+#### Working with X = {1,2,3}
+
+- Demo
+- You should play with this because it will help you build intuition about diagonalization.
+
+
+#### Observations
+- some of the results are not intuitive.
+  - evens are the same size as the naturals
+      - evens are half of the naturals?
+      - evens are bigger numbers?
+  - rationals are the same size as naturals?
+      - when we look at the numberline that doesn't seem right
+      - show diagonalization
+
+Need some way of visually collapsing the symbols into a linear series that goes on infinitely.
+
+
+
+#### Summary
+
+
+1. We can use functional mappings to compare the sizes of infinite sets.
+2. Infinite sets come in many different sizes.
+3. In fact, there's an infinite hierarchy  of sets with increasing size.  
+   - we can start with the natural numbers
+   - we take the power set of N
+   - then we take the power set of the powerset 
+   - and so on for as long as we like.
+   - each set is properly bigger than the previous.
+
+
+#### Response of the World to Cantor's proof
+
+
+- we are still responding Cantor's proof.
+
+
+#### Impact of Proof
+
+1. Russell's paradox: We had to revise our simplistic notion of what constitutes a set to be more precise.  Otherwise, paradoxes and contradictions show up.  large swaths of mathematics are unaffected, but it's good to develop your spidy sense for where problems might develop.
+
+2. Godel's incompleteness result: Axiomatic systems designed to be the foundational proof systems for mathematics have serious limitations. 
+
+
+3. Turing unrecognizable languages: The power of computers to solve problems is limited in the same way that proof systems are.  Using computer programs to analyze other computer programs is limited.  
+
+
+
+We'll look at each of these results in a separate video.  
+
+
+
+</script>
+
+  
+
+  
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/blog-kit/">  
+      <img src="/blog-kit/assets/images/wildthinksLogo.svg" height="30">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      
+      <ul class="noheadernav navbar-nav ml-auto">
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/pages/About/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/posts">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Page Header -->
+
+<header id="header-wrapper" class="masthead noheader">
+</header>  
+  
+
+
+
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:goldfishandrobin@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/wildthinksLab">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/wildthinkslaboratory">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Heidi Dixon 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/blog-kit/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/blog-kit/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/blog-kit/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/blog-kit/assets/scripts.js"></script>
+
+
+
+
+  
+  <script>
+  /* global smartdown */
+  var baseURL = '/blog-kit/';
+  var icons = {
+    'rectangle' : `/assets/images/calculus/rectangle.svg`,
+    'secant' : `/assets/images/calculus/secant.svg`,
+    'ftc1' : `/assets/images/calculus/ftc1.svg`,
+    'usamts2' : `/assets/images/calculus/usamts2.svg`,
+    'usamts1' : `/assets/images/calculus/usamts1.svg`,
+    'negaBinary' : `/assets/images/calculus/negaBinary.svg`,
+    'string' : `/assets/images/calculus/strings.svg`,
+    'derivative' : `/assets/images/calculus/derivative.svg`,
+    'chainrule' : `/assets/images/calculus/chainrule.svg`,
+    'fractal' : `/assets/images/calculus/fractal.svg`,
+    'limits'  : `/assets/images/calculus/limits.svg`,
+    'eToTheX' : `/assets/images/calculus/eToTheX.svg`,
+    'ftc2' : `/assets/images/calculus/ftc2.svg`,
+    'epsilonDelta': `/assets/images/calculus/epsilonDelta.svg`,
+    'penrose' : `/assets/images/calculus/penrose.svg`,
+    'circles' : `/assets/images/calculus/circles.svg`,
+    'GR' : `/assets/images/calculus/GR.svg`,
+    'Fib' : `/assets/images/calculus/FibDots.svg`,
+    '2Ddots' : `/assets/images/calculus/2Ddots.svg`,
+    'circCoord' : `/assets/images/calculus/circCoord.svg`,
+    'spiral1' : `/assets/images/calculus/spiral1.svg`
+  };
+
+  var multiparts = null;
+  var current = null;
+
+
+  function cardLoaded(url, cardKeySubhash, sourceText) {
+    /* eslint no-invalid-this: 0 */
+    sourceText = sourceText.trim();
+    multiparts = smartdown.partitionMultipart(sourceText);
+
+    if (url.endsWith('.md')) {
+      const newPath = url.replace(/\.md$/, '/');
+      current = newPath;
+      history.pushState(null, null, newPath);
+    }
+
+    var output = document.getElementById('blog-content');
+    smartdown.setHome(multiparts._default_, output, function() {
+      document.body.scrollTop = 0; // For Chrome, Safari and Opera
+      document.documentElement.scrollTop = 0; // For IE and Firefox
+
+      if (cardKeySubhash) {
+        const target = document.getElementById(cardKeySubhash);
+        if (target) {
+          target.scrollIntoView();
+        }
+      }
+
+      smartdown.startAutoplay(output);
+    });
+  }
+
+  function loadURL(url) {
+    var oReq = new XMLHttpRequest();
+    let cardKeySubhash = null;
+    const hashPos = url.indexOf('#');
+    if (hashPos >= 0) {
+      cardKeySubhash = url.slice(hashPos + 1);
+    }
+
+    oReq.addEventListener('load', function() {
+      cardLoaded(url, cardKeySubhash, this.responseText);
+    });
+    oReq.open('GET', url);
+    oReq.send();
+  }
+
+  function loadInline() {
+    smartdown.loadCardsFromDocumentScripts();
+    var s = smartdown.smartdownScripts[0];
+
+    cardLoaded(window.location.href, window.location.hash.slice(1), s.text);
+  }
+
+  function cardLoader(cardKey) {
+    // console.log('cardLoader', cardKey);
+    var part = multiparts[cardKey];
+    if (part) {
+      var output = document.getElementById('blog-content');
+      smartdown.setHome(part, output, function() {
+        smartdown.startAutoplay(output);
+      });
+    }
+    else {
+      var cardURL = cardKey;
+      if (cardKey.indexOf('http') === 0) {
+        cardURL = cardKey;
+      }
+      else {
+        const expanded = smartdown.expandHrefWithLinkRules(cardURL);
+        // console.log('cardloader', cardURL, expanded);
+        cardURL = expanded;
+      }
+      // else if (cardKey.indexOf('/posts') === 0) {
+      //   cardURL = `${baseURL}${cardKey}`;
+      //   console.log('cardLoader', cardKey, cardURL);
+      // }
+      loadURL(cardURL);
+    }
+  }
+
+  var calcHandlers = smartdown.defaultCalcHandlers;
+  const linkRules = [
+    {
+      prefix: '/posts/',
+      replace: baseURL + '/posts/',
+    },
+    {
+      prefix: '/pages/',
+      replace: baseURL + '/pages/',
+    },
+    {
+      prefix: '/assets/',
+      replace: baseURL + '/assets/',
+    },
+  ];
+
+
+
+  window.addEventListener(
+    'popstate',
+    function(event) {
+      const url = document.location.pathname;
+      if (url.endsWith('/')) {
+        const newPath = url.replace(/\/$/, '.md');
+        // console.log('popstatex: ', url, newPath, current, window.location.hash);
+        if (current && url !== current) {
+          loadURL(newPath);
+        }
+      }
+    },
+    false);
+  // window.addEventListener(
+  //   'hashchange',
+  //   function(event) {
+  //     console.log(
+  //       'hashchange document.location.pathname: ' + document.location.pathname,
+  //       JSON.stringify(event.state));
+  //   },
+  //   false);
+
+  smartdown.initialize(icons, `https://unpkg.com/smartdown/dist/`, loadInline, cardLoader, calcHandlers, linkRules);
+</script>
+
+  
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

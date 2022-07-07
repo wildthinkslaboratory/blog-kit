@@ -1,0 +1,340 @@
+[{
+  "type": "proof_proposition",
+  "message0": "%1 %2 %3",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "symbol",
+      "text": "A"
+    },
+    {
+      "type": "field_input",
+      "name": "statement_t",
+      "text": ""
+    },
+    {
+      "type": "field_input",
+      "name": "statement_f",
+      "text": ""
+    }
+  ],
+  "output": "Boolean",
+  "colour": 230,
+  "tooltip": "Proposition",
+  "helpUrl": ""
+},
+{
+  "type": "proof_if_then_intro",
+  "message0": "assume %1 proof %2 conclude %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "Assumption",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_statement",
+      "name": "proof"
+    },
+    {
+      "type": "input_value",
+      "name": "NAME",
+      "check": "if_then"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "if then introduction",
+  "helpUrl": ""
+},
+{
+  "type": "proof_if_then",
+  "message0": "if %1 then %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "premise",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_value",
+      "name": "concolusion",
+      "check": "Boolean"
+    }
+  ],
+  "inputsInline": true,
+  "output": "if_then",
+  "colour": 65,
+  "tooltip": "if then statement",
+  "helpUrl": ""
+},
+{
+  "type": "proof_not",
+  "message0": "not %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "prop",
+      "check": "Boolean"
+    }
+  ],
+  "output": "Boolean",
+  "colour": 65,
+  "tooltip": "not statement",
+  "helpUrl": ""
+},
+{
+  "type": "proof_and",
+  "message0": "%1 and %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "prop1",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_value",
+      "name": "prop2",
+      "check": "Boolean"
+    }
+  ],
+  "inputsInline": true,
+  "output": "and",
+  "colour": 65,
+  "tooltip": "and statement",
+  "helpUrl": ""
+},
+{
+  "type": "proof_or",
+  "message0": "%1 or %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "prop1",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_value",
+      "name": "prop2",
+      "check": "Boolean"
+    }
+  ],
+  "inputsInline": true,
+  "output": "or",
+  "colour": 65,
+  "tooltip": "or statement",
+  "helpUrl": ""
+},
+{
+  "type": "proof_if_then_elim",
+  "message0": "if then %1 premise %2 conclude %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "if_then",
+      "check": "if_then",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "premise",
+      "check": "Boolean",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "conclusion",
+      "check": "Boolean",
+      "align": "RIGHT"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "if then elimination",
+  "helpUrl": ""
+},
+{
+  "type": "proof_contradiction",
+  "message0": "contradiction",
+  "output": null,
+  "colour": 65,
+  "tooltip": "contradiction",
+  "helpUrl": ""
+},
+{
+  "type": "proof_not_intro",
+  "message0": "assume %1 proof %2 negation %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "assumption",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_statement",
+      "name": "proof"
+    },
+    {
+      "type": "input_value",
+      "name": "negation",
+      "check": "Boolean"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "not introduction",
+  "helpUrl": ""
+},
+{
+  "type": "proof_contradiction_intro",
+  "message0": "proposition %1 negation %2 contradiction %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "prop",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_value",
+      "name": "negation",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_value",
+      "name": "contradiction"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "contradiction introduction",
+  "helpUrl": ""
+},
+{
+  "type": "proof_statement",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "NAME",
+      "check": "Boolean"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "statement",
+  "helpUrl": ""
+},
+{
+  "type": "proof_and_intro",
+  "message0": "p1 %1 p2 %2 conclude %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "prop1",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_value",
+      "name": "prop2",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_value",
+      "name": "and",
+      "check": "and"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 160,
+  "tooltip": "and introduction",
+  "helpUrl": ""
+},
+{
+  "type": "proof_and_elim",
+  "message0": "and %1 conclude %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "and",
+      "check": "and"
+    },
+    {
+      "type": "input_value",
+      "name": "prop",
+      "check": "Boolean"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 160,
+  "tooltip": "and elimination",
+  "helpUrl": ""
+},
+{
+  "type": "proof_or_intro",
+  "message0": " %1 conclude %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "prop",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_value",
+      "name": "or",
+      "check": "or"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 260,
+  "tooltip": "or introduction",
+  "helpUrl": ""
+},
+{
+  "type": "proof_or_elim",
+  "message0": "or %1 assume 1 %2 proof 1 %3 assume 2 %4 proof 2 %5 conclude %6",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "or",
+      "check": "or"
+    },
+    {
+      "type": "input_value",
+      "name": "assume1",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_statement",
+      "name": "proof1"
+    },
+    {
+      "type": "input_value",
+      "name": "assume2",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_statement",
+      "name": "proof 2"
+    },
+    {
+      "type": "input_value",
+      "name": "conclusion",
+      "check": "Boolean"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 260,
+  "tooltip": "or elimination",
+  "helpUrl": ""
+}]

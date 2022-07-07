@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <meta property="og:image" content="https://wildthinks.org/assets/images/calculus/strings.jpg">
+  
+
+  <link rel="icon" href="http://wildthinks.org/assets/images/favicon.png">
+
+  <title>
+    Exploding Dots meets Gödel - wildthinks
+    
+  </title>
+
+  <meta name="description" content="#### Choose your own alphabet Type in an alphabet from your keyboard and then hit `Enter` to create your own alphabet. [note](::note/transparent,topright,clo...">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Asap:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/main.css">
+  <link rel="canonical" href="https://wildthinks.org/blog-kit/pages/expDotsGodel3/">
+  <link rel="alternate" type="application/rss+xml" title="wildthinks" href="/blog-kit/feed.xml">
+
+  
+  <link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/smartdown.css">
+<link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/fonts.css">
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/smartdown.js">
+</script>
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/calc_handlers.js"></script>
+<script type="text/x-smartdown" id="Home">
+#### Choose your own alphabet
+
+Type in an alphabet from your keyboard and then hit `Enter` to create your own alphabet. [note](::note/transparent,topright,closeable,draggable,shadow,outline)
+
+[Enter an alphabet](:?Alphabet)
+[Current alphabet](:!Alphabet)
+
+```javascript /autoplay/p5js
+
+// import the dots library
+//smartdown.import=/assets/libs/dots.js
+
+
+// this is the url for the background picture
+const bgURL = 'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/0fe1c494e0a94243f3b6d10dd38ef2a341d92f95/bgRedCream-20.jpg';
+
+
+// Adjust the surrounding DIV(s) a little
+const myDiv = this.div;                                  // This chunk of code is some HTML/CSS stuff
+myDiv.style.position = 'relative';                       // to make the playable look pretty
+myDiv.style['background-image'] = `url(${bgURL})`;
+myDiv.style['background-repeat'] = 'no-repeat';
+myDiv.style['background-size'] = 'cover';
+myDiv.style.height = '100%';
+myDiv.style.width = '100%';
+myDiv.style.padding = '0';
+myDiv.style.margin = '0';
+myDiv.style.overflow = 'hidden';
+myDiv.style.border = '5px solid gray';
+this.div.style.margin = '10px auto'; // shorthand for '10px auto 10px auto'
+this.div.innerHTML = '';
+
+const widthScale = 0.80;
+const heightScale = 0.8;
+const base = 2;               // set the base for the machine
+const numberBoxes = 3;         // set how many boxes you want
+
+
+let dots = new dotlib.Dots(p5, this.div);  // create the dots and boxes machine
+
+
+p5.setup = function() {                          // this function is called when you start the
+                                                 // playable. 
+  dots.setup(base, numberBoxes, 'red');             // initialize the machine with the base and number of boxes. 
+  var canvasWidth = p5.windowWidth * widthScale;    // set the size of the playable
+  var canvasHeight = p5.windowHeight * heightScale;
+  p5.createCanvas(canvasWidth,canvasHeight);     // create the canvas we will draw on
+  p5.windowResized();    
+
+  smartdown.setVariable('Alphabet', '');                        
+
+  dots.loadSounds();                             // load the sounds for the app 
+};
+
+
+p5.windowResized = function() {                  // this function is called when the user changes
+  const canvasWidth = p5.windowWidth * widthScale;   // the size of the window.  It will rescale all the 
+  const canvasHeight = p5.windowHeight * heightScale; // components to fit into the new window size.
+  dots.windowResized(canvasWidth, canvasHeight); 
+  p5.resizeCanvas(canvasWidth, canvasHeight);
+}
+
+
+p5.draw = function() {                           // this function gets called repeatedly in a loop.
+  dots.draw();                                   // The machine is redrawn multiple times a second.
+}
+
+
+p5.mousePressed = function()                     // this function is called everytime the user clicks the mouse
+{
+  dots.mousePressed();
+}
+
+
+p5.mouseDragged = function() {                   // this function is called everytime the user drags the mouse
+  dots.mouseDragged();
+}
+
+
+p5.mouseReleased = function() {                  // this function is called when the user releases the mouse 
+  dots.mouseReleased();                          // button after a click.
+}
+
+
+
+var A;    // this holds the alphabet string
+
+this.dependOn = ['Alphabet'];
+this.depend = function() {                       // this function is called when the alphabet changes to a new value
+  A = env.Alphabet;
+  if (A[A.length - 1] === '\n') {                // we only enter a new alphabet when the user hits enter  i.e. '\n'
+    const cleanA = cleanUpAlphabet(A);           // the user may not have entered a valid alphabet to we clean it up
+    smartdown.setVariable('Alphabet', cleanA.join(''));              // convert the alphabet from a string to an array of characters
+    dots.setAlphabetSymbols(cleanA);             // add the alphabet to the machine
+  }
+};
+
+
+function cleanUpAlphabet(a) {                                    // here's where we clean up the alphabet
+  aNoWhiteSpace = a.replace(/\s/g, '');                          // remove any spaces, tabs or enter characters
+  let newA = Array.from(new Set(aNoWhiteSpace.split('')));       // remove duplicate characters
+  return newA;
+}
+
+```
+
+##### Things to try
+- The machine is initialized with the standard base $2$ alphabet `{01}`.  Set the machine to encode the number four.  It should show the code `100`.  Now change the alphabet to `{0123456789}`.  The code `100` will stay the same, but what is the new value for this code?  
+- What happens if you choose the alphabet `{10}` (subtly different from the alphabet `{01}`)?  This will change the value AND the code.  You'll need to adjust the position of **dots** to get the code `100` back. What does the code `100` mean in this machine?  Note that usually we ignore any `0` symbols that are placed in front of a number.  In this case we ignore any  leading `1` symbols.  What other numbers could the code `100` stand for?
+- I like the alphabet `{_o}`.  The underscore `_` for zero reminds me of an empty box and the `o` for one is like a little **dot**. 
+- Experiment and come up with your very own number system.  Using all your exploding dots knowledge you can work out how to do addition, subtraction, multiplication  and division with it. 
+[Continue](/pages/expDotsGodel4)
+
+# :::: note
+# --partialborder
+This machine is only three boxes long, but imagine a machine like this one with a hundred boxes, or a million boxes.  You can begin to see how we could interpret an email, a book, a program or a proof as a number.
+# --partialborder
+# ::::
+
+</script>
+
+  
+
+  
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/blog-kit/">  
+      <img src="/blog-kit/assets/images/wildthinksLogo.svg" height="30">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      
+      <ul class="noheadernav navbar-nav ml-auto">
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/pages/About/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/posts">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Page Header -->
+
+<header id="header-wrapper" class="masthead noheader">
+</header>  
+  
+    <ul class="tabrow">
+      
+        
+          <li><a href="/blog-kit/pages/expDotsGodel1/">one</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/expDotsGodel2/">two</a></li>
+        
+      
+        
+          <li class="selected"><a href="/blog-kit/pages/expDotsGodel3/">three</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/expDotsGodel4/">four</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/expDotsGodel5/">five</a></li>
+        
+      
+    </ul>
+  
+
+
+
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:goldfishandrobin@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/wildthinksLab">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/wildthinkslaboratory">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Heidi Dixon 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/blog-kit/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/blog-kit/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/blog-kit/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/blog-kit/assets/scripts.js"></script>
+
+
+
+
+  
+  <script>
+  /* global smartdown */
+  var baseURL = '/blog-kit/';
+  var icons = {
+    'rectangle' : `/assets/images/calculus/rectangle.svg`,
+    'secant' : `/assets/images/calculus/secant.svg`,
+    'ftc1' : `/assets/images/calculus/ftc1.svg`,
+    'usamts2' : `/assets/images/calculus/usamts2.svg`,
+    'usamts1' : `/assets/images/calculus/usamts1.svg`,
+    'negaBinary' : `/assets/images/calculus/negaBinary.svg`,
+    'string' : `/assets/images/calculus/strings.svg`,
+    'derivative' : `/assets/images/calculus/derivative.svg`,
+    'chainrule' : `/assets/images/calculus/chainrule.svg`,
+    'fractal' : `/assets/images/calculus/fractal.svg`,
+    'limits'  : `/assets/images/calculus/limits.svg`,
+    'eToTheX' : `/assets/images/calculus/eToTheX.svg`,
+    'ftc2' : `/assets/images/calculus/ftc2.svg`,
+    'epsilonDelta': `/assets/images/calculus/epsilonDelta.svg`,
+    'penrose' : `/assets/images/calculus/penrose.svg`,
+    'circles' : `/assets/images/calculus/circles.svg`,
+    'GR' : `/assets/images/calculus/GR.svg`,
+    'Fib' : `/assets/images/calculus/FibDots.svg`,
+    '2Ddots' : `/assets/images/calculus/2Ddots.svg`,
+    'circCoord' : `/assets/images/calculus/circCoord.svg`,
+    'spiral1' : `/assets/images/calculus/spiral1.svg`
+  };
+
+  var multiparts = null;
+  var current = null;
+
+
+  function cardLoaded(url, cardKeySubhash, sourceText) {
+    /* eslint no-invalid-this: 0 */
+    sourceText = sourceText.trim();
+    multiparts = smartdown.partitionMultipart(sourceText);
+
+    if (url.endsWith('.md')) {
+      const newPath = url.replace(/\.md$/, '/');
+      current = newPath;
+      history.pushState(null, null, newPath);
+    }
+
+    var output = document.getElementById('blog-content');
+    smartdown.setHome(multiparts._default_, output, function() {
+      document.body.scrollTop = 0; // For Chrome, Safari and Opera
+      document.documentElement.scrollTop = 0; // For IE and Firefox
+
+      if (cardKeySubhash) {
+        const target = document.getElementById(cardKeySubhash);
+        if (target) {
+          target.scrollIntoView();
+        }
+      }
+
+      smartdown.startAutoplay(output);
+    });
+  }
+
+  function loadURL(url) {
+    var oReq = new XMLHttpRequest();
+    let cardKeySubhash = null;
+    const hashPos = url.indexOf('#');
+    if (hashPos >= 0) {
+      cardKeySubhash = url.slice(hashPos + 1);
+    }
+
+    oReq.addEventListener('load', function() {
+      cardLoaded(url, cardKeySubhash, this.responseText);
+    });
+    oReq.open('GET', url);
+    oReq.send();
+  }
+
+  function loadInline() {
+    smartdown.loadCardsFromDocumentScripts();
+    var s = smartdown.smartdownScripts[0];
+
+    cardLoaded(window.location.href, window.location.hash.slice(1), s.text);
+  }
+
+  function cardLoader(cardKey) {
+    // console.log('cardLoader', cardKey);
+    var part = multiparts[cardKey];
+    if (part) {
+      var output = document.getElementById('blog-content');
+      smartdown.setHome(part, output, function() {
+        smartdown.startAutoplay(output);
+      });
+    }
+    else {
+      var cardURL = cardKey;
+      if (cardKey.indexOf('http') === 0) {
+        cardURL = cardKey;
+      }
+      else {
+        const expanded = smartdown.expandHrefWithLinkRules(cardURL);
+        // console.log('cardloader', cardURL, expanded);
+        cardURL = expanded;
+      }
+      // else if (cardKey.indexOf('/posts') === 0) {
+      //   cardURL = `${baseURL}${cardKey}`;
+      //   console.log('cardLoader', cardKey, cardURL);
+      // }
+      loadURL(cardURL);
+    }
+  }
+
+  var calcHandlers = smartdown.defaultCalcHandlers;
+  const linkRules = [
+    {
+      prefix: '/posts/',
+      replace: baseURL + '/posts/',
+    },
+    {
+      prefix: '/pages/',
+      replace: baseURL + '/pages/',
+    },
+    {
+      prefix: '/assets/',
+      replace: baseURL + '/assets/',
+    },
+  ];
+
+
+
+  window.addEventListener(
+    'popstate',
+    function(event) {
+      const url = document.location.pathname;
+      if (url.endsWith('/')) {
+        const newPath = url.replace(/\/$/, '.md');
+        // console.log('popstatex: ', url, newPath, current, window.location.hash);
+        if (current && url !== current) {
+          loadURL(newPath);
+        }
+      }
+    },
+    false);
+  // window.addEventListener(
+  //   'hashchange',
+  //   function(event) {
+  //     console.log(
+  //       'hashchange document.location.pathname: ' + document.location.pathname,
+  //       JSON.stringify(event.state));
+  //   },
+  //   false);
+
+  smartdown.initialize(icons, `https://unpkg.com/smartdown/dist/`, loadInline, cardLoader, calcHandlers, linkRules);
+</script>
+
+  
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

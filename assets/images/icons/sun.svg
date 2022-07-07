@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="500" height="500" viewBox="0, 0, 500, 500">
+  <defs>
+    <radialGradient id="Gradient_1" gradientUnits="userSpaceOnUse" cx="251.113" cy="264.768" r="326.588">
+      <stop offset="0.423" stop-color="#B6FEFF"/>
+      <stop offset="1" stop-color="#0085CF"/>
+    </radialGradient>
+  </defs>
+  <g id="Layer_3">
+    <g>
+      <path d="M59.326,12.721 L441.674,12.721 C467.413,12.721 488.279,33.587 488.279,59.326 L488.279,441.674 C488.279,467.413 467.413,488.279 441.674,488.279 L59.326,488.279 C33.587,488.279 12.721,467.413 12.721,441.674 L12.721,59.326 C12.721,33.587 33.587,12.721 59.326,12.721 z" fill="url(#Gradient_1)"/>
+      <path d="M59.326,12.721 L441.674,12.721 C467.413,12.721 488.279,33.587 488.279,59.326 L488.279,441.674 C488.279,467.413 467.413,488.279 441.674,488.279 L59.326,488.279 C33.587,488.279 12.721,467.413 12.721,441.674 L12.721,59.326 C12.721,33.587 33.587,12.721 59.326,12.721 z" fill-opacity="0" stroke="#FFFFFF" stroke-width="16"/>
+    </g>
+    <g>
+      <path d="M250.5,369 C185.054,369 132,315.946 132,250.5 C132,185.054 185.054,132 250.5,132 C315.946,132 369,185.054 369,250.5 C369,315.946 315.946,369 250.5,369 z" fill="#FFE436"/>
+      <path d="M250.5,369 C185.054,369 132,315.946 132,250.5 C132,185.054 185.054,132 250.5,132 C315.946,132 369,185.054 369,250.5 C369,315.946 315.946,369 250.5,369 z" fill-opacity="0" stroke="#FFF4B8" stroke-width="20"/>
+    </g>
+    <path d="M251,67.75 L251,104.75" fill-opacity="0" stroke="#FFF4B8" stroke-width="20" stroke-linecap="round"/>
+    <path d="M659.5,322.5 L660.5,322.5" fill-opacity="0" stroke="#FFE436" stroke-width="10"/>
+    <path d="M251.75,396.25 L251.75,433.25" fill-opacity="0" stroke="#FFF4B8" stroke-width="20" stroke-linecap="round"/>
+    <path d="M437.25,249.25 L400.25,249.25" fill-opacity="0" stroke="#FFF4B8" stroke-width="20" stroke-linecap="round"/>
+    <path d="M100.75,250.5 L63.75,250.5" fill-opacity="0" stroke="#FFF4B8" stroke-width="20" stroke-linecap="round"/>
+    <path d="M376.25,112.669 L350.087,138.831" fill-opacity="0" stroke="#FFF4B8" stroke-width="20" stroke-linecap="round"/>
+    <path d="M141.913,355.837 L115.75,382" fill-opacity="0" stroke="#FFF4B8" stroke-width="20" stroke-linecap="round"/>
+    <path d="M142.413,149.163 L116.25,123" fill-opacity="0" stroke="#FFF4B8" stroke-width="20" stroke-linecap="round"/>
+    <path d="M376.25,382.75 L350.087,356.587" fill-opacity="0" stroke="#FFF4B8" stroke-width="20" stroke-linecap="round"/>
+  </g>
+</svg>

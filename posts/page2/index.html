@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <meta property="og:image" content="https://wildthinks.org/assets/images/ogpic.png">
+  
+
+  <link rel="icon" href="http://wildthinks.org/assets/images/favicon.png">
+
+  <title>
+    wildthinks
+  </title>
+
+  <meta name="description" content="interactive mathematics explorations">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Asap:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/main.css">
+  <link rel="canonical" href="https://wildthinks.org/blog-kit/posts/page2/">
+  <link rel="alternate" type="application/rss+xml" title="wildthinks" href="/blog-kit/feed.xml">
+
+  
+  <link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/smartdown.css">
+<link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/fonts.css">
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/smartdown.js">
+</script>
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/calc_handlers.js"></script>
+<script type="text/x-smartdown" id="Home">
+## Math and Art Adventures
+Explore shapes and patterns that are mathematically generated.  Create your own work of art. 
+
+# --outlinebox other
+```graphviz/autoplay
+digraph G {
+  tooltip="wildthinks map";
+  fontsize="24";
+  fontname="Arial";
+  size="12,12";
+  bgcolor=transparent;
+
+
+    subgraph cluster3 {
+        fractal [shape=none, tooltip="Fractal Generator", URL="/pages/SuperJulia", label="", image="/assets/images/calculus/fractal.svg"];
+        penrose [shape=none, tooltip="Penrose Tiling Generator", URL="/pages/penrose", label="", image="/assets/images/calculus/penrose.svg"];
+        circles [shape=none, tooltip="Modular Multiplication Circles", URL="/pages/modularCircles", label="", image="/assets/images/calculus/circles.svg"];
+        circCoord [shape=none, tooltip="Circular Coordinates", URL="/pages/circCoord", label="", image="/assets/images/calculus/circCoord.svg"];
+        spirograph [shape=none, tooltip="Spirograph", URL="/pages/spirograph", label="", image="/assets/images/calculus/spiral1.svg"];
+
+        rankdir=TB;
+        label = "Visualizations"
+        style=filled;
+        color=transparent;
+        edge[style=invis];
+  }
+    
+}
+```
+# --outlinebox
+
+
+```javascript /autoplay
+
+const otherDiv = document.getElementById('other');
+otherDiv.classList.remove('decoration-outlinebox');
+
+otherDiv.style.border = '2px solid #DDDDDD';
+otherDiv.style.borderRadius = '25px';
+otherDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
+## Visual Calculus
+
+The Calculus Lessons give a truly interactive introduction to the ideas of calculus.
+
+The first three chapters are entirely geometric.  They require only familiarity with functions in the $(x,y)$ plane and an understanding of ratios and rates.  They are a fantastic introduction to the ideas of calculus.
+
+The remaining chapters are intended to supplement a standard calculus class.  They give interactive explanations of the major results from first year calculus.
+
+
+# --outlinebox calculus
+
+```graphviz/autoplay
+digraph G {
+  
+	tooltip="wildthinks map";
+	fontsize="24";
+	fontname="Arial";
+	size="12,12";
+  rankdir=LR;
+  bgcolor=transparent;
+    subgraph cluster1 {
+      color="transparent";
+        rectangle [shape=none, URL="/pages/rectangle1", label="", image="/assets/images/calculus/rectangle.svg"];
+        secant[shape=none, URL="/pages/secant1", label="", image="/assets/images/calculus/secant.svg"];
+		    FTC1 [shape=none, tooltip="secant / rectangle", URL="/pages/prelude", label="", image="/assets/images/calculus/ftc1.svg"];
+        limit [shape=none, URL="/pages/limit1", tooltip="limit",label="", image="/assets/images/calculus/limits.svg"];
+        epsilonDelta [shape=none, URL="/pages/limitDEIntro", tooltip="epsilon delta proofs",label="", image="/assets/images/calculus/epsilonDelta.svg"];
+		    derivative [shape=none, tooltip="Definition of the Derivative", URL="/pages/symbols1", label="", image="/assets/images/calculus/derivative.svg"];
+		    chainRule [shape=none, tooltip="Chain Rule", URL="/pages/chainRule", label="", image="/assets/images/calculus/chainrule.svg"];
+        e [shape=none, tooltip="e",label="", image="/assets/images/calculus/eToTheX.svg"];
+        FTC2 [shape=none, tooltip="fundamental theorem of calculus", URL="/pages/ftc1", label="", image="/assets/images/calculus/ftc2.svg"];
+		  
+      rectangle -> FTC1;
+		  secant -> FTC1;
+      FTC1 -> limit;
+      limit -> derivative;
+      limit -> epsilonDelta;
+      epsilonDelta -> derivative;
+		  derivative -> chainRule;
+      derivative -> e;
+      e -> FTC2;
+      chainRule -> FTC2;
+      label="Calculus";
+      { rank=same; rectangle, secant }
+      { rank=same; limit, epsilonDelta }
+      { rank=same; e, chainRule }
+    }
+    
+}
+```
+
+# --outlinebox
+
+
+```javascript /autoplay
+console.log('fixing style');
+const calcDiv = document.getElementById('calculus');
+calcDiv.classList.remove('decoration-outlinebox');
+
+calcDiv.style.border = '2px solid #DDDDDD';
+calcDiv.style.borderRadius = '25px';
+calcDiv.style.backgroundColor = '#EEEEEE';
+```
+
+
+
+# :::: coming_soon
+# --partialborder
+Coming soon!
+# --partialborder
+# ::::
+
+```javascript /autoplay
+smartdown.setVariable('soon', false);
+
+this.dependOn = ['soon'];
+
+this.depend = function() {
+  if (env.soon == true) {
+    smartdown.setVariable('soon', false);
+    smartdown.showDisclosure('coming_soon','','transparent,center,shadow'); 
+    setTimeout(function () {
+         smartdown.hideDisclosure('coming_soon','',''); 
+    }, 5000);
+  } 
+};
+```
+
+
+
+## Global Math Week 
+
+In honor of[Global Math Week](https://globalmathproject.org), here is all of our [Exploding Dots](https://www.explodingdots.org/) content.  
+
+# --outlinebox gmw2020
+```graphviz/autoplay
+digraph G {
+  tooltip="wildthinks map";
+  fontsize="24";
+  fontname="Arial";
+  size="12,12";
+  bgcolor=transparent;
+
+    subgraph cluster1 {
+
+        strings [shape=none, tooltip="Godel meets Exploding Dots", URL="/pages/expDotsGodel1", label="", image="/assets/images/calculus/strings.svg"];
+
+        negaBinary [shape=none, tooltip="Negative Binary", URL="/pages/NegaBinary1", label="", image="/assets/images/calculus/negaBinary.svg"];
+
+        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
+
+        FibDots [shape=none, tooltip="Fibonacci dots", URL="/pages/fibDots", label="", image="/assets/images/calculus/FibDots.svg"];
+
+        GR [shape=none, tooltip="Goldfish and Robin", URL="/pages/GR", label="", image="/assets/images/calculus/GR.svg"];
+
+        label = "Exploding Dots";
+        style=filled;
+        color=transparent;
+    }
+    
+}
+```
+# --outlinebox
+
+
+```javascript /autoplay
+
+const otherDiv = document.getElementById('gmw2020');
+otherDiv.classList.remove('decoration-outlinebox');
+
+otherDiv.style.border = '2px solid #DDDDDD';
+otherDiv.style.borderRadius = '25px';
+otherDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
+
+
+## Featured Video
+Goldfish and Robin show how to solve a corn maze using topology.
+![fullwidth](https://www.youtube.com/watch?v=eQYLL7XnM-4)
+
+## USA Mathematical Talent Search Problems
+We're working on building some interactive explorations of these great problems from the [USAMTS](https://www.usamts.org) archives. 
+
+# --outlinebox usamts
+```graphviz/autoplay
+digraph G {
+  tooltip="wildthinks map";
+  fontsize="24";
+  fontname="Arial";
+  size="12,12";
+  bgcolor=transparent;
+
+    subgraph cluster1 {
+        problem1 [shape=none, tooltip="fly problem", URL="/pages/usamts1", label="", image="/assets/images/calculus/usamts1.svg"];
+        problem2 [shape=none, tooltip="mango problem", URL="/pages/usamts2", label="", image="/assets/images/calculus/usamts2.svg"];
+        label = "USAMTS Problems";
+        style=filled;
+        color=transparent;
+    }
+    
+}
+```
+# --outlinebox
+
+
+```javascript /autoplay
+
+const otherDiv = document.getElementById('usamts');
+otherDiv.classList.remove('decoration-outlinebox');
+
+otherDiv.style.border = '2px solid #DDDDDD';
+otherDiv.style.borderRadius = '25px';
+otherDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
+
+
+</script>
+
+  
+
+   
+    <link rel=stylesheet type="text/css" href="https://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js"></script>
+  
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/blog-kit/">  
+      <img src="/blog-kit/assets/images/wildthinksLogo.svg" height="30">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      
+      <ul class="navbar-nav ml-auto">
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/pages/About/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/posts">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Page Header -->
+
+
+
+<header id="header-wrapper" class="masthead home">
+
+
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <!-- test for a narrow header -->
+        
+        <div class="post-heading narrow-heading">
+        
+
+          <center>
+            <img src="/blog-kit/assets/images/wildthinksLogo.svg" height="150">
+            <span class="subheading">interactive math adventures</span>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id="header-app" class="app-wrapper">
+  </div>
+  <script src="assets/libs/reimannSum.js"></script>
+  
+
+
+</header>
+
+
+
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+
+
+<div class="credits">
+  <p> This site is built with </p>
+  <ul>
+      <li class="credit-item">
+            <a class="credit-link" href="https://smartdown.github.io">
+               <img src="/blog-kit/assets/images/SmartdownLogo.png" height="80">
+            </a>
+      </li>
+      <li class="credit-item">
+            <a class="credit-link" href="https://jsxgraph.uni-bayreuth.de/wp/">
+              <img src="/blog-kit/assets/images/jsxgraph_1_0.png" height="50">
+            </a>
+      </li>
+      <li class="credit-item">
+            <a class="credit-link" href="https://p5js.org">
+               <img src="/blog-kit/assets/images/p5js.svg" height="50">
+            </a>
+      </li>
+      <li class="credit-item">
+            <a class="credit-link" href="https://jekyllrb.com">
+               <img src="/blog-kit/assets/images/jekyll.svg" height="50">
+            </a>
+      </li>
+  </ul>
+</div>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:goldfishandrobin@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/wildthinksLab">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/wildthinkslaboratory">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Heidi Dixon 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/blog-kit/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/blog-kit/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/blog-kit/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/blog-kit/assets/scripts.js"></script>
+
+
+
+
+  
+  <script>
+  /* global smartdown */
+  var baseURL = '/blog-kit/';
+  var icons = {
+    'rectangle' : `/assets/images/calculus/rectangle.svg`,
+    'secant' : `/assets/images/calculus/secant.svg`,
+    'ftc1' : `/assets/images/calculus/ftc1.svg`,
+    'usamts2' : `/assets/images/calculus/usamts2.svg`,
+    'usamts1' : `/assets/images/calculus/usamts1.svg`,
+    'negaBinary' : `/assets/images/calculus/negaBinary.svg`,
+    'string' : `/assets/images/calculus/strings.svg`,
+    'derivative' : `/assets/images/calculus/derivative.svg`,
+    'chainrule' : `/assets/images/calculus/chainrule.svg`,
+    'fractal' : `/assets/images/calculus/fractal.svg`,
+    'limits'  : `/assets/images/calculus/limits.svg`,
+    'eToTheX' : `/assets/images/calculus/eToTheX.svg`,
+    'ftc2' : `/assets/images/calculus/ftc2.svg`,
+    'epsilonDelta': `/assets/images/calculus/epsilonDelta.svg`,
+    'penrose' : `/assets/images/calculus/penrose.svg`,
+    'circles' : `/assets/images/calculus/circles.svg`,
+    'GR' : `/assets/images/calculus/GR.svg`,
+    'Fib' : `/assets/images/calculus/FibDots.svg`,
+    '2Ddots' : `/assets/images/calculus/2Ddots.svg`,
+    'circCoord' : `/assets/images/calculus/circCoord.svg`,
+    'spiral1' : `/assets/images/calculus/spiral1.svg`
+  };
+
+  var multiparts = null;
+  var current = null;
+
+
+  function cardLoaded(url, cardKeySubhash, sourceText) {
+    /* eslint no-invalid-this: 0 */
+    sourceText = sourceText.trim();
+    multiparts = smartdown.partitionMultipart(sourceText);
+
+    if (url.endsWith('.md')) {
+      const newPath = url.replace(/\.md$/, '/');
+      current = newPath;
+      history.pushState(null, null, newPath);
+    }
+
+    var output = document.getElementById('blog-content');
+    smartdown.setHome(multiparts._default_, output, function() {
+      document.body.scrollTop = 0; // For Chrome, Safari and Opera
+      document.documentElement.scrollTop = 0; // For IE and Firefox
+
+      if (cardKeySubhash) {
+        const target = document.getElementById(cardKeySubhash);
+        if (target) {
+          target.scrollIntoView();
+        }
+      }
+
+      smartdown.startAutoplay(output);
+    });
+  }
+
+  function loadURL(url) {
+    var oReq = new XMLHttpRequest();
+    let cardKeySubhash = null;
+    const hashPos = url.indexOf('#');
+    if (hashPos >= 0) {
+      cardKeySubhash = url.slice(hashPos + 1);
+    }
+
+    oReq.addEventListener('load', function() {
+      cardLoaded(url, cardKeySubhash, this.responseText);
+    });
+    oReq.open('GET', url);
+    oReq.send();
+  }
+
+  function loadInline() {
+    smartdown.loadCardsFromDocumentScripts();
+    var s = smartdown.smartdownScripts[0];
+
+    cardLoaded(window.location.href, window.location.hash.slice(1), s.text);
+  }
+
+  function cardLoader(cardKey) {
+    // console.log('cardLoader', cardKey);
+    var part = multiparts[cardKey];
+    if (part) {
+      var output = document.getElementById('blog-content');
+      smartdown.setHome(part, output, function() {
+        smartdown.startAutoplay(output);
+      });
+    }
+    else {
+      var cardURL = cardKey;
+      if (cardKey.indexOf('http') === 0) {
+        cardURL = cardKey;
+      }
+      else {
+        const expanded = smartdown.expandHrefWithLinkRules(cardURL);
+        // console.log('cardloader', cardURL, expanded);
+        cardURL = expanded;
+      }
+      // else if (cardKey.indexOf('/posts') === 0) {
+      //   cardURL = `${baseURL}${cardKey}`;
+      //   console.log('cardLoader', cardKey, cardURL);
+      // }
+      loadURL(cardURL);
+    }
+  }
+
+  var calcHandlers = smartdown.defaultCalcHandlers;
+  const linkRules = [
+    {
+      prefix: '/posts/',
+      replace: baseURL + '/posts/',
+    },
+    {
+      prefix: '/pages/',
+      replace: baseURL + '/pages/',
+    },
+    {
+      prefix: '/assets/',
+      replace: baseURL + '/assets/',
+    },
+  ];
+
+
+
+  window.addEventListener(
+    'popstate',
+    function(event) {
+      const url = document.location.pathname;
+      if (url.endsWith('/')) {
+        const newPath = url.replace(/\/$/, '.md');
+        // console.log('popstatex: ', url, newPath, current, window.location.hash);
+        if (current && url !== current) {
+          loadURL(newPath);
+        }
+      }
+    },
+    false);
+  // window.addEventListener(
+  //   'hashchange',
+  //   function(event) {
+  //     console.log(
+  //       'hashchange document.location.pathname: ' + document.location.pathname,
+  //       JSON.stringify(event.state));
+  //   },
+  //   false);
+
+  smartdown.initialize(icons, `https://unpkg.com/smartdown/dist/`, loadInline, cardLoader, calcHandlers, linkRules);
+</script>
+
+  
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

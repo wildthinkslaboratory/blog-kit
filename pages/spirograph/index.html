@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <meta property="og:image" content="https://wildthinks.org/assets/images/calculus/spiral1.jpg">
+  
+
+  <link rel="icon" href="http://wildthinks.org/assets/images/favicon.png">
+
+  <title>
+    Spirograph - wildthinks
+    
+  </title>
+
+  <meta name="description" content="# :::: intro # --outlinebox int #### Spirograph So I&#39;m working on this spirograph page. It will likely evolve over the next few days. I find it fascinating t...">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Asap:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/main.css">
+  <link rel="canonical" href="https://wildthinks.org/blog-kit/pages/spirograph/">
+  <link rel="alternate" type="application/rss+xml" title="wildthinks" href="/blog-kit/feed.xml">
+
+  
+  <link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/smartdown.css">
+<link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/fonts.css">
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/smartdown.js">
+</script>
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/calc_handlers.js"></script>
+<script type="text/x-smartdown" id="Home">
+# :::: intro
+# --outlinebox int
+#### Spirograph
+So I'm working on this spirograph page.  It will likely evolve over the next few days. I find it fascinating that such a simple system of moving circles can create such complex behaviour.  It creates intricate and complex patterns and also sometimes very chaotic paths with few discernable patterns.  Play around and see what you can create.  
+
+This is a fabulous video on spirographs.  It goes far deeper than what I've produced on this page. 
+![thumbnail](https://www.youtube.com/watch?v=n-e9C8g5x68)
+Then I found this [spirograph page](https://mitchellwarr.github.io/spirographer/) which is also fantastic.  Anyway, hope you enjoy!
+# --outlinebox
+# ::::
+
+# :::: panel
+# --aliceblue panelbox
+run[](:Xrun) trace[](:Xtrace) [clear](:=clearPage=true)
+[](:-red/0/255/1) red
+[](:-green/0/255/1) green
+[](:-blue/0/255/1) blue
+[](:-df/1/10/1) delta
+[](:-pen/0/2/1) pen
+[](:-penR/0.1/2/0.1) pen R
+[](:?r1|number) **R1**
+[](:?r2|number) **R2**
+[](:?r3|number) **R3**
+[reset radii](:=reset=true)
+[open image in new tab](:=download=true) 
+# --aliceblue
+# ::::
+
+```javascript /autoplay/p5js/kiosk
+//smartdown.import=//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+// set up the div and the page
+
+smartdown.showDisclosure('panel','','bottomright,draggable,shadow');
+smartdown.showDisclosure('intro','','transparent,center,closeable,draggable,shadow,outline');
+
+
+// Adjust the surrounding DIV(s) a little
+const myDiv = this.div;                                  
+myDiv.style.background = '#FFFFFF';
+this.div.innerHTML = '';
+
+const widthScale = 0.80;
+const heightScale = 0.7;
+
+let canvas;
+
+////////////////////////////////////////////////////////////////////////////
+
+let width;
+let height;
+let num = 3;
+let radiusCoefficients = [1, 0.47, 0.1];
+let R = new Array(num);
+let angle = new Array(num);
+let X = new Array(num);
+let Y = new Array(num);
+let EX = new Array(num);
+let EY = new Array(num);
+let PX = new Array(num);
+let PY = new Array(num);
+let lastX = 0;
+let lastY = 0;
+let deltaFactor = 3;
+let delta = Math.PI / 400;
+let startR = Math.floor(Math.random() * 150);
+let startG = Math.floor(Math.random() * 150);
+let startB = Math.floor(Math.random() * 150);
+let frameRate = 30;
+let penCirle = 2; // must be 0, 1, or 2
+let penRadiusRatio = 1;
+
+
+////////////////////////////////////////////////////////////////////////////
+
+p5.setup = function() {                          // this function is called when you start the
+                                                 // playable.
+
+  width = window.innerWidth;    // set the size of the playable
+  height = window.innerHeight;
+  canvas = p5.createCanvas(width,height);     // create the canvas we will draw on
+  p5.windowResized();
+  initialize();  // initialize spirograph variables
+  p5.frameRate(frameRate);
+
+  // EnergyHack to inhibit looping after 1 sec, this allows for popups to
+  // fade in (which should really be a CSS function, and not involve P5JS.
+  // window.setTimeout(function() {
+  //   p5.noLoop();
+  // }, 30000);
+};
+
+
+p5.windowResized = function() {                  // this function is called when the user changes
+  width = window.innerWidth;  // the size of the window.  It will rescale all the
+  height = window.innerHeight; // components to fit into the new window size.
+  p5.resizeCanvas(width, height);
+
+}
+
+function initialize() {
+
+  R[0] = Math.min(height / 2, width / 2) * radiusCoefficients[0];
+  X[0] = width / 2;
+  Y[0] = height / 2;
+  angle[0] = 0;
+  EX[0] = (R[0] * Math.cos(angle[0])) + X[0]; 
+  EY[0] = (R[0] * Math.sin(angle[0])) + Y[0]; 
+  lastX = EX[0];
+  lastY = EY[0];
+
+  // compute the radii
+  for (let i=1; i < radiusCoefficients.length; i++) {
+    R[i] = R[i-1] * radiusCoefficients[i];
+  }
+  initialized = true;
+}
+
+
+p5.draw = function() {                           // this function gets called repeatedly in a loop.
+
+  if (!trace) {
+    p5.clear();
+  }
+
+  for (let i=1; i < R.length; i++) {    // update the inner circle data
+    X[i] = EX[i-1] + (X[i-1] - EX[i-1]) * R[i] / R[i-1];
+    Y[i] = EY[i-1] + (Y[i-1] - EY[i-1]) * R[i] / R[i-1];   
+    angle[i] = angle[i-1] - angle[i-1] * R[i-1] / R[i];
+    EX[i] = (R[i] * Math.cos(angle[i])) + X[i]; 
+    EY[i] = (R[i] * Math.sin(angle[i])) + Y[i]; 
+    PX[i] = (R[i] * penRadiusRatio * Math.cos(angle[i])) + X[i]; 
+    PY[i] = (R[i] * penRadiusRatio * Math.sin(angle[i])) + Y[i]; 
+  }
+
+  let x = PX[penCirle];   // the inner circle holds the pen
+  let y = PY[penCirle];
+
+  if (trace) {                 // show trace
+    p5.stroke(red, green, blue);
+    p5.line(lastX,lastY, x, y);
+  }
+  else {                          // show circles
+    for (let i=0; i < R.length; i++) {
+      p5.noFill();
+      p5.circle(X[i],Y[i],2*R[i]);
+      p5.circle(EX[i],EY[i],10);
+    }
+    p5.fill(red,green,blue);
+    p5.circle(x,y,10);
+  }
+
+  // move the outer circle forward one step
+  angle[0] += deltaFactor * delta;    
+  EX[0] = (R[0] * Math.cos(angle[0])) + X[0]; 
+  EY[0] = (R[0] * Math.sin(angle[0])) + Y[0]; 
+  lastX = x;
+  lastY = y;
+
+}
+
+
+
+p5.mousePressed = function()                     // this function is called everytime the user clicks the mouse
+{
+  // EnergyHack to enable looping for duration of drag.
+//  p5.loop();
+
+}
+
+
+p5.mouseDragged = function() {                   // this function is called everytime the user drags the mouse
+
+}
+
+
+p5.mouseReleased = function() {                  // this function is called when the user releases the mouse
+                          // button after a click.
+
+  // EnergyHack to stop looping 5 sec after release.
+  // window.setTimeout(function() {
+  //   p5.noLoop();
+  // }, 5000);
+}
+
+
+let loopOn = true;
+let trace = true;
+let initialized = false;
+
+smartdown.setVariable('download', false);
+smartdown.setVariable('run', true);
+smartdown.setVariable('trace', true);
+smartdown.setVariable('clearPage', false);
+smartdown.setVariable('red', startR);
+smartdown.setVariable('green', startG);
+smartdown.setVariable('blue', startB);
+smartdown.setVariable('r1', radiusCoefficients[0]);
+smartdown.setVariable('r2', radiusCoefficients[1]);
+smartdown.setVariable('r3', radiusCoefficients[2]);
+smartdown.setVariable('reset', false);
+smartdown.setVariable('df', deltaFactor);
+smartdown.setVariable('pen', 2);
+smartdown.setVariable('penR', 1);
+
+this.dependOn = ['run', 'reset', 'trace', 'clearPage', 'download', 'red', 'green', 'blue', 'df', 'download', 'pen', 'penR'];
+this.depend = function() {
+
+  if (env.run == true) {
+    p5.loop();
+  }
+  else {
+    p5.noLoop();
+  }
+  if (env.trace == true) {
+    if (initialized && !trace) { 
+      p5.clear(); 
+    }
+    trace = true;
+  }
+  else {
+    trace = false;
+  }
+  if (env.clearPage == true) {
+    smartdown.setVariable('clearPage', false);
+    if (initialized) { 
+      p5.clear(); 
+    }
+  }
+
+  if (env.reset == true) {
+    smartdown.setVariable('reset', false);
+    if (env.r1 <= 0) {
+      radiusCoefficients[0] = 0.11; 
+    }
+    else {
+      if (env.r1 > 1) {
+        radiusCoefficients[0] = 1;
+      }
+      else {
+        radiusCoefficients[0] = env.r1;          
+      }
+    
+    }
+
+    if (env.r2 <= 0) {
+      radiusCoefficients[1] = 0.11; 
+    }
+    else {
+      if (env.r2 > 1) {
+        radiusCoefficients[1] = 1;
+      }
+      else {
+        radiusCoefficients[1] = env.r2;          
+      }     
+    }
+
+    if (env.r3 <= 0) {
+      radiusCoefficients[2] = 0; 
+    }
+    else {
+      if (env.r3 > 1) {
+        radiusCoefficients[2] = 1;
+      }
+      else {
+        radiusCoefficients[2] = env.r3;          
+      }     
+    }
+
+    smartdown.setVariable('r1', radiusCoefficients[0]);
+    smartdown.setVariable('r2', radiusCoefficients[1]);
+    smartdown.setVariable('r3', radiusCoefficients[2]);
+
+    initialize();
+  }
+  red = env.red;
+  green = env.green;
+  blue = env.blue;
+  deltaFactor = env.df;
+  penCirle = env.pen;
+  penRadiusRatio = env.penR;
+
+  if (env.download == true) {
+    smartdown.setVariable('download', false);
+
+    const imgData = canvas.elt.toDataURL("image/jpg", 0.1);
+    let image = new Image();
+    image.src = imgData;
+    image.style = 'width:100%; height;100%'
+    let w = window.open("");
+    w.document.write(image.outerHTML);
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+```
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+</script>
+
+  
+
+  
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/blog-kit/">  
+      <img src="/blog-kit/assets/images/wildthinksLogo.svg" height="30">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      
+      <ul class="noheadernav navbar-nav ml-auto">
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/pages/About/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/posts">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Page Header -->
+
+<header id="header-wrapper" class="masthead noheader">
+</header>  
+  
+
+
+
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:goldfishandrobin@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/wildthinksLab">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/wildthinkslaboratory">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Heidi Dixon 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/blog-kit/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/blog-kit/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/blog-kit/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/blog-kit/assets/scripts.js"></script>
+
+
+
+
+  
+  <script>
+  /* global smartdown */
+  var baseURL = '/blog-kit/';
+  var icons = {
+    'rectangle' : `/assets/images/calculus/rectangle.svg`,
+    'secant' : `/assets/images/calculus/secant.svg`,
+    'ftc1' : `/assets/images/calculus/ftc1.svg`,
+    'usamts2' : `/assets/images/calculus/usamts2.svg`,
+    'usamts1' : `/assets/images/calculus/usamts1.svg`,
+    'negaBinary' : `/assets/images/calculus/negaBinary.svg`,
+    'string' : `/assets/images/calculus/strings.svg`,
+    'derivative' : `/assets/images/calculus/derivative.svg`,
+    'chainrule' : `/assets/images/calculus/chainrule.svg`,
+    'fractal' : `/assets/images/calculus/fractal.svg`,
+    'limits'  : `/assets/images/calculus/limits.svg`,
+    'eToTheX' : `/assets/images/calculus/eToTheX.svg`,
+    'ftc2' : `/assets/images/calculus/ftc2.svg`,
+    'epsilonDelta': `/assets/images/calculus/epsilonDelta.svg`,
+    'penrose' : `/assets/images/calculus/penrose.svg`,
+    'circles' : `/assets/images/calculus/circles.svg`,
+    'GR' : `/assets/images/calculus/GR.svg`,
+    'Fib' : `/assets/images/calculus/FibDots.svg`,
+    '2Ddots' : `/assets/images/calculus/2Ddots.svg`,
+    'circCoord' : `/assets/images/calculus/circCoord.svg`,
+    'spiral1' : `/assets/images/calculus/spiral1.svg`
+  };
+
+  var multiparts = null;
+  var current = null;
+
+
+  function cardLoaded(url, cardKeySubhash, sourceText) {
+    /* eslint no-invalid-this: 0 */
+    sourceText = sourceText.trim();
+    multiparts = smartdown.partitionMultipart(sourceText);
+
+    if (url.endsWith('.md')) {
+      const newPath = url.replace(/\.md$/, '/');
+      current = newPath;
+      history.pushState(null, null, newPath);
+    }
+
+    var output = document.getElementById('blog-content');
+    smartdown.setHome(multiparts._default_, output, function() {
+      document.body.scrollTop = 0; // For Chrome, Safari and Opera
+      document.documentElement.scrollTop = 0; // For IE and Firefox
+
+      if (cardKeySubhash) {
+        const target = document.getElementById(cardKeySubhash);
+        if (target) {
+          target.scrollIntoView();
+        }
+      }
+
+      smartdown.startAutoplay(output);
+    });
+  }
+
+  function loadURL(url) {
+    var oReq = new XMLHttpRequest();
+    let cardKeySubhash = null;
+    const hashPos = url.indexOf('#');
+    if (hashPos >= 0) {
+      cardKeySubhash = url.slice(hashPos + 1);
+    }
+
+    oReq.addEventListener('load', function() {
+      cardLoaded(url, cardKeySubhash, this.responseText);
+    });
+    oReq.open('GET', url);
+    oReq.send();
+  }
+
+  function loadInline() {
+    smartdown.loadCardsFromDocumentScripts();
+    var s = smartdown.smartdownScripts[0];
+
+    cardLoaded(window.location.href, window.location.hash.slice(1), s.text);
+  }
+
+  function cardLoader(cardKey) {
+    // console.log('cardLoader', cardKey);
+    var part = multiparts[cardKey];
+    if (part) {
+      var output = document.getElementById('blog-content');
+      smartdown.setHome(part, output, function() {
+        smartdown.startAutoplay(output);
+      });
+    }
+    else {
+      var cardURL = cardKey;
+      if (cardKey.indexOf('http') === 0) {
+        cardURL = cardKey;
+      }
+      else {
+        const expanded = smartdown.expandHrefWithLinkRules(cardURL);
+        // console.log('cardloader', cardURL, expanded);
+        cardURL = expanded;
+      }
+      // else if (cardKey.indexOf('/posts') === 0) {
+      //   cardURL = `${baseURL}${cardKey}`;
+      //   console.log('cardLoader', cardKey, cardURL);
+      // }
+      loadURL(cardURL);
+    }
+  }
+
+  var calcHandlers = smartdown.defaultCalcHandlers;
+  const linkRules = [
+    {
+      prefix: '/posts/',
+      replace: baseURL + '/posts/',
+    },
+    {
+      prefix: '/pages/',
+      replace: baseURL + '/pages/',
+    },
+    {
+      prefix: '/assets/',
+      replace: baseURL + '/assets/',
+    },
+  ];
+
+
+
+  window.addEventListener(
+    'popstate',
+    function(event) {
+      const url = document.location.pathname;
+      if (url.endsWith('/')) {
+        const newPath = url.replace(/\/$/, '.md');
+        // console.log('popstatex: ', url, newPath, current, window.location.hash);
+        if (current && url !== current) {
+          loadURL(newPath);
+        }
+      }
+    },
+    false);
+  // window.addEventListener(
+  //   'hashchange',
+  //   function(event) {
+  //     console.log(
+  //       'hashchange document.location.pathname: ' + document.location.pathname,
+  //       JSON.stringify(event.state));
+  //   },
+  //   false);
+
+  smartdown.initialize(icons, `https://unpkg.com/smartdown/dist/`, loadInline, cardLoader, calcHandlers, linkRules);
+</script>
+
+  
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

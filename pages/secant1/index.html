@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <meta property="og:image" content="https://wildthinks.org/assets/images/calculus/secant.jpg">
+  
+
+  <link rel="icon" href="http://wildthinks.org/assets/images/favicon.png">
+
+  <title>
+    Secant - wildthinks
+    
+  </title>
+
+  <meta name="description" content="# :::: withClue [note](::secant/button,transparent,closeable,draggable,topright,outline,shadow) Here. Have a secant. # :::: # :::: noClue Here. Have a secant...">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Asap:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/main.css">
+  <link rel="canonical" href="https://wildthinks.org/blog-kit/pages/secant1/">
+  <link rel="alternate" type="application/rss+xml" title="wildthinks" href="/blog-kit/feed.xml">
+
+  
+  <link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/smartdown.css">
+<link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/fonts.css">
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/smartdown.js">
+</script>
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/calc_handlers.js"></script>
+<script type="text/x-smartdown" id="Home">
+# :::: withClue
+[note](::secant/button,transparent,closeable,draggable,topright,outline,shadow) Here.  Have a secant.
+# ::::
+
+# :::: noClue
+Here.  Have a secant.
+# ::::
+```javascript /autoplay/p5js
+///////////////////////////////////////////////////////////////////
+// this is a script for a RESOURCE PANEL toolbar
+///////////////////////////////////////////////////////////////////
+
+
+// import the calc library
+//smartdown.import=/assets/libs/toolbar.js
+
+
+const myDiv = this.div;
+myDiv.style.background = '#FFFFFF';
+myDiv.style.borderRadius = '8px';
+//myDiv.style.border = '1px solid gray';
+
+let numButtons = 6;
+let xSpacer = 10, ySpacer = 10, width = 40;
+let B = new ResourcePanel(p5);
+
+///////////////////////////////////////////////////////////////////
+// Add the buttons you want on your resource panel
+// NOTE:  The value of page variable env.num should match the number of buttons you add here
+
+B.addButton('secant'); 
+
+///////////////////////////////////////////////////////////////////
+
+
+p5.setup = function() { 
+  let canvasWidth = xSpacer + (width + xSpacer) * numButtons;  // set the size of the playable
+  let canvasHeight = width + 2 * ySpacer;
+  p5.createCanvas(canvasWidth,canvasHeight);     // create the canvas we will draw on
+};
+
+
+p5.draw = function() {  // draw the buttons
+  B.draw(p5.mouseX,p5.mouseY);
+}
+
+p5.mousePressed = function()     // this function is called everytime the user clicks the mouse
+{
+  const [buttonType, state, id] = B.mousePressed();  // returns info on the button pushed
+  
+  if (id != -1) {                              // if it's a valid button
+    smartdown.setVariable('mode', buttonType);         // set page mode correct type of button
+    smartdown.setVariable('active', true);     // alert page we have an active button
+  }
+  
+  p5.loop();    // EnergyHack to enable looping for duration of drag.
+};
+
+
+p5.mouseReleased = function() {     // this function is called when the user releases the mouse
+                                    // button after a click.
+
+  // EnergyHack to stop looping 5 sec after release.
+  // window.setTimeout(function() {
+  //   p5.noLoop();
+  // }, 5000);
+};
+
+smartdown.setVariable('mode', 0);
+smartdown.setVariable('active', false);
+smartdown.setVariable('num', 1);
+this.dependOn = ['num'];
+this.depend = function() {
+  
+  if (env.num < B.size()) {  // If we have more buttons than the page has elements, delete the active button
+     B.removeActiveButton();  // we've used this resouce
+     smartdown.setVariable('active', false);
+     if (B.size() == 0) { p5.noLoop(); }
+  }
+};
+
+```
+
+
+# :::: secant
+# --partialborder
+A **secant line** of a graph $y=f(x)$ is any line that intersects the graph in at least two distinct points.
+[next](:=show1=true)
+# --partialborder
+# ::::
+
+# :::: clue1
+# --partialborder
+A secant is a great way to show the relationship between **distance**, **rate** and **time**.  The slope of a secant represents the rate.  The rate is the change in distance divided by the change in time.
+$$r = \frac{d}{t}$$
+[next](:=show2=true)
+# --partialborder
+# ::::
+
+# :::: clue2
+# --partialborder
+We can use secants for any rate of change problem, really.  The slope of the secant tells us the rate of change of one thing relative to another.
+[next](:=show3=true)
+# --partialborder
+# ::::
+
+# :::: clue3
+# --partialborder
+ In rate problems, the units are often a measure of **time**, like seconds, days or years.  But they don't have to be. 
+ [next](:=show4=true)
+# --partialborder
+
+# ::::
+
+# :::: clue4
+# --outlinebox
+ Let's solve a problem with a secant.
+ [Continue](/pages/secant2)
+# --outlinebox
+
+# ::::
+
+
+
+```javascript /autoplay
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
+
+smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
+
+// import the calc library
+//smartdown.import=/assets/libs/calc.js
+
+smartdown.showDisclosure('noClue', '', 'transparent');
+
+const myDiv = this.div;
+myDiv.style.width = '100%';
+myDiv.style.height = '100%';
+myDiv.style.margin = 'auto';
+myDiv.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
+
+let widthPercent = 0.8;
+let heightPercent = 0.7;
+
+let xlow = -1;
+let xhigh = 6;
+
+let board = new StandardBoard('box', [xlow,11,xhigh,-2], { xlabel:'x', ylabel:'y'} );
+let f = function(x) { return x*x/4 + 1; };
+let F = new ProblemFunction(f, 'f(x)', 5, [xlow,xhigh], []);
+let F_id = board.addFunction(F);
+
+let xinterval;
+let secant;
+
+
+let createSecant = function() {
+  xinterval = new XInterval(board.board, 1, 4);
+  secant = new Secant(xinterval,  f, { 
+    showUnits:true,
+    annotations: 'on',
+    snapMargin:0.05
+  });
+
+
+
+  //////////////////////////////////////////////////////////////////
+  // TOOL TIP, DOTS ARE DRAGGABLE
+
+  let dragText1 = board.board.create('text', [
+    function() { return xinterval.X1() + 0.25; }, 
+    function() { return xinterval.x1.Y(); }, 
+    'DRAG ME'], {fontSize:12, color:'black', visible:false});
+
+  xinterval.x1.on('over', function() {
+    dragText1.setAttribute({visible:true});
+  });
+
+  xinterval.x1.on('out', function() {
+    dragText1.setAttribute({visible:false});
+  });
+
+  let dragText2 = board.board.create('text', [
+    function() { return xinterval.X2() + 0.25; }, 
+    function() { return xinterval.x2.Y(); }, 
+    'DRAG ME'], {fontSize:12, color:'black', visible:false});
+
+  xinterval.x2.on('over', function() {
+    dragText2.setAttribute({visible:true});
+  });
+
+  xinterval.x2.on('out', function() {
+    dragText2.setAttribute({visible:false});
+  });
+
+
+  board.board.on('update', function() {
+    secant.onUpdate();
+  });
+};
+
+
+////////////////////////////////////////////////////////////////////////////////////
+
+
+
+this.div.onmousedown = function(e) { 
+  
+  if (env.num > 0 && env.active) {
+    createSecant();
+    smartdown.setVariable('num', env.num - 1);
+    smartdown.showDisclosure('withClue','','transparent');
+    smartdown.hideDisclosure('noClue','','transparent');
+  }
+
+};
+
+
+this.sizeChanged = function() {
+  board.board.resizeContainer(window.innerWidth * widthPercent, window.innerHeight * heightPercent);
+};
+
+this.sizeChanged();
+
+smartdown.setVariable('show1', false);
+smartdown.setVariable('show2', false);
+smartdown.setVariable('show3', false);
+smartdown.setVariable('show4', false);
+this.dependOn = ['show1', 'show2', 'show3', 'show4','active'];
+this.depend = function() {
+
+  if (env.active == true) {
+    myDiv.style.cursor = "url('/assets/images/calculus/sectCursor.svg'), auto";
+  }
+  else {
+    myDiv.style.cursor = "default";
+  }
+
+  if (env.show1 == true) {
+    smartdown.setVariable('show1', false);
+    smartdown.hideDisclosure('secant','','');
+    smartdown.showDisclosure('clue1','','transparent,closeable,draggable,outline,topright,shadow');
+    secant.setAttribute({ units: 'time', rate: 'rate', change: 'distance'});
+    secant.setLineColor('#FF3300');
+    board.board.update();
+  }
+  if (env.show2 == true) {
+    smartdown.setVariable('show2', false);
+    smartdown.hideDisclosure('clue1','','');
+    smartdown.showDisclosure('clue2','','transparent,closeable,draggable,outline,topright,shadow');
+    secant.setAttribute({ units: 'units', rate: 'change per unit', change: 'total change'});
+    secant.setLineColor('#00CC99');
+    board.board.update();
+  }
+  if (env.show3 == true) {
+    smartdown.setVariable('show3', false);
+    smartdown.hideDisclosure('clue2','','');
+    smartdown.showDisclosure('clue3','','transparent,closeable,draggable,outline,topright,shadow');
+    secant.setAttribute({ units: 'number of widgets', rate: 'cost per widget', change: 'total cost'});
+    secant.setLineColor('#FFAA00');
+    board.board.update();
+  }
+  if (env.show4 == true) {
+    smartdown.setVariable('show4', false);
+    smartdown.hideDisclosure('clue3','','');
+    smartdown.showDisclosure('clue4','','transparent,closeable,draggable,outline,lightbox,center,shadow');
+  }
+};
+                      
+```
+
+
+</script>
+
+  
+
+  
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/blog-kit/">  
+      <img src="/blog-kit/assets/images/wildthinksLogo.svg" height="30">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      
+      <ul class="noheadernav navbar-nav ml-auto">
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/pages/About/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/posts">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Page Header -->
+
+<header id="header-wrapper" class="masthead noheader">
+</header>  
+  
+    <ul class="tabrow">
+      
+        
+          <li class="selected"><a href="/blog-kit/pages/secant1/">one</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/secant2/">two</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/secant3/">three</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/secant4/">four</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/secant5/">five</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/secant6/">six</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/secant7/">seven</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/secantPoints/">eight</a></li>
+        
+      
+    </ul>
+  
+
+
+
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:goldfishandrobin@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/wildthinksLab">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/wildthinkslaboratory">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Heidi Dixon 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/blog-kit/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/blog-kit/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/blog-kit/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/blog-kit/assets/scripts.js"></script>
+
+
+
+
+  
+  <script>
+  /* global smartdown */
+  var baseURL = '/blog-kit/';
+  var icons = {
+    'rectangle' : `/assets/images/calculus/rectangle.svg`,
+    'secant' : `/assets/images/calculus/secant.svg`,
+    'ftc1' : `/assets/images/calculus/ftc1.svg`,
+    'usamts2' : `/assets/images/calculus/usamts2.svg`,
+    'usamts1' : `/assets/images/calculus/usamts1.svg`,
+    'negaBinary' : `/assets/images/calculus/negaBinary.svg`,
+    'string' : `/assets/images/calculus/strings.svg`,
+    'derivative' : `/assets/images/calculus/derivative.svg`,
+    'chainrule' : `/assets/images/calculus/chainrule.svg`,
+    'fractal' : `/assets/images/calculus/fractal.svg`,
+    'limits'  : `/assets/images/calculus/limits.svg`,
+    'eToTheX' : `/assets/images/calculus/eToTheX.svg`,
+    'ftc2' : `/assets/images/calculus/ftc2.svg`,
+    'epsilonDelta': `/assets/images/calculus/epsilonDelta.svg`,
+    'penrose' : `/assets/images/calculus/penrose.svg`,
+    'circles' : `/assets/images/calculus/circles.svg`,
+    'GR' : `/assets/images/calculus/GR.svg`,
+    'Fib' : `/assets/images/calculus/FibDots.svg`,
+    '2Ddots' : `/assets/images/calculus/2Ddots.svg`,
+    'circCoord' : `/assets/images/calculus/circCoord.svg`,
+    'spiral1' : `/assets/images/calculus/spiral1.svg`
+  };
+
+  var multiparts = null;
+  var current = null;
+
+
+  function cardLoaded(url, cardKeySubhash, sourceText) {
+    /* eslint no-invalid-this: 0 */
+    sourceText = sourceText.trim();
+    multiparts = smartdown.partitionMultipart(sourceText);
+
+    if (url.endsWith('.md')) {
+      const newPath = url.replace(/\.md$/, '/');
+      current = newPath;
+      history.pushState(null, null, newPath);
+    }
+
+    var output = document.getElementById('blog-content');
+    smartdown.setHome(multiparts._default_, output, function() {
+      document.body.scrollTop = 0; // For Chrome, Safari and Opera
+      document.documentElement.scrollTop = 0; // For IE and Firefox
+
+      if (cardKeySubhash) {
+        const target = document.getElementById(cardKeySubhash);
+        if (target) {
+          target.scrollIntoView();
+        }
+      }
+
+      smartdown.startAutoplay(output);
+    });
+  }
+
+  function loadURL(url) {
+    var oReq = new XMLHttpRequest();
+    let cardKeySubhash = null;
+    const hashPos = url.indexOf('#');
+    if (hashPos >= 0) {
+      cardKeySubhash = url.slice(hashPos + 1);
+    }
+
+    oReq.addEventListener('load', function() {
+      cardLoaded(url, cardKeySubhash, this.responseText);
+    });
+    oReq.open('GET', url);
+    oReq.send();
+  }
+
+  function loadInline() {
+    smartdown.loadCardsFromDocumentScripts();
+    var s = smartdown.smartdownScripts[0];
+
+    cardLoaded(window.location.href, window.location.hash.slice(1), s.text);
+  }
+
+  function cardLoader(cardKey) {
+    // console.log('cardLoader', cardKey);
+    var part = multiparts[cardKey];
+    if (part) {
+      var output = document.getElementById('blog-content');
+      smartdown.setHome(part, output, function() {
+        smartdown.startAutoplay(output);
+      });
+    }
+    else {
+      var cardURL = cardKey;
+      if (cardKey.indexOf('http') === 0) {
+        cardURL = cardKey;
+      }
+      else {
+        const expanded = smartdown.expandHrefWithLinkRules(cardURL);
+        // console.log('cardloader', cardURL, expanded);
+        cardURL = expanded;
+      }
+      // else if (cardKey.indexOf('/posts') === 0) {
+      //   cardURL = `${baseURL}${cardKey}`;
+      //   console.log('cardLoader', cardKey, cardURL);
+      // }
+      loadURL(cardURL);
+    }
+  }
+
+  var calcHandlers = smartdown.defaultCalcHandlers;
+  const linkRules = [
+    {
+      prefix: '/posts/',
+      replace: baseURL + '/posts/',
+    },
+    {
+      prefix: '/pages/',
+      replace: baseURL + '/pages/',
+    },
+    {
+      prefix: '/assets/',
+      replace: baseURL + '/assets/',
+    },
+  ];
+
+
+
+  window.addEventListener(
+    'popstate',
+    function(event) {
+      const url = document.location.pathname;
+      if (url.endsWith('/')) {
+        const newPath = url.replace(/\/$/, '.md');
+        // console.log('popstatex: ', url, newPath, current, window.location.hash);
+        if (current && url !== current) {
+          loadURL(newPath);
+        }
+      }
+    },
+    false);
+  // window.addEventListener(
+  //   'hashchange',
+  //   function(event) {
+  //     console.log(
+  //       'hashchange document.location.pathname: ' + document.location.pathname,
+  //       JSON.stringify(event.state));
+  //   },
+  //   false);
+
+  smartdown.initialize(icons, `https://unpkg.com/smartdown/dist/`, loadInline, cardLoader, calcHandlers, linkRules);
+</script>
+
+  
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <meta property="og:image" content="https://wildthinks.org/assets/images/calculus/derivative.jpg">
+  
+
+  <link rel="icon" href="http://wildthinks.org/assets/images/favicon.png">
+
+  <title>
+    Derivative - wildthinks
+    
+  </title>
+
+  <meta name="description" content="[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,o...">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Asap:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/main.css">
+  <link rel="canonical" href="https://wildthinks.org/blog-kit/pages/derivative0-1/">
+  <link rel="alternate" type="application/rss+xml" title="wildthinks" href="/blog-kit/feed.xml">
+
+  
+  <link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/smartdown.css">
+<link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/fonts.css">
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/smartdown.js">
+</script>
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/calc_handlers.js"></script>
+<script type="text/x-smartdown" id="Home">
+[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [note](::notes/button,transparent,draggable,closeable,center,shadow,outline) [Drive!](:=play=true) [Submit Solution](:=compute=true)
+velocity at $t=\sqrt{2}$ [](:?s1)  [Formatting Hints](::formatting/tooltip,transparent)
+
+#### --outlinebox outer1
+
+#### --outlinebox left1
+
+#### --outlinebox
+
+
+#### --outlinebox middle1
+
+#### --outlinebox
+
+
+#### --outlinebox right1
+**Notation:**
+function: $f(t) = t^2$
+points: $(\sqrt{2}, 2)$,  $(\sqrt{2}+h, (\sqrt{2}+h)^2)$
+distances: $h$ and $(\sqrt{2}+h)^2 - 2$ 
+slope:   $$\frac{(\sqrt{2} + h)^2 - 2}{h}$$
+  
+1. Go [closer](:=reduce=true) to $h=0$.
+2. Go [all the way](:=all=true) to $h=0$.
+
+The secant slope as the secant gets smaller is represented by the limit
+$$\lim_{h \to 0}\frac{(\sqrt{2} + h)^2 - 2}{h}$$ 
+
+
+#### --outlinebox
+
+#### --outlinebox
+
+ 
+
+```javascript /autoplay
+
+const outer = document.getElementById('outer1');
+outer.classList.remove('decoration-outlinebox');
+outer.classList.add('outer-multi-col');
+
+const left = document.getElementById('left1');
+left.classList.remove('decoration-outlinebox');
+left.classList.add('playable-3-col');
+
+const middle = document.getElementById('middle1');
+middle.classList.remove('decoration-outlinebox');
+middle.classList.add('playable-3-col');
+
+const right = document.getElementById('right1');
+right.classList.remove('decoration-outlinebox');
+right.classList.add('text-3-col');
+
+
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
+smartdown.importCssUrl('https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css');
+// import the calc library
+//smartdown.import=/assets/libs/calc.js
+//smartdown.import=/assets/libs/mapping.js
+
+JXG.Options.text.useMathJax = true;
+
+let xint1 = Math.sqrt(2);
+
+middle.innerHTML = `<div id='box' class='jxgbox' style='height:600px'>`;
+
+let xlow1 = -3;
+let xhigh1 = 3;
+let ylow1 = -2;
+let yhigh1 = 7;
+
+let th = new BlueTheme();
+
+let workspace1 = new Workspace('box', [xlow1,yhigh1,xhigh1,ylow1], {
+  xlabel:'h (s)', 
+  ylabel:'secant slope (m/s)',
+  offsetX: [-30,20]
+});
+let F1 = new ProblemFunction(
+	function(h) { return 2 * xint1 + h; }, 
+	'', 3.5, [xlow1,xhigh1], []);
+let F_id1 = workspace1.addFunction(F1);
+
+let limit = new ApproachLimit(workspace1.board, F1.f, 0, undefined);
+
+let limitExpression = workspace1.board.create('functiongraph',[F1.f,xlow1,xhigh1], { 
+  strokeColor:'#55DDFF',
+  strokeWidth:4,
+  visible:false
+});
+
+limit.glider.moveTo([1,0]);
+
+let hLine = workspace1.board.create('segment', [[0,0], limit.glider], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:5, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+left.innerHTML = `<div id='top' style='height:100px; width:100%; border:1px solid gray;background:#EEFFCC;border-radius:8px;'></div><div id='bottom' style='height:600px; width:100%; border: 1px solid gray;background:#FFFFFF;border-radius:8px;';></div>`;
+
+let xlow2 = -1;
+let xhigh2 = 4;
+let ylow2 = -3;
+let yhigh2 = 16;
+
+
+let workspace2 = new Workspace('bottom', [xlow2,yhigh2,xhigh2,ylow2],{ 
+  xlabel:'time (s)', 
+  ylabel:'distance(m)', 
+  colorTheme:'steel',
+  offsetX: [-50,20],
+  offsetY: [20, 0]
+});
+let F2 = new ProblemFunction(function(x) { return x * x; }, '', 4, [0,xhigh2], []);
+let F_id2 = workspace2.addFunction(F2);
+
+workspace2.xaxis.removeAllTicks();
+
+workspace1.board.addChild(workspace2.board);
+
+
+let xint2 = Math.sqrt(2) + limit.glider.X();
+let xint = new XInterval(workspace2.board, xint1, xint2);
+xint.x1.setAttribute({fixed:true});
+xint.turnOffSnapToGrid();
+xint.x1.setAttribute({fixed:true});
+let secant = new Secant(xint, F2.f, {showUnits:true, 
+  annotations:'on',  
+  noChangeNumber:true,
+  noUnitsNumber:true,
+  change:'\\[(\\sqrt{2} + h)^2 - 2 \\]',
+  units:'h',
+  snapMargin:0.008,
+  precision: 3
+});
+workspace2.addElement(secant);
+
+secant.xint.x1.setAttribute({name:'\\[\\sqrt{2}\\]'});
+secant.xint.x2.setAttribute({name:'\\[\\sqrt{2} + h\\]'});
+
+
+
+let t = workspace2.board.create('glider', [0,0, workspace2.xaxis], 
+	{name:'', face:'^', size:12, color:'green'});
+
+let p = workspace2.board.create('point', [
+  function() { return t.X(); }, 
+  function() { return F2.f(t.X()); }], {color:'green', name:''});
+
+
+let f1 = workspace2.board.create('point', [
+  xint.X1,
+  function() { return F2.f(xint.X1()); }], 
+  { fillColor: '#55DDFF', strokeColor:'#88CCEE', size:6 , name:'', visible:false});
+
+let f2 = workspace2.board.create('point', [
+  xint.X2,
+  function() { return F2.f(xint.X2()); }
+  ], { fillColor: '#55DDFF', strokeColor:'#88CCEE', size:6 , name:'', visible:false});
+
+let fofX = workspace2.board.create('functiongraph',[F2.f,xlow2,xhigh2], { 
+  strokeColor:'#55DDFF',
+  strokeWidth:3,
+  visible:false
+})
+
+let riseLine = workspace2.board.create('segment', [secant.p1, secant.f2], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:5, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
+
+let triangle = workspace2.board.create('polygon', [secant.f1, secant.f2, secant.p1], {
+  fillColor:'#55DDFF', 
+  fillOpacity: 50,
+  strokeWidth:3, visible:false});
+
+let hWidth = workspace2.board.create('segment', [secant.p1, secant.f1], 
+    {
+      strokeColor: '#55DDFF', 
+      strokeWidth:5, 
+      firstArrow:true, 
+      lastArrow:true, 
+      visible:false
+    });
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// second board
+
+
+let board1 = JXG.JSXGraph.initBoard('top', {boundingbox:[-4,5,16,-2], keepaspectratio:false, axis:false, showCopyright:false, showNavigation:false});
+
+workspace2.board.addChild(board1);
+
+let xaxis1 = board1.create('axis', [[0, 0], [1,0]], 
+  {name:'meters', 
+    withLabel: true,
+    label: {
+      fontSize: 16,
+      position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
+      offset: [-50, 20]   // (in pixels)
+    }
+  });
+
+let yaxis1 = board1.create('axis', [[0, 0], [0, 1]], 
+  {name:'', 
+    withLabel: false, 
+    label: {
+      fontSize: 20,
+      position: 'rt',  // possible values are 'lft', 'rt', 'top', 'bot'
+      offset: [-120, -20]   // (in pixels)
+    },
+    ticks: {visible:false}
+  }); 
+
+
+let carurl = 'https://gist.githubusercontent.com/wildthinkslaboratory/ac98c0bb68ccf7528dc39fa1922d2bdb/raw/9e01e8197b3bf685747ae134de3d75feb64ea6f4/car.png';
+let car = board1.create('image',[carurl, [function() { return F2.f(t.X()) -2 ; },-0.2], [2,2]]);
+
+
+////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//workspace2.board.addChild(workspace.board);
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+// Event handling
+
+workspace1.board.on('update', function() {
+	limit.onUpdate();
+	workspace1.onUpdate();
+});
+
+workspace2.board.on('update', function() {
+  secant.precision = limit.precision;
+	xint.x2.moveTo([limit.glider.X() + xint1,0]);
+	workspace2.onUpdate();
+});
+
+let move = function() { 
+  t.moveTo([xhigh2,0],3000, {effect: '--'} ); 
+}
+
+let heightPercent = 0.6;
+let heightRatio = 1/6;
+
+this.sizeChanged = function() {
+  workspace1.board.resizeContainer(middle.offsetWidth, window.innerHeight * heightPercent);
+  workspace2.board.resizeContainer(left.offsetWidth, (1-heightRatio) * heightPercent * window.innerHeight);
+  board1.resizeContainer(left.offsetWidth, heightRatio * window.innerHeight * heightPercent);
+};
+
+
+this.sizeChanged();
+
+smartdown.setVariable('reduce', false);
+smartdown.setVariable('all', false);
+smartdown.setVariable('play', false);
+
+this.dependOn = ['reduce', 'all', 'play'];  
+this.depend = function() {
+  
+  if (env.play == true) {
+    smartdown.setVariable('play', false);
+    move();
+  }
+
+	if (env.reduce == true) {
+		smartdown.setVariable('reduce', false);
+		limit.reduceDelta();		
+	}
+
+	if (env.all == true) {
+		smartdown.setVariable('all', false);
+		limit.eliminateDelta();
+	}
+};
+
+
+// set up highlight mapping for formulas.  connect them with their
+// model highlight
+
+const formula1 = document.getElementById('MathJax-Element-3-Frame');
+formula1.onmouseover = onAFFactory(formula1, showAFFactory([f1]));
+formula1.onmouseout = offAFFactory(formula1, hideAFFactory([f1]));
+formula1.classList.add('highlightOffNarrow');
+
+const formula2 = document.getElementById('MathJax-Element-4-Frame');
+formula2.onmouseover = onAFFactory(formula2, showAFFactory([f2]));
+formula2.onmouseout = offAFFactory(formula2, hideAFFactory([f2]));
+formula2.classList.add('highlightOffNarrow');
+
+const formula22 = document.getElementById('MathJax-Element-2-Frame');
+formula22.onmouseover = onAFFactory(formula22, showAFFactory([fofX]));
+formula22.onmouseout = offAFFactory(formula22, hideAFFactory([fofX]));
+formula22.classList.add('highlightOffNarrow');
+
+
+const formula3 = document.getElementById('MathJax-Element-5-Frame');
+formula3.onmouseover = onAFFactory(formula3, showAFFactory([hLine, hWidth]));
+formula3.onmouseout = offAFFactory(formula3, hideAFFactory([hLine, hWidth]));
+formula3.classList.add('highlightOffNarrow');
+
+
+const formula4 = document.getElementById('MathJax-Element-6-Frame');
+formula4.onmouseover = onAFFactory(formula4, showAFFactory([riseLine]));
+formula4.onmouseout = offAFFactory(formula4, hideAFFactory([riseLine]));
+formula4.classList.add('highlightOffNarrow');
+
+const formula5 = document.getElementById('MathJax-Element-7-Frame');
+formula5.onmouseover = onWideAFFactory(formula5, showAFFactory([triangle, limitExpression]));
+formula5.onmouseout = offWideAFFactory(formula5, hideAFFactory([triangle, limitExpression]));
+formula5.classList.add('highlightOffWide');
+
+
+```
+
+
+
+# :::: success
+# --partialborder
+Success!
+The instantaneous speed of the car at time $t=\sqrt{2}$ is defined as the limit of the slope of the secant line as the secant interval gets really small
+$$\lim_{h \to 0}\frac{(\sqrt{2} + h)^2 - 2}{h}=2\sqrt{2}$$ 
+The slope of the secant is undefined at $h=0$, but the limit at $h=0$ exists.  The idea of a **limit** got us out of a jam here.  This limit of the slope of the secant line is called the **derivative** and we've evaluated it at $t=\sqrt{2}$.  
+[Continue](/pages/derivative1)
+# --partialborder
+# ::::
+
+# :::: clue
+# --outlinebox question
+###### Car Ride
+The position of the car is defined by the function $f(t) = t^2$.  Find the velocity of the car when $t=\sqrt{2}$. 
+# --outlinebox
+# ::::
+
+# :::: notes
+# --partialborder note
+###### Note 1
+There's a lot of stuff on this page.  Take your time and don't rush.
+
+###### Note 2
+The speed of the car at $t=\sqrt{2}$ is not a whole number.  This makes it impossible to get the exact speed from looking at the graphs.  Instead, we can look at an expression for the slope of the secant line and take the limit as the secant gets very small.
+$$\lim_{h \to 0}\frac{(\sqrt{2} + h)^2 - 2}{h}$$ 
+With a little algebra, we can solve this limit and get an exact answer.
+# --partialborder
+# ::::
+
+# :::: formatting
+# --partialborder format
+- You can represent $\sqrt{x}$ as `sqrt(x)`.
+- You can represent infinity $\infty$ as `inf` and negative infinity $-\infty$ as `-inf`.
+# --partialborder
+# ::::
+
+# :::: keeptrying
+# --colorbox
+[](:!hint) 
+# --colorbox
+# ::::
+
+```javascript /autoplay
+//smartdown.import=/assets/libs/mapping.js
+
+smartdown.setVariable('s1','');
+smartdown.setVariable('hint', 'Keep trying');
+smartdown.setVariable('compute', false);
+
+let answer = new ProblemAnswer(['2sqrt(2)', '2*sqrt(2)', '2 sqrt(2)', '2 * sqrt(2)', '2* sqrt(2)', '2 *sqrt(2)'], 
+  [['contains','.','Your answer should not contain a decimal point']]
+  );
+
+
+this.dependOn = ['compute'];  
+this.depend = function() {
+
+  if (env.compute == true) {
+    smartdown.setVariable('compute', false);
+    if (answer.checkAnswer(env.s1)) {
+      smartdown.showDisclosure('success','','center,transparent,draggable,closeable,outline,shadow');
+    }
+    else {
+    smartdown.setVariable('hint', answer.checkHints(env.s1));
+      smartdown.showDisclosure('keeptrying','','transparent,bottomright,shadow');
+      setTimeout(function () {
+        smartdown.hideDisclosure('keeptrying','','');
+      }, 5000);
+    }
+  }
+};
+```
+
+
+</script>
+
+  
+
+  
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/blog-kit/">  
+      <img src="/blog-kit/assets/images/wildthinksLogo.svg" height="30">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      
+      <ul class="noheadernav navbar-nav ml-auto">
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/pages/About/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/posts">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Page Header -->
+
+<header id="header-wrapper" class="masthead noheader">
+</header>  
+  
+    <ul class="tabrow">
+      
+        
+          <li><a href="/blog-kit/pages/symbols1/">one</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/derivative0/">two</a></li>
+        
+      
+        
+          <li class="selected"><a href="/blog-kit/pages/derivative0-1/">three</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/derivative1/">four</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/derivative2/">five</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/derivative3/">six</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/derivative3-1/">seven</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/derivative4/">eight</a></li>
+        
+      
+        
+          <li><a href="/blog-kit/pages/derivative5/">nine</a></li>
+        
+      
+    </ul>
+  
+
+
+
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:goldfishandrobin@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/wildthinksLab">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/wildthinkslaboratory">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Heidi Dixon 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/blog-kit/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/blog-kit/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/blog-kit/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/blog-kit/assets/scripts.js"></script>
+
+
+
+
+  
+  <script>
+  /* global smartdown */
+  var baseURL = '/blog-kit/';
+  var icons = {
+    'rectangle' : `/assets/images/calculus/rectangle.svg`,
+    'secant' : `/assets/images/calculus/secant.svg`,
+    'ftc1' : `/assets/images/calculus/ftc1.svg`,
+    'usamts2' : `/assets/images/calculus/usamts2.svg`,
+    'usamts1' : `/assets/images/calculus/usamts1.svg`,
+    'negaBinary' : `/assets/images/calculus/negaBinary.svg`,
+    'string' : `/assets/images/calculus/strings.svg`,
+    'derivative' : `/assets/images/calculus/derivative.svg`,
+    'chainrule' : `/assets/images/calculus/chainrule.svg`,
+    'fractal' : `/assets/images/calculus/fractal.svg`,
+    'limits'  : `/assets/images/calculus/limits.svg`,
+    'eToTheX' : `/assets/images/calculus/eToTheX.svg`,
+    'ftc2' : `/assets/images/calculus/ftc2.svg`,
+    'epsilonDelta': `/assets/images/calculus/epsilonDelta.svg`,
+    'penrose' : `/assets/images/calculus/penrose.svg`,
+    'circles' : `/assets/images/calculus/circles.svg`,
+    'GR' : `/assets/images/calculus/GR.svg`,
+    'Fib' : `/assets/images/calculus/FibDots.svg`,
+    '2Ddots' : `/assets/images/calculus/2Ddots.svg`,
+    'circCoord' : `/assets/images/calculus/circCoord.svg`,
+    'spiral1' : `/assets/images/calculus/spiral1.svg`
+  };
+
+  var multiparts = null;
+  var current = null;
+
+
+  function cardLoaded(url, cardKeySubhash, sourceText) {
+    /* eslint no-invalid-this: 0 */
+    sourceText = sourceText.trim();
+    multiparts = smartdown.partitionMultipart(sourceText);
+
+    if (url.endsWith('.md')) {
+      const newPath = url.replace(/\.md$/, '/');
+      current = newPath;
+      history.pushState(null, null, newPath);
+    }
+
+    var output = document.getElementById('blog-content');
+    smartdown.setHome(multiparts._default_, output, function() {
+      document.body.scrollTop = 0; // For Chrome, Safari and Opera
+      document.documentElement.scrollTop = 0; // For IE and Firefox
+
+      if (cardKeySubhash) {
+        const target = document.getElementById(cardKeySubhash);
+        if (target) {
+          target.scrollIntoView();
+        }
+      }
+
+      smartdown.startAutoplay(output);
+    });
+  }
+
+  function loadURL(url) {
+    var oReq = new XMLHttpRequest();
+    let cardKeySubhash = null;
+    const hashPos = url.indexOf('#');
+    if (hashPos >= 0) {
+      cardKeySubhash = url.slice(hashPos + 1);
+    }
+
+    oReq.addEventListener('load', function() {
+      cardLoaded(url, cardKeySubhash, this.responseText);
+    });
+    oReq.open('GET', url);
+    oReq.send();
+  }
+
+  function loadInline() {
+    smartdown.loadCardsFromDocumentScripts();
+    var s = smartdown.smartdownScripts[0];
+
+    cardLoaded(window.location.href, window.location.hash.slice(1), s.text);
+  }
+
+  function cardLoader(cardKey) {
+    // console.log('cardLoader', cardKey);
+    var part = multiparts[cardKey];
+    if (part) {
+      var output = document.getElementById('blog-content');
+      smartdown.setHome(part, output, function() {
+        smartdown.startAutoplay(output);
+      });
+    }
+    else {
+      var cardURL = cardKey;
+      if (cardKey.indexOf('http') === 0) {
+        cardURL = cardKey;
+      }
+      else {
+        const expanded = smartdown.expandHrefWithLinkRules(cardURL);
+        // console.log('cardloader', cardURL, expanded);
+        cardURL = expanded;
+      }
+      // else if (cardKey.indexOf('/posts') === 0) {
+      //   cardURL = `${baseURL}${cardKey}`;
+      //   console.log('cardLoader', cardKey, cardURL);
+      // }
+      loadURL(cardURL);
+    }
+  }
+
+  var calcHandlers = smartdown.defaultCalcHandlers;
+  const linkRules = [
+    {
+      prefix: '/posts/',
+      replace: baseURL + '/posts/',
+    },
+    {
+      prefix: '/pages/',
+      replace: baseURL + '/pages/',
+    },
+    {
+      prefix: '/assets/',
+      replace: baseURL + '/assets/',
+    },
+  ];
+
+
+
+  window.addEventListener(
+    'popstate',
+    function(event) {
+      const url = document.location.pathname;
+      if (url.endsWith('/')) {
+        const newPath = url.replace(/\/$/, '.md');
+        // console.log('popstatex: ', url, newPath, current, window.location.hash);
+        if (current && url !== current) {
+          loadURL(newPath);
+        }
+      }
+    },
+    false);
+  // window.addEventListener(
+  //   'hashchange',
+  //   function(event) {
+  //     console.log(
+  //       'hashchange document.location.pathname: ' + document.location.pathname,
+  //       JSON.stringify(event.state));
+  //   },
+  //   false);
+
+  smartdown.initialize(icons, `https://unpkg.com/smartdown/dist/`, loadInline, cardLoader, calcHandlers, linkRules);
+</script>
+
+  
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

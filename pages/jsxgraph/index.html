@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  <link rel="icon" href="http://wildthinks.org/assets/images/favicon.png">
+
+  <title>
+    JSXgaph - wildthinks
+    
+  </title>
+
+  <meta name="description" content="### Using JSXGraph in Smartdown From the [JSXGraph](https://jsxgraph.uni-bayreuth.de/wp/index.html) home page: &gt; JSXGraph is a cross-browser JavaScript libra...">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Asap:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/vendor/fontawesome-free/css/all.min.css">
+
+  <link rel="stylesheet" href="/blog-kit/assets/main.css">
+  <link rel="canonical" href="https://wildthinks.org/blog-kit/pages/jsxgraph/">
+  <link rel="alternate" type="application/rss+xml" title="wildthinks" href="/blog-kit/feed.xml">
+
+  
+  <link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/smartdown.css">
+<link rel=stylesheet href="https://unpkg.com/smartdown/dist/lib/fonts.css">
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/smartdown.js">
+</script>
+<script type="text/javascript" src="https://unpkg.com/smartdown/dist/lib/calc_handlers.js"></script>
+<script type="text/x-smartdown" id="Home">
+### Using JSXGraph in Smartdown
+
+From the [JSXGraph](https://jsxgraph.uni-bayreuth.de/wp/index.html) home page:
+
+> JSXGraph is a cross-browser JavaScript library for interactive geometry, function plotting, charting, and data visualization in the web browser.
+
+
+##### A polygon
+
+I started with this [JSXGraph Polygon](https://jsxgraph.uni-bayreuth.de/wiki/index.php/Polygon) example, and hacked it a bit to display angles, and to reflect the current angle values and their sum as Smartdown cells. This example is inspired by Mathigon's [Polygons](https://mathigon.org/course/polyhedra/polygons#angles) example.
+
+
+[](:!angleA||red|pill)° + [](:!angleB||blue|pill)° + [](:!angleC||green|pill)° + [](:!angleD||orange|pill)° = [](:!angleSum||gold|pill)°
+
+
+```javascript /playable/autoplay
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css
+
+
+const myDiv = this.div;
+myDiv.style.width = '100%';
+myDiv.style.height = '100%';
+myDiv.style.margin = 'auto';
+myDiv.innerHTML = `<div id='box1' class='jxgbox' style='width:600px; height:600px;'>`;
+
+function toDegrees(angle) {
+  return Math.round(180.0 * angle.Value() / Math.PI);
+}
+
+JXG.Options.text.fontSize = 16;
+
+const board = JXG.JSXGraph.initBoard('box1', {boundingbox: [0, 0, 300, 300]});
+var A = board.create('point',[40.5, 40.5], {name:'A',size:10,color:'black'});
+var B = board.create('point',[260, 80], {name:'B',size:10,color:'black'});
+var C = board.create('point',[240, 220], {name:'C',size:10,color:'black'});
+var D = board.create('point',[80, 260], {name:'D',size:10,color:'black'});
+var poly = board.create('polygon',[A,B,C,D],{color:'white'});
+
+const angleA = board.create('angle', [B,A,D], {type:'sector', orthoType:'square', orthoSensitivity:0.5, radius:40,color:'red'});
+console.log('angleA', angleA);
+angleA.label.setText(function () {return toDegrees(angleA);});
+
+const angleB = board.create('angle', [C,B,A], {type:'sector', orthoType:'square', orthoSensitivity:0.5, radius:40,color:'blue'});
+angleB.label.setText(function () {return toDegrees(angleB);});
+
+const angleC = board.create('angle', [D,C,B], {type:'sector', orthoType:'square', orthoSensitivity:0.5, radius:40,color:'green'});
+angleC.label.setText(function () {return toDegrees(angleC);});
+
+const angleD = board.create('angle', [A,D,C], {type:'sector', orthoType:'square', orthoSensitivity:0.5, radius:40,color:'orange'});
+angleD.label.setText(function () {return toDegrees(angleD);});
+
+function updateSmartdown(pt, ptName) {
+  const angleADegrees =  toDegrees(angleA);
+  const angleBDegrees =  toDegrees(angleB);
+  const angleCDegrees =  toDegrees(angleC);
+  const angleDDegrees =  toDegrees(angleD);
+
+  smartdown.set({
+    angleA: angleADegrees,
+    angleB: angleBDegrees,
+    angleC: angleCDegrees,
+    angleD: angleDDegrees,
+    angleSum: angleADegrees + angleBDegrees + angleCDegrees + angleDDegrees,
+  });
+}
+
+A.on('drag', function() {updateSmartdown(A, 'A');});
+B.on('drag', function() {updateSmartdown(B, 'B');});
+C.on('drag', function() {updateSmartdown(C, 'C');});
+D.on('drag', function() {updateSmartdown(D, 'D');});
+
+updateSmartdown(A, 'A');
+
+```
+
+
+
+#### An L-system
+
+I've adapted a [https://en.wikipedia.org/wiki/Sierpiński_curve](https://en.wikipedia.org/wiki/Sierpiński_curve) example from the JSXGraph Wiki at [Seirpinski Curve](http://jsxgraph.org/wiki/index.php/L-systems). I made the `level` parameter a Smartdown variable that can be adjusted via the slider below.
+
+[Level](:-level/1/10/1) [](:!level)
+
+```javascript /playable/autoplay
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js
+//smartdown.import=https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css
+
+
+const myDiv = this.div;
+myDiv.style.width = '100%';
+myDiv.style.height = '100%';
+myDiv.style.margin = 'auto';
+myDiv.innerHTML = `<div id='box0' class='jxgbox' style='width:600px; height:600px;'>`;
+
+
+var brd = JXG.JSXGraph.initBoard('box0', {boundingbox: [-300, 300, 300, -300]});
+var turtle = brd.create('turtle');
+var t = turtle;
+var shrink = 1.0;
+
+
+function expander(level,axiom,rules) {
+  this.axiom = axiom;
+  this.rules = rules;
+  this.source = (level>1) ? new expander(level-1,axiom,rules) : (new function() {
+    // Axiom:
+    this.code = axiom;
+    this.pos = 0;
+    this.next = function() {
+      if (this.pos>=this.code.length) return null;
+      return this.code.charAt(this.pos++);
+    }
+  });
+
+  this.code = '';
+  this.pos = 0;
+  this.next = function() {
+    while (this.pos>=this.code.length) { // produce new symbols from source
+      this.pos = 0;
+      var pattern = this.source.next();
+      if (!pattern) return null // Finished
+      this.code = this.rules[pattern];
+    }
+    return this.code.charAt(this.pos++);
+  }
+}
+
+
+function plotter(generator,symbols,len,angle,t,shrink) {
+  for (var c; c=generator.next(); c) {
+    switch(symbols[c]) {
+      case 'F':
+        t.fd(len);
+        break;
+      case 'f':
+        t.penUp();
+        t.fd(len);
+        t.penDown();
+        break;
+      case '+':
+        t.lt(angle);
+        break;
+      case '-':
+        t.rt(angle);
+        break;
+      case '[':
+        t.pushTurtle();
+        len *= shrink;
+        break;
+      case ']':
+        t.popTurtle();
+        len /= shrink;
+        break;
+      default:
+        ;
+    }
+  }
+  return null;
+}
+
+smartdown.setVariable('level', 6);
+
+this.dependOn = ['level'];
+this.depend = function() {
+  brd.suspendUpdate();
+  turtle.cs();
+  turtle.hideTurtle();
+
+  var level = parseInt(env.level);
+  var axiom = 'A';
+  var rules = {
+      'A':'B-A-B',
+      'B':'A+B+A',
+      '+' : '+',
+      '-' : '-'
+  };
+  var symbols = { 'A':'F',
+                  'B':'F',
+                  '+':'+',
+                  '-':'-',
+                  '[':'[',
+                  ']':']'
+                };
+  var angle = 60;
+  var len = 500/Math.pow(2,level);
+  turtle.setPos(-250*Math.pow(-1,level),-250);
+  turtle.rt(90*Math.pow(-1,level));
+
+  var generator = new expander(level,axiom,rules);
+  plotter(generator,symbols,len,angle,t,shrink);
+  brd.unsuspendUpdate();
+};
+
+
+```
+
+
+</script>
+
+  
+
+  
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/blog-kit/">  
+      <img src="/blog-kit/assets/images/wildthinksLogo.svg" height="30">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      
+      <ul class="noheadernav navbar-nav ml-auto">
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/pages/About/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog-kit/posts">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Page Header -->
+
+<header id="header-wrapper" class="masthead noheader">
+</header>  
+  
+
+
+
+  <div class="container-fluid smartdown-outer-container smartdown-theme">
+    <div class="row">
+      <div class="col-xs-12 smartdown-container" id="blog-content">
+      <!-- <div class="col-lg-8 col-md-10 mx-auto smartdown-container" id="blog-content"> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:goldfishandrobin@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://twitter.com/wildthinksLab">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/wildthinkslaboratory">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; Heidi Dixon 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="/blog-kit/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/blog-kit/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/blog-kit/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script>
+
+<script src="/blog-kit/assets/scripts.js"></script>
+
+
+
+
+  
+  <script>
+  /* global smartdown */
+  var baseURL = '/blog-kit/';
+  var icons = {
+    'rectangle' : `/assets/images/calculus/rectangle.svg`,
+    'secant' : `/assets/images/calculus/secant.svg`,
+    'ftc1' : `/assets/images/calculus/ftc1.svg`,
+    'usamts2' : `/assets/images/calculus/usamts2.svg`,
+    'usamts1' : `/assets/images/calculus/usamts1.svg`,
+    'negaBinary' : `/assets/images/calculus/negaBinary.svg`,
+    'string' : `/assets/images/calculus/strings.svg`,
+    'derivative' : `/assets/images/calculus/derivative.svg`,
+    'chainrule' : `/assets/images/calculus/chainrule.svg`,
+    'fractal' : `/assets/images/calculus/fractal.svg`,
+    'limits'  : `/assets/images/calculus/limits.svg`,
+    'eToTheX' : `/assets/images/calculus/eToTheX.svg`,
+    'ftc2' : `/assets/images/calculus/ftc2.svg`,
+    'epsilonDelta': `/assets/images/calculus/epsilonDelta.svg`,
+    'penrose' : `/assets/images/calculus/penrose.svg`,
+    'circles' : `/assets/images/calculus/circles.svg`,
+    'GR' : `/assets/images/calculus/GR.svg`,
+    'Fib' : `/assets/images/calculus/FibDots.svg`,
+    '2Ddots' : `/assets/images/calculus/2Ddots.svg`,
+    'circCoord' : `/assets/images/calculus/circCoord.svg`,
+    'spiral1' : `/assets/images/calculus/spiral1.svg`
+  };
+
+  var multiparts = null;
+  var current = null;
+
+
+  function cardLoaded(url, cardKeySubhash, sourceText) {
+    /* eslint no-invalid-this: 0 */
+    sourceText = sourceText.trim();
+    multiparts = smartdown.partitionMultipart(sourceText);
+
+    if (url.endsWith('.md')) {
+      const newPath = url.replace(/\.md$/, '/');
+      current = newPath;
+      history.pushState(null, null, newPath);
+    }
+
+    var output = document.getElementById('blog-content');
+    smartdown.setHome(multiparts._default_, output, function() {
+      document.body.scrollTop = 0; // For Chrome, Safari and Opera
+      document.documentElement.scrollTop = 0; // For IE and Firefox
+
+      if (cardKeySubhash) {
+        const target = document.getElementById(cardKeySubhash);
+        if (target) {
+          target.scrollIntoView();
+        }
+      }
+
+      smartdown.startAutoplay(output);
+    });
+  }
+
+  function loadURL(url) {
+    var oReq = new XMLHttpRequest();
+    let cardKeySubhash = null;
+    const hashPos = url.indexOf('#');
+    if (hashPos >= 0) {
+      cardKeySubhash = url.slice(hashPos + 1);
+    }
+
+    oReq.addEventListener('load', function() {
+      cardLoaded(url, cardKeySubhash, this.responseText);
+    });
+    oReq.open('GET', url);
+    oReq.send();
+  }
+
+  function loadInline() {
+    smartdown.loadCardsFromDocumentScripts();
+    var s = smartdown.smartdownScripts[0];
+
+    cardLoaded(window.location.href, window.location.hash.slice(1), s.text);
+  }
+
+  function cardLoader(cardKey) {
+    // console.log('cardLoader', cardKey);
+    var part = multiparts[cardKey];
+    if (part) {
+      var output = document.getElementById('blog-content');
+      smartdown.setHome(part, output, function() {
+        smartdown.startAutoplay(output);
+      });
+    }
+    else {
+      var cardURL = cardKey;
+      if (cardKey.indexOf('http') === 0) {
+        cardURL = cardKey;
+      }
+      else {
+        const expanded = smartdown.expandHrefWithLinkRules(cardURL);
+        // console.log('cardloader', cardURL, expanded);
+        cardURL = expanded;
+      }
+      // else if (cardKey.indexOf('/posts') === 0) {
+      //   cardURL = `${baseURL}${cardKey}`;
+      //   console.log('cardLoader', cardKey, cardURL);
+      // }
+      loadURL(cardURL);
+    }
+  }
+
+  var calcHandlers = smartdown.defaultCalcHandlers;
+  const linkRules = [
+    {
+      prefix: '/posts/',
+      replace: baseURL + '/posts/',
+    },
+    {
+      prefix: '/pages/',
+      replace: baseURL + '/pages/',
+    },
+    {
+      prefix: '/assets/',
+      replace: baseURL + '/assets/',
+    },
+  ];
+
+
+
+  window.addEventListener(
+    'popstate',
+    function(event) {
+      const url = document.location.pathname;
+      if (url.endsWith('/')) {
+        const newPath = url.replace(/\/$/, '.md');
+        // console.log('popstatex: ', url, newPath, current, window.location.hash);
+        if (current && url !== current) {
+          loadURL(newPath);
+        }
+      }
+    },
+    false);
+  // window.addEventListener(
+  //   'hashchange',
+  //   function(event) {
+  //     console.log(
+  //       'hashchange document.location.pathname: ' + document.location.pathname,
+  //       JSON.stringify(event.state));
+  //   },
+  //   false);
+
+  smartdown.initialize(icons, `https://unpkg.com/smartdown/dist/`, loadInline, cardLoader, calcHandlers, linkRules);
+</script>
+
+  
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXXXX-X');
+</script>
+
+
+
+</body>
+
+</html>

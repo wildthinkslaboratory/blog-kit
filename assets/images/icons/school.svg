@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="500" height="500" viewBox="0, 0, 500, 500">
+  <defs>
+    <linearGradient id="Gradient_1" gradientUnits="userSpaceOnUse" x1="251.113" y1="591.356" x2="251.113" y2="-61.82">
+      <stop offset="0.113" stop-color="#078CEF"/>
+      <stop offset="0.986" stop-color="#09F2F5"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_3">
+    <g>
+      <path d="M59.326,12.721 L441.674,12.721 C467.413,12.721 488.279,33.587 488.279,59.326 L488.279,441.674 C488.279,467.413 467.413,488.279 441.674,488.279 L59.326,488.279 C33.587,488.279 12.721,467.413 12.721,441.674 L12.721,59.326 C12.721,33.587 33.587,12.721 59.326,12.721 z" fill="url(#Gradient_1)"/>
+      <path d="M59.326,12.721 L441.674,12.721 C467.413,12.721 488.279,33.587 488.279,59.326 L488.279,441.674 C488.279,467.413 467.413,488.279 441.674,488.279 L59.326,488.279 C33.587,488.279 12.721,467.413 12.721,441.674 L12.721,59.326 C12.721,33.587 33.587,12.721 59.326,12.721 z" fill-opacity="0" stroke="#FFFFFF" stroke-width="16"/>
+    </g>
+    <path d="M55,398 L445,398 L445,427 L55,427 L55,398 z" fill="#FFFFFF"/>
+    <path d="M93,168 L420,168 L420,398 L93,398 L93,168 z" fill="#FF9937"/>
+    <path d="M114.5,193 L385.5,193 L385.5,269 L114.5,269 L114.5,193 z" fill="#0085CF"/>
+    <text transform="matrix(1, 0, 0, 1, 250, 261)">
+      <tspan x="-117.668" y="-12" font-family="Arial-BoldMT" font-size="48" kerning="5" fill="#FFFFFF">SCHOOL</tspan>
+    </text>
+    <path d="M55,139 L445,139 L445,168 L55,168 L55,139 z" fill="#FFFFFF"/>
+    <path d="M140,110 L360,110 L360,139 L140,139 L140,110 z" fill="#FFFFFF"/>
+    <path d="M254,55 L309,55 L309,89 L254,89 L254,55 z" fill="#F2D300"/>
+    <path d="M254,55 L259,55 L259,110 L254,110 L254,55 z" fill="#FFFFFF"/>
+    <path d="M118.943,316 L161,316 L161,379 L118.943,379 L118.943,316 z" fill="#0085CF"/>
+    <path d="M207,316 L289,316 L289,398 L207,398 L207,316 z" fill="#0085CF"/>
+    <path d="M248,337 C225.356,337 207,328.493 207,318 C207,307.507 225.356,299 248,299 C270.644,299 289,307.507 289,318 C289,328.493 270.644,337 248,337 z" fill="#0085CF"/>
+    <path d="M343.443,316 L385.5,316 L385.5,379 L343.443,379 L343.443,316 z" fill="#0085CF"/>
+  </g>
+</svg>
