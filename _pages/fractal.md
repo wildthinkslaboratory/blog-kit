@@ -232,32 +232,33 @@ this.depend = function() {
     }
     if (env.zoomin == true) {
       smartdown.setVariable('zoomin', false);
-      zoom += 100;
+      zoom += 10000000;
+      console.log('zoom', Math.log2(zoom));
       draw();
     }
     if (env.zoomout == true) {
       smartdown.setVariable('zoomout', false);
-      zoom -= 100;
+      zoom -= 1000000;
       draw();
     }
     if (env.up == true) {
       smartdown.setVariable('up', false);
-      pany -= 100;
+      pany -= 100000;
       draw();
     }
     if (env.down == true) {
       smartdown.setVariable('down', false);
-      pany += 100;
+      pany += 100000;
       draw();
     }
     if (env.left == true) {
       smartdown.setVariable('left', false);
-      panx -= 100;
+      panx -= 100000;
       draw();
     }
     if (env.right == true) {
       smartdown.setVariable('right', false);
-      panx += 100;
+      panx += 100000;
       draw();
     }
   }
