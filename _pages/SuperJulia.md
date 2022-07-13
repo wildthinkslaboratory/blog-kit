@@ -840,6 +840,13 @@ this.div.addEventListener('pinchend', function(event){
 });
 
 
+this.div.addEventListener('touchmove', ev => {
+  if (weShouldStopDefaultScrollAndZoom) {
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+  };
+}, { passive: false });
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
