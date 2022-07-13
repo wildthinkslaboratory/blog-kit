@@ -839,7 +839,7 @@ this.div.addEventListener('pinchend', function(event){
   pinchActive = false; 
 });
 
-
+let weShouldStopDefaultScrollAndZoom = true;
 this.div.addEventListener('touchmove', ev => {
   if (weShouldStopDefaultScrollAndZoom) {
     ev.preventDefault();
