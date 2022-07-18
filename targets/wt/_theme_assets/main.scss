@@ -55,6 +55,11 @@ header.masthead  {
     }
 }
 
+.noheadernavbar {
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
 // if it's the home page we lighten the overlay
 .home {
   .overlay {

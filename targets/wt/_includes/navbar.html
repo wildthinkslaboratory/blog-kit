@@ -1,5 +1,9 @@
 <!-- Navigation -->
+{% if page.header == 'none' %}
+<nav class="noheadernavbar navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+{% else %}
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+{% endif %}
   <div class="container">
     <a class="navbar-brand" href="{{"/" | relative_url }}">  
       <img src="{{"/assets/images/wildthinksLogo.svg" | relative_url }}" height="30">

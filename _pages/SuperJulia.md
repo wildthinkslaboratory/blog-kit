@@ -850,22 +850,24 @@ this.div.addEventListener('touchmove', ev => {
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-// let portrait = window.matchMedia("(orientation: portrait)");
+let portrait = window.matchMedia("(orientation: portrait)");
 
-// portrait.addEventListener("change", function(e) {
-//   e.preventDefault();
-//     if(e.matches) {
-//       // Portrait mode
-//       canvas.width  = screen.width;
-//       canvas.height = screen.height;
-//       draw();
-//     } else {
-//       // Landscape
-//       canvas.height  = screen.width;
-//       canvas.width = screen.height;
-//       draw();
-//     }
-// })
+portrait.addEventListener("change", function(e) {
+  e.preventDefault();
+  sizeCanvas();
+  drawScene();
+    // if(e.matches) {
+    //   // Portrait mode
+    //   canvas.width  = screen.width;
+    //   canvas.height = screen.height;
+    //   drawScene();
+    // } else {
+    //   // Landscape
+    //   canvas.height  = screen.width;
+    //   canvas.width = screen.height;
+    //   drawScene();
+    // }
+})
 
 function exportImage() {
   const imgData = canvas.toDataURL("image/jpg");
