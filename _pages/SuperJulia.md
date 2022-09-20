@@ -22,10 +22,14 @@ We had a great time learning about fractals at [Mathigon's](https://mathigon.org
 [open image in new tab](:=download=true) 
 # --outlinebox
 # ::::
-```javascript /autoplay/kiosk
-//smartdown.import=https://biodiv.github.io/contactjs/assets/js/contact.min.js
+
+```javascript /autoplay/module/kiosk
 //smartdown.import=three
 //smartdown.import=https://webglfundamentals.org/webgl/resources/webgl-utils.js
+
+import {
+Press, Pan, Pinch, PointerListener
+} from 'https://biodiv.github.io/contactjs/assets/js/contact.js';
 
 smartdown.showDisclosure('panel','','transparent,bottomright,closeable,draggable,shadow,outline');
 smartdown.showDisclosure('intro','','transparent,center,closeable,draggable,shadow,outline');
@@ -213,10 +217,18 @@ requestAnimFrame = (function() {
 /////////////////////////////////////////////////////////////////////////////
 
 
+export default function start(playable, env) {
+  const log = this.log;
+
+  log('start', this);
+
 
 
 
 ////////////////////////////////////////////////////////////////////////
+console.log('before');
+console.log(this.div.style);
+console.log('after');
 
 // set up our div and add a canvas
 this.div.style.width = '100%';
@@ -531,11 +543,11 @@ function split2(ax, ay) {
 }
 
 
-function split(a64) {
-  let a32 = Math.fround(a64);
-  let a_err = a64 - a32;
-  return [a32, a_err];
-}
+// function split(a64) {
+//   let a32 = Math.fround(a64);
+//   let a_err = a64 - a32;
+//   return [a32, a_err];
+// }
 
 function drawScene(){
 //  gl.clearColor(0.0, 0.0, 0.0, 1.0);  // clear the screen to black
@@ -612,6 +624,9 @@ function updateURLFromSeed(fullSeed) {
   url.searchParams.set('panX', fullSeed.juliaseed.pan.x);
   url.searchParams.set('panY', fullSeed.juliaseed.pan.y);
 
+  url.searchParams.set('width', canvas.width);
+  url.searchParams.set('height', canvas.height);
+
   if (bookmarkColors) {
     const colors = fullSeed.colorseed.colors;
     for (let i = 0; i < colors.length; ++i) {
@@ -635,12 +650,21 @@ function newFractal() {
   const panX = searchParams.get('panX');
   const panY = searchParams.get('panY');
 
+  const sourceWidth = parseFloat(searchParams.get('width'));
+  const sourceHeight = parseFloat(searchParams.get('height'));
+  const width = canvas.width;
+  const height = canvas.height;
+
+  const widthScale = sourceWidth / width;
+  const heightScale = sourceHeight / height;
+  const zoomScale = Math.max(widthScale, heightScale);
+
   if (zoom !== null) {
-    fullSeed.juliaseed.zoom = parseFloat(zoom);
-    fullSeed.juliaseed.seed.x = parseFloat(seedX);
-    fullSeed.juliaseed.seed.y = parseFloat(seedY);
-    fullSeed.juliaseed.pan.x = parseFloat(panX);
-    fullSeed.juliaseed.pan.y = parseFloat(panY);
+    fullSeed.juliaseed.zoom = zoom / zoomScale;
+    fullSeed.juliaseed.seed.x = seedX;
+    fullSeed.juliaseed.seed.y = seedY;
+    fullSeed.juliaseed.pan.x = panX / zoomScale;
+    fullSeed.juliaseed.pan.y = panY / zoomScale;
   }
 
   if (bookmarkColors) {
@@ -657,7 +681,7 @@ function newFractal() {
 
   seeds.push(fullSeed);
   currentJuliaID = seeds.length - 1;
-  //console.log(seeds[currentJuliaID]);
+  updateURLFromSeed(fullSeed);
 }
 
 
@@ -896,7 +920,7 @@ this.depend = function() {
 newFractal();
 runWebGLApp();
 
-
+}
 ```
 .
 .
