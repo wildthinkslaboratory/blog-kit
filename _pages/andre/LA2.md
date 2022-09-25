@@ -73,8 +73,20 @@ In abstract mathematics, we seperate the elements (vectors) from the stuff they 
 
 ![fullwidth](https://www.youtube.com/watch?v=k7RM-ot2NWY&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=2)
 
+#### Linear Combinations
 # --outlinebox
-Given vectors $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$ in $\mathbb{R}^n$ and given scalars $c_1,c_2, \ldots , c_p$, the vector y defined by
+Given vectors $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$ in $\mathbb{R}^n$ and given scalars $c_1,c_2, \ldots , c_p$, the vector $\mathbf{y}$ defined by
 $$\mathbf{y} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_p \mathbf{v}_p$$
 is called a **linear combination** of $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$ with weights $c_1,c_2, \ldots , c_p$. The weights in a linear combination can be any real numbers, including zero.
+# --outlinebox
+
+
+#### Span
+
+# --outlinebox
+If $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$ are in $\mathbb{R}^n$, then the set of all linear combinations of $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$ is denoted by 
+$$\text{Span} \{ \mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p \}$$ 
+and is called the subset of $\mathbb{R}^n$ spanned (or generated)by $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$.That is, the collection of all vectors that can be written in the form
+$$c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_p \mathbf{v}_p$$
+with $c_1,c_2, \ldots , c_p$ scalars.
 # --outlinebox
