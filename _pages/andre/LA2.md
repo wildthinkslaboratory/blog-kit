@@ -1,0 +1,80 @@
+---
+title: 'Vectors'
+smartdown: true
+header: 'none'
+---
+
+
+![fullwidth](https://www.youtube.com/watch?v=fNk_zzaMoSs&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=1&t=140s)
+
+### Vectors
+
+A matrix with only one column is called a **column vector**, or simply a **vector**. 
+**Example:**  A vector in $\mathbb{R}^2$ 
+$$
+\begin{bmatrix}
+1 \\
+-8 
+\end{bmatrix}
+$$
+
+We have two operations to define for vectors. Given $a,b,c,d \in \mathbb{R}$, **addition** is
+$$
+\begin{bmatrix}
+a \\
+b 
+\end{bmatrix} + 
+\begin{bmatrix}
+c \\
+d 
+\end{bmatrix} =
+\begin{bmatrix}
+a+c \\
+b+d
+\end{bmatrix}
+$$
+with the obvious generalization for higher dimension vectors. Given $a,b,c \in \mathbb{R}$, **scalar multipliation** is
+
+$$
+c \cdot
+\begin{bmatrix}
+a \\
+b 
+\end{bmatrix} = 
+\begin{bmatrix}
+c \cdot a \\
+c \cdot b 
+\end{bmatrix}
+$$
+
+The **zero vector** $\mathbf{0}$ is a vector with all zero entries. 
+
+# --outlinebox
+**Algebraic Properties of** $\mathbb{R}^n$
+For all $\mathbf{u},\mathbf{v},\mathbf{w} \in \mathbb{R}^n$ and all scalars $c$ and $d$ in $\mathbb{R}$:
+ - $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$ (Commutative)
+ - $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$ (Addition is Associative)
+ - $\mathbf{u} + \mathbf{0} = \mathbf{u}$ (Identity for Addition)
+ - $\mathbf{u} + (-\mathbf{u}) = \mathbf{u}$ (Inverse for Addition)
+ - $c(\mathbf{u} + \mathbf{v}) = c\mathbf{u} + c\mathbf{v}$ (Multiplication Distributes over Addition)
+ - $(c + d)\mathbf{u} = c\mathbf{u} + d\mathbf{u}$ (Multiplication Distributes over Addition)
+ - $c(d \mathbf{u}) = (cd)\mathbf{u}$ (Associativity for Multiplication)
+ - $1(\mathbf{u})= \mathbf{u}$ (Identity for Multiplication)
+# --outlinebox
+
+[Thoughts on Abstraction](::abstract1)
+# :::: abstract1
+# --aliceblue
+Any time you see a set of **Algebraic Properties** like the ones you see above you should start thinking about abstract algebra.  It means you have some set of elements $S$ together with one or more operators (often binary) and those operations have some nice properties, like commutativity, identities etc.  
+
+In abstract mathematics, we seperate the elements (vectors) from the stuff they represent (arrows in space).  This is **really powerful** approach.  Our elements, might be useful for representing lots of different things (maybe something other than arrows in space), some that maybe we haven't even discovered yet.  The theorems we prove generally for an abstract set of things and operations will apply in all of these different areas.  
+# --aliceblue
+# ::::
+
+![fullwidth](https://www.youtube.com/watch?v=k7RM-ot2NWY&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=2)
+
+# --outlinebox
+Given vectors $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$ in $\mathbb{R}^n$ and given scalars $c_1,c_2, \ldots , c_p$, the vector y defined by
+$$\mathbf{y} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_p \mathbf{v}_p$$
+is called a **linear combination** of $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$ with weights $c_1,c_2, \ldots , c_p$. The weights in a linear combination can be any real numbers, including zero.
+# --outlinebox
