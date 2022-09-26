@@ -14,7 +14,7 @@ header: 'none'
 
 [1.3 Vector Equations](/pages/LA2)
 
-[1.4 The Matrix Equation](::notready/button,transparent,center,draggable,closeable)
+[1.4 The Matrix Equation](/pages/LA3)
 
 [1.5 Solutions of Linear Systems](::notready/button,transparent,center,draggable,closeable)
 

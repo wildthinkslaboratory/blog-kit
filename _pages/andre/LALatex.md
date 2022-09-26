@@ -103,4 +103,6 @@ When you write a variable for a vector it's usually bold face so `$\bf{v}$` give
 ```
 $$\text{Span} \{ \mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p \}$$ 
 ```
-$$\text{Span} \\{ \mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p \\}$$ 
+$$\text{Span} \{\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p \}$$
+
+[Back to Index](/pages/andre)
