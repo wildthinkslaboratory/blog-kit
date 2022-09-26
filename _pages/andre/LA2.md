@@ -62,14 +62,9 @@ For all $\mathbf{u},\mathbf{v},\mathbf{w} \in \mathbb{R}^n$ and all scalars $c$ 
  - $1(\mathbf{u})= \mathbf{u}$ (Identity for Multiplication)
 # --outlinebox
 
-[Thoughts on Abstraction](::abstract1)
-# :::: abstract1
-# --aliceblue
-Any time you see a set of **Algebraic Properties** like the ones you see above you should start thinking about abstract algebra.  It means you have some set of elements $S$ together with one or more operators (often binary) and those operations have some nice properties, like commutativity, identities etc.  
+### Time out for Abstract Algebra 
 
-In abstract mathematics, we seperate the elements (vectors) from the stuff they represent (arrows in space).  This is **really powerful** approach.  Our elements, might be useful for representing lots of different things (maybe something other than arrows in space), some that maybe we haven't even discovered yet.  The theorems we prove generally for an abstract set of things and operations will apply in all of these different areas.  
-# --aliceblue
-# ::::
+Your class will eventully get to some abstract algebra, but you're ready for some right now and you can check it out [here](/pages/ALA1).
 
 ![fullwidth](https://www.youtube.com/watch?v=k7RM-ot2NWY&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=2)
 
@@ -85,8 +80,11 @@ is called a **linear combination** of $\mathbf{v}_1,\mathbf{v}_2, \ldots , \math
 
 # --outlinebox
 If $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$ are in $\mathbb{R}^n$, then the set of all linear combinations of $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$ is denoted by 
-$$\text{Span} \{ \mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p \}$$ 
+$$\text{Span} \\{ \mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p \\}$$ 
 and is called the subset of $\mathbb{R}^n$ spanned (or generated)by $\mathbf{v}_1,\mathbf{v}_2, \ldots , \mathbf{v}_p$.That is, the collection of all vectors that can be written in the form
 $$c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_p \mathbf{v}_p$$
 with $c_1,c_2, \ldots , c_p$ scalars.
 # --outlinebox
+
+
+[Back to Index](/pages/andre)

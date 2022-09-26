@@ -93,3 +93,12 @@ There's a big long section in your book about the algorithm used to solve these 
 # --outlinebox
 **Theorem:** Each matrix is row equivalent to one and only one reduced echelon matrix.
 # --outlinebox
+
+
+#### Resources
+[Online Solver](https://matrix.reshish.com/gauss-jordanElimination.php)
+[Another Online Solver](https://calculator-online.net/gaussian-elimination-calculator/)
+
+#### Continue
+[1.3 Vector Equations](/pages/LA2)  
+[Back to Index](/pages/andre)
