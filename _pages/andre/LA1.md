@@ -94,6 +94,9 @@ There's a big long section in your book about the algorithm used to solve these 
 **Theorem:** Each matrix is row equivalent to one and only one reduced echelon matrix.
 # --outlinebox
 
+A **pivot position** in a matrix $A$ is a location in $A$ that corresponds to a leading 1 in the reduced echelon form of $A$. A pivot column is a column of $A$ that contains a pivot position.
+
+A system is **underdeterminied** if it has fewer equations than unknowns.
 
 #### Resources
 [Online Solver](https://matrix.reshish.com/gauss-jordanElimination.php)

@@ -24,7 +24,7 @@ x_n
 $$
 # --outlinebox
 
-
+.
 
 # --outlinebox
 **Theorem** If $A$ is an $m \times n$ matrix with columns $\bf{a}_1, \bf{a}_2, \ldots , \bf{a}_n$, and if $\bf{b}$ is in $\mathbb{R}^m$, the matrix equation
@@ -39,11 +39,13 @@ $$
 $$
 # --outlinebox
 
+.
+
 # --aliceblue
 **Note:** The matrix equation $A\bf{x} = \bf{b}$ has a solution if and only if the vector $\bf{b}$ is a linear combination of the columns in $A$.
 # --aliceblue
 
-
+.
 
 # --outlinebox
 **Theorem** Let $A$ be an $m \times n$ matrix. Then the following statements are equivalent.
@@ -62,6 +64,7 @@ A **pivot position** in a matrix $A$ is a location in $A$ that corresponds to a 
 # --partialborder
 # ::::
 
+.
 
 # --outlinebox
 **Theorem** If $A$ is an $m \times n$ matrix, $\bf{u}$ and $\bf{v}$ are vectors in  $\mathbb{R}^n$, and $c$ is a scalar, then :
@@ -70,5 +73,5 @@ A **pivot position** in a matrix $A$ is a location in $A$ that corresponds to a 
  - $A(c\bf{u}) = c(A \bf{u})$
 # --outlinebox 
 
-[Matrix Equations](/pages/LA3)
+[Solution Sets of Linear Systems](/pages/LA4)
 [Back to Index](/pages/andre)
