@@ -15,12 +15,12 @@ A system of linear equations is said to be **homogeneous** if it can be written 
 
 
 A **parametric vector equation** is written in the form
-$$\bf{x} = s \bf{u} + t \bf{v}$$
+$${\bf x} = s {\bf u} + t {\bf v}$$
 with $s,t \in \mathbb{R}$.
 
 **Example**
 $$
-\bf{x} = x_2
+{\bf x} = x_2
 \begin{bmatrix}
 1 \\
 -5 
@@ -34,7 +34,7 @@ Sometimes it's a nice way to express the solution to a homogeneous system of equ
 
 **Example**
 $$
-\bf{x} = 
+{\bf x} = 
 \begin{bmatrix}
 7 \\
 -0.2
@@ -53,14 +53,5 @@ $$
 **Theorem** Suppose the equation $A\bf{x} = \bf{b}$ is consistent for some given $\bf{b}$, and let $\bf{p}$ be a solution. Then the solution set of $A\bf{x} = \bf{b}$ is the set of all vectors of the form $\bf{w} = \bf{p} + \bf{v}_h$, where $\bf{v}_h$ is any solution of the homogeneous equation $A\bf{x} = \bf{0}$.
 # --outlinebox
 
-.
-
-# --outlinebox
-
-# --outlinebox
-
-.
-
-# --outlinebox
-
-# --outlinebox
+[Linear Independence](/pages/LA5)
+[Back to Index](/pages/andre)
