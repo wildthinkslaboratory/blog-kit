@@ -5,6 +5,8 @@ header: 'none'
 ---
 
 ### The Matrix of a Linear Transformation
+
+![fullwidth](https://www.youtube.com/watch?v=rHLEWRxRGiM&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=5)
 The **identity** matrix 
 
 $$ I_3 = 

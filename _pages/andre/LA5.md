@@ -35,12 +35,12 @@ $$\mathbf{v}_1, \ldots , \mathbf{v}_{j-1}$$
 # --outlinebox
 .
 # --outlinebox
-**Theorem** If a set contains more vectors than there are entries in each vector, then the set is linearly dependent.  That is any set \\{ {\bf v}_1,{\bf v}_2, \ldots , {\bf v}_p \\}$ in $\mathbb{R}^n$ is linearly dependent if $p > n$.
+**Theorem** If a set contains more vectors than there are entries in each vector, then the set is linearly dependent.  That is any set $\\{ {\bf v}_1,{\bf v}_2, \ldots , {\bf v}_p \\}$ in $\mathbb{R}^n$ is linearly dependent if $p > n$.
 # --outlinebox
 
 .
 # --outlinebox
-**Theorem** If a set \\{ {\bf v}_1,{\bf v}_2, \ldots , {\bf v}_p \\}$ in $\mathbb{R}^n$ contains the zero vector, then the set is linearly dependent.
+**Theorem** If a set $\\{ {\bf v}_1,{\bf v}_2, \ldots , {\bf v}_p \\}$ in $\mathbb{R}^n$ contains the zero vector, then the set is linearly dependent.
 # --outlinebox
 
 
