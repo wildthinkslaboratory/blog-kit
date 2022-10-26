@@ -4,6 +4,12 @@ smartdown: true
 header: 'none'
 ---
 
+
+# New Mom Linear Algebra
+
+[Problem Set 1](/pages/MomLA1)
+
+
 # The Book is available [ONLINE HERE](https://www.cartagena99.com/recursos/alumnos/temarios/210609113348-Linear%20Algebra%20and%20its%20applications.pdf)
 
 ## Important Online Resources for the class
@@ -33,9 +39,9 @@ For both of these you need to get a free account to use the cool tools.
 
 [2.1 Matrix Operations](/pages/LA8)
 
-[2.2 The Inverse of a Matrix](::notready/button)
+[2.2 The Inverse of a Matrix](/pages/LA9)
 
-[2.3 Characterizations of Invertible Matrices](::notready/button)
+[2.3 Characterizations of Invertible Matrices](/pages/LA10)
 
 [2.4 Partitioned Matrices](::notready/button)
 

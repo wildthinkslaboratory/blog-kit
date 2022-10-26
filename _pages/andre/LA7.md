@@ -49,4 +49,5 @@ You can see why there is so much linear algegra in graphics.
  - $T$ is one-to-one if and only if the columns of $A$ are linearly independent.
 # --outlinebox
 
+[Matrix Operations](/pages/LA8)
 [Back to Index](/pages/andre)
