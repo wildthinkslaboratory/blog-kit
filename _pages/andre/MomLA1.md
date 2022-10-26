@@ -55,4 +55,7 @@ a vector space is called **infinite-dimensional** is it is not finite-dimensiona
 # --outlinebox
 Show that $P(\mathbb{R})$ is infinite-dimensional.  Again, here you just need to sketch a proof in your head.
 
+#### Question 8
+Explain why no list of four polynomials spans $P_4(\mathbb{R})$
+
 
