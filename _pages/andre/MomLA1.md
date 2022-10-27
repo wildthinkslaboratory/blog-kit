@@ -58,4 +58,5 @@ Show that $P(\mathbb{R})$ is infinite-dimensional.  Again, here you just need to
 #### Question 8
 Explain why no list of four polynomials spans $P_4(\mathbb{R})$
 
-
+[Back to Week 1 Homeschool](/pages/week1)  
+[Back to Linear Algebra Index](/pages/andre)
