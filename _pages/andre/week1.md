@@ -10,13 +10,17 @@ October 31 to November 4
 ## [Mental Health](::mycbt/button,transparent)
 #### :::: mycbt
 # --outlinebox 
+Watch 5 videos on mental health.
+So far you've watched [](:!numMovies) movies.
 
 - [](:Xcbt1) Watch this video ![thumbnail](https://www.youtube.com/watch?v=VdoSgPRe_gw)
-- [](:Xcbt2) Watch this video ![thumbnail](https://www.youtube.com/watch?v=D0pxEmdHlqs)
-- [](:Xcbt3) Watch this video ![thumbnail](https://www.youtube.com/watch?v=A1anXJhVamc&feature=youtu.be)
-- [](:Xcbt4) Watch this video ![thumbnail](https://www.youtube.com/watch?v=UVN96JhDOmg)
-- [](:Xcbt5) Watch this video ![thumbnail](https://www.youtube.com/watch?v=VdoSgPRe_gw)
-
+- [](:Xcbt8) Watch this video ![thumbnail](https://www.youtube.com/watch?v=aAVGyRMS3gE)
+- [](:Xcbt2) Watch this video ![thumbnail](https://www.youtube.com/watch?v=UVN96JhDOmg)
+- [](:Xcbt3) Watch this video ![thumbnail](https://www.youtube.com/watch?v=NYIdmpp69MY)
+- [](:Xcbt4) Watch this video ![thumbnail](https://www.youtube.com/watch?v=k0IgCE1uxB4)
+- [](:Xcbt5) Watch this video ![thumbnail](https://www.youtube.com/watch?v=K24CS0mA5Fs&t=22s)
+- [](:Xcbt6) Watch this video ![thumbnail](https://www.youtube.com/watch?v=iCvmsMzlF7o)
+- [](:Xcbt7) Watch this video ![thumbnail](https://www.youtube.com/watch?v=psN1DORYYV0)
 # --outlinebox
 # ::::
 
@@ -37,13 +41,20 @@ October 31 to November 4
 # ::::
 
 
-## [Rock Climbing](::myrc/button,transparent)
+## [Go Out!](::myrc/button,transparent)
 #### :::: myrc
 # --outlinebox 
+##### Rock Climb
 Go rock climbing three times this week.
 - [](:Xrc1) Rock Climbing Day 1
 - [](:Xrc2) Rock Climbing Day 2
 - [](:Xrc3) Rock Climbing Day 3
+
+##### The Big Beautiful World
+![halfwidth](https://www.travelcraterlake.com/media/823251/crater-lake-wide-angle-view-121187657-2000.jpg?anchor=center&mode=crop&width=800&height=400&rnd=132890732730000000)
+There's a big beautiful world out there! A walk in a beautiful area, bubble tea ... What would make you happy?
+
+- [](:Xrc4) Write down 5 things out in the world that would be really enjoyable to do.
 # --outlinebox
 # ::::
 
@@ -64,21 +75,39 @@ Today is [](:!date)
 # --outlinebox
 # ::::
 
+## [Celebrate](::mycelebrate/button,transparent)
+#### :::: mycelebrate
+# --outlinebox 
+[](:Xc1) Celebrate your hard work 
+# --outlinebox
+# ::::
 
 ```javascript /autoplay
 
 const d = new Date();
 smartdown.setVariable('date', d.toString());
 
+const movies = ['cbt1', 'cbt2', 'cbt3', 'cbt4', 'cbt5', 'cbt6', 'cbt7', 'cbt8'];
+
+function moviesWatched() {
+	let nm = 0;
+	for (i in movies) {
+		let lv = localStorage.getItem(movies[i]);
+		if (lv == '1') nm++;
+	}
+	smartdown.setVariable('numMovies', nm)
+}
+
+
 function initSDVar(lsvar) {
-	const lv = localStorage.getItem(lsvar);
+	let lv = localStorage.getItem(lsvar);
 	if (lv !== null) {
 		smartdown.setVariable(lsvar, lv == '1' ? true : false);
 	}
 	else smartdown.setVariable(lsvar, false);
 }
 
-const lvs = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 'la1', 'la2', 'rc1', 'rc2', 'rc3', 'cbt1', 'cbt2', 'cbt3', 'cbt4', 'cbt5'];
+const lvs = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 'la1', 'la2', 'rc1', 'rc2', 'rc3', 'rc4', 'cbt1', 'cbt2', 'cbt3', 'cbt4', 'cbt5', 'cbt6', 'cbt7', 'cbt8', 'c1'];
 for (let i=0; i < lvs.length; i++) {
 	initSDVar(lvs[i]);
 }
@@ -97,6 +126,15 @@ this.depend = function() {
 	localStorage.setItem('rc1', (env.rc1 ? '1' : '0'));
 	localStorage.setItem('rc2', (env.rc2 ? '1' : '0'));
 	localStorage.setItem('rc3', (env.rc3 ? '1' : '0'));
+	localStorage.setItem('cbt1', (env.cbt1 ? '1' : '0'));
+	localStorage.setItem('cbt2', (env.cbt2 ? '1' : '0'));
+	localStorage.setItem('cbt3', (env.cbt3 ? '1' : '0'));
+	localStorage.setItem('cbt4', (env.cbt4 ? '1' : '0'));
+	localStorage.setItem('cbt5', (env.cbt5 ? '1' : '0'));
+	localStorage.setItem('cbt6', (env.cbt6 ? '1' : '0'));
+	localStorage.setItem('cbt7', (env.cbt7 ? '1' : '0'));
+	localStorage.setItem('c1', (env.c1 ? '1' : '0'));
+	moviesWatched();
 }
 ```
 
