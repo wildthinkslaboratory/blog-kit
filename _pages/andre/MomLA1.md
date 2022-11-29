@@ -6,6 +6,8 @@ header: 'none'
 
 ## Vector Spaces
 
+[A refresh on Vector Spaces](/pages/ALA1)
+
 #### Question 1
 If $V$ is a vector space, prove that $-(-{\bf v}) = {\bf v}$ for all ${\bf v} \in V$.  Recall that $-{\bf v}$ is the notation we use to identify the additive inverse of ${\bf v}$.  
 
@@ -17,6 +19,7 @@ Show that in the definition of a vector space, the additive inverse condition ca
 
 ## Span and Linear Independence
 
+A refresh on [Span](/pages/LA2) and [Linear Independence](/pages/LA5)
 #### Question 4
 Suppose that ${\bf v}_1, {\bf v}_2, {\bf v}_3, {\bf v}_4$ spans a vector space $V$.  Prove that 
 $${\bf v}_1 - {\bf v}_2, {\bf v}_2 - {\bf v}_3, {\bf v}_3 - {\bf v}_4, {\bf v}_4$$
