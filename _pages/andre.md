@@ -29,7 +29,7 @@ For both of these you need to get a free account to use the cool tools.
 
 [1.4 The Matrix Equation](/pages/LA3)
 
-[1.5 Solutions of Linear Systems](pages/LA4)
+[1.5 Solutions of Linear Systems](/pages/LA4)
 
 [1.7 Linear Independence](/pages/LA5)
 
@@ -43,18 +43,16 @@ For both of these you need to get a free account to use the cool tools.
 
 [2.3 Characterizations of Invertible Matrices](/pages/LA10)
 
-[2.4 Partitioned Matrices](::notready/button)
-
-[2.5 Matrix Factorizations](::notready/button)
-
-[2.8 Subspaces of $\mathbb{R}^n$](::notready/button)
-
-[2.9 Dimension and Rank](::notready/button)
-
 [3.1 Introduction to Determinants](::notready/button)
 [3.2 Properties of Determinants](::notready/button)
 [3.3 Cramer's Rule](::notready/button)
 
+[4.1 Vector Spaces and Subspaces](::notready/button)
+[4.2 Null Spaces, Column Spaces and Linear Transformations](::notready/button)
+[4.3 Linearly Independent Sets; Bases ](::notready/button)
+[4.4 Coordinate Systems](::notready/button)
+[4.5 Dimensions of a Vector Space](::notready/button)
+[4.6 Rank](::notready/button)
 
 # :::: notready
 # --partialborder
