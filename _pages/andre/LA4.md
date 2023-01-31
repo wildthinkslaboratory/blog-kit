@@ -4,6 +4,7 @@ smartdown: true
 header: 'none'
 ---
 
+These definitions and theorems are adapted from [Linear Algebra and its Applications](https://www.cartagena99.com/recursos/alumnos/temarios/210609113348-Linear%20Algebra%20and%20its%20applications.pdf) by Lay, Lay and McDonald.
 
 ### 1.5 Solution Sets of Linear Systems
 
