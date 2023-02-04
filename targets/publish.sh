@@ -57,6 +57,7 @@ if [ "$2" != "" ]; then
 fi
 
 if [ "$3" == "--org" ]; then
+#    targetRepoUrl="git@github.com:wildthinkslaboratory/wildthinks.org.git"
     targetRepoUrl="${repoPrefix}${repoOrg}/${repoOrg}.github.io.git"
     targetBaseUrl="/"
     targetBranch="master"
@@ -124,6 +125,7 @@ fi
 
 git init
 git config core.symlinks true
+git checkout -b master
 git add .
 git commit -m "Initial commit"
 git remote add origin ${targetRepoUrl}
