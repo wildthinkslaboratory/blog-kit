@@ -45,11 +45,11 @@ For both of these you need to get a free account to use the cool tools.
 [3.3 Cramer's Rule](/pages/LA13)
 
 [4.1 Vector Spaces and Subspaces](/pages/LA14)
-[4.2 Null Spaces, Column Spaces and Linear Transformations](/pages/LA15)
-[4.3 Linearly Independent Sets; Bases ](/pages/LA16)
-[4.4 Coordinate Systems](/pages/LA17)
-[4.5 Dimensions of a Vector Space](/pages/LA18)
-[4.6 Rank](/pages/LA19)
+[4.2 Null Spaces, Column Spaces and Linear Transformations](/pages/LA16)
+[4.3 Linearly Independent Sets; Bases ](/pages/LA17)
+[4.4 Coordinate Systems](/pages/LA18)
+[4.5 Dimensions of a Vector Space](/pages/LA19)
+[4.6 Rank](/pages/LA20)
 
 # :::: notready
 # --partialborder
