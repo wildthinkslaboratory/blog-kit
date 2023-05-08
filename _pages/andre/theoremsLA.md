@@ -54,13 +54,27 @@ Let $W$ be a subspace of $\mathbb{R}^n$, let ${\bf y}$ be any vector in $\mathbb
 # --outlinebox 
 
 # --outlinebox
-**Theorem 6.10** 
+**Theorem 6.10** If $\{ {\bf u}_1, \ldots , {\bf u}_p\}$ is an orthonormal basis for a subspace $W$ of $\mathbb{R}^n$, then 
+$$\text{proj}_W{\bf y} = ({\bf y \cdot u}_1){\bf u}_1 + \cdots + ({\bf y \cdot u}_p){\bf u}_p$$ If $U = [{\bf u}_1, \ldots , {\bf u}_p]$, then $$\text{proj}_W{\bf y} = UU^T{\bf y}$$
 # --outlinebox 
 
 # --outlinebox
-**Theorem 6.11** 
+**Theorem 6.11** *The Gram-Schmidt Process*
+Given a basis $\{ {\bf x}_1, \ldots, {\bf x}_p \}$ for a nonzero subspace $W$ of $\mathbb{R}^n$, define
+$$
+\begin{eqnarray*}
+{\bf v}_1 & = & {\bf x}_1 \\
+{\bf v}_2 & = & {\bf x}_2 -  \frac{ {\bf x}_2 \cdot {\bf v}_1}{ {\bf v}_1 \cdot {\bf v}_1} {\bf v}_1 \\
+{\bf v}_3 & = & {\bf x}_3 -  \frac{ {\bf x}_3 \cdot {\bf v}_1}{ {\bf v}_1 \cdot {\bf v}_1} {\bf v}_1 - \frac{ {\bf x}_3 \cdot {\bf v}_2}{ {\bf v}_2 \cdot {\bf v}_2} {\bf v}_2 \\
+& \vdots & \\
+{\bf v}_p & = & {\bf x}_p -  \frac{ {\bf x}_p \cdot {\bf v}_1}{ {\bf v}_1 \cdot {\bf v}_1} {\bf v}_1 - \frac{ {\bf x}_p \cdot {\bf v}_2}{ {\bf v}_2 \cdot {\bf v}_2} {\bf v}_2 - \cdots - \frac{ {\bf x}_p \cdot {\bf v}_{p-1}}{ {\bf v}_{p-1} \cdot {\bf v}_{p-1}} {\bf v}_{p-1} 
+\end{eqnarray*}
+$$
+Then $\{ {\bf v}_1, \ldots, {\bf v}_p \}$ is an orthogonal basis for $W$.  In addition
+$$\text{Span} \{ {\bf v}_1, \ldots, {\bf v}_p \} = \text{Span} \{ {\bf x}_1, \ldots, {\bf x}_p \} \quad \text{for } 1 \leq k \leq p$$
 # --outlinebox 
 
 # --outlinebox
-**Theorem 6.12** 
+**Theorem 6.12** *The QR Factorization*
+I $A$ is an $m \times n$ matrix with linearly independent columns, then $A$ can be factored as $A=QR$ where $Q$ is an $m \times n$ matrix whose columns form an orthonormal basis for $\text{Col } A$ and $R$ is an $n \times m$ upper triangular invertible matrix with positive entries on its diagonal.
 # --outlinebox 
