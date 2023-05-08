@@ -78,3 +78,36 @@ $$\text{Span} \{ {\bf v}_1, \ldots, {\bf v}_p \} = \text{Span} \{ {\bf x}_1, \ld
 **Theorem 6.12** *The QR Factorization*
 I $A$ is an $m \times n$ matrix with linearly independent columns, then $A$ can be factored as $A=QR$ where $Q$ is an $m \times n$ matrix whose columns form an orthonormal basis for $\text{Col } A$ and $R$ is an $n \times m$ upper triangular invertible matrix with positive entries on its diagonal.
 # --outlinebox 
+
+
+# --outlinebox
+**Theorem 6.13** The set of least-squares solutions of $A{\bf x} = {\bf b}$ coincides with the nonempty set of solutions of the normal equations $A^TA{\bf x} = A^T{\bf b}$.
+# --outlinebox 
+
+# --outlinebox
+**Theorem 6.14** Let $A$ be an $m \times n$ matrix.  The following statements are logically equivalent:
+	- The equation $A{\bf x} = {\bf b}$ has a unique least-squares solution for each ${\bf b}$ in $\mathbb{R}^m$.
+	- The columns of $A$ are linearly independent.
+	- The matrix $A^TA$ is invertible.
+When these statements are true, the least-squares solution ${\bf \hat{x}}$ is given by 
+$${\bf \hat{x}} = (A^TA)^{-1} A^T {\bf b}$$
+# --outlinebox 
+
+# --outlinebox
+**Theorem 6.15** Given an $m \times n$ matrix $A$ with linearly independent columns, let $A=QR$ be a $QR$ factorization of $A$ as in Theorem 6.12. Then, for each ${\bf b}$ in $\mathbb{R}^m$, the equation $A{\bf x} = {\bf b}$ has a unique least-squares solution, given by
+$${\bf \hat{x}} = R^{-1}Q^T {\bf b}$$
+# --outlinebox 
+
+# --outlinebox
+**Theorem 6.16** *The Cauchy-Schwarz Inequality*
+For all ${\bf u}$, ${\bf v}$ in $V$, 
+$$\lvert \langle {\bf u}, {\bf v} \rangle \rvert  \leq \rVert {\bf u} \lVert \rVert {\bf v} \lVert$$
+# --outlinebox 
+
+# --outlinebox
+**Theorem 6.17** *The Triangle Inequality*
+For all ${\bf u}$, ${\bf v}$ in $V$, 
+$$\lVert  {\bf u} + {\bf v} \rVert  \leq \rVert {\bf u} \lVert +  \rVert {\bf v} \lVert$$
+# --outlinebox 
+
+
