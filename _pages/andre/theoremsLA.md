@@ -4,7 +4,7 @@ smartdown: true
 header: 'none'
 ---
 
-### Chapter 6
+# Chapter 6
 
 # --outlinebox
 **Theorem 6.1** Let $\bf{u}$, $\bf{v}$ and $\bf{w}$ be vectors in $\mathbb{R}^n$, and let $c$ be a scalar.  Then
