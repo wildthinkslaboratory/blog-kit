@@ -293,23 +293,45 @@ then any set in $V$ containing more than $n$ vectors must be linearly dependent.
 # --outlinebox
 
 # --outlinebox
-**Theorem 4.11:** 
+**Theorem 4.11:** Let $H$ be a subspace of a finite-dimensional vector space $V$.  Any linearly independent set in $H$ can be expanded, if neccesary, to a basis for $H$.  Also, $H$ is finite dimensional and $$\text{dim } H \leq \text{dim }V$$
 # --outlinebox
 
 # --outlinebox
-**Theorem 4.12:** 
+**Theorem 4.12:** Let $V$ be a $p$-dimensional vector space, $p \geq 1$. Any linearly independent set of exactly $p$ elements in $V$ is automatically a basis for $V$.  Any set of exactly $p$ elements that spans $V$ is automatically a basis for $V$.
 # --outlinebox
 
 # --outlinebox
-**Theorem 4.13:** 
+**Theorem 4.13:** If two matrices $A$ and $B$ are row equivalent, then their row spaces are the same.  If $B$ is in echelon form, the nonzero rows of $B$ form a basis for the row space of $A$ as well as for that of $B$.
 # --outlinebox
 
 # --outlinebox
-**Theorem 4.14:** 
+**Theorem 4.14:** *The Rank Theorem*
+The dimension of the column space and the row space of an $m \times n$ matrix $A$ are equal.  This common dimension, the rank of $A$, also equals the number of pivot positions in $A$ and satisfies the equation $$\text{rank }A + \text{dim Nul }A = n$$
 # --outlinebox
 
 # --outlinebox
-**Theorem 4.15:** 
+**Theorem** *The Invertible Matrix Theorem (continued)*
+Let $A$ be an $n \times n$ matrix.  Then the following statements are each equivalent to the statement that $A$ is an invertible matrix.
+    - The columns of $A$ form a basis of $\mathbb{R}^n$.
+    - $\text{Col }A = \mathbb{R}^n$
+    - $\text{dim Col }A = n$
+    - $\text{rank }A = n$
+    - $\text{Nul }A$ contains only the zero vector
+    - $\text{dim Nul }A = 0$
+# --outlinebox
+
+
+# --outlinebox
+**Theorem 4.15:** Let 
+$$\mathcal{B} = \{ {\bf b}_1, \ldots , {\bf b}_n \} \text{  and  } \mathcal{C} = \{ {\bf c}_1, \ldots , {\bf c}_n\}$$
+be bases of a vector space $V$.  Then there is a unique $n \times n$ matrix ${P \atop \mathcal{C} \leftarrow \mathcal{B}}$ such that
+$$\left[ {\bf x} \right]_{\mathcal{C}} = {P \atop \mathcal{C} \leftarrow \mathcal{B}} \left[ {\bf x} \right]_{\mathcal{B}}$$
+The columns of $\left[ {\bf x} \right]_{\mathcal{C}}$ are the $\mathcal{C}$-coordinate vectors of the vectors in the basis $\mathcal{B}$.  That is 
+$${P \atop \mathcal{C} \leftarrow \mathcal{B}}=
+\begin{bmatrix}
+\left[ {\bf b}_1 \right]_{\mathcal{C}}  & \left[ {\bf b}_2 \right]_{\mathcal{C}} & \cdots & \left[ {\bf b}_n \right]_{\mathcal{C}}
+\end{bmatrix}
+$$
 # --outlinebox
 
 [Chapter 1 Theorems](#chapter-1)
@@ -322,35 +344,57 @@ then any set in $V$ containing more than $n$ vectors must be linearly dependent.
 # Chapter 5
 
 # --outlinebox
-**Theorem 5.1:** 
+**Theorem 5.1:** The eigenvalues of a triangular matrix are the entries on its main diagonal.
 # --outlinebox
 
 # --outlinebox
-**Theorem 5.2:** 
+**Theorem 5.2:** If ${\bf v}_1, \ldots, {\bf v}_r$ are eigenvectors that correspond to distinct eigenvalues $\lambda_1, \ldots, \lambda_r$ of an $n \times n$ matrix $A$, then the set 
+$$\{ {\bf v}_1, \ldots, {\bf v}_r\}$$
+is linearly independent.
 # --outlinebox
 
 # --outlinebox
-**Theorem 5.3:** 
+**Theorem:**  *The Invertible Matrix Theorem (continued)*
+Let $A$ be an $n \times n$ matix. Then $A$ is invertible if and only if:
+    - The number $0$ is *not* an eigenvalue of $A$.
+    - The determinant of $A$ is *not* zero.
+# --outlinebox
+
+
+# --outlinebox
+**Theorem 5.3:** Let $A$ and $B$ be $n \times n$ matrices.
+    - $A$ is invertible if and only if $\text{det }A \not = 0$
+    - $\text{det }AB = (\text{det }A)(\text{det }B)$.
+    - $\text{det }A^T = \text{det }A$.
+    - If $A$ is triangular, then $\text{det }A$ is the product of the entries on the main diagonal of $A$.
+    - A row replacement operation on $A$ does not change the determinant. A row interchange changes the sign of the determinant. A row scaling also scales the determinant by the same scalar factor.
 # --outlinebox
 
 # --outlinebox
-**Theorem 5.4:** 
+**Theorem 5.4:** I $n \times n$ matrices $A$ and $B$ are similar, then they have the same characteristic polynomial and hence the same eigenvalues (with the same multiplicities).
 # --outlinebox
 
 # --outlinebox
-**Theorem 5.5:** 
+**Theorem 5.5:** *The Diagonalization Theorem*
+An $n \times n$ matrix $A$ is diagonalizable if and only if $A$ has $n$ linearly independent eignevectors.
+
+In fact, $A = PDP^{-1}$, with $D$ a diagonal matrix, if and only if the columns of $P$ are $n$ linearly independent eigenvectors of $A$.  In this case, the diagonal entries of $D$ are eigenvalues of $A$ that correspond, respcetively, to the eignevectors in $P$.
 # --outlinebox
 
 # --outlinebox
-**Theorem 5.6:** 
+**Theorem 5.6:** An $n \times n$ matrix with $n$ distinct eigenvalues is diagonalizable.
 # --outlinebox
 
 # --outlinebox
-**Theorem 5.7:** 
+**Theorem 5.7:** Let $A$ be an $n \times n$ matrix whose distinct eigenvalues are $\lambda_1, \ldots, \lambda_p$.
+    - For $1 \leq k \leq p$, the dimension of the eigenspace for $\lambda_k$ is less than or equal to the multiplicity of the eigenvalue $\lambda_k$. 
+    - The matrix $A$ is diagonalizable if and only if the sum of the dimensions of the eigenspaces equals $n$, and this happens if and only if (i) the characteristic polynomial factors completely into linear factors and (ii) the dimension of the eigenspace for each $\lambda_k$ equals the multiplicity of $\lambda_k$.
+    - If $A$ is diagonalizable and $\mathcal{B}_k$ is a basis for the eigenspace corresponding to $\lambda_k$ for each $k$, then the total collection of vectors in the sets $\mathcal{B}_1, \ldots, \mathcal{B}_p$ forms an eigenvector basis for $\mathbb{R}^n$.
 # --outlinebox
 
 # --outlinebox
-**Theorem 5.8:** 
+**Theorem 5.8:** *Diagonal Matrix Representation*
+Suppose $A=PDP^{-1}$, where $D$ is a diagonal $n \times n$ matrix.  If $\mathcal{B}$ is the basis for $\mathbb{R}^n$ formed from the columns of $P$, then $D$ is the $\mathcal{B}$-matrix for the transformation ${\bf x} \mapsto A{\bf x}$.
 # --outlinebox
 
 [Chapter 1 Theorems](#chapter-1)
