@@ -10,7 +10,7 @@ header: 'none'
 [Chapter 4 Theorems](#chapter-4)
 [Chapter 5 Theorems](#chapter-5)
 [Chapter 6 Theorems](#chapter-6)
-
+[Chapter 7 Theorems](#chapter-7)
 
 # Chapter 1
 
@@ -91,7 +91,7 @@ In fact, $A$ is the $m \times n$ matrix whose $j$th column is the vector $T({\bf
 [Chapter 4 Theorems](#chapter-4)
 [Chapter 5 Theorems](#chapter-5)
 [Chapter 6 Theorems](#chapter-6)
-
+[Chapter 7 Theorems](#chapter-7)
 
 # Chapter 2 
 
@@ -185,6 +185,7 @@ $$T(S({\bf x})) = {\bf x} \text{  for all } {\bf x} \text{ in } \mathbb{R}^n $$
 [Chapter 4 Theorems](#chapter-4)
 [Chapter 5 Theorems](#chapter-5)
 [Chapter 6 Theorems](#chapter-6)
+[Chapter 7 Theorems](#chapter-7)
 
 # Chapter 3
 
@@ -200,31 +201,39 @@ $$\text{det} A = a_{1j} C_{1j} +  a_{2j} C_{2j} + \cdots +  a_{nj} C_{nj}$$
 # --outlinebox
 
 # --outlinebox
-**Theorem 3.3:** 
+**Theorem 3.3:** Let $A$ be a square matrix.
+    - If a multiple of one row of $A$ is added to another row to produce a matrix $B$, then $\text{det }B = \text{det }A$.
+    - If two rows of $A$ are interchanged to produce $B$, then $\text{det }B = -\text{det }A$.
+    - If one row of $A$ is multiplied by $k$ to produce $B$, then $\text{det }B = k \cdot \text{det }A$.
 # --outlinebox
 
 # --outlinebox
-**Theorem 3.4:** 
+**Theorem 3.4:** A square matrix $A$ is invertible if and only if $\text{det }A \not = 0$.
 # --outlinebox
 
 # --outlinebox
-**Theorem 3.5:** 
+**Theorem 3.5:** If $A$ is an $n \times n$ matrix then $\text{det }A^T = \text{det }A$.
 # --outlinebox
 
 # --outlinebox
-**Theorem 3.6:** 
+**Theorem 3.6:** *Multiplicative Property*
+If $A$ and $B$ are $n \times n$ matrices, then $\text{det }AB = (\text{det }A)(\text{det }B)$.
 # --outlinebox
 
 # --outlinebox
-**Theorem 3.7:** 
+**Theorem 3.7:** *Cramer's Rule*
+Let $A$ be an invertible $n \times n$ matrix.  For any ${\bf b}$ in $\mathbb{R}^n$, the unique solution ${\bf x}$ of $A{\bf x} = {\bf b}$ has entries given by
+$$x_i = \frac{\text{det }A_i({\bf b})}{\text{det }A}, \quad i = 1,2, \ldots, n$$
 # --outlinebox
 
 # --outlinebox
-**Theorem 3.8:** 
+**Theorem 3.8:** *An Inverse Formula*
+Let $A$ be an invertible $n \times n$ matrix. Then
+$$A^{-1} = \frac{1}{\text{det }A} \text{adj }A$$
 # --outlinebox
 
 # --outlinebox
-**Theorem 3.9:** 
+**Theorem 3.9:** If $A$ is a $2 \times 2$ matrix, the area of the parallelogram determined by the columns of $A$ is $\left| \text{det }A \right|$. If $A$ is a $3 \times 3$ matrix, the volume of the parallelepiped determined by the columns of $A$ is $\left| \text{det }A \right|$.
 # --outlinebox
 
 # --outlinebox
@@ -237,6 +246,7 @@ $$\text{det} A = a_{1j} C_{1j} +  a_{2j} C_{2j} + \cdots +  a_{nj} C_{nj}$$
 [Chapter 4 Theorems](#chapter-4)
 [Chapter 5 Theorems](#chapter-5)
 [Chapter 6 Theorems](#chapter-6)
+[Chapter 7 Theorems](#chapter-7)
 
 # Chapter 4
 
@@ -340,6 +350,7 @@ $$
 [Chapter 4 Theorems](#chapter-4)
 [Chapter 5 Theorems](#chapter-5)
 [Chapter 6 Theorems](#chapter-6)
+[Chapter 7 Theorems](#chapter-7)
 
 # Chapter 5
 
@@ -403,6 +414,7 @@ Suppose $A=PDP^{-1}$, where $D$ is a diagonal $n \times n$ matrix.  If $\mathcal
 [Chapter 4 Theorems](#chapter-4)
 [Chapter 5 Theorems](#chapter-5)
 [Chapter 6 Theorems](#chapter-6)
+[Chapter 7 Theorems](#chapter-7)
 
 # Chapter 6
 
@@ -515,7 +527,56 @@ $$\lVert  {\bf u} + {\bf v} \rVert  \leq \rVert {\bf u} \lVert +  \rVert {\bf v}
 # --outlinebox 
 
 
+[Chapter 1 Theorems](#chapter-1)
+[Chapter 2 Theorems](#chapter-2)
+[Chapter 3 Theorems](#chapter-3)
+[Chapter 4 Theorems](#chapter-4)
+[Chapter 5 Theorems](#chapter-5)
+[Chapter 6 Theorems](#chapter-6)
+[Chapter 7 Theorems](#chapter-7)
 
+# Chapter 7
+
+# --outlinebox
+**Theorem 7.1** If $A$ is symmetric, then any two eigenvectors from different eigenspaces are orthogonal.
+# --outlinebox 
+
+# --outlinebox
+**Theorem 7.2** An $n \times n$ matrix $A$ is orthogonally diagonalizable if and only if $A$ is a symmetric matrix.
+# --outlinebox 
+
+# --outlinebox
+**Theorem 7.3** *The Spectral Theorem for Symmetric Matrices*
+An $n \times n$ symmetric matrix $A$ has the following properties:
+    - $A$ has $n$ real eigenvalues, counting multiplicites.
+    - The dimension of the eigenspace for each eigenvalue $\lambda$ equals the multiplicity of $\lambda$ as a root of the characteristic equation.
+    - The eigenspaces are mutually orthogonal, in the sense that eigenvectors corresponding to different eigenvalues are orhtogonal.
+    - $A$ is orthogonally diagonalizable.
+
+# --outlinebox 
+
+# --outlinebox
+**Theorem 7.4** *The Principal Axes Theorem*
+Let $A$ be an $n \times n$ symmetric matrix. Then there is an orthogonal change of variable, ${\bf x} = P{\bf y}$, that transforms the quadratic form ${\bf x}^TA{\bf x}$ into a quadratic form ${\bf y}^TD{\bf y}$ with no cross-product term.
+
+# --outlinebox 
+
+
+# --outlinebox
+**Theorem 7.5** 
+# --outlinebox 
+
+# --outlinebox
+**Theorem 7.6** 
+# --outlinebox 
+
+# --outlinebox
+**Theorem 7.7** 
+# --outlinebox 
+
+# --outlinebox
+**Theorem 7.8** 
+# --outlinebox 
 
 <span style="background-color: #FFFF00"></span>
 
