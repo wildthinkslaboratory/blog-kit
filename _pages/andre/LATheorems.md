@@ -563,19 +563,29 @@ Let $A$ be an $n \times n$ symmetric matrix. Then there is an orthogonal change 
 
 
 # --outlinebox
-**Theorem 7.5** 
+**Theorem 7.5** *Quadratic Forms and Eigenvalues*
+Let $A$ be an $n \times n$ symmetric matrix.  Then a quadratic from ${\bf x}^TA{\bf x}$ is :
+    - positive definite if and only if the eigenvalues of $A$ are all positive,
+    - negative definite if and only if the eigenvalues of $A$ are all negative, or
+    - indefinite if and only if $A$ has both positive and negative eigenvalues.
 # --outlinebox 
 
 # --outlinebox
-**Theorem 7.6** 
+**Theorem 7.6** Let $A$ be a symmetric matrix, and define $m$ and $M$ as 
+$$m = \text{min }  \{ {\bf x}^T A {\bf x}:  \lVert {\bf x} \rVert = 1 \}, \quad  M = \text{max }  \{ {\bf x}^T A {\bf x}:  \lVert {\bf x} \rVert = 1 \}$$
+Then $M$ is the greatest eigenvalue $\lambda_1$ of $A$ and $m$ is the least eigenvalue of $A$.  The value of ${\bf x}^T A {\bf x}$ is $M$ when ${\bf x}$ is a unit eigenvector ${\bf u}_1$ corresponding to $M$.  The value of ${\bf x}^T A {\bf x}$ is $m$ when ${\bf x}$ is a unit eigenvector corresponding to $m$.
 # --outlinebox 
 
 # --outlinebox
-**Theorem 7.7** 
+**Theorem 7.7** Let $A$, $\lambda_1$ and ${\bf u}_1$ be as in Theorem 7.6.  Then the maximum value of ${\bf x}^T A {\bf x}$ subject to the constriants
+$${\bf x}^T {\bf x} = 1 \quad \text{ and } \quad {\bf x}^T {\bf u}_1 = 0$$
+is the second greatest eigenvalue, $\lambda_2$, and this maximum is attained when ${\bf x}$ is an eigenvector ${\bf u}_2$ corresponding to $\lambda_2$.
 # --outlinebox 
 
 # --outlinebox
-**Theorem 7.8** 
+**Theorem 7.8** Let $A$ be a symmetric $n \times n$ matrix with an orthogoal diagonalization $A=PDP^{-1}$, where the entries on the diagonal of $D$ are arranged so that $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n$ and where the columns of $P$ are corresponding unit eigenvectors ${\bf u}_1, \ldots , {\bf u}_n$. Then for $k=1,2,\ldots,n$, the maximum value of ${\bf x}^T A {\bf x}$ subject to 
+$${\bf x}^T {\bf x} = 1, \quad {\bf x}^T {\bf u}_1 = 0, \quad  \ldots, \quad {\bf x}^T {\bf u}_{k-1} = 0$$
+is the eigenvalue $\lambda_k$, and this maximum is attained at ${\bf x} = {\bf u}_k$.
 # --outlinebox 
 
 <span style="background-color: #FFFF00"></span>
