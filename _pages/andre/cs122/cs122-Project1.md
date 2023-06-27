@@ -18,7 +18,7 @@ header: 'none'
 - When you create files for your homework, use the exact name specified for files, directories and variables(if specified). 
 - Your program should produce the exact output specified (small differences in number of spaces won't matter).  
 
-He will use a computer program to run everyone's code and check that their output matches.  If your names are different or your output uses slightly different text it won't pass these tests even if your answer is correct. 
+As expected, computer scientists use a computer program to grade their students papers.  It will run everyone's code and check that their output matches.  If your names are different or your output uses slightly different text it won't pass these tests even if your answer is correct. 
 # ::::
 
 [step 2](::step2/button,transparent)
