@@ -4,6 +4,8 @@ smartdown: true
 header: 'none'
 ---
 
+## Some starting stuff
+
 [command line stuff](::commandline/button,transparent)
 # :::: commandline
 - `cd dname` - change to directory named `dname`
@@ -11,11 +13,9 @@ header: 'none'
 - `dir` - list files in a directory 
 # ::::
 
-## Project 1 Instructions
-
 [step 1](::step1/button,transparent)
 # :::: step1
-- When you create files for your homework, use the exact name specified.  
+- When you create files for your homework, use the exact name specified for files, directories and variables(if specified). 
 - Your program should produce the exact output specified (small differences in number of spaces won't matter).  
 
 He will use a computer program to run everyone's code and check that their output matches.  If your names are different or your output uses slightly different text it won't pass these tests even if your answer is correct. 
@@ -23,11 +23,98 @@ He will use a computer program to run everyone's code and check that their outpu
 
 [step 2](::step2/button,transparent)
 # :::: step2
-Create a folder in `cs122` called `p1`.  Create a file in `p1` called `p1.py`. 
+Create a folder in `cs122` called `p1`. 
 # ::::
+
+
+## Parts of Lab 1 and Lab 2 passed in with Project 1
 
 [step 3](::step3/button,transparent)
 # :::: step3
+Create a file named `lab1-discount.py` in folder `p1`. 
+# ::::
+
+[step 4](::step4/button,transparent)
+# :::: step4
+Copy this code into the file.  
+```
+cost = 50
+type(cost)
+discount = 0.10
+type(discount)
+discounted_cost = cost - cost * discount
+discounted_cost
+print(discounted_cost)
+print("Discounted cost:", discounted_cost)
+discounted_label = "Discounted cost:"
+print(discounted_label, discounted_cost)
+``` 
+
+#### Output
+Run the file. Then comment out any line that is not needed to produce the following output.
+```
+Discounted cost: 45.0
+```
+# ::::
+
+
+[step 5](::step5/button,transparent)
+# :::: step5
+Create a file named `lab1-challenge.py` in folder `p1`. 
+# ::::
+
+[step 6](::step6/button,transparent)
+# :::: step6
+Copy the following into the file.  This is a way of making a multiline comment.
+```
+''' 
+CS 122 Summer 2023 Lab 1 Challenge
+Author: Diligent Student
+Credit: Worked with partner, Rigorous Friend
+Description: Lab 1 Challenge Assignment
+'''
+```
+# ::::
+
+
+[step 7](::step7/button,transparent)
+# :::: step7
+Copy the following code into the file.
+```
+# day = Monday          # Assign string to a variable
+day = Monday          # Assign string to a variable
+
+# square = 2 ^ 2        # Perform power operation
+square = 2 ^ 2        # Perform power operation
+
+# print square          # Output value of a variable
+print square          # Output value of a variable
+
+# print(day + square)   # Target output is "Monday 4" (without quotation marks)
+print(day + square)   # Target output is "Monday 4" (without quotation marks)
+``` 
+
+#### Solution
+Run the code.  Fix any errors.
+
+#### Output
+Your code should output the following
+```
+4
+Monday 4
+```
+# ::::
+
+
+## Project 1 Instructions
+
+[step 8](::step8/button,transparent)
+# :::: step8
+Create a folder in `cs122` called `p1`.  Create a file in `p1` called `p1.py`. 
+# ::::
+
+[step 9](::step9/button,transparent)
+# :::: step9
 Copy this code into `p1.py`
 ```
 # CS 122 Summer 2023 Project 1 
@@ -117,20 +204,20 @@ print("------------------------------------------")
 ```
 # ::::
 
-[step 4](::step4/button,transparent)
-# :::: step4
+[step 10](::step10/button,transparent)
+# :::: step10
 At the top of the code put in your name as `Author` and make `Credit` part blank since you will be working alone.
 # ::::
 
-[step 5](::step5/button,transparent)
-# :::: step5
+[step 11](::step11/button,transparent)
+# :::: step11
 # --partialborder q1
 #### Question 1
 You will be attending a family reunion, and the reunion coordinator wants you to bring watermelons for everyone. The coordinator stated that 150 people will attend the reunion, and 70 of the 150 will be children. The coordinator asks that you plan on two slices of watermelon for each adult, three slices for each child, with 25% extra for those that want more than the planned amounts. Each watermelon on average will produce 14 slices. You need to calculate the total number of watermelons, rounding up to the next highest count of watermelons.
 # --partialborder
 
 #### Solution
-Take the following lines of code and insert them into `p1.py` in the proper places to solve Question 1.
+Take the following lines of code and insert them into `p1.py` in the proper order and places to solve Question 1.
 
 ```
 import math
@@ -163,8 +250,8 @@ Total watermelons (rounded up): 34
 ```
 # ::::
 
-[step 6](::step6/button,transparent)
-# :::: step6
+[step 12](::step12/button,transparent)
+# :::: step12
 Insert these comments into your code in appropriate places.  Make sure to put a blank line before each comment.
 ```
 # Initialize variables with values
@@ -175,8 +262,8 @@ Insert these comments into your code in appropriate places.  Make sure to put a 
 ```
 # ::::
 
-[step 7](::step7/button,transparent)
-# :::: step7
+[step 13](::step13/button,transparent)
+# :::: step13
 # --partialborder q2
 #### Question 2
 Your friend was bragging about how many stairs he climbed each day because of his apartment location on the fourth floor. Calculate how many times your friend would have to go down then back up the stairs to reach his fourth floor apartment to reach 50, 100, 200 and 500 steps. The apartments all have vaulted ceilings, so use 14 steps per floor in your calculations. Remember to count down and back up as one trip. You will also reuse the variable that contains the target number of steps. Round up.
@@ -200,8 +287,8 @@ Trips for 500 steps: 5
 ```
 # ::::
 
-[step 8](::step8/button,transparent)
-# :::: step8
+[step 14](::step14/button,transparent)
+# :::: step14
 # --partialborder q3
 #### Question 3
 Your friend worked over the summer on a farm and one of his tasks was to check the irrigation. The farm used a circular stationary irrigation system (also know as center pivot irrigation), and one of your friend's tasks was to walk around and inspect the edge of the irrigation zone. Despite the obvious fitness advantages, your friend thought he'd walked over a hundred miles a week. Did your friend walk over a hundred miles in a single week?
@@ -223,4 +310,45 @@ Question 3
 Weekly distance (feet): 75398.22
 Weekly distance (miles): 14.28
 ```
+# ::::
+
+
+## Final Check!
+
+[Output for p1.py](::out/button,transparent)
+# :::: out
+```
+Question 1
+------------------------------------------
+Total slices: 370
+Total slices (including extra): 462.5
+Total watermelons: 33.035714285714285
+Total watermelons (rounded up): 34
+
+Question 2
+------------------------------------------
+Trips for 50 steps: 1
+Trips for 100 steps: 1
+Trips for 200 steps: 2
+Trips for 500 steps: 5
+
+Question 3
+------------------------------------------
+Weekly distance (feet): 75398.22
+Weekly distance (miles): 14.28
+```
+# ::::
+
+
+[check!](::check/button,transparent)
+# :::: check
+- Verify at least three single line comments used
+- Verify file level comment block used including author and description
+- Verify question 1 answered correctly with required output
+- Verify question 2 uses target_steps
+- Verify question 2 uses print() and trip
+- Verify question 2 answered correctly with required output
+- Verify question 3 using weekly_distance variable
+- Verify question 3 answered correctly with required output
+
 # ::::
