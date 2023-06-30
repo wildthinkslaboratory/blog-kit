@@ -27,7 +27,7 @@ Create a folder in `cs122` called `p1`.
 # ::::
 
 
-## Parts of Lab 1 and Lab 2 passed in with Project 1
+## Parts of Lab 1 passed in with Project 1
 
 [step 3](::step3/button,transparent)
 # :::: step3
@@ -65,7 +65,7 @@ Create a file named `lab1-challenge.py` in folder `p1`.
 
 [step 6](::step6/button,transparent)
 # :::: step6
-Copy the following into the file.  This is a way of making a multiline comment.
+Copy the following into the file.  This is a way of making a multiline comment. Edit it with your own info.
 ```
 ''' 
 CS 122 Summer 2023 Lab 1 Challenge

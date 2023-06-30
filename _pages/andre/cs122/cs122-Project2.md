@@ -29,7 +29,7 @@ Your files should have the following structure
 # ::::
 
 
-## Parts of Lab 1 and Lab 2 passed in with Project 1
+## Parts of Lab 2 passed in with Project 2
 
 # :::: pseudocode
 # --partialborder pseudo
