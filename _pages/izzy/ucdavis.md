@@ -4,6 +4,8 @@ smartdown: true
 header: 'none'
 ---
 
+# Math 
+
 ### When
  **Register for Test** Manually register to take the test on September 6 at 11:00
 
@@ -28,4 +30,60 @@ header: 'none'
 
 **day 5** Take another practice test.
 
-# Now You're Ready to take the Math Placement Exam
+
+# Chemistry
+
+### When
+September 6-12
+
+
+### Structure of the test
+
+The test is using the ALEKS system.  It is the same as the one you used to take the math placement exam at the U of Oregon.  
+
+The U of O math test was timed, but you could take as long as you needed.  I think the test adjusts and gives you harder questions when you answer correctly.  As a result there may not be a fixed time window and different people may take different amounts of time.
+
+[**what's on the test**](::contents/button,transparent)
+# :::: contents
+# --aliceblue content
+- Basic Math/Algebra Skills
+- Scientific Notation Calculations
+- Unit Conversion Calculations
+- Density Calculations
+- Percent Mass Calculations
+- Reading and Balancing Chemical Formulas and Reactions
+- Types of Reactions (Combustion, Neutralization, etc.)
+- Stoichiometry (Mole/Mole or Gram/Mole Conversions)
+- Molarity Calculations
+- Ideal Gas Law Calculations
+- Atomic/Molecular Structure and Properties
+- Mass Number, Protons, Neutrons, Electrons
+- Lewis Electron Dot Structure
+- Polar Bonds
+- Chemistry Theories and Concepts:
+- Phase Diagrams
+- States of Matter
+- Periodicity and Group Trends of Elements (Metals, Semimetals, and Nonmetals; Radii Size, etc.)
+- Equilibrium Expression
+- LeChatelier's Principle
+- Potential Energy Diagram
+- Heating Curve
+- Kinetic Molecular Theory
+- pH Concepts
+# --aliceblue
+# ::::
+
+You need to get a 
+- 24 to take 2A general chemistry A
+- 28 to take 4A a more rigorous treatment of material covered in CHE 2A, intended for students majoring in the physical sciences and engineering.
+- 33 to take 2AH more rigorous treatment of material covered in CHE 2A. 
+
+
+
+### How to Prepare
+
+But the way to really do well is to study through the ALEKS program.  They have an online review course and it will match exactly what you need to know for the test.
+
+Do these steps:
+
+[log in to canvas](https://canvas.ucdavis.edu/enroll/DW9GYD)
