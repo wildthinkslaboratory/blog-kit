@@ -4,6 +4,30 @@ smartdown: true
 header: 'none'
 ---
 
+[Exponent Rules](::exprules/button,transparent,center,closeable,draggable,outline)
+
+# :::: exprules
+# --aliceblue er
+##### Exponent Rules
+- $a^x a^y = a^{x+y}$
+- $\frac{a^x}{a^y}= a^{x-y}$
+- $(a^x)^y= a^{xy}$
+# ---aliceblue
+# ::::
+
+[Logarithm Rules](::logrules/button,transparent,center,closeable,draggable,outline)
+
+# :::: logrules
+# --aliceblue lr
+##### Logarithm Rules
+- $\log_a(xy) = \log_ax + \log_ay$
+- $\log_a\left(\frac{x}{y}\right) = \log_ax - \log_ay$
+- $\log_a(x^n) =n \log_ax$
+- $\log_ab = \frac{\log_cb}{\log_ca}$
+# ---aliceblue
+# ::::
+
+
 ## Logarithm Practice Problems
 
 Express in terms of logarithms
