@@ -14,11 +14,13 @@ We had a great time learning about fractals at [Mathigon's](https://mathigon.org
 - drag and drop to pan
 - double click to refocus
 - press to recolor
+Two finger zoom doesn't work on some browsers and some devices so I've added zoom buttons until I can fix it. 
 # --outlinebox
 # ::::
 
 # :::: panel
 # --outlinebox p
+[zoom in](:=zoomin=true) [zoom out](:=zoomout=true) 
 [open image in new tab](:=download=true) 
 # --outlinebox
 # ::::
@@ -894,26 +896,51 @@ portrait.addEventListener("change", function(e) {
 })
 
 function exportImage() {
-  const imgData = canvas.toDataURL("image/jpg");
-  let iframe = "<iframe width='100%' height='100%' src='" + imgData + "'></iframe>"
+  // const imgData = canvas.toDataURL("image/jpg");
+  // let iframe = "<iframe width='100%' height='100%' src='" + imgData + "'></iframe>"
+  // let x = window.open();
+  // x.document.open();
+  // x.document.write(iframe);
+  // x.document.close();
+
+
+  let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+
   let x = window.open();
-  x.document.open();
-  x.document.write(iframe);
-  x.document.close();
+  x.location.href=image; // it will save locally
 
 
 }
 
 smartdown.setVariable('download', false);
+smartdown.setVariable('zoomin', false);
+smartdown.setVariable('zoomout', false);
 
-this.dependOn = ['download'];
+this.dependOn = ['download', 'zoomin', 'zoomout'];
 this.depend = function() {
 
   if (env.download == true) {
     smartdown.setVariable('download', false);
     exportImage();
-  }
+  }  
 
+  if (env.zoomin == true) {
+    smartdown.setVariable('zoomin', false);
+    let scale = 1.01;   
+    seeds[currentJuliaID].juliaseed.zoom *= scale;
+    seeds[currentJuliaID].juliaseed.pan.x *= scale;
+    seeds[currentJuliaID].juliaseed.pan.y *= scale;
+    drawScene();
+  }  
+
+  if (env.zoomout == true) {
+    smartdown.setVariable('zoomout', false);
+    let scale = 1/1.01;   
+    seeds[currentJuliaID].juliaseed.zoom *= scale;
+    seeds[currentJuliaID].juliaseed.pan.x *= scale;
+    seeds[currentJuliaID].juliaseed.pan.y *= scale;
+    drawScene();
+  }  
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
