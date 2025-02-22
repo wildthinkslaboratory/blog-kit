@@ -5,7 +5,6 @@ header: 'none'
 ---
 
 
-
 # The Book is available [ONLINE HERE](https://www.cartagena99.com/recursos/alumnos/temarios/210609113348-Linear%20Algebra%20and%20its%20applications.pdf)
 
 # [All the Theorems](/pages/LATheorems)
@@ -56,4 +55,5 @@ For both of these you need to get a free account to use the cool tools.
 This page has not been written yet.
 # --partialborder
 # ::::
+
 
