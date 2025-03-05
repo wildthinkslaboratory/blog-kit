@@ -15,9 +15,9 @@ The graph shows the position of the car through time.  Figure out how fast the c
 
 
 
-[Problem](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[Problem](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Reset](:=reset=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
-$t=1$ [](:?s1)  $t=2$ [](:?s2) $t=3$ [](:?s3) 
+$t=1$ [](:?s1)$m/s$    $t=2$ [](:?s2)$m/s$  $t=3$ [](:?s3) $m/s$
 # ::::
 # :::: toolbar
 ```javascript /autoplay/p5js
@@ -218,6 +218,9 @@ let move = function() {
   t.moveTo([4.9,0],5000, {effect: '--'} ); 
 }
 
+let reset = function() { 
+  t.moveTo([0,0]); 
+}
 
 let widthPercent = 0.8;
 let heightPercent = 0.7;
@@ -237,8 +240,9 @@ workspace.board.on('update', function() {
 
 
 smartdown.setVariable('play', false);
+smartdown.setVariable('reset', false);
 
-this.dependOn = ['play', 'active'];
+this.dependOn = ['play', 'active','reset'];
 this.depend = function() {
 
   if (env.active == true) {
@@ -251,6 +255,11 @@ this.depend = function() {
   if (env.play == true) {
     smartdown.setVariable('play', false);
     move();
+  }
+
+  if (env.reset == true) {
+    smartdown.setVariable('reset', false);
+    reset();
   }
 };
 

@@ -17,7 +17,7 @@ The graph shows the position of the car through time.  Use the **secant** to giv
 
 [Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here are three secant rectangles. 
 # :::: answerbar
-$t=4$ [](:?s1)  $t=6$ [](:?s2) $t=7$ [](:?s3) 
+$t=4$ [](:?s1)$m/s$  $t=6$ [](:?s2)$m/s$ $t=7$ [](:?s3) $m/s$
 # ::::
 # :::: toolbar
 ```javascript /autoplay/p5js

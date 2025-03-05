@@ -14,7 +14,7 @@ The graph shows the position of the car through time.  Use the **secant** find t
 # ::::
 
 
-[Problem](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[Problem](::clue/button,transparent,draggable,closeable,center,lightbox,outline,shadow) [Drive!](:=play=true) [Reset](:=reset=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
 $3 \leq t \leq 4$ [](:?s1)  $3 \leq t \leq 3.5$ [](:?s2) $3 \leq t \leq 3.25$ [](:?s3) 
 # ::::
@@ -223,6 +223,9 @@ let move = function() {
   t.moveTo([9.9,0],5000, {effect: '--'} ); 
 }
 
+let reset = function() { 
+  t.moveTo([0,0]); 
+}
 
 let widthPercent = 0.8;
 let heightPercent = 0.7;
@@ -262,8 +265,9 @@ workspace.board.on('update', function() {
 
 
 smartdown.setVariable('play', false);
+smartdown.setVariable('reset', false);
 
-this.dependOn = ['play','compute','active'];
+this.dependOn = ['play','compute','active','reset'];
 this.depend = function() {
 
   if (env.active == true) {
@@ -276,6 +280,11 @@ this.depend = function() {
   if (env.play == true) {
     smartdown.setVariable('play', false);
     move();
+  }
+
+  if (env.reset == true) {
+    smartdown.setVariable('reset', false);
+    reset();
   }
 };
 

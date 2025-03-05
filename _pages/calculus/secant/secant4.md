@@ -15,9 +15,9 @@ The graph shows the position of the car through time.  Use the **secant** to giv
 
 
 
-[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Submit Solution](:=compute=true) Here's another secant. 
+[Problem](::clue/button,transparent,draggable,closeable,lightbox,outline,center,shadow) [Drive!](:=play=true) [Reset](:=reset=true) [Submit Solution](:=compute=true) Here's another secant. 
 # :::: answerbar
-$t=3$ [](:?s1)  $t=4$ [](:?s2) $t=6$ [](:?s3) 
+$t=3$ [](:?s1)$m/s$   $t=4$ [](:?s2)$m/s$  $t=6$ [](:?s3) $m/s$ 
 # ::::
 # :::: toolbar
 ```javascript /autoplay/p5js
@@ -218,6 +218,9 @@ let move = function() {
   t.moveTo([9.9,0],5000, {effect: '--'} ); 
 }
 
+let reset = function() { 
+  t.moveTo([0,0]); 
+}
 
 let widthPercent = 0.8;
 let heightPercent = 0.7;
@@ -237,8 +240,9 @@ workspace.board.on('update', function() {
 
 
 smartdown.setVariable('play', false);
+smartdown.setVariable('reset', false);
 
-this.dependOn = ['play','compute','active'];
+this.dependOn = ['play','compute','active', 'reset'];
 this.depend = function() {
 
   if (env.active == true) {
@@ -248,6 +252,10 @@ this.depend = function() {
     myDiv.style.cursor = "default";
   }
 
+  if (env.reset == true) {
+    smartdown.setVariable('reset', false);
+    reset();
+  }
 
   if (env.play == true) {
     smartdown.setVariable('play', false);

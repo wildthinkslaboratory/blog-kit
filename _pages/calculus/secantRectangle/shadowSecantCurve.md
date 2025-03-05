@@ -26,7 +26,7 @@ number of intervals [](:-segments/1/100/1) [](:!segments)
 The secants define a new function that relates to our velocity curve.  Each tiny secant cumulatively adds up the distance traveled during a small interval.  As these secants get smaller, this new curve becomes our position curve.  We still don't know where this curve lives vertically. Only when we add the information that the object is at position 12 at time $t=0$ can we determine where to anchor the shadow secant curver vertically. [actual position curve](:=showD=true)
 number of intervals [](:-segments/1/100/1) [](:!segments)
 
-[Continue](::feedback/center,draggable,closeable,outline,shadow,transparent)
+[Continue](/pages/secantRectangle2-1)
 # --partialborder 
 # ::::
 
