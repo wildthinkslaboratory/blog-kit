@@ -11,7 +11,9 @@ ogimage: /assets/images/calculus/fractal.jpg
 
 ### Julia Set Generator
 
-So, this app was designed to work with touch pad/screen movements. Unfortunately, the Javascript library I'm using for touch events doesn't work reliably across platforms. I've added a small control panel as a fall back if things aren't working properly.
+We had a great time learning about fractals at [Mathigon's](https://mathigon.org) new [fractal page](https://mathigon.org/course/fractals/introduction). It inspired us to make this Julia Set Generator.
+
+So, this app was designed to work with touch pad/screen movements. I've added a small control panel as a fall back if things aren't working properly for your platform and browser.
 
 - **swipe left and right** to create new fractals or return to previous fractals in the list you've made
 - **zoom in and out** This app uses WebGL to run the coloring code on your graphics card. So the zoom goes pretty deep.
@@ -49,12 +51,12 @@ import {
 smartdown.showDisclosure(
   "panel",
   "",
-  "transparent,bottomright,closeable,draggable,shadow,outline"
+  "transparent,bottomright,closeable,draggable,shadow,outline",
 );
 smartdown.showDisclosure(
   "intro",
   "",
-  "transparent,center,closeable,draggable,shadow,outline"
+  "transparent,center,closeable,draggable,shadow,outline",
 );
 
 // our favorite julia seeds
@@ -233,7 +235,7 @@ requestAnimFrame = (function () {
     window.msRequestAnimationFrame ||
     function (
       /* function FrameRequestCallback */ callback,
-      /* DOMElement Element */ element
+      /* DOMElement Element */ element,
     ) {
       window.setTimeout(callback, 1000 / 60);
     }
@@ -539,7 +541,7 @@ void main() {
     gl.bufferData(
       gl.ELEMENT_ARRAY_BUFFER,
       new Uint16Array(indices),
-      gl.STATIC_DRAW
+      gl.STATIC_DRAW,
     );
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
 
@@ -896,7 +898,7 @@ void main() {
         ev.stopImmediatePropagation();
       }
     },
-    { passive: false }
+    { passive: false },
   );
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -920,20 +922,20 @@ void main() {
     // }
   });
 
+  function downloadDataURL(dataURL, filename) {
+    const a = document.createElement("a");
+    a.href = dataURL;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   function exportImage() {
-    // const imgData = canvas.toDataURL("image/jpg");
-    // let iframe = "<iframe width='100%' height='100%' src='" + imgData + "'></iframe>"
-    // let x = window.open();
-    // x.document.open();
-    // x.document.write(iframe);
-    // x.document.close();
-
-    let image = canvas
-      .toDataURL("image/png")
-      .replace("image/png", "image/octet-stream"); // here is the most important part because if you dont replace you will get a DOM 18 exception.
-
-    let x = window.open();
-    x.location.href = image; // it will save locally
+    requestAnimationFrame(() => {
+      const dataURL = canvas.toDataURL("image/png");
+      downloadDataURL(dataURL, "webgl_capture.png");
+    });
   }
 
   smartdown.setVariable("download", false);

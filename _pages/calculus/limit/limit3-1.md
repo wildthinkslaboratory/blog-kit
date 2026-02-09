@@ -10,8 +10,11 @@ header: "none"
 
 # --partialborder pb1
 
-Let's solve the previous example again without the help of a function graph.
+[Type Markdown Here](:?MyMarkdown)
 [](:!formula|markdown)
+
+Let's solve the previous example again without the help of a function graph.
+
 We can do a little algebra and rewrite the limit. First, we [factor](:=factor=true) the numerator. [Cancel](:=cancel=true) the $(x-3)$ term from the numerator and denominator.
 
 # --partialborder pb2
@@ -114,6 +117,8 @@ smartdown.showDisclosure(
 //   = \lim_{x \to 3} \frac{\cancel{(x-3)}(x+4)}{\cancel{x-3}} = \lim_{x \to 3} x + 4 = 7
 // $$
 
+console.log("autoplay started");
+
 let start = "\\lim_{x \\to 3} \\frac{x^2 + x -12}{x-3}";
 let algebra1 = "= \\lim_{x \\to 3} \\frac{(x-3)(x+4)}{x-3}";
 let algebra2 = "= \\lim_{x \\to 3} x + 4";
@@ -130,19 +135,21 @@ this.depend = function () {
   if (env.factor == true) {
     console.log("factor");
     smartdown.setVariable("factor", false);
-    smartdown.setVariable("formula", "$$" + start + algebra1 + "$$");
+    // smartdown.setVariable("formula", "$$" + start + algebra1 + "$$");
     console.log(env.formula);
   }
   if (env.cancel == true) {
+    console.log("cancel");
     smartdown.setVariable("cancel", false);
-    smartdown.setVariable("formula", "$$" + start + algebra1 + algebra2 + "$$");
+    // smartdown.setVariable("formula", "$$" + start + algebra1 + algebra2 + "$$");
   }
   if (env.limit == true) {
+    console.log("limit");
     smartdown.setVariable("limit", false);
-    smartdown.setVariable(
-      "formula",
-      "$$" + start + algebra1 + algebra2 + algebra3 + "$$"
-    );
+    // smartdown.setVariable(
+    //   "formula",
+    //   "$$" + start + algebra1 + algebra2 + algebra3 + "$$"
+    // );
   }
 };
 ```
