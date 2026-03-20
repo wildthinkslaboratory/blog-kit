@@ -26,7 +26,7 @@ We have a function $f(x)$ and we'd like to find the [area under the curve](:=sho
 ##### Notes Before You Begin
 
 - This explanation is not designed for phones or small screens.
-- This explanation assumes some understanding of calculus. This explanation builds on the ideas in Visual Calculus primer found [here](https://wildthinks.org/)
+- This explanation builds on the ideas in my Visual Calculus primer found [here](https://wildthinks.org/)
 - Some pages are taking a little while to display. Not sure why. They will eventually show up.
 - There are lots of $mouseovers$ and [buttons](::something/button,transparent,draggable,closeable,outline,center,shadow,lightbox) in the text. They all do something so don't miss any.
 - the intervals on the final two pages are draggable. That means you can change the size of the $[a,b]$ interval by dragging the dots on the $x$ axis (when they show up).
