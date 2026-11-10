@@ -8,49 +8,6 @@ headerapp: 'reimannSum.js'
 ogimage: /assets/images/ogpic.png
 ---
 
-## Math and Art Adventures
-Explore shapes and patterns that are mathematically generated.  Create your own work of art. 
-
-# --outlinebox other
-```graphviz/autoplay
-digraph G {
-  tooltip="wildthinks map";
-  fontsize="24";
-  fontname="Arial";
-  size="12,12";
-  bgcolor=transparent;
-
-
-    subgraph cluster3 {
-        fractal [shape=none, tooltip="Fractal Generator", URL="/pages/SuperJulia", label="", image="/assets/images/calculus/fractal.svg"];
-        penrose [shape=none, tooltip="Penrose Tiling Generator", URL="/pages/penrose", label="", image="/assets/images/calculus/penrose.svg"];
-        circles [shape=none, tooltip="Modular Multiplication Circles", URL="/pages/modularCircles", label="", image="/assets/images/calculus/circles.svg"];
-        circCoord [shape=none, tooltip="Circular Coordinates", URL="/pages/circCoord", label="", image="/assets/images/calculus/circCoord.svg"];
-        spirograph [shape=none, tooltip="Spirograph", URL="/pages/spirograph", label="", image="/assets/images/calculus/spiral1.svg"];
-
-        rankdir=TB;
-        label = "Visualizations"
-        style=filled;
-        color=transparent;
-        edge[style=invis];
-  }
-    
-}
-```
-# --outlinebox
-
-
-```javascript /autoplay
-
-const otherDiv = document.getElementById('other');
-otherDiv.classList.remove('decoration-outlinebox');
-
-otherDiv.style.border = '2px solid #DDDDDD';
-otherDiv.style.borderRadius = '25px';
-otherDiv.style.backgroundColor = '#EEEEEE';
-
-
-```
 
 ## Visual Calculus
 
@@ -139,6 +96,52 @@ this.depend = function() {
   } 
 };
 ```
+
+
+## Math and Art Adventures
+Explore shapes and patterns that are mathematically generated.  Create your own work of art. 
+
+# --outlinebox other
+```graphviz/autoplay
+digraph G {
+  tooltip="wildthinks map";
+  fontsize="24";
+  fontname="Arial";
+  size="12,12";
+  bgcolor=transparent;
+
+
+    subgraph cluster3 {
+        fractal [shape=none, tooltip="Fractal Generator", URL="/pages/SuperJulia", label="", image="/assets/images/calculus/fractal.svg"];
+        penrose [shape=none, tooltip="Penrose Tiling Generator", URL="/pages/penrose", label="", image="/assets/images/calculus/penrose.svg"];
+        circles [shape=none, tooltip="Modular Multiplication Circles", URL="/pages/modularCircles", label="", image="/assets/images/calculus/circles.svg"];
+        circCoord [shape=none, tooltip="Circular Coordinates", URL="/pages/circCoord", label="", image="/assets/images/calculus/circCoord.svg"];
+        spirograph [shape=none, tooltip="Spirograph", URL="/pages/spirograph", label="", image="/assets/images/calculus/spiral1.svg"];
+
+        rankdir=TB;
+        label = "Visualizations"
+        style=filled;
+        color=transparent;
+        edge[style=invis];
+  }
+    
+}
+```
+# --outlinebox
+
+
+```javascript /autoplay
+
+const otherDiv = document.getElementById('other');
+otherDiv.classList.remove('decoration-outlinebox');
+
+otherDiv.style.border = '2px solid #DDDDDD';
+otherDiv.style.borderRadius = '25px';
+otherDiv.style.backgroundColor = '#EEEEEE';
+
+
+```
+
 
 
 
