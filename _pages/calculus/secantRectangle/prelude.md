@@ -42,6 +42,12 @@ What is the average velocity of the car between $t=5$ and $t=10$? [](:?a2)m/s
 
 ![](/assets/images/rightarrow.svg)
 
+# :::: instructions
+
+Ok, now let's try going the other direction, we'll start with the velocity, compute the distance and then work back to the initial positions.
+
+# ::::
+
 # :::: leftarrow
 
 ![](/assets/images/leftarrow.svg)
@@ -198,6 +204,7 @@ this.dependOn = ["a2"];
 this.depend = function () {
   removeEnterFromSmartdownString("a2", env.a2);
   if (env.a2 == "4") {
+    smartdown.showDisclosure("instructions", "", "transparent");
     smartdown.showDisclosure("r2", "", "transparent");
     smartdown.showDisclosure("leftarrow", "", "transparent");
     smartdown.showDisclosure("m2", "", "transparent");
